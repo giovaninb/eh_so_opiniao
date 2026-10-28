@@ -26,7 +26,7 @@ python -m eh_so_opiniao site --rascunho
 1. `python -m eh_so_opiniao casos` (ou adicione frases) → entram **Pendentes**.
 2. Uma pessoa revisa: `revisao aprovar|rejeitar|ambiguo|corrigir --id ... --revisor "Nome"`.
 3. `python -m eh_so_opiniao site` → só aprovados/corrigidos. A varredura de vazamento aborta se achar texto dos corpora.
-4. Confira `git status`: só `site/` e documentos devem mudar; nada de `_local/`, `.parquet`, `.tab` (exceto fixtures).
+4. Confira `git status`: só `site/` e documentos devem mudar; nada de `_local/` nem corpora.
 5. Commit e push.
 
 ## GitHub Pages

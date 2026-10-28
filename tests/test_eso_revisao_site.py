@@ -147,7 +147,7 @@ def test_varredura_pega_variacao_de_caixa_e_pontuacao():
 
 def test_catalogo_publico_nao_tem_texto_de_amostra():
     cat = {d["id"]: d for d in publicacao.catalogo_publico()}
-    assert set(cat) == {"told_br", "hatebr", "olid_br"} and all(d["status"] == "acessado" for d in cat.values())
+    assert set(cat) == {"told_br", "hatebr"} and all(d["status"] == "acessado" for d in cat.values())
     chaves = {k for d in cat.values() for k in d}
     assert not chaves & {"texto", "text", "amostras", "exemplos", "comentarios"}
 
@@ -185,7 +185,7 @@ def test_site_e_estatico_sem_cdn_sem_rastreamento_e_sem_innerhtml():
 
 def test_site_nao_executa_classificacao_nem_carrega_corpora():
     js = (paths.SITE / "js" / "app.js").read_text(encoding="utf-8")
-    for proibido in ("told", "hatebr", "olid", "tf-idf", "predict"):
+    for proibido in ("told", "hatebr", "tf-idf", "predict"):
         assert proibido not in js.lower()
     publicado = sorted(p.name for p in (paths.SITE / "data").glob("*.json")) if (paths.SITE / "data").exists() else []
     assert not any(n.endswith(".jsonl") or "bruto" in n for n in publicado)

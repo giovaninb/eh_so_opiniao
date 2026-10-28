@@ -32,21 +32,5 @@
       "Rationales são trechos textuais, não offsets; offsets são derivados por busca e podem falhar.",
       "Equilíbrio artificial 50/50 (3.500/3.500) não reflete prevalência real."
     ]
-  },
-  {
-    "id": "olid_br",
-    "nome": "OLID-BR — Offensive Language Identification Dataset for Brazilian Portuguese",
-    "licenca": "CC-BY-4.0",
-    "plataforma": "youtube_twitter_e_datasets_relacionados",
-    "acesso": "aberto",
-    "status": "acessado",
-    "registros": 6952,
-    "referencia": "Trajano, Bordini & Vieira (2024). OLID-BR. Language Resources and Evaluation 58(4):1263-1289.",
-    "url": "https://huggingface.co/datasets/dougtrajano/olid-br",
-    "limitacoes": [
-      "Possível sobreposição com ToLD-Br/HateBR; experimentos cruzados medem e removem duplicatas.",
-      "Rótulo ofensivo apoiado na Perspective API (viés conhecido de falso positivo em dialetos e identidades).",
-      "Categorias de ofensa por multi-rótulo; classes raras."
-    ]
   }
 ]

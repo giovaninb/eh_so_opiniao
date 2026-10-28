@@ -6,7 +6,6 @@ As informações vêm de `datasets/registry.yaml` (fonte única). Confirme sempr
 |---|---|---|---|
 | ToLD-Br | CC-BY-SA-4.0 | aberto | Não |
 | HateBR / HateBRXplain | CC-BY-NC-4.0 | aberto | Não |
-| OLID-BR | CC-BY-4.0 | aberto | Não |
 
 ## Implicações
 

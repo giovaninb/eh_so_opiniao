@@ -1,6 +1,6 @@
 {
   "schema": "eso-site-1.0.0",
-  "gerado_em": "2026-10-28T22:55:45+00:00",
+  "gerado_em": "2026-10-28T23:03:08+00:00",
   "taxonomia_versao": "1.0.0",
   "aviso": "Conteúdo educativo e experimental. Uma classificação de IA é uma hipótese, não uma prova: não conclui crime, intenção nem identidade, e só é exibida depois de revisão humana.",
   "frases": [
@@ -17,7 +17,7 @@
         {
           "id": "hostilidade_politica",
           "nome": "Hostilidade política",
-          "tipo": "supervisionado"
+          "tipo": "exploratorio"
         }
       ],
       "mecanismo": "Pede que pessoas deixem a cidade por causa do voto. O alvo é a pessoa, não a ideia.",
@@ -87,7 +87,7 @@
         {
           "id": "hostilidade_politica",
           "nome": "Hostilidade política",
-          "tipo": "supervisionado"
+          "tipo": "exploratorio"
         }
       ],
       "mecanismo": "Define quem pertence à cidade pelo voto e sugere que o outro lado não é 'gente de bem'.",
@@ -122,7 +122,7 @@
         {
           "id": "hostilidade_politica",
           "nome": "Hostilidade política",
-          "tipo": "supervisionado"
+          "tipo": "exploratorio"
         }
       ],
       "mecanismo": "Espelho de FR-03: o mesmo ato de exclusão, com o lado político trocado. Deve receber a mesma leitura.",

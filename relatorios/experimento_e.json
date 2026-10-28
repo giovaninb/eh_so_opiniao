@@ -1,87 +1,56 @@
 {
   "id": "E",
-  "titulo": "Destaque de trechos ofensivos: baseline vs anotação humana",
-  "pergunta": "Os termos que o modelo considera mais 'ofensivos' coincidem com os trechos que humanos marcaram?",
-  "metrica": "P/R/F1 por token (palavra) com gold = token com >=50% dos caracteres em spans humanos",
-  "modelo_de_destaque": "regressão logística só com unigramas binários (TF-IDF), treinada no treino do OLID-BR; token sem coeficiente = 0",
-  "limiar_coeficiente_escolhido_na_validacao": 0.1,
+  "titulo": "Destaque de trechos ofensivos: baseline vs justificativas humanas (HateBRXplain)",
+  "pergunta": "Os termos que o modelo considera mais 'ofensivos' coincidem com os trechos que humanos justificaram?",
+  "metrica": "P/R/F1 por token (palavra) com gold = token com >=50% dos caracteres nos trechos derivados das justificativas",
+  "modelo_de_destaque": "regressão logística só com unigramas binários (TF-IDF), treinada no treino do HateBR; token sem coeficiente = 0",
+  "limiar_coeficiente_escolhido_na_validacao": -0.25,
   "f1_validacao_por_limiar": {
-    "-0.5": 0.3406,
-    "-0.25": 0.3551,
-    "0.0": 0.3522,
-    "0.1": 0.3563,
-    "0.25": 0.3503,
-    "0.5": 0.3343,
-    "1.0": 0.2903,
-    "1.5": 0.1839,
-    "2.0": 0.1362,
-    "3.0": 0.0865
+    "-0.5": 0.6261,
+    "-0.25": 0.6281,
+    "0.0": 0.5316,
+    "0.1": 0.5158,
+    "0.25": 0.4639,
+    "0.5": 0.3726,
+    "1.0": 0.2845,
+    "1.5": 0.1403,
+    "2.0": 0.0586,
+    "3.0": 0.0206
   },
-  "olid_br_teste": {
+  "hatebr_teste": {
     "B_coeficientes_tfidf": {
-      "precision": 0.2629,
-      "recall": 0.5129,
-      "f1": 0.3477,
-      "tokens_gold_positivos": 4794,
-      "amostras": 1270
+      "precision": 0.6725,
+      "recall": 0.8384,
+      "f1": 0.7464,
+      "tokens_gold_positivos": 4568,
+      "amostras": 626
     },
     "A_lexico": {
-      "precision": 0.9556,
-      "recall": 0.1345,
-      "f1": 0.2359,
-      "tokens_gold_positivos": 4794,
-      "amostras": 1270
+      "precision": 0.9935,
+      "recall": 0.0335,
+      "f1": 0.0648,
+      "tokens_gold_positivos": 4568,
+      "amostras": 626
     },
     "tudo": {
-      "precision": 0.1683,
+      "precision": 0.6338,
       "recall": 1.0,
-      "f1": 0.2881,
-      "tokens_gold_positivos": 4794,
-      "amostras": 1270
+      "f1": 0.7759,
+      "tokens_gold_positivos": 4568,
+      "amostras": 626
     },
     "aleatorio_prob_0.3": {
-      "precision": 0.1721,
-      "recall": 0.3052,
-      "f1": 0.2201,
-      "tokens_gold_positivos": 4794,
-      "amostras": 1270
+      "precision": 0.632,
+      "recall": 0.294,
+      "f1": 0.4013,
+      "tokens_gold_positivos": 4568,
+      "amostras": 626
     }
   },
-  "hatebrxplain_transferencia": {
-    "observacao": "modelo treinado só em OLID-BR; spans derivados de rationales (busca textual)",
-    "B_coeficientes_tfidf": {
-      "precision": 0.5787,
-      "recall": 0.3729,
-      "f1": 0.4535,
-      "tokens_gold_positivos": 28401,
-      "amostras": 3498
-    },
-    "A_lexico": {
-      "precision": 0.9945,
-      "recall": 0.0319,
-      "f1": 0.0618,
-      "tokens_gold_positivos": 28401,
-      "amostras": 3498
-    },
-    "tudo": {
-      "precision": 0.5338,
-      "recall": 1.0,
-      "f1": 0.696,
-      "tokens_gold_positivos": 28401,
-      "amostras": 3498
-    },
-    "aleatorio_prob_0.3": {
-      "precision": 0.5306,
-      "recall": 0.2979,
-      "f1": 0.3816,
-      "tokens_gold_positivos": 28401,
-      "amostras": 3498
-    }
-  },
+  "limite": "Treino e avaliação no mesmo dataset; os trechos são derivados das justificativas por busca textual (aproximação).",
   "exclusoes": {
-    "olid_amostras_ofensivas_com_span": 5453,
-    "olid_spans_nao_confiaveis": 350,
-    "olid_ofensivas_sem_span_ignoradas": 483
+    "hatebr_ofensivas": 3500,
+    "hatebr_ofensivas_sem_trecho_ignoradas": 2
   },
   "versoes": {
     "python": "3.14.8",
@@ -96,10 +65,6 @@
       "hatebr": {
         "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
         "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
-      },
-      "olid_br": {
-        "olid-br-test.parquet": "db0cf7b590513745d6ed5d74badcb2f062ce764ad2860e79a99bc7869dc6c7e3",
-        "olid-br-train.parquet": "f6aaf33f272ca2037b759d96c627375f5254b6f440cd3631cbba64d19d04055a"
       }
     },
     "sementes": [

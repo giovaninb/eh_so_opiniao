@@ -46,12 +46,12 @@ rotulos:
     nao_e: Menção neutra ou denúncia de LGBTfobia.
   - id: hostilidade_politica
     nome: Hostilidade política
-    tipo: supervisionado
+    tipo: exploratorio
     definicao: Ofensa dirigida a pessoas por posição política ou ideológica.
     nao_e: Crítica política legítima a ideias, partidos, governos e candidaturas.
     observacao: >-
-      Suporte apenas aproximado (OLID-BR `ideology`; HateBR tem contexto político, mas
-      rótulo geral de ofensa). Não é um detector de preferência política.
+      Sem rótulo anotado nas bases usadas (o HateBR tem contexto político, mas só o rótulo
+      geral de ofensa). Hipótese baseada em regras; não é um detector de preferência política.
   - id: discriminacao_regional
     nome: Discriminação regional ou territorial
     tipo: exploratorio

@@ -54,13 +54,12 @@ python -m eh_so_opiniao site --rascunho          # + prévia LOCAL com ?rascunho
 python -m eh_so_opiniao docs                     # regenera tabelas e resultados em docs/
 ```
 
-### Datasets
+### Datasets (somente as bases aprovadas)
 
 | Dataset | Licença | Acesso |
 |---|---|---|
 | ToLD-Br | CC-BY-SA-4.0 | aberto, baixado e conferido por SHA-256 |
 | HateBR / HateBRXplain | CC-BY-NC-4.0 | aberto, baixado e conferido por SHA-256 |
-| OLID-BR | CC-BY-4.0 | aberto, baixado e conferido por SHA-256 |
 
 O pipeline nunca contorna controle de acesso: se um dataset futuro exigir credencial (`acesso: restrito_autorizacao`), sem `HF_TOKEN` nada é tentado e 401/403 vira `pendente_autorizacao`, sem derrubar as demais fontes.
 

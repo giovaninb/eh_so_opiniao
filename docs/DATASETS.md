@@ -8,7 +8,6 @@ Fonte: `datasets/registry.yaml`.
 |---|---|---|---|---|---|
 | ToLD-Br — Toxic Language Detection for Brazilian Portuguese | CC-BY-SA-4.0 | aberto | acessado | 21000 | twitter |
 | HateBR 2.0 e HateBRXplain | CC-BY-NC-4.0 | aberto | acessado | 7000 | instagram |
-| OLID-BR — Offensive Language Identification Dataset for Brazilian Portuguese | CC-BY-4.0 | aberto | acessado | 6952 | youtube_twitter_e_datasets_relacionados |
 
 ## ToLD-Br — Toxic Language Detection for Brazilian Portuguese (`told_br`)
 
@@ -47,22 +46,4 @@ Fonte: `datasets/registry.yaml`.
   - Só 78 publicações; split por publicação gera poucos grupos.
   - Rationales são trechos textuais, não offsets; offsets são derivados por busca e podem falhar.
   - Equilíbrio artificial 50/50 (3.500/3.500) não reflete prevalência real.
-
-## OLID-BR — Offensive Language Identification Dataset for Brazilian Portuguese (`olid_br`)
-
-- Versão/revisão: `84b0d7dd4309be677a47c535632a9398ff1897bd` · data: 2025-05-17
-- Licença: CC-BY-4.0
-- Redistribuição: Permitida com atribuição. Este projeto não redistribui o corpus.
-- Acesso: `aberto` · status: **acessado**
-- Formatos: parquet · plataforma: youtube_twitter_e_datasets_relacionados · idioma: pt-BR
-- Registros confirmados: 6952 (Divergência documentada: artigo 6.354 (estendível a 13.538); cartão HF 7.943; parquets baixados 5.214 + 1.738 = 6.952. Vale o que foi lido nos arquivos.)
-- Esquema de anotação: Hierárquico: is_offensive (OFF/NOT), is_targeted (TIN/UNT), targeted_type (IND/GRP/OTH), 11 categorias booleanas, toxic_spans como lista de offsets de caracteres.
-- Contexto: Misto de fontes; inclui conteúdo de 'datasets relacionados', o que pode sobrepor outros corpora deste catálogo (sobreposição é medida nos experimentos).
-- Integridade: sha256 dos parquets (acima) e revisão HF 84b0d7dd
-- Referência: Trajano, Bordini & Vieira (2024). OLID-BR. Language Resources and Evaluation 58(4):1263-1289.
-- Fonte: https://huggingface.co/datasets/dougtrajano/olid-br
-- Limitações e vieses:
-  - Possível sobreposição com ToLD-Br/HateBR; experimentos cruzados medem e removem duplicatas.
-  - Rótulo ofensivo apoiado na Perspective API (viés conhecido de falso positivo em dialetos e identidades).
-  - Categorias de ofensa por multi-rótulo; classes raras.
 

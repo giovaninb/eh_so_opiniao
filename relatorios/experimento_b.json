@@ -1,6 +1,6 @@
 {
   "id": "B",
-  "titulo": "HateBR: regras vs TF-IDF (LR/SVM), limiares, calibração e transferência para OLID-BR",
+  "titulo": "HateBR: regras vs TF-IDF (LR/SVM), limiares, calibração e transferência para ToLD-Br",
   "pergunta": "O que um modelo simples separa em comentários políticos ofensivos vs não ofensivos, e isso se mantém fora do domínio?",
   "teste_hatebr": {
     "trivial": {
@@ -202,10 +202,10 @@
       }
     }
   },
-  "transferencia_para_olid": {
+  "transferencia_para_told": {
     "trivial": {
       "precision": {
-        "media": 0.8537,
+        "media": 0.1935,
         "desvio": 0.0,
         "n": 3
       },
@@ -215,83 +215,83 @@
         "n": 3
       },
       "f1": {
-        "media": 0.9211,
+        "media": 0.3243,
         "desvio": 0.0,
         "n": 3
       },
       "macro_f1": {
-        "media": 0.4605,
+        "media": 0.1621,
         "desvio": 0.0,
         "n": 3
       },
       "confusao_semente_principal": {
-        "tp": 5930,
-        "fp": 1016,
+        "tp": 4063,
+        "fp": 16933,
         "fn": 0,
         "tn": 0
       }
     },
     "A_lexico": {
       "precision": {
-        "media": 0.9739,
+        "media": 0.292,
         "desvio": 0.0,
         "n": 3
       },
       "recall": {
-        "media": 0.384,
+        "media": 0.5001,
         "desvio": 0.0,
         "n": 3
       },
       "f1": {
-        "media": 0.5508,
+        "media": 0.3687,
         "desvio": 0.0,
         "n": 3
       },
       "macro_f1": {
-        "media": 0.4452,
+        "media": 0.572,
         "desvio": 0.0,
         "n": 3
       },
       "confusao_semente_principal": {
-        "tp": 2277,
-        "fp": 61,
-        "fn": 3653,
-        "tn": 955
+        "tp": 2032,
+        "fp": 4928,
+        "fn": 2031,
+        "tn": 12005
       }
     },
     "B_lr_val_f1": {
       "precision": {
-        "media": 0.8796,
-        "desvio": 0.002,
+        "media": 0.246,
+        "desvio": 0.0034,
         "n": 3
       },
       "recall": {
-        "media": 0.8626,
-        "desvio": 0.0121,
+        "media": 0.836,
+        "desvio": 0.0179,
         "n": 3
       },
       "f1": {
-        "media": 0.871,
-        "desvio": 0.0055,
+        "media": 0.3801,
+        "desvio": 0.0026,
         "n": 3
       },
       "macro_f1": {
-        "media": 0.5825,
-        "desvio": 0.0039,
+        "media": 0.46,
+        "desvio": 0.0121,
         "n": 3
       },
       "confusao_semente_principal": {
-        "tp": 5020,
-        "fp": 670,
-        "fn": 910,
-        "tn": 346
+        "tp": 3300,
+        "fp": 9862,
+        "fn": 763,
+        "tn": 7071
       }
     },
-    "prevalencia_olid": 0.8537,
+    "prevalencia_told": 0.1935,
     "excluidos_sobreposicao_por_semente": [
       2,
-      2,
-      2
+      4,
+      5
     ]
   },
   "semente_principal": 42,
@@ -608,10 +608,6 @@
       "hatebr": {
         "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
         "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
-      },
-      "olid_br": {
-        "olid-br-test.parquet": "db0cf7b590513745d6ed5d74badcb2f062ce764ad2860e79a99bc7869dc6c7e3",
-        "olid-br-train.parquet": "f6aaf33f272ca2037b759d96c627375f5254b6f440cd3631cbba64d19d04055a"
       }
     },
     "sementes": [
@@ -620,5 +616,5 @@
       2026
     ]
   },
-  "leitura": "O rótulo 'ofensivo' é aproximado entre HateBR e OLID-BR; o baseline trivial 'sempre ofensivo' contextualiza a OLID (prevalência alta)."
+  "leitura": "O rótulo 'ofensivo' é aproximado entre HateBR e ToLD-Br (no ToLD ele é derivado por votos); o baseline trivial 'sempre ofensivo' contextualiza a prevalência."
 }

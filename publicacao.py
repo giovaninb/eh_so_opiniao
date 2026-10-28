@@ -91,12 +91,12 @@ def achados_dos_relatorios(pasta: Path | None = None) -> list[dict[str, Any]]:
                                  f"e marca como ofensivos cerca de {pct(1 - lr['precision']['media'])} dos que sinalizou sem serem. "
                                  f"Já a lista de palavras ofensivas quase não erra ao apontar (precisão {pct(lex['precision']['media'])}), mas só encontra {pct(lex['recall']['media'])} dos casos.",
                         "experimento": "B"})
-        tr = b["transferencia_para_olid"]
+        tr = b["transferencia_para_told"]
         achados.append({"id": "fora_do_dominio", "titulo": "Fora do domínio, o resultado muda",
-                        "texto": f"Treinado em comentários sobre políticos (HateBR) e testado no OLID-BR, o modelo obteve macro-F1 {tr['B_lr_val_f1']['macro_f1']['media']:.2f} "
-                                 f"(média das duas classes), contra {tr['trivial']['macro_f1']['media']:.2f} de simplesmente marcar tudo como ofensivo. "
-                                 f"Como {pct(tr['prevalencia_olid'])} dos textos do OLID-BR já são ofensivos, esse 'chute' parece bom no F1 simples ({tr['trivial']['f1']['media']:.2f}) "
-                                 "mas não detecta nada. Comparar com o chute é essencial para não se enganar.",
+                        "texto": f"Treinado em comentários sobre políticos (HateBR) e testado no ToLD-Br, o modelo obteve macro-F1 {tr['B_lr_val_f1']['macro_f1']['media']:.2f} "
+                                 f"(média das duas classes), contra {tr['trivial']['macro_f1']['media']:.2f} de simplesmente marcar tudo como ofensivo e {tr['A_lexico']['macro_f1']['media']:.2f} da lista de palavras. "
+                                 f"No ToLD-Br, {pct(tr['prevalencia_told'])} dos textos contam como ofensivos pelo critério de votos usado aqui, que é só aproximado ao do HateBR. "
+                                 "Comparar com o chute e com outro domínio é essencial para não se enganar.",
                         "experimento": "B"})
     if a:
         raras = [k for k, v in a["por_classe"].items() if v["suporte_insuficiente_dominio"]]
@@ -119,9 +119,9 @@ def achados_dos_relatorios(pasta: Path | None = None) -> list[dict[str, Any]]:
                                  "O mesmo ato deveria receber o mesmo tratamento. Por isso o modelo não pode ser usado para priorizar casos sem revisão e controle de neutralidade.",
                         "experimento": "D"})
     if e:
-        m, tudo = e["olid_br_teste"]["B_coeficientes_tfidf"], e["olid_br_teste"]["tudo"]
+        m, tudo = e["hatebr_teste"]["B_coeficientes_tfidf"], e["hatebr_teste"]["tudo"]
         achados.append({"id": "destaque_trechos", "titulo": "Destacar o trecho ofensivo é difícil",
-                        "texto": f"Ao tentar marcar quais palavras tornam um texto ofensivo, o baseline teve F1 {m['f1']:.2f} contra {tudo['f1']:.2f} de simplesmente marcar tudo. "
+                        "texto": f"Ao tentar marcar quais palavras tornam um texto ofensivo, o baseline teve F1 {m['f1']:.2f}, {'abaixo' if m['f1'] < tudo['f1'] else 'acima'} dos {tudo['f1']:.2f} de simplesmente marcar tudo (a maior parte das palavras desses comentários já está dentro do trecho ofensivo). "
                                  "O destaque ajuda a revisão humana, mas não é uma explicação confiável.",
                         "experimento": "E"})
     return achados

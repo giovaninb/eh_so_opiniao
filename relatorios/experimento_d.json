@@ -55,55 +55,55 @@
         }
       }
     },
-    "hatebr+olid_br": {
-      "n_avaliacao": 4622,
-      "limiar": 0.373232,
+    "hatebr+told_br": {
+      "n_avaliacao": 8406,
+      "limiar": 0.486697,
       "nao_ofensivos": {
         "esquerda_para_direita": {
-          "n": 39,
-          "delta_medio_assinado": -0.0595,
+          "n": 67,
+          "delta_medio_assinado": -0.1061,
           "ic95_bootstrap": [
-            -0.1034,
-            -0.0228
+            -0.1377,
+            -0.0752
           ],
-          "delta_medio_absoluto": 0.0894,
-          "mudou_decisao": 8,
-          "fracao_mudou_decisao": 0.2051
+          "delta_medio_absoluto": 0.1129,
+          "mudou_decisao": 13,
+          "fracao_mudou_decisao": 0.194
         },
         "direita_para_esquerda": {
-          "n": 42,
-          "delta_medio_assinado": -0.0048,
+          "n": 75,
+          "delta_medio_assinado": 0.0268,
           "ic95_bootstrap": [
-            -0.0116,
-            0.0022
+            0.0162,
+            0.0394
           ],
-          "delta_medio_absoluto": 0.017,
-          "mudou_decisao": 0,
-          "fracao_mudou_decisao": 0.0
+          "delta_medio_absoluto": 0.032,
+          "mudou_decisao": 5,
+          "fracao_mudou_decisao": 0.0667
         }
       },
       "ofensivos": {
         "esquerda_para_direita": {
-          "n": 136,
-          "delta_medio_assinado": -0.0984,
+          "n": 126,
+          "delta_medio_assinado": -0.1356,
           "ic95_bootstrap": [
-            -0.1137,
-            -0.0841
+            -0.1542,
+            -0.1169
           ],
-          "delta_medio_absoluto": 0.1045,
-          "mudou_decisao": 11,
-          "fracao_mudou_decisao": 0.0809
+          "delta_medio_absoluto": 0.1377,
+          "mudou_decisao": 26,
+          "fracao_mudou_decisao": 0.2063
         },
         "direita_para_esquerda": {
-          "n": 76,
-          "delta_medio_assinado": 0.009,
+          "n": 50,
+          "delta_medio_assinado": 0.0491,
           "ic95_bootstrap": [
-            -0.0022,
-            0.0232
+            0.0274,
+            0.0754
           ],
-          "delta_medio_absoluto": 0.0269,
-          "mudou_decisao": 3,
-          "fracao_mudou_decisao": 0.0395
+          "delta_medio_absoluto": 0.0554,
+          "mudou_decisao": 4,
+          "fracao_mudou_decisao": 0.08
         }
       }
     }
@@ -156,194 +156,194 @@
   "fixtures_do_monitor": {
     "disponivel": true,
     "carater": "QUALITATIVO: 27 casos não são amostra estatística e não geram métrica.",
-    "limiar": 0.373232,
+    "limiar": 0.486697,
     "casos": [
       {
         "id": "FB-001",
         "triagem_esperada_no_arquivo": "revisao_manual",
-        "score_ofensivo_B": 0.336,
-        "B_acima_do_limiar": false,
+        "score_ofensivo_B": 0.571,
+        "B_acima_do_limiar": true,
         "A_lexico": false
       },
       {
         "id": "FB-002",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.565,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.348,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-003",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.388,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.43,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-004",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.34,
-        "B_acima_do_limiar": false,
+        "score_ofensivo_B": 0.643,
+        "B_acima_do_limiar": true,
         "A_lexico": false
       },
       {
         "id": "FB-005",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.114,
+        "score_ofensivo_B": 0.215,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-006",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.328,
+        "score_ofensivo_B": 0.353,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-007",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.46,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.284,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-008",
         "triagem_esperada_no_arquivo": "revisao_manual",
-        "score_ofensivo_B": 0.492,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.354,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-009",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.392,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.399,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-010",
         "triagem_esperada_no_arquivo": "revisao_manual",
-        "score_ofensivo_B": 0.593,
+        "score_ofensivo_B": 0.682,
         "B_acima_do_limiar": true,
         "A_lexico": true
       },
       {
         "id": "FB-011",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.227,
+        "score_ofensivo_B": 0.464,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-012",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.588,
+        "score_ofensivo_B": 0.626,
         "B_acima_do_limiar": true,
         "A_lexico": false
       },
       {
         "id": "FB-013",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.173,
+        "score_ofensivo_B": 0.341,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "FB-014",
         "triagem_esperada_no_arquivo": "revisao_manual",
-        "score_ofensivo_B": 0.857,
+        "score_ofensivo_B": 0.69,
         "B_acima_do_limiar": true,
         "A_lexico": false
       },
       {
         "id": "FB-015",
         "triagem_esperada_no_arquivo": "revisao_manual",
-        "score_ofensivo_B": 0.212,
+        "score_ofensivo_B": 0.175,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-001",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.655,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.484,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-002",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.416,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.299,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-003",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.615,
-        "B_acima_do_limiar": true,
+        "score_ofensivo_B": 0.459,
+        "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-004",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.347,
+        "score_ofensivo_B": 0.187,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-005",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.669,
+        "score_ofensivo_B": 0.69,
         "B_acima_do_limiar": true,
         "A_lexico": false
       },
       {
         "id": "SYN-006",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.251,
+        "score_ofensivo_B": 0.305,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-007",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.799,
+        "score_ofensivo_B": 0.893,
         "B_acima_do_limiar": true,
         "A_lexico": true
       },
       {
         "id": "SYN-008",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.345,
+        "score_ofensivo_B": 0.326,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-009",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.338,
+        "score_ofensivo_B": 0.177,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-010",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.368,
+        "score_ofensivo_B": 0.194,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-011",
         "triagem_esperada_no_arquivo": "baixa",
-        "score_ofensivo_B": 0.293,
+        "score_ofensivo_B": 0.202,
         "B_acima_do_limiar": false,
         "A_lexico": false
       },
       {
         "id": "SYN-012",
         "triagem_esperada_no_arquivo": "alta",
-        "score_ofensivo_B": 0.327,
+        "score_ofensivo_B": 0.249,
         "B_acima_do_limiar": false,
         "A_lexico": false
       }
@@ -362,10 +362,6 @@
       "hatebr": {
         "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
         "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
-      },
-      "olid_br": {
-        "olid-br-test.parquet": "db0cf7b590513745d6ed5d74badcb2f062ce764ad2860e79a99bc7869dc6c7e3",
-        "olid-br-train.parquet": "f6aaf33f272ca2037b759d96c627375f5254b6f440cd3631cbba64d19d04055a"
       }
     },
     "sementes": [

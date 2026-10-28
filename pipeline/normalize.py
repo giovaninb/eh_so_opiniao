@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from .. import paths, registry
-from ..adapters import HateBrAdapter, OlidBrAdapter, ToldBrAdapter
+from ..adapters import HateBrAdapter, ToldBrAdapter
 from ..adapters.base import AdapterBase
 from ..schema import NormalizedTextSample, escrever_jsonl, ler_jsonl
 from . import download
@@ -33,9 +33,6 @@ def construir_adaptador(ds_id: str, **opcoes: Any) -> AdapterBase | None:
     if ds_id == "hatebr":
         f, x = _arquivo(ds_id, "HateBR.csv"), _arquivo(ds_id, "HateBRXplain.csv")
         return HateBrAdapter(f, x) if f else None
-    if ds_id == "olid_br":
-        tr, te = _arquivo(ds_id, "olid-br-train.parquet"), _arquivo(ds_id, "olid-br-test.parquet")
-        return OlidBrAdapter({"train": tr, "test": te}) if tr and te else None
     raise registry.CatalogoInvalido(f"sem fábrica para {ds_id}")
 
 

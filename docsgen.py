@@ -95,23 +95,23 @@ def resultados_md() -> str:
         for k, n in nomes.items():
             v = b["teste_hatebr"][k]
             s.append(f"| {n} | {_mv(v['precision'])} | {_mv(v['recall'])} | {_mv(v['f1'])} | {_mv(v['macro_f1'])} |\n")
-        s.append("\n### B — transferência HateBR → OLID-BR (sem textos em comum)\n\n| Método | Precision | Recall | F1 (positiva) | Macro-F1 (2 classes) |\n|---|---|---|---|---|\n")
-        t = b["transferencia_para_olid"]
+        s.append("\n### B — transferência HateBR → ToLD-Br (sem textos em comum)\n\n| Método | Precision | Recall | F1 (positiva) | Macro-F1 (2 classes) |\n|---|---|---|---|---|\n")
+        t = b["transferencia_para_told"]
         for k, n in (("trivial", "Chute: sempre ofensivo"), ("A_lexico", "A — léxico"), ("B_lr_val_f1", "B — TF-IDF+LR")):
             s.append(f"| {n} | {_mv(t[k]['precision'])} | {_mv(t[k]['recall'])} | {_mv(t[k]['f1'])} | {_mv(t[k]['macro_f1'])} |\n")
         cal = b["detalhes_semente_principal"]["calibracao_lr"]
-        s.append(f"\nPrevalência de ofensivos no OLID-BR: {t['prevalencia_olid']:.3f}. **Atenção:** com prevalência tão alta, o F1 da classe positiva favorece o chute 'sempre ofensivo'; o macro-F1 (média das duas classes) é a leitura mais honesta. Calibração (HateBR, semente 42): Brier {cal['brier']}, ECE {cal['ece']}.\n\n")
+        s.append(f"\nPrevalência de ofensivos no ToLD-Br (rótulo derivado por votos, só aproximado ao do HateBR): {t['prevalencia_told']:.3f}. **Atenção:** o F1 da classe positiva pode favorecer o chute 'sempre ofensivo' quando a prevalência é alta; o macro-F1 (média das duas classes) é a leitura mais honesta. Calibração (HateBR, semente 42): Brier {cal['brier']}, ECE {cal['ece']}.\n\n")
     if a:
-        s.append("## A — ToLD-Br → OLID-BR, classes de grupo\n\nF1 (média ± desvio). Suporte = positivos no teste/avaliação por semente. **Suporte baixo ⇒ não interpretar.**\n\n"
-                 "| Classe | Relação (ToLD/OLID) | F1 em domínio (ToLD teste) | Positivos | F1 cruzado (OLID) | Positivos |\n|---|---|---|---|---|---|\n")
+        s.append("## A — ToLD-Br, classes de grupo (em domínio)\n\nF1 (média ± desvio) no teste do ToLD-Br. Suporte = positivos no teste por semente. **Suporte baixo ⇒ não interpretar.** "
+                 "Não há segundo dataset aprovado com estas classes, então não existe avaliação fora de domínio.\n\n"
+                 "| Classe | Relação (ToLD) | F1 em domínio | Positivos no teste |\n|---|---|---|---|\n")
         for k, v in a["por_classe"].items():
-            s.append(f"| {k} | {v['relacao_told']}/{v['relacao_olid']} | {_mv(v['dominio_told_teste']['f1'])} | {v['dominio_told_teste']['positivos_teste_por_semente']} | "
-                     f"{_mv(v['cruzado_olid']['f1'])} | {v['cruzado_olid']['positivos_avaliados_por_semente'][0]} |\n")
+            s.append(f"| {k} | {v['relacao_told']} | {_mv(v['dominio_told_teste']['f1'])} | {v['dominio_told_teste']['positivos_teste_por_semente']} |\n")
         s.append("\n")
     if c:
-        s.append("## C — Combinar bases (F1, limiar da validação)\n\nLinhas: treino. Colunas: teste.\n\n| Treino \\ Teste | hatebr | olid_br | told_br |\n|---|---|---|---|\n")
+        s.append("## C — Combinar bases (F1, limiar da validação)\n\nLinhas: treino. Colunas: teste.\n\n| Treino \\ Teste | hatebr | told_br |\n|---|---|---|\n")
         for tr, linha in c["matriz_treino_x_teste"].items():
-            s.append(f"| {tr} | " + " | ".join(_mv(linha[t]["limiar_val_f1"]["f1"]) + (" *" if linha[t]["em_dominio"] else "") for t in ("hatebr", "olid_br", "told_br")) + " |\n")
+            s.append(f"| {tr} | " + " | ".join(_mv(linha[t]["limiar_val_f1"]["f1"]) + (" *" if linha[t]["em_dominio"] else "") for t in ("hatebr", "told_br")) + " |\n")
         s.append("\n`*` = base de teste presente no treino (em domínio).\n\n| Teste | Referência | Combinado | F1 ref. | F1 comb. | Δ |\n|---|---|---|---|---|---|\n")
         for g in c["efeito_de_combinar_em_dominio"]:
             s.append(f"| {g['teste']} | {g['treino_referencia']} | {g['treino_combinado']} | {g['f1_referencia']:.3f} | {g['f1_combinado']:.3f} | {g['delta']:+.3f} |\n")
@@ -131,12 +131,13 @@ def resultados_md() -> str:
         if fx.get("disponivel"):
             s.append(f"As 27 fixtures do monitor foram pontuadas apenas de forma qualitativa ({fx['carater']}).\n\n")
     if e:
-        s.append("## E — Destaque de trechos (F1 por token)\n\n| Método | OLID-BR teste (P / R / F1) | HateBRXplain (P / R / F1) |\n|---|---|---|\n")
+        s.append("## E — Destaque de trechos (F1 por token)\n\nTreino e teste no HateBR; trechos derivados das justificativas do HateBRXplain (aproximação por busca textual).\n\n"
+                 "| Método | HateBR teste (P / R / F1) |\n|---|---|\n")
         for k in ("B_coeficientes_tfidf", "A_lexico", "tudo", "aleatorio_prob_0.3"):
-            o, h = e["olid_br_teste"][k], e["hatebrxplain_transferencia"][k]
-            s.append(f"| {k} | {o['precision']:.3f} / {o['recall']:.3f} / {o['f1']:.3f} | {h['precision']:.3f} / {h['recall']:.3f} / {h['f1']:.3f} |\n")
+            h = e["hatebr_teste"][k]
+            s.append(f"| {k} | {h['precision']:.3f} / {h['recall']:.3f} / {h['f1']:.3f} |\n")
         x = e["exclusoes"]
-        s.append(f"\nExclusões: {x['olid_spans_nao_confiaveis']} amostras do OLID-BR com offsets fora do texto; {x['olid_ofensivas_sem_span_ignoradas']} ofensivas sem span.\n\n")
+        s.append(f"\nExclusões: {x['hatebr_ofensivas_sem_trecho_ignoradas']} comentários ofensivos sem trecho justificado (de {x['hatebr_ofensivas']}).\n\n")
     s.append("## Baseline C (transformer)\n\n**Não executado.** `torch`/`transformers` não fazem parte do ambiente reprodutível; plano em `classifiers/transformer.py`.\n")
     return "".join(s)
 

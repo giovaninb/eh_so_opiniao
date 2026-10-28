@@ -16,7 +16,7 @@ Nenhuma classe afirma crime, intenção ou identidade de autor. `possivel_assedi
 | `xenofobia` | supervisionado | Hostilidade contra pessoas por origem estrangeira ou, conforme a fonte, regional. | Piada sem alvo depreciativo ou comparação cultural neutra. |
 | `misoginia` | supervisionado | Ódio, desprezo ou estereótipo depreciativo contra mulheres por serem mulheres. | Crítica a uma mulher específica por seus atos públicos. |
 | `lgbtfobia` | supervisionado | Hostilidade contra pessoas por orientação sexual ou identidade de gênero. | Menção neutra ou denúncia de LGBTfobia. |
-| `hostilidade_politica` | supervisionado | Ofensa dirigida a pessoas por posição política ou ideológica. | Crítica política legítima a ideias, partidos, governos e candidaturas. |
+| `hostilidade_politica` | exploratorio | Ofensa dirigida a pessoas por posição política ou ideológica. | Crítica política legítima a ideias, partidos, governos e candidaturas. |
 | `discriminacao_regional` | exploratorio | Generalização depreciativa sobre pessoas de uma região, cidade ou território. | Comparação de indicadores regionais com fonte e sem desqualificar pessoas. |
 | `desumanizacao` | exploratorio | Comparar pessoas ou grupos a animais, pragas, doenças ou objetos. | Metáfora com objeto não humano claramente ficcional. |
 | `exclusao_social_territorial` | exploratorio | Defender que pessoas "não pertencem", devem sair, ser expulsas ou ser excluídas de espaços. | Opinião sobre política pública de ocupação do território sem alvo pessoal. |

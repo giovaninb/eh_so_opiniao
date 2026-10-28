@@ -9,7 +9,7 @@
     {
       "id": "fora_do_dominio",
       "titulo": "Fora do domínio, o resultado muda",
-      "texto": "Treinado em comentários sobre políticos (HateBR) e testado no OLID-BR, o modelo obteve macro-F1 0.58 (média das duas classes), contra 0.46 de simplesmente marcar tudo como ofensivo. Como 85% dos textos do OLID-BR já são ofensivos, esse 'chute' parece bom no F1 simples (0.92) mas não detecta nada. Comparar com o chute é essencial para não se enganar.",
+      "texto": "Treinado em comentários sobre políticos (HateBR) e testado no ToLD-Br, o modelo obteve macro-F1 0.46 (média das duas classes), contra 0.16 de simplesmente marcar tudo como ofensivo e 0.57 da lista de palavras. No ToLD-Br, 19% dos textos contam como ofensivos pelo critério de votos usado aqui, que é só aproximado ao do HateBR. Comparar com o chute e com outro domínio é essencial para não se enganar.",
       "experimento": "B"
     },
     {
@@ -21,7 +21,7 @@
     {
       "id": "combinar_dados",
       "titulo": "Juntar bases diferentes nem sempre ajuda",
-      "texto": "Em 4 de 5 comparações, treinar com mais de uma base (cujas definições de 'ofensivo' são só aproximadas) piorou o F1 no teste da própria base. Misturar rótulos parecidos não é o mesmo que ter o mesmo rótulo.",
+      "texto": "Em 1 de 2 comparações, treinar com mais de uma base (cujas definições de 'ofensivo' são só aproximadas) piorou o F1 no teste da própria base. Misturar rótulos parecidos não é o mesmo que ter o mesmo rótulo.",
       "experimento": "C"
     },
     {
@@ -33,7 +33,7 @@
     {
       "id": "destaque_trechos",
       "titulo": "Destacar o trecho ofensivo é difícil",
-      "texto": "Ao tentar marcar quais palavras tornam um texto ofensivo, o baseline teve F1 0.35 contra 0.29 de simplesmente marcar tudo. O destaque ajuda a revisão humana, mas não é uma explicação confiável.",
+      "texto": "Ao tentar marcar quais palavras tornam um texto ofensivo, o baseline teve F1 0.75, abaixo dos 0.78 de simplesmente marcar tudo (a maior parte das palavras desses comentários já está dentro do trecho ofensivo). O destaque ajuda a revisão humana, mas não é uma explicação confiável.",
       "experimento": "E"
     }
   ],

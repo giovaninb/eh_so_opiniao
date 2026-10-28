@@ -41,15 +41,9 @@ def _bruto(ds_id: str) -> tuple[NormalizedTextSample, ...]:
 def corpus(ds_id: str, semente: int) -> tuple[NormalizedTextSample, ...]:
     """Corpus com splits sem vazamento (agrupado + deduplicação cruzada)."""
     base = [NormalizedTextSample.from_dict(a.to_dict()) for a in _bruto(ds_id)]
-    if ds_id == "olid_br":  # preserva o split oficial; separa validação do treino
-        treino = [a for a in base if a.split == "train"]
-        teste = [a for a in base if a.split == "test"]
-        destino = splits.dividir(treino, splits.grupo_por_texto, {"train": 0.85, "validation": 0.15}, semente)
-        todos = splits.aplicar(treino, destino) + teste
-    else:
-        agrupador = splits.grupo_por_publicacao if ds_id == "hatebr" else splits.grupo_por_texto
-        destino = splits.dividir(base, agrupador, None, semente)
-        todos = splits.aplicar(base, destino)
+    agrupador = splits.grupo_por_publicacao if ds_id == "hatebr" else splits.grupo_por_texto
+    destino = splits.dividir(base, agrupador, None, semente)
+    todos = splits.aplicar(base, destino)
     mantidas, _ = splits.remover_duplicatas_cruzadas(todos)
     return tuple(mantidas)
 
@@ -141,58 +135,47 @@ CLASSES_GRUPO = ("insulto_hostilidade", "lgbtfobia", "misoginia", "racismo", "xe
 
 
 def experimento_a(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
-    """A — ToLD-Br (tweets) -> OLID-BR (YouTube/Twitter): classes de insulto e de grupo."""
-    olid = list(corpus("olid_br", SEMENTE_PRINCIPAL))
-    por_classe: dict[str, dict[str, list]] = {c: {"dominio": [], "cruzado": []} for c in CLASSES_GRUPO}
+    """A — ToLD-Br: classes de insulto e de grupo, em domínio (único dataset com essas classes)."""
+    por_classe: dict[str, list] = {c: [] for c in CLASSES_GRUPO}
     contagens: dict[str, Any] = {}
     for sem in sementes:
         told = corpus("told_br", sem)
-        t_tr, _, _, sel_tr = _xy(told, "insulto_hostilidade", "train")
+        t_tr, _, _, _ = _xy(told, "insulto_hostilidade", "train")
         base = TfidfBaseline(semente=sem)
         X_tr = base.ajustar_vetores(t_tr)
         t_va = [a.text for a in told if a.split == "validation"]
         t_te = [a.text for a in told if a.split == "test"]
         X_va, X_te = base.transformar(t_va), base.transformar(t_te)
-        eval_olid, excl = _sem_sobreposicao(olid, _chaves(told))
-        X_ol = base.transformar([a.text for a in eval_olid])
-        contagens[str(sem)] = {"told_train": len(t_tr), "told_val": len(t_va), "told_test": len(t_te),
-                               "olid_avaliado": len(eval_olid), "olid_excluido_sobreposicao": excl}
+        contagens[str(sem)] = {"told_train": len(t_tr), "told_val": len(t_va), "told_test": len(t_te)}
         for cls in CLASSES_GRUPO:
             y_tr = np.array([int(a.valor(cls)) for a in told if a.split == "train"])
             y_va = np.array([int(a.valor(cls)) for a in told if a.split == "validation"])
             y_te = np.array([int(a.valor(cls)) for a in told if a.split == "test"])
-            y_ol = np.array([int(a.valor(cls)) for a in eval_olid])
             clf = TfidfBaseline(semente=sem).compartilhar_vetores(base).ajustar(None, y_tr, X_tr)
             lim = M.escolher_limiar(y_va, clf.pontuar(None, X_va), "f1")["limiar"]
             corte = 0.5 if lim is None else lim
-            for nome, X, y in (("dominio", X_te, y_te), ("cruzado", X_ol, y_ol)):
-                s = clf.pontuar(None, X)
-                m = M.metricas_binarias(y, (s >= corte).astype(int))
-                m.update({"limiar": round(float(corte), 4), "limiar_origem": "validacao" if lim is not None else "padrao_0.5",
-                          "average_precision": M.curva_pr(y, s, 1)["average_precision"], "positivos_treino": int(y_tr.sum())})
-                por_classe[cls][nome].append(m)
+            s_te = clf.pontuar(None, X_te)
+            m = M.metricas_binarias(y_te, (s_te >= corte).astype(int))
+            m.update({"limiar": round(float(corte), 4), "limiar_origem": "validacao" if lim is not None else "padrao_0.5",
+                      "average_precision": M.curva_pr(y_te, s_te, 1)["average_precision"], "positivos_treino": int(y_tr.sum())})
+            por_classe[cls].append(m)
     resumo = {}
     mapa = {c.original: c for c in registry.correspondencias("told_br")}
     for cls in CLASSES_GRUPO:
         origem_told = next(c.original for c in registry.correspondencias("told_br") if c.alvo == cls)
-        origem_olid = next(c.original for c in registry.correspondencias("olid_br") if c.alvo == cls)
         resumo[cls] = {
             "rotulo_told": origem_told, "relacao_told": mapa[origem_told].relacao,
-            "rotulo_olid": origem_olid, "relacao_olid": registry.correspondencia("olid_br", origem_olid).relacao,
-            "dominio_told_teste": {**_agregar(por_classe[cls]["dominio"]), "positivos_teste_por_semente": [m["suporte_positivos"] for m in por_classe[cls]["dominio"]]},
-            "cruzado_olid": {**_agregar(por_classe[cls]["cruzado"]), "positivos_avaliados_por_semente": [m["suporte_positivos"] for m in por_classe[cls]["cruzado"]],
-                             "average_precision": M.media_e_desvio([m["average_precision"] for m in por_classe[cls]["cruzado"]]),
-                             "prevalencia_base": round(por_classe[cls]["cruzado"][0]["suporte_positivos"] / por_classe[cls]["cruzado"][0]["suporte_total"], 4)},
-            "suporte_insuficiente_dominio": any(m["suporte_insuficiente"] for m in por_classe[cls]["dominio"]),
-            "positivos_treino_por_semente": [m["positivos_treino"] for m in por_classe[cls]["dominio"]],
+            "dominio_told_teste": {**_agregar(por_classe[cls]), "positivos_teste_por_semente": [m["suporte_positivos"] for m in por_classe[cls]],
+                                   "average_precision": M.media_e_desvio([m["average_precision"] for m in por_classe[cls]])},
+            "suporte_insuficiente_dominio": any(m["suporte_insuficiente"] for m in por_classe[cls]),
+            "positivos_treino_por_semente": [m["positivos_treino"] for m in por_classe[cls]],
         }
-    macro = {}
-    for nome, chave in (("dominio", "dominio_told_teste"), ("cruzado", "cruzado_olid")):
-        macro[nome] = M.media_e_desvio([np.mean([resumo[c][chave]["f1"]["media"] for c in CLASSES_GRUPO])])
-    return {"id": "A", "titulo": "ToLD-Br -> OLID-BR: classes de insulto e de grupo (aprox. entre datasets)",
-            "pergunta": "Um modelo treinado em tweets generaliza classes de grupo para outro dataset com definições aproximadas?",
+    macro = {"dominio": M.media_e_desvio([np.mean([resumo[c]["dominio_told_teste"]["f1"]["media"] for c in CLASSES_GRUPO])])}
+    return {"id": "A", "titulo": "ToLD-Br: classes de insulto e de grupo (em domínio)",
+            "pergunta": "Um baseline TF-IDF consegue separar as classes de grupo no único dataset aprovado que as anota?",
             "modelo": TfidfBaseline(semente=0).descricao(), "contagens": contagens, "por_classe": resumo,
             "macro_f1_media_das_classes": macro,
+            "limite": "Sem segundo dataset anotado por classe de grupo, não há avaliação fora de domínio para estas classes.",
             "leitura": "Classes raras no ToLD-Br (racismo, xenofobia) têm poucos positivos por semente: resultados instáveis, sem conclusão.",
             "versoes": _versoes()}
 
@@ -201,7 +184,7 @@ def experimento_a(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
 def experimento_b(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
     """B — HateBR (comentários políticos): regras vs TF-IDF (LR/SVM); limiares e calibração; transferência."""
     regras = RegrasBaseline()
-    olid_all = list(corpus("olid_br", SEMENTE_PRINCIPAL))
+    told_all = list(corpus("told_br", SEMENTE_PRINCIPAL))
     por_sem: dict[str, list] = {k: [] for k in ("trivial", "A_lexico", "B_lr_0.5", "B_lr_val_f1", "B_lr_precisao>=0.85", "B_svm_val_f1")}
     cruz: dict[str, list] = {k: [] for k in ("trivial", "A_lexico", "B_lr_val_f1")}
     extra: dict[str, Any] = {}
@@ -221,8 +204,8 @@ def experimento_b(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
             extra = {"curva_pr_lr": M.curva_pr(y, s_lr), "calibracao_lr": M.calibracao(y, s_lr),
                      "limiares_lr": {"f1": lr["limiar_f1"], "precisao>=0.85": lr["limiar_precisao"]},
                      "n_treino": lr["n_treino"], "positivos_treino": lr["positivos_treino"], "auditoria_splits": auditoria_splits("hatebr", sem)}
-        eval_olid, excl = _sem_sobreposicao(olid_all, lr["chaves_treino"])
-        t_o, y_o, _, _ = _xy(eval_olid, OFENSIVO)
+        eval_told, excl = _sem_sobreposicao(told_all, lr["chaves_treino"])
+        t_o, y_o, _, _ = _xy(eval_told, OFENSIVO)
         cruz["trivial"].append(M.metricas_binarias(y_o, np.ones_like(y_o)))
         cruz["A_lexico"].append(M.metricas_binarias(y_o, np.array(regras.prever_ofensivo(t_o), dtype=int)))
         s_o = lr["modelo"].pontuar(t_o)
@@ -230,19 +213,19 @@ def experimento_b(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
         m["average_precision"] = M.curva_pr(y_o, s_o, 1)["average_precision"]
         m["excluidos_sobreposicao"], m["prevalencia"] = excl, round(float(y_o.mean()), 4)
         cruz["B_lr_val_f1"].append(m)
-    return {"id": "B", "titulo": "HateBR: regras vs TF-IDF (LR/SVM), limiares, calibração e transferência para OLID-BR",
+    return {"id": "B", "titulo": "HateBR: regras vs TF-IDF (LR/SVM), limiares, calibração e transferência para ToLD-Br",
             "pergunta": "O que um modelo simples separa em comentários políticos ofensivos vs não ofensivos, e isso se mantém fora do domínio?",
             "teste_hatebr": {k: _agregar(v) | {"suporte_teste_por_semente": [x["suporte_total"] for x in v], "confusao_semente_principal": v[list(sementes).index(SEMENTE_PRINCIPAL)]["confusao"]} for k, v in por_sem.items()},
-            "transferencia_para_olid": {k: _agregar(v) | {"confusao_semente_principal": v[list(sementes).index(SEMENTE_PRINCIPAL)]["confusao"]} for k, v in cruz.items()}
-            | {"prevalencia_olid": cruz["B_lr_val_f1"][0]["prevalencia"], "excluidos_sobreposicao_por_semente": [m["excluidos_sobreposicao"] for m in cruz["B_lr_val_f1"]]},
+            "transferencia_para_told": {k: _agregar(v) | {"confusao_semente_principal": v[list(sementes).index(SEMENTE_PRINCIPAL)]["confusao"]} for k, v in cruz.items()}
+            | {"prevalencia_told": cruz["B_lr_val_f1"][0]["prevalencia"], "excluidos_sobreposicao_por_semente": [m["excluidos_sobreposicao"] for m in cruz["B_lr_val_f1"]]},
             "semente_principal": SEMENTE_PRINCIPAL, "detalhes_semente_principal": extra,
             "regras": regras.descricao(), "modelo": TfidfBaseline(semente=0).descricao(), "versoes": _versoes(),
-            "leitura": "O rótulo 'ofensivo' é aproximado entre HateBR e OLID-BR; o baseline trivial 'sempre ofensivo' contextualiza a OLID (prevalência alta)."}
+            "leitura": "O rótulo 'ofensivo' é aproximado entre HateBR e ToLD-Br (no ToLD ele é derivado por votos); o baseline trivial 'sempre ofensivo' contextualiza a prevalência."}
 
 
 # -------------------------------------------------------------------------- C
-COMPOSICOES = (("hatebr",), ("olid_br",), ("told_br",), ("hatebr", "olid_br"), ("hatebr", "olid_br", "told_br"))
-DATASETS_TESTE = ("hatebr", "olid_br", "told_br")
+COMPOSICOES = (("hatebr",), ("told_br",), ("hatebr", "told_br"))
+DATASETS_TESTE = ("hatebr", "told_br")
 
 
 def experimento_c(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
@@ -277,9 +260,9 @@ def experimento_c(sementes: Sequence[int] = SEMENTES) -> dict[str, Any]:
             b = matriz["+".join(comp)][ds_teste]["limiar_val_f1"]["f1"]["media"]
             ganhos.append({"teste": ds_teste, "treino_referencia": "+".join(ref), "treino_combinado": "+".join(comp),
                            "f1_referencia": a, "f1_combinado": b, "delta": round(b - a, 4)})
-    return {"id": "C", "titulo": "Combinar HateBR, OLID-BR e ToLD-Br: efeito do mapeamento aproximado de 'linguagem ofensiva'",
+    return {"id": "C", "titulo": "Combinar HateBR e ToLD-Br: efeito do mapeamento aproximado de 'linguagem ofensiva'",
             "pergunta": "Treinar com datasets de definição aproximada melhora a generalização ou introduz ruído?",
-            "definicoes": {"hatebr": "offensive_label (binário, políticos/Instagram)", "olid_br": "is_offensive (Perspective API + anotadores)",
+            "definicoes": {"hatebr": "offensive_label (binário, políticos/Instagram)",
                            "told_br": "derivado: qualquer categoria com >=2/3 votos"},
             "matriz_treino_x_teste": matriz, "efeito_de_combinar_em_dominio": ganhos,
             "modelo": TfidfBaseline(semente=0).descricao(), "versoes": _versoes(),
@@ -338,7 +321,7 @@ def experimento_d() -> dict[str, Any]:
     saidas_locais.mkdir(parents=True, exist_ok=True)
     resultado: dict[str, Any] = {"id": "D", "titulo": "Falsos positivos e neutralidade partidária (contrafactual)",
                                  "pergunta": "O modelo trata de modo diferente o mesmo texto quando só a sigla/lado político é trocado?"}
-    for nome, comp in (("hatebr", ("hatebr",)), ("hatebr+olid_br", ("hatebr", "olid_br"))):
+    for nome, comp in (("hatebr", ("hatebr",)), ("hatebr+told_br", ("hatebr", "told_br"))):
         info = treinar_ofensivo(comp, sem, "lr")
         base = [a for ds in comp for a in corpus(ds, sem) if a.split in ("validation", "test")]
         base, _ = _sem_sobreposicao(base, info["chaves_treino"])
@@ -379,7 +362,7 @@ def _fixtures_do_monitor() -> dict[str, Any]:
     if not caminho.exists():
         return {"disponivel": False}
     linhas = [json.loads(x) for x in caminho.read_text(encoding="utf-8").splitlines() if x.strip()]
-    info = treinar_ofensivo(("hatebr", "olid_br"), SEMENTE_PRINCIPAL, "lr")
+    info = treinar_ofensivo(("hatebr", "told_br"), SEMENTE_PRINCIPAL, "lr")
     scores = info["modelo"].pontuar([x["texto_original"] for x in linhas])
     regras = RegrasBaseline()
     return {
@@ -429,13 +412,13 @@ def _avaliar_tokens(amostras: Sequence[NormalizedTextSample], prever) -> dict[st
 
 
 def experimento_e() -> dict[str, Any]:
-    """E — destaque de trechos: coeficientes do TF-IDF vs spans humanos (OLID-BR) e rationales (HateBRXplain)."""
+    """E — destaque de trechos: coeficientes do TF-IDF vs trechos derivados das justificativas do HateBRXplain."""
     sem = SEMENTE_PRINCIPAL
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.linear_model import LogisticRegression
 
-    c_olid = corpus("olid_br", sem)
-    t_tr, y_tr, _, _ = _xy(c_olid, OFENSIVO, "train")
+    c_hate = corpus("hatebr", sem)
+    t_tr, y_tr, _, _ = _xy(c_hate, OFENSIVO, "train")
     vet = TfidfVectorizer(lowercase=True, strip_accents="unicode", token_pattern=r"(?u)\b\w+\b", min_df=2, binary=True)
     modelo_uni = LogisticRegression(C=1.0, class_weight="balanced", max_iter=2000, solver="liblinear", random_state=sem)
     modelo_uni.fit(vet.fit_transform(t_tr), y_tr)
@@ -447,8 +430,7 @@ def experimento_e() -> dict[str, Any]:
         return [a for a in c if a.split in splits_ and a.valor(OFENSIVO) is True and a.toxic_spans
                 and a.annotation_metadata.get("spans_confiaveis", True)]
 
-    olid = corpus("olid_br", sem)
-    val, teste = selecionar(olid, ("validation",)), selecionar(olid, ("test",))
+    val, teste = selecionar(c_hate, ("validation",)), selecionar(c_hate, ("test",))
 
     def por_limiar(tau):
         return lambda texto: [int(coef.get(_sem_acentos(tok), 0.0) > tau) for _, _, tok in _tokens(texto)]
@@ -462,19 +444,16 @@ def experimento_e() -> dict[str, Any]:
         "tudo": lambda texto: [1 for _ in _tokens(texto)],
         "aleatorio_prob_0.3": lambda texto: [int(rng.random() < 0.3) for _ in _tokens(texto)],
     }
-    olid_res = {k: _avaliar_tokens(teste, f) for k, f in metodos.items()}
-    brutas = [a for a in _bruto("olid_br") if a.valor(OFENSIVO) is True and a.toxic_spans]
-    xplain = [a for a in _bruto("hatebr") if a.valor(OFENSIVO) is True and a.toxic_spans]
-    xplain_res = {k: _avaliar_tokens(xplain, f) for k, f in metodos.items()}
-    return {"id": "E", "titulo": "Destaque de trechos ofensivos: baseline vs anotação humana",
-            "pergunta": "Os termos que o modelo considera mais 'ofensivos' coincidem com os trechos que humanos marcaram?",
-            "metrica": "P/R/F1 por token (palavra) com gold = token com >=50% dos caracteres em spans humanos",
-            "modelo_de_destaque": "regressão logística só com unigramas binários (TF-IDF), treinada no treino do OLID-BR; token sem coeficiente = 0",
+    res = {k: _avaliar_tokens(teste, f) for k, f in metodos.items()}
+    ofensivas = [a for a in _bruto("hatebr") if a.valor(OFENSIVO) is True]
+    return {"id": "E", "titulo": "Destaque de trechos ofensivos: baseline vs justificativas humanas (HateBRXplain)",
+            "pergunta": "Os termos que o modelo considera mais 'ofensivos' coincidem com os trechos que humanos justificaram?",
+            "metrica": "P/R/F1 por token (palavra) com gold = token com >=50% dos caracteres nos trechos derivados das justificativas",
+            "modelo_de_destaque": "regressão logística só com unigramas binários (TF-IDF), treinada no treino do HateBR; token sem coeficiente = 0",
             "limiar_coeficiente_escolhido_na_validacao": tau, "f1_validacao_por_limiar": {str(k): v for k, v in val_res.items()},
-            "olid_br_teste": olid_res,
-            "hatebrxplain_transferencia": {"observacao": "modelo treinado só em OLID-BR; spans derivados de rationales (busca textual)", **xplain_res},
-            "exclusoes": {"olid_amostras_ofensivas_com_span": len(brutas), "olid_spans_nao_confiaveis": sum(1 for a in brutas if not a.annotation_metadata.get("spans_confiaveis", True)),
-                          "olid_ofensivas_sem_span_ignoradas": sum(1 for a in _bruto("olid_br") if a.valor(OFENSIVO) is True and not a.toxic_spans)},
+            "hatebr_teste": res,
+            "limite": "Treino e avaliação no mesmo dataset; os trechos são derivados das justificativas por busca textual (aproximação).",
+            "exclusoes": {"hatebr_ofensivas": len(ofensivas), "hatebr_ofensivas_sem_trecho_ignoradas": sum(1 for a in ofensivas if not a.toxic_spans)},
             "versoes": _versoes(),
             "leitura": "Coeficientes de modelo NÃO são explicações causais; servem como destaque auditável, sujeito a revisão humana."}
 

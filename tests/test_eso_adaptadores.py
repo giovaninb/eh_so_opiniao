@@ -1,4 +1,4 @@
-"""Adaptadores dos três datasets, testados apenas com fixtures SINTÉTICAS."""
+"""Adaptadores dos dois datasets, testados apenas com fixtures SINTÉTICAS."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from eh_so_opiniao import paths
-from eh_so_opiniao.adapters import EsquemaInesperado, HateBrAdapter, OlidBrAdapter, ToldBrAdapter
+from eh_so_opiniao.adapters import EsquemaInesperado, HateBrAdapter, ToldBrAdapter
 from eh_so_opiniao.adapters.base import intervalos_contiguos, localizar_trechos, marcar_como_fixture
 
 FX = paths.RAIZ / "fixtures"
@@ -97,59 +97,6 @@ def test_hatebrxplain_rationales_viram_offsets_derivados_e_contam_falhas():
     assert ad.relatorio["xplain_unidas"] == 6 and ad.relatorio["xplain_sem_par"] == 0
     assert ad.relatorio["rationales_nao_localizados"] == 1
     assert ad.relatorio["xplain_texto_diferente"] == 0 and ad.relatorio["xplain_rotulo_diferente"] == 0
-
-
-# ------------------------------------------------------------------------- OLID-BR
-def _olid(tmp_path: Path | None = None) -> OlidBrAdapter:
-    return OlidBrAdapter({"train": FX / "olid_br_sintetico_train.jsonl", "test": FX / "olid_br_sintetico_test.jsonl"})
-
-
-def test_olid_preserva_offsets_originais_e_gera_intervalos():
-    ad = _olid()
-    amostras = {a.sample_id: a for a in ad.todas()}
-    a = amostras["olid_br:o-train-1"]
-    assert a.original_labels["toxic_spans"] == list(range(9, 16))
-    assert a.toxic_spans == [{"start": 9, "end": 16, "origin": "anotado"}]
-    assert a.text[9:16] == "canalha"
-    assert a.split == "train" and amostras["olid_br:o-test-1"].split == "test"
-    assert a.valor("linguagem_ofensiva") is True and a.valor("insulto_hostilidade") is True
-    assert a.annotation_metadata["targeted_type"] == "IND"
-
-
-def test_olid_nao_corrige_offsets_fora_do_texto_e_marca_amostra():
-    ad = _olid()
-    amostras = {a.sample_id: a for a in ad.todas()}
-    ruim = amostras["olid_br:o-train-4"]
-    assert ruim.annotation_metadata["spans_confiaveis"] is False
-    assert ruim.annotation_metadata["offsets_fora_do_texto"] > 0
-    assert len(ruim.original_labels["toxic_spans"]) == 25  # original intacto
-    assert ad.relatorio["spans_com_offset_fora_do_texto"] == 1
-    assert amostras["olid_br:o-train-1"].annotation_metadata["spans_confiaveis"] is True
-
-
-def test_olid_nao_remove_espacos_do_texto_para_nao_deslocar_offsets():
-    a = {x.sample_id: x for x in _olid().todas()}["olid_br:o-test-2"]
-    assert a.text.startswith("  ")
-    assert a.text[a.toxic_spans[0]["start"]:a.toxic_spans[0]["end"]].strip() != ""
-
-
-def test_olid_alvos_de_grupo_e_ideologia_sem_inferir_pessoas():
-    amostras = {a.sample_id: a for a in _olid().todas()}
-    assert amostras["olid_br:o-train-3"].target_groups == ["raca_etnia"]
-    assert "posicao_politica_ideologica" in amostras["olid_br:o-train-5"].target_groups
-    assert amostras["olid_br:o-train-5"].valor("hostilidade_politica") is True
-    assert amostras["olid_br:o-train-2"].target_groups == []
-
-
-def test_olid_parquet_equivale_ao_jsonl(tmp_path):
-    pa = pytest.importorskip("pyarrow")
-    pq = pytest.importorskip("pyarrow.parquet")
-    registros = [json.loads(l) for l in (FX / "olid_br_sintetico_train.jsonl").read_text(encoding="utf-8").splitlines()]
-    pq.write_table(pa.Table.from_pylist(registros), tmp_path / "train.parquet")
-    do_parquet = OlidBrAdapter({"train": tmp_path / "train.parquet"}).todas()
-    do_jsonl = OlidBrAdapter({"train": FX / "olid_br_sintetico_train.jsonl"}).todas()
-    assert [a.text for a in do_parquet] == [a.text for a in do_jsonl]
-    assert [a.toxic_spans for a in do_parquet] == [a.toxic_spans for a in do_jsonl]
 
 
 # ------------------------------------------------------------------------- utilidades

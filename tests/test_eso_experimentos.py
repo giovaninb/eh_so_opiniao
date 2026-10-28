@@ -38,7 +38,7 @@ def _gerar(ds_id: str, n: int, semente: int) -> list[NormalizedTextSample]:
         a = NormalizedTextSample(sample_id=f"{ds_id}:{i}", dataset_id=ds_id, source_platform="sintetico", text=texto, license="sintetico",
                                  provenance={"origem": "fixture_sintetica"})
         a.normalized_labels["linguagem_ofensiva"] = _rotulo(ofensivo)
-        if ds_id in ("told_br", "olid_br"):
+        if ds_id == "told_br":
             for c in CLASSES:
                 tem = ofensivo and rng.random() < 0.35
                 if tem:
@@ -46,11 +46,9 @@ def _gerar(ds_id: str, n: int, semente: int) -> list[NormalizedTextSample]:
                 a.normalized_labels[c] = _rotulo(tem)
         if ds_id == "hatebr":
             a.context = {"post_group": f"post{i % 12}"}
-        if ofensivo and ds_id in ("olid_br", "hatebr"):
+        if ofensivo and ds_id == "hatebr":
             a.toxic_spans = [{"start": pos, "end": pos + len(palavras[-1]), "origin": "anotado"}]
             a.annotation_metadata["spans_confiaveis"] = True
-        if ds_id == "olid_br":
-            a.split = "train" if i < n * 0.75 else "test"
         saida.append(a.validar())
     return saida
 
@@ -60,7 +58,7 @@ def ambiente(tmp_path, monkeypatch):
     monkeypatch.setenv("ESO_DATA_DIR", str(tmp_path))
     monkeypatch.setattr(paths, "RELATORIOS", tmp_path / "relatorios")
     pasta = tmp_path / "normalizado"
-    corpora = {ds: _gerar(ds, n, i) for i, (ds, n) in enumerate((("told_br", 900), ("hatebr", 600), ("olid_br", 600)))}
+    corpora = {ds: _gerar(ds, n, i) for i, (ds, n) in enumerate((("told_br", 900), ("hatebr", 800)))}
     for ds, am in corpora.items():
         escrever_jsonl(am, pasta / f"{ds}.jsonl")
 
@@ -78,10 +76,10 @@ def test_experimento_a_classes_de_grupo(ambiente):
     r = X.experimento_a()
     assert r["id"] == "A" and set(r["por_classe"]) == set(CLASSES)
     for classe, v in r["por_classe"].items():
-        assert v["relacao_told"] in ("equivalente", "aproximado") and v["relacao_olid"] in ("equivalente", "aproximado")
+        assert v["relacao_told"] in ("equivalente", "aproximado")
         assert 0 <= v["dominio_told_teste"]["f1"]["media"] <= 1
         assert len(v["positivos_treino_por_semente"]) == len(X.SEMENTES)
-    assert all(c["olid_excluido_sobreposicao"] == 0 for c in r["contagens"].values())
+    assert set(r["por_classe"]["racismo"]) >= {"dominio_told_teste"} and "limite" in r  # um único dataset com classes de grupo
     assert set(r["versoes"]["sementes"]) == set(X.SEMENTES)
 
 
@@ -93,15 +91,15 @@ def test_experimento_b_compara_regras_modelos_e_chute(ambiente):
     assert t["B_lr_val_f1"]["f1"]["media"] > 0.8  # sinal sintético forte
     assert 0 <= r["detalhes_semente_principal"]["calibracao_lr"]["ece"] <= 1
     assert r["detalhes_semente_principal"]["auditoria_splits"]["publicacoes_em_mais_de_um_split"] == 0
-    assert "macro_f1" in t["B_lr_val_f1"] and "macro_f1" in r["transferencia_para_olid"]["trivial"]
+    assert "macro_f1" in t["B_lr_val_f1"] and "macro_f1" in r["transferencia_para_told"]["trivial"]
 
 
 def test_experimento_c_matriz_e_efeito_de_combinar(ambiente):
     r = X.experimento_c()
-    assert set(r["matriz_treino_x_teste"]) == {"hatebr", "olid_br", "told_br", "hatebr+olid_br", "hatebr+olid_br+told_br"}
+    assert set(r["matriz_treino_x_teste"]) == {"hatebr", "told_br", "hatebr+told_br"}
     cel = r["matriz_treino_x_teste"]["hatebr"]
-    assert cel["hatebr"]["em_dominio"] is True and cel["olid_br"]["em_dominio"] is False
-    assert len(r["efeito_de_combinar_em_dominio"]) == 5
+    assert cel["hatebr"]["em_dominio"] is True and cel["told_br"]["em_dominio"] is False
+    assert len(r["efeito_de_combinar_em_dominio"]) == 2
     for g in r["efeito_de_combinar_em_dominio"]:
         assert g["delta"] == pytest.approx(g["f1_combinado"] - g["f1_referencia"], abs=1e-4)
 
@@ -130,9 +128,9 @@ def test_experimento_d_contrafactual_e_nao_vaza_texto(ambiente, tmp_path):
 
 def test_experimento_e_destaque_de_trechos_supera_chute_aleatorio(ambiente):
     r = X.experimento_e()
-    b, rnd = r["olid_br_teste"]["B_coeficientes_tfidf"], r["olid_br_teste"]["aleatorio_prob_0.3"]
+    b, rnd = r["hatebr_teste"]["B_coeficientes_tfidf"], r["hatebr_teste"]["aleatorio_prob_0.3"]
     assert b["f1"] > rnd["f1"]
-    assert r["olid_br_teste"]["tudo"]["recall"] == 1.0
+    assert r["hatebr_teste"]["tudo"]["recall"] == 1.0
     assert "causais" in r["leitura"]
 
 
@@ -157,7 +155,7 @@ def test_tokens_gold_e_metricas_de_trecho():
     texto = "voce idiota total"
     spans = [{"start": 5, "end": 11, "origin": "anotado"}]
     assert X._gold_tokens(texto, spans) == [0, 1, 0]
-    a = NormalizedTextSample(sample_id="s", dataset_id="olid_br", source_platform=None, text=texto, license="x",
+    a = NormalizedTextSample(sample_id="s", dataset_id="hatebr", source_platform=None, text=texto, license="x",
                              provenance={"origem": "fixture_sintetica"}, toxic_spans=spans)
     r = X._avaliar_tokens([a], lambda t: [0, 1, 1])
     assert (r["precision"], r["recall"]) == (0.5, 1.0)

@@ -12,7 +12,7 @@ from eh_so_opiniao.schema import AmostraInvalida, NormalizedTextSample, ler_json
 
 def test_registry_valido_e_completo():
     dados = registry.carregar_registry()
-    assert set(dados["datasets"]) == {"told_br", "hatebr", "olid_br"}
+    assert set(dados["datasets"]) == {"told_br", "hatebr"}
     for ds_id, ds in dados["datasets"].items():
         for campo in registry.CAMPOS_OBRIGATORIOS:
             assert campo in ds, f"{ds_id} sem {campo}"
@@ -34,15 +34,9 @@ def test_catalogo_so_tem_datasets_abertos_e_acessados():
 
 
 def test_datasets_abertos_tem_hash_de_integridade():
-    for ds_id in ("told_br", "hatebr", "olid_br"):
+    for ds_id in ("told_br", "hatebr"):
         for arq in registry.dataset(ds_id)["url_arquivos"]:
             assert len(arq["sha256"]) == 64
-
-
-def test_divergencia_de_contagem_do_olid_documentada():
-    olid = registry.dataset("olid_br")
-    assert olid["registros_confirmados"] == 6952
-    assert "7.943" in olid["nota_contagem"] and "6.354" in olid["nota_contagem"]
 
 
 def test_registry_rejeita_dataset_restrito_marcado_como_acessado():
@@ -93,7 +87,7 @@ def test_codigo_nao_referencia_tybyria():
 
 def test_gitignore_protege_corpora_brutos():
     texto = (paths.RAIZ / ".gitignore").read_text(encoding="utf-8")  # .gitignore dentro da própria pasta
-    for linha in ("datasets/_local/", "relatorios/local/", "site/data/_rascunho/", "*.parquet", ".env"):
+    for linha in ("datasets/_local/", "relatorios/local/", "site/data/_rascunho/", ".env"):
         assert linha in texto.splitlines()
 
 

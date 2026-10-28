@@ -17,9 +17,9 @@ def dados_tmp(tmp_path, monkeypatch):
 def test_datasets_lista_catalogo(capsys):
     assert cli.main(["datasets"]) == 0
     saida = capsys.readouterr().out
-    for ds in ("told_br", "hatebr", "olid_br"):
+    for ds in ("told_br", "hatebr"):
         assert ds in saida
-    assert "lgbtqia" not in saida and "mina_br" not in saida
+    assert "lgbtqia" not in saida and "mina_br" not in saida and "olid_br" not in saida
 
 
 def test_mapeamento_imprime_tabela(capsys):

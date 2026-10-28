@@ -13,14 +13,13 @@ Este documento descreve **como** os experimentos são feitos. Os números ficam 
 ## Normalização
 
 - Regra "primeiro vence" por alvo da taxonomia: se dois rótulos originais mapeiam ao mesmo alvo, vale o primeiro declarado em `label_mapping.yaml` (versionado).
-- ToLD-Br: três anotadores. Política de consenso configurável (`qualquer_voto` ≥1, `maioria` ≥2 padrão, `unanimidade` 3). `obscene` e `profanity_obscene` (OLID) ficam só como rótulo original (incompatível).
+- ToLD-Br: três anotadores. Política de consenso configurável (`qualquer_voto` ≥1, `maioria` ≥2 padrão, `unanimidade` 3). `obscene` fica só como rótulo original (incompatível).
 - HateBR: nome da conta e URL descartados; mantém-se apenas o hash do grupo de publicação. HateBRXplain: justificativas separadas por `;` ("n/a" = nenhuma); os offsets são derivados por busca e marcados `derivado_de_rationale`.
-- OLID-BR: offsets fora do texto marcam `spans_confiaveis=False` e saem da avaliação de trechos.
 - Nunca se reidentificam autores nem anotadores.
 
 ## Divisões sem vazamento
 
-- Agrupamento por publicação (HateBR) ou por chave de quase-duplicata (ToLD-Br, OLID-BR: texto sem acento/caixa/pontuação, URLs e menções removidas).
+- Agrupamento por publicação (HateBR) ou por chave de quase-duplicata (ToLD-Br: texto sem acento/caixa/pontuação, URLs e menções removidas).
 - Deduplicação entre splits (treino→validação/teste, validação→teste) e auditoria (`auditar_vazamento`) que precisa dar zero.
 - Em avaliação entre datasets, textos presentes em mais de um corpus são excluídos do corpus de teste.
 - Três sementes (13, 42, 2026). Reporta-se média ± desvio.
@@ -36,15 +35,15 @@ Este documento descreve **como** os experimentos são feitos. Os números ficam 
 
 ## Métricas
 
-Precisão, revocação e F1 por classe; macro-F1; matriz de confusão; falsos positivos/negativos; avaliação fora de domínio; curva precisão-revocação; calibração (Brier, ECE) e escolha de limiar; sempre ao lado de **chutes triviais**. Classes com menos de 30 positivos recebem aviso "não interpretar". F1 da classe positiva engana quando a prevalência é alta (OLID-BR: ~85% ofensivos); use macro-F1.
+Precisão, revocação e F1 por classe; macro-F1; matriz de confusão; falsos positivos/negativos; avaliação fora de domínio; curva precisão-revocação; calibração (Brier, ECE) e escolha de limiar; sempre ao lado de **chutes triviais**. Classes com menos de 30 positivos recebem aviso "não interpretar". F1 da classe positiva engana quando a prevalência é alta (no ToLD-Br, o rótulo derivado por votos tem prevalência de ~19%, o que também distorce o F1 do chute); use macro-F1 ao lado do chute trivial.
 
 ## Experimentos
 
-- **A.** Treinar no ToLD-Br, avaliar em domínio e no OLID-BR nas classes de grupo comparáveis.
-- **B.** Regras (A) vs TF-IDF (B) no HateBR; transferência HateBR → OLID-BR.
+- **A.** Classes de insulto e de grupo no ToLD-Br, só em domínio (é o único dataset aprovado que as anota; não há avaliação fora de domínio para elas).
+- **B.** Regras (A) vs TF-IDF (B) no HateBR; transferência HateBR → ToLD-Br (rótulo `ofensivo` aproximado).
 - **C.** Matriz treino × teste e efeito de combinar bases (corpora combinados só quando o rótulo é compatível).
 - **D.** Neutralidade partidária: troca espelhada (Lula↔Bolsonaro etc.) nos mesmos textos, com IC95% por bootstrap; taxa de falsos positivos em comentários não ofensivos com e sem termo político. As 27 fixtures do monitor são lidas **apenas qualitativamente**.
-- **E.** Destaque de trechos (F1 por token) contra spans anotados; comparação com chute aleatório e "tudo".
+- **E.** Destaque de trechos (F1 por token) contra os trechos derivados das justificativas do HateBRXplain; comparação com chute aleatório e "tudo". Treino e avaliação no mesmo dataset.
 
 Destaque de trechos é auxílio de leitura, **não** explicação causal.
 
