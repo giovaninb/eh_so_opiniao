@@ -1,0 +1,52 @@
+[
+  {
+    "id": "told_br",
+    "nome": "ToLD-Br — Toxic Language Detection for Brazilian Portuguese",
+    "licenca": "CC-BY-SA-4.0",
+    "plataforma": "twitter",
+    "acesso": "aberto",
+    "status": "acessado",
+    "registros": 21000,
+    "referencia": "Leite et al. (2020). Toxic Language Detection in Social Media for Brazilian Portuguese: New Dataset and Multilingual Analysis. arXiv:2010.04543 (AACL-IJCNLP 2020).",
+    "url": "https://github.com/JAugusto97/ToLD-Br",
+    "limitacoes": [
+      "Sem identificadores nem metadados de conversa; deduplicação só por texto.",
+      "Categorias raras (xenofobia, racismo) com poucos positivos por consenso.",
+      "Amostra por palavras-chave e perfis; viés de coleta e de anotadores (42 voluntários).",
+      "A distribuição e a duplicata de retweets podem inflar métricas se o split ignorar quase-duplicatas."
+    ]
+  },
+  {
+    "id": "hatebr",
+    "nome": "HateBR 2.0 e HateBRXplain",
+    "licenca": "CC-BY-NC-4.0",
+    "plataforma": "instagram",
+    "acesso": "aberto",
+    "status": "acessado",
+    "registros": 7000,
+    "referencia": "Vargas et al. (2022) HateBR, LREC 2022, aclanthology 2022.lrec-1.777; Salles, Vargas & Benevenuto (2025) HateBRXplain, COLING 2025, aclanthology 2025.coling-main.446.",
+    "url": "https://github.com/franciellevargas/HateBR",
+    "limitacoes": [
+      "Domínio político em Instagram; ofensa binária mistura insulto, xingamento e discurso de ódio.",
+      "Só 78 publicações; split por publicação gera poucos grupos.",
+      "Rationales são trechos textuais, não offsets; offsets são derivados por busca e podem falhar.",
+      "Equilíbrio artificial 50/50 (3.500/3.500) não reflete prevalência real."
+    ]
+  },
+  {
+    "id": "olid_br",
+    "nome": "OLID-BR — Offensive Language Identification Dataset for Brazilian Portuguese",
+    "licenca": "CC-BY-4.0",
+    "plataforma": "youtube_twitter_e_datasets_relacionados",
+    "acesso": "aberto",
+    "status": "acessado",
+    "registros": 6952,
+    "referencia": "Trajano, Bordini & Vieira (2024). OLID-BR. Language Resources and Evaluation 58(4):1263-1289.",
+    "url": "https://huggingface.co/datasets/dougtrajano/olid-br",
+    "limitacoes": [
+      "Possível sobreposição com ToLD-Br/HateBR; experimentos cruzados medem e removem duplicatas.",
+      "Rótulo ofensivo apoiado na Perspective API (viés conhecido de falso positivo em dialetos e identidades).",
+      "Categorias de ofensa por multi-rótulo; classes raras."
+    ]
+  }
+]

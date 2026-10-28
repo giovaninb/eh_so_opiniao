@@ -1,0 +1,41 @@
+{
+  "gerado_dos_relatorios": [
+    {
+      "id": "fp_fn",
+      "titulo": "Mesmo o melhor modelo simples erra",
+      "texto": "No teste do HateBR, o modelo TF-IDF acerta a maior parte, mas deixa passar cerca de 12% dos comentários ofensivos e marca como ofensivos cerca de 13% dos que sinalizou sem serem. Já a lista de palavras ofensivas quase não erra ao apontar (precisão 99%), mas só encontra 22% dos casos.",
+      "experimento": "B"
+    },
+    {
+      "id": "fora_do_dominio",
+      "titulo": "Fora do domínio, o resultado muda",
+      "texto": "Treinado em comentários sobre políticos (HateBR) e testado no OLID-BR, o modelo obteve macro-F1 0.58 (média das duas classes), contra 0.46 de simplesmente marcar tudo como ofensivo. Como 85% dos textos do OLID-BR já são ofensivos, esse 'chute' parece bom no F1 simples (0.92) mas não detecta nada. Comparar com o chute é essencial para não se enganar.",
+      "experimento": "B"
+    },
+    {
+      "id": "classes_raras",
+      "titulo": "Classes raras quase não têm exemplos",
+      "texto": "Para as classes lgbtfobia, misoginia e sexismo, racismo, xenofobia (origem nacional ou regional) há poucos exemplos positivos no teste. As métricas dessas classes oscilam muito e não permitem concluir que o modelo funciona.",
+      "experimento": "A"
+    },
+    {
+      "id": "combinar_dados",
+      "titulo": "Juntar bases diferentes nem sempre ajuda",
+      "texto": "Em 4 de 5 comparações, treinar com mais de uma base (cujas definições de 'ofensivo' são só aproximadas) piorou o F1 no teste da própria base. Misturar rótulos parecidos não é o mesmo que ter o mesmo rótulo.",
+      "experimento": "C"
+    },
+    {
+      "id": "neutralidade",
+      "titulo": "O modelo pode tratar lados políticos de modo diferente",
+      "texto": "Ao trocar apenas termos de um lado político pelo equivalente do outro nos mesmos textos ofensivos (n=99), a pontuação média mudou -0.11 (IC95% -0.13 a -0.10). O mesmo ato deveria receber o mesmo tratamento. Por isso o modelo não pode ser usado para priorizar casos sem revisão e controle de neutralidade.",
+      "experimento": "D"
+    },
+    {
+      "id": "destaque_trechos",
+      "titulo": "Destacar o trecho ofensivo é difícil",
+      "texto": "Ao tentar marcar quais palavras tornam um texto ofensivo, o baseline teve F1 0.35 contra 0.29 de simplesmente marcar tudo. O destaque ajuda a revisão humana, mas não é uma explicação confiável.",
+      "experimento": "E"
+    }
+  ],
+  "aviso": "Conteúdo educativo e experimental. Uma classificação de IA é uma hipótese, não uma prova: não conclui crime, intenção nem identidade, e só é exibida depois de revisão humana."
+}

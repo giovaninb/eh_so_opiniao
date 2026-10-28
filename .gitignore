@@ -1,0 +1,13 @@
+# Corpora brutos, normalizados e saídas com texto de datasets NUNCA vão ao Git
+datasets/_local/
+relatorios/local/
+site/data/_rascunho/
+*.parquet
+.env
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+.DS_Store
+*.egg-info/
+build/

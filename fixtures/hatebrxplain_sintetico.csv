@@ -1,0 +1,7 @@
+id,comment,offensive_label,link_post,rationales_annotator1,rationales_annotator2
+1,"Que pessoa horrível e inútil, só sabe atrapalhar",1,https://exemplo.invalid/p/A1,horrível e inútil; só sabe atrapalhar,pessoa horrível;
+2,"Parabéns pelo trabalho, ótima iniciativa!",0,https://exemplo.invalid/p/A1,n/a,n/a
+3,Esse discurso é uma vergonha nojenta,1,https://exemplo.invalid/p/B2,vergonha nojenta,trecho que não existe no texto
+4,Discordo totalmente da proposta apresentada,0,https://exemplo.invalid/p/B2,n/a,n/a
+5,"Pior governo, gente sem vergonha",1,https://exemplo.invalid/p/C3,gente sem vergonha,SEM VERGONHA
+6,Boa tarde a todos,0,https://exemplo.invalid/p/C3,n/a,n/a

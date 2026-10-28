@@ -1,0 +1,121 @@
+# Catálogo de datasets — "É Só Opinião?" — versão do catálogo 1.0.0
+# Consultado em 2026-10-28. "registros_confirmados: null" = NÃO confirmado por leitura do arquivo.
+#
+# acesso:
+#   aberto               -> download sem credencial; o pipeline baixa com cache e valida integridade.
+#   restrito_autorizacao -> exige aceite/credencial do operador (HF gated). O pipeline NUNCA contorna;
+#                           sem token válido o dataset fica "pendente_autorizacao" e o resto segue.
+versao_catalogo: "1.0.0"
+politica_geral:
+  corpora_brutos_no_git: false
+  contornar_controle_de_acesso: false
+  reidentificar_autores_ou_anotadores: false
+  usar_tybyria_como_classificador: false
+datasets:
+  told_br:
+    nome: ToLD-Br — Toxic Language Detection for Brazilian Portuguese
+    adaptador: ToldBrAdapter
+    versao: "main@6b325d26a9d25b321a3e9ba98ef98832b56729f5"
+    data_versao: "2025-02-22"
+    autores:
+      - João A. Leite
+      - Diego F. Silva
+      - Kalina Bontcheva
+      - Carolina Scarton
+    referencia: "Leite et al. (2020). Toxic Language Detection in Social Media for Brazilian Portuguese: New Dataset and Multilingual Analysis. arXiv:2010.04543 (AACL-IJCNLP 2020)."
+    url_origem: https://github.com/JAugusto97/ToLD-Br
+    url_arquivos:
+      - arquivo: ToLD-BR.csv
+        url: https://raw.githubusercontent.com/JAugusto97/ToLD-Br/main/ToLD-BR.csv
+        sha256: a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90
+        bytes: 2430416
+    licenca: CC-BY-SA-4.0
+    redistribuicao: "Permitida com atribuição e mesma licença. Mesmo assim, este projeto NÃO redistribui o corpus (nem no Git nem no site)."
+    acesso: aberto
+    status_acesso: acessado
+    formatos: [csv]
+    registros_confirmados: 21000
+    esquema_anotacao: "3 anotadores por tweet; 6 categorias com contagem de votos 0-3 (float no CSV)."
+    rotulos_originais: [homophobia, obscene, insult, racism, misogyny, xenophobia]
+    idioma: pt-BR
+    plataforma: twitter
+    contexto: "Tweets gerais; não é corpus político."
+    hash_ou_revisao: "sha256 do arquivo (acima) e commit git 6b325d26"
+    limitacoes_vieses:
+      - Sem identificadores nem metadados de conversa; deduplicação só por texto.
+      - Categorias raras (xenofobia, racismo) com poucos positivos por consenso.
+      - Amostra por palavras-chave e perfis; viés de coleta e de anotadores (42 voluntários).
+      - A distribuição e a duplicata de retweets podem inflar métricas se o split ignorar quase-duplicatas.
+  hatebr:
+    nome: HateBR 2.0 e HateBRXplain
+    adaptador: HateBrAdapter
+    versao: "main@a1301437a7b21620fbf0110a300c4c927a247daf"
+    data_versao: "2026-01-05"
+    autores:
+      - "HateBR (LREC 2022): Francielle Vargas, Isabelle Carvalho, Fabiana Rodrigues de Góes, Thiago Pardo, Fabrício Benevenuto"
+      - "HateBRXplain (COLING 2025): Isadora Salles, Francielle Vargas, Fabrício Benevenuto"
+    referencia: "Vargas et al. (2022) HateBR, LREC 2022, aclanthology 2022.lrec-1.777; Salles, Vargas & Benevenuto (2025) HateBRXplain, COLING 2025, aclanthology 2025.coling-main.446."
+    url_origem: https://github.com/franciellevargas/HateBR
+    url_arquivos:
+      - arquivo: HateBR.csv
+        url: https://raw.githubusercontent.com/franciellevargas/HateBR/main/dataset/HateBR.csv
+        sha256: 0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15
+        bytes: 1128085
+      - arquivo: HateBRXplain.csv
+        url: https://raw.githubusercontent.com/franciellevargas/HateBR/main/dataset/HateBRXplain.csv
+        sha256: dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb
+        bytes: 1286709
+    licenca: CC-BY-NC-4.0
+    redistribuicao: "Somente uso não comercial, com atribuição. O corpus NÃO é redistribuído por este projeto."
+    acesso: aberto
+    status_acesso: acessado
+    formatos: [csv]
+    registros_confirmados: 7000
+    esquema_anotacao: "Binário (ofensivo/não) com 3 anotadores especialistas; HateBRXplain acrescenta justificativas (rationales) de 2 anotadores como trechos de texto. Níveis de ofensa e alvos de ódio existem só na versão 1.0, sob pedido, NÃO integrados."
+    rotulos_originais: [anotator1, anotator2, anotator3, label_final, offensive_label, rationales_annotator1, rationales_annotator2]
+    idioma: pt-BR
+    plataforma: instagram
+    contexto: "Comentários em publicações de políticos brasileiros (78 publicações no arquivo). O nome da conta do político NÃO é carregado para as amostras normalizadas."
+    hash_ou_revisao: "sha256 dos arquivos (acima) e commit git a1301437"
+    limitacoes_vieses:
+      - Domínio político em Instagram; ofensa binária mistura insulto, xingamento e discurso de ódio.
+      - Só 78 publicações; split por publicação gera poucos grupos.
+      - Rationales são trechos textuais, não offsets; offsets são derivados por busca e podem falhar.
+      - Equilíbrio artificial 50/50 (3.500/3.500) não reflete prevalência real.
+  olid_br:
+    nome: OLID-BR — Offensive Language Identification Dataset for Brazilian Portuguese
+    adaptador: OlidBrAdapter
+    versao: "84b0d7dd4309be677a47c535632a9398ff1897bd"
+    data_versao: "2025-05-17"
+    autores:
+      - Douglas Trajano
+      - Rafael H. Bordini
+      - Renata Vieira
+    referencia: "Trajano, Bordini & Vieira (2024). OLID-BR. Language Resources and Evaluation 58(4):1263-1289."
+    url_origem: https://huggingface.co/datasets/dougtrajano/olid-br
+    url_arquivos:
+      - arquivo: olid-br-train.parquet
+        url: https://huggingface.co/datasets/dougtrajano/olid-br/resolve/main/data/train-00000-of-00001-0d8933b80051ca0e.parquet
+        sha256: f6aaf33f272ca2037b759d96c627375f5254b6f440cd3631cbba64d19d04055a
+        bytes: 755247
+      - arquivo: olid-br-test.parquet
+        url: https://huggingface.co/datasets/dougtrajano/olid-br/resolve/main/data/test-00000-of-00001-914dbee7561d2266.parquet
+        sha256: db0cf7b590513745d6ed5d74badcb2f062ce764ad2860e79a99bc7869dc6c7e3
+        bytes: 256495
+    licenca: CC-BY-4.0
+    redistribuicao: "Permitida com atribuição. Este projeto não redistribui o corpus."
+    acesso: aberto
+    status_acesso: acessado
+    formatos: [parquet]
+    registros_confirmados: 6952
+    nota_contagem: "Divergência documentada: artigo 6.354 (estendível a 13.538); cartão HF 7.943; parquets baixados 5.214 + 1.738 = 6.952. Vale o que foi lido nos arquivos."
+    esquema_anotacao: "Hierárquico: is_offensive (OFF/NOT), is_targeted (TIN/UNT), targeted_type (IND/GRP/OTH), 11 categorias booleanas, toxic_spans como lista de offsets de caracteres."
+    rotulos_originais: [is_offensive, is_targeted, targeted_type, toxic_spans, health, ideology, insult, lgbtqphobia, other_lifestyle, physical_aspects, profanity_obscene, racism, religious_intolerance, sexism, xenophobia]
+    idioma: pt-BR
+    plataforma: youtube_twitter_e_datasets_relacionados
+    contexto: "Misto de fontes; inclui conteúdo de 'datasets relacionados', o que pode sobrepor outros corpora deste catálogo (sobreposição é medida nos experimentos)."
+    hash_ou_revisao: "sha256 dos parquets (acima) e revisão HF 84b0d7dd"
+    limitacoes_vieses:
+      - Possível sobreposição com ToLD-Br/HateBR; experimentos cruzados medem e removem duplicatas.
+      - Rótulo ofensivo apoiado na Perspective API (viés conhecido de falso positivo em dialetos e identidades).
+      - Categorias de ofensa por multi-rótulo; classes raras.

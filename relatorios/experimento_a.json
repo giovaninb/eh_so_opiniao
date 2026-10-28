@@ -1,0 +1,396 @@
+{
+  "id": "A",
+  "titulo": "ToLD-Br -> OLID-BR: classes de insulto e de grupo (aprox. entre datasets)",
+  "pergunta": "Um modelo treinado em tweets generaliza classes de grupo para outro dataset com definições aproximadas?",
+  "modelo": {
+    "nome": "B_tfidf",
+    "versao": "tfidf-1.0.0",
+    "modelo": "lr",
+    "C": 1.0,
+    "semente": 0,
+    "class_weight": "balanced",
+    "ngramas_palavra": [
+      1,
+      2
+    ],
+    "ngramas_char_wb": [
+      3,
+      5
+    ],
+    "sklearn": "1.9.1",
+    "numpy": "2.5.4"
+  },
+  "contagens": {
+    "13": {
+      "told_train": 14700,
+      "told_val": 3150,
+      "told_test": 3150,
+      "olid_avaliado": 6717,
+      "olid_excluido_sobreposicao": 231
+    },
+    "42": {
+      "told_train": 14700,
+      "told_val": 3150,
+      "told_test": 3150,
+      "olid_avaliado": 6717,
+      "olid_excluido_sobreposicao": 231
+    },
+    "2026": {
+      "told_train": 14700,
+      "told_val": 3150,
+      "told_test": 3150,
+      "olid_avaliado": 6717,
+      "olid_excluido_sobreposicao": 231
+    }
+  },
+  "por_classe": {
+    "insulto_hostilidade": {
+      "rotulo_told": "insult",
+      "relacao_told": "aproximado",
+      "rotulo_olid": "insult",
+      "relacao_olid": "aproximado",
+      "dominio_told_teste": {
+        "precision": {
+          "media": 0.5012,
+          "desvio": 0.0261,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.5436,
+          "desvio": 0.0406,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.5201,
+          "desvio": 0.018,
+          "n": 3
+        },
+        "positivos_teste_por_semente": [
+          296,
+          279,
+          289
+        ]
+      },
+      "cruzado_olid": {
+        "precision": {
+          "media": 0.9513,
+          "desvio": 0.0025,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.2609,
+          "desvio": 0.0052,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.4095,
+          "desvio": 0.0064,
+          "n": 3
+        },
+        "positivos_avaliados_por_semente": [
+          5411,
+          5411,
+          5411
+        ],
+        "average_precision": {
+          "media": 0.9098,
+          "desvio": 0.0011,
+          "n": 3
+        },
+        "prevalencia_base": 0.8056
+      },
+      "suporte_insuficiente_dominio": false,
+      "positivos_treino_por_semente": [
+        1282,
+        1305,
+        1292
+      ]
+    },
+    "lgbtfobia": {
+      "rotulo_told": "homophobia",
+      "relacao_told": "aproximado",
+      "rotulo_olid": "lgbtqphobia",
+      "relacao_olid": "aproximado",
+      "dominio_told_teste": {
+        "precision": {
+          "media": 0.4031,
+          "desvio": 0.0267,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.8375,
+          "desvio": 0.0805,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.5418,
+          "desvio": 0.0195,
+          "n": 3
+        },
+        "positivos_teste_por_semente": [
+          18,
+          24,
+          22
+        ]
+      },
+      "cruzado_olid": {
+        "precision": {
+          "media": 0.8337,
+          "desvio": 0.0088,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.2918,
+          "desvio": 0.0381,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.4306,
+          "desvio": 0.0418,
+          "n": 3
+        },
+        "positivos_avaliados_por_semente": [
+          369,
+          369,
+          369
+        ],
+        "average_precision": {
+          "media": 0.5138,
+          "desvio": 0.013,
+          "n": 3
+        },
+        "prevalencia_base": 0.0549
+      },
+      "suporte_insuficiente_dominio": true,
+      "positivos_treino_por_semente": [
+        129,
+        122,
+        124
+      ]
+    },
+    "misoginia": {
+      "rotulo_told": "misogyny",
+      "relacao_told": "equivalente",
+      "rotulo_olid": "sexism",
+      "relacao_olid": "aproximado",
+      "dominio_told_teste": {
+        "precision": {
+          "media": 0.3705,
+          "desvio": 0.2093,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.319,
+          "desvio": 0.2025,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.3208,
+          "desvio": 0.1772,
+          "n": 3
+        },
+        "positivos_teste_por_semente": [
+          20,
+          19,
+          26
+        ]
+      },
+      "cruzado_olid": {
+        "precision": {
+          "media": 0.5928,
+          "desvio": 0.046,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.0608,
+          "desvio": 0.0356,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.1067,
+          "desvio": 0.0574,
+          "n": 3
+        },
+        "positivos_avaliados_por_semente": [
+          450,
+          450,
+          450
+        ],
+        "average_precision": {
+          "media": 0.2429,
+          "desvio": 0.0099,
+          "n": 3
+        },
+        "prevalencia_base": 0.067
+      },
+      "suporte_insuficiente_dominio": true,
+      "positivos_treino_por_semente": [
+        92,
+        92,
+        85
+      ]
+    },
+    "racismo": {
+      "rotulo_told": "racism",
+      "relacao_told": "equivalente",
+      "rotulo_olid": "racism",
+      "relacao_olid": "equivalente",
+      "dominio_told_teste": {
+        "precision": {
+          "media": 0.0827,
+          "desvio": 0.083,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.4127,
+          "desvio": 0.2141,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.0862,
+          "desvio": 0.057,
+          "n": 3
+        },
+        "positivos_teste_por_semente": [
+          7,
+          7,
+          6
+        ]
+      },
+      "cruzado_olid": {
+        "precision": {
+          "media": 0.132,
+          "desvio": 0.0834,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.1985,
+          "desvio": 0.1343,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.0908,
+          "desvio": 0.0353,
+          "n": 3
+        },
+        "positivos_avaliados_por_semente": [
+          89,
+          89,
+          89
+        ],
+        "average_precision": {
+          "media": 0.0795,
+          "desvio": 0.0114,
+          "n": 3
+        },
+        "prevalencia_base": 0.0132
+      },
+      "suporte_insuficiente_dominio": true,
+      "positivos_treino_por_semente": [
+        22,
+        20,
+        23
+      ]
+    },
+    "xenofobia": {
+      "rotulo_told": "xenophobia",
+      "relacao_told": "aproximado",
+      "rotulo_olid": "xenophobia",
+      "relacao_olid": "aproximado",
+      "dominio_told_teste": {
+        "precision": {
+          "media": 0.1282,
+          "desvio": 0.0959,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.2095,
+          "desvio": 0.1751,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.158,
+          "desvio": 0.123,
+          "n": 3
+        },
+        "positivos_teste_por_semente": [
+          7,
+          10,
+          8
+        ]
+      },
+      "cruzado_olid": {
+        "precision": {
+          "media": 0.8056,
+          "desvio": 0.275,
+          "n": 3
+        },
+        "recall": {
+          "media": 0.0236,
+          "desvio": 0.0112,
+          "n": 3
+        },
+        "f1": {
+          "media": 0.0446,
+          "desvio": 0.0193,
+          "n": 3
+        },
+        "positivos_avaliados_por_semente": [
+          127,
+          127,
+          127
+        ],
+        "average_precision": {
+          "media": 0.0613,
+          "desvio": 0.0082,
+          "n": 3
+        },
+        "prevalencia_base": 0.0189
+      },
+      "suporte_insuficiente_dominio": true,
+      "positivos_treino_por_semente": [
+        28,
+        27,
+        29
+      ]
+    }
+  },
+  "macro_f1_media_das_classes": {
+    "dominio": {
+      "media": 0.3254,
+      "desvio": 0.0,
+      "n": 1
+    },
+    "cruzado": {
+      "media": 0.2164,
+      "desvio": 0.0,
+      "n": 1
+    }
+  },
+  "leitura": "Classes raras no ToLD-Br (racismo, xenofobia) têm poucos positivos por semente: resultados instáveis, sem conclusão.",
+  "versoes": {
+    "python": "3.14.8",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "taxonomia": "1.0.0",
+    "mapeamento": "1.0.0",
+    "sha256_arquivos": {
+      "told_br": {
+        "ToLD-BR.csv": "a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90"
+      },
+      "hatebr": {
+        "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
+        "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
+      },
+      "olid_br": {
+        "olid-br-test.parquet": "db0cf7b590513745d6ed5d74badcb2f062ce764ad2860e79a99bc7869dc6c7e3",
+        "olid-br-train.parquet": "f6aaf33f272ca2037b759d96c627375f5254b6f440cd3631cbba64d19d04055a"
+      }
+    },
+    "sementes": [
+      13,
+      42,
+      2026
+    ]
+  }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>É Só Opinião? — Onde termina a opinião e começa a discriminação?</title>
+  <meta name="description" content="Projeto educativo e de pesquisa sobre a fronteira entre opinião política e discriminação. Exposição: Quem Pode Pertencer?">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <div class="topo-interno">
+      <a class="marca" href="#inicio">É Só Opinião?</a>
+      <nav aria-label="Seções">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#frases">Explore as frases</a></li>
+          <li><a href="#mecanismo">Entenda o mecanismo</a></li>
+          <li><a href="#ia">O que a IA identifica</a></li>
+          <li><a href="#pesquisa">Como pesquisamos</a></li>
+          <li><a href="#erros">O que a IA pode errar</a></li>
+          <li><a href="#referencias">Referências científicas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="faixa-rascunho" class="faixa-rascunho" hidden role="status">
+    MODO RASCUNHO LOCAL: itens ainda não revisados por humanos. Não publique esta versão.
+  </div>
+
+  <main id="conteudo">
+    <section id="inicio" class="hero" aria-labelledby="t-inicio">
+      <p class="selo">Exposição · Quem Pode Pertencer?</p>
+      <h1 id="t-inicio">É Só Opinião?</h1>
+      <p class="sub">Onde termina a opinião e começa a discriminação?</p>
+      <p>Discordar faz parte da democracia. Dizer que alguém não merece <em>pertencer</em> à cidade, à região ou ao trabalho por causa de como vota, de onde veio ou de quanto ganha é outra coisa.
+         Este projeto mostra a diferença com frases de exemplo, explica como a inteligência artificial tenta reconhecer esses padrões e, principalmente, onde ela erra.</p>
+      <div class="caixa">
+        <strong>Antes de começar</strong>
+        <ul>
+          <li>As frases do site são <strong>exemplos escritos para fins educativos</strong> ou foram fornecidas e anonimizadas; não identificam pessoas.</li>
+          <li>Nenhuma classificação aqui <strong>afirma que houve crime</strong>. Isso é decisão da Justiça.</li>
+          <li>Nada aqui tenta adivinhar o voto ou o partido de ninguém.</li>
+          <li>O site não executa IA: ele só mostra resultados <strong>já revisados por pessoas</strong>.</li>
+        </ul>
+      </div>
+      <p><a class="botao" href="#frases">Explore as frases</a></p>
+    </section>
+
+    <section id="frases" aria-labelledby="t-frases">
+      <h2 id="t-frases">Explore as frases</h2>
+      <p>Leia cada frase e escolha o que você acha. Depois veja a leitura da equipe, o que a IA sugeriu e a decisão da revisão humana. Há frases que ficam <strong>ambíguas</strong> de propósito: sem contexto, nem pessoas nem máquinas conseguem decidir.</p>
+      <div class="filtros" role="group" aria-label="Filtrar frases">
+        <button type="button" class="filtro ativo" data-filtro="todas" aria-pressed="true">Todas</button>
+        <button type="button" class="filtro" data-filtro="exclusao" aria-pressed="false">Exclusão</button>
+        <button type="button" class="filtro" data-filtro="nao_discriminatoria" aria-pressed="false">Não discriminatórias</button>
+        <button type="button" class="filtro" data-filtro="ambigua" aria-pressed="false">Ambíguas</button>
+      </div>
+      <p id="status-frases" role="status" class="status"></p>
+      <div id="lista-frases" class="grade"></div>
+    </section>
+
+    <section id="mecanismo" aria-labelledby="t-mecanismo">
+      <h2 id="t-mecanismo">Entenda o mecanismo</h2>
+      <p>Cinco perguntas ajudam a separar opinião de discriminação. Nenhuma sozinha decide; juntas orientam a leitura.</p>
+      <div class="cartoes">
+        <article class="cartao"><h3>1. Quem é o alvo?</h3><p>Uma <strong>ideia, decisão ou ato</strong> (“essa política da saúde é ruim”) ou <strong>pessoas</strong> por quem são (“esse povo não presta”)?</p></article>
+        <article class="cartao"><h3>2. Generaliza?</h3><p>Um defeito atribuído a <strong>todos</strong> de um grupo (região, voto, renda) é estereótipo, mesmo dito de forma educada.</p></article>
+        <article class="cartao"><h3>3. Fala de pertencimento?</h3><p>“Sai daqui”, “não é bem-vindo”, “não pertence”: transformam divergência em <strong>exclusão</strong>.</p></article>
+        <article class="cartao"><h3>4. Rebaixa a condição humana?</h3><p>Comparar pessoas a animais, pragas ou doenças <strong>desumaniza</strong>.</p></article>
+        <article class="cartao"><h3>5. Há poder ou contexto?</h3><p>O mesmo texto pesa diferente se vier de quem decide emprego ou renda. Sem contexto de trabalho, <strong>não se fala em assédio eleitoral</strong>.</p></article>
+      </div>
+      <div class="caixa">
+        <strong>E o espelho?</strong> O teste de neutralidade: trocar o lado político e manter o ato. Se a leitura muda, o problema está no método, não no texto.
+        Veja os pares marcados como “espelho” nas frases.
+      </div>
+    </section>
+
+    <section id="ia" aria-labelledby="t-ia">
+      <h2 id="t-ia">O que a IA identifica</h2>
+      <p>Cada categoria tem uma situação diferente de evidência. <strong>Supervisionada</strong> significa que existem exemplos anotados por pessoas em bases científicas. <strong>Exploratória</strong> significa que não há base anotada: é só uma hipótese baseada em regras e sempre exige revisão. <strong>Salvaguarda</strong> existe para evitar confundir crítica legítima, ironia e ambiguidade com discriminação.</p>
+      <div id="lista-taxonomia" class="grade pequena"></div>
+    </section>
+
+    <section id="pesquisa" aria-labelledby="t-pesquisa">
+      <h2 id="t-pesquisa">Como pesquisamos</h2>
+      <ol class="passos">
+        <li><strong>Bases científicas</strong> brasileiras, citadas abaixo, com licença verificada. Os textos delas <strong>não são publicados</strong> aqui.</li>
+        <li><strong>Adaptadores</strong> leem cada base sem misturá-las: os rótulos originais são preservados e as correspondências são marcadas como equivalentes, aproximadas ou incompatíveis.</li>
+        <li><strong>Divisão sem vazamento</strong>: comentários da mesma publicação ou quase-duplicados nunca ficam em treino e teste ao mesmo tempo.</li>
+        <li><strong>Baselines simples</strong> (regras e TF-IDF) antes de qualquer modelo grande, com métricas por classe e comparação com “chutes” triviais.</li>
+        <li><strong>Revisão humana</strong>: Pendente, Aprovado, Rejeitado, Ambíguo ou Corrigido. Só o que foi revisado chega ao site.</li>
+      </ol>
+      <h3>Bases de dados</h3>
+      <div id="lista-catalogo" class="grade pequena"></div>
+    </section>
+
+    <section id="erros" aria-labelledby="t-erros">
+      <h2 id="t-erros">O que a IA pode errar</h2>
+      <p>Os números abaixo vêm dos experimentos reais do projeto (não são estimativas). Eles são baixos de propósito para mostrar limites: <strong>pontuação de modelo não é prova</strong>.</p>
+      <div id="lista-achados" class="grade"></div>
+      <ul class="limites">
+        <li>Ironia, citação e denúncia podem parecer ofensa para um modelo.</li>
+        <li>Classes raras têm poucos exemplos e métricas instáveis.</li>
+        <li>Bases de outros contextos (rede social, época, tema) não representam qualquer cidade.</li>
+        <li>Anotações humanas também carregam vieses e divergências.</li>
+      </ul>
+    </section>
+
+    <section id="referencias" aria-labelledby="t-ref">
+      <h2 id="t-ref">Referências científicas</h2>
+      <ul id="lista-referencias" class="referencias"></ul>
+      <p class="pequeno">Licenças e termos de cada base são respeitados. Só entram bases de acesso aberto; os textos delas não são publicados aqui.</p>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>É Só Opinião? · Conteúdo educativo e experimental · Não conclui crime, intenção ou identidade · Sem coleta de dados de visitantes.</p>
+    <p id="rodape-meta" class="pequeno"></p>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+id,comentario,anotator1,anotator2,anotator3,label_final,links_post,account_post
+1,"Que pessoa horrível e inútil, só sabe atrapalhar",1,1,1,1,https://exemplo.invalid/p/A1,Conta Fictícia A
+2,"Parabéns pelo trabalho, ótima iniciativa!",0,0,0,0,https://exemplo.invalid/p/A1,Conta Fictícia A
+3,Esse discurso é uma vergonha nojenta,1,1,0,1,https://exemplo.invalid/p/B2,Conta Fictícia B
+4,Discordo totalmente da proposta apresentada,0,0,0,0,https://exemplo.invalid/p/B2,Conta Fictícia B
+5,"Pior governo, gente sem vergonha",1,1,1,1,https://exemplo.invalid/p/C3,Conta Fictícia C
+6,Boa tarde a todos,0,0,0,0,https://exemplo.invalid/p/C3,Conta Fictícia C

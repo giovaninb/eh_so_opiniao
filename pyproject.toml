@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eh-so-opiniao"
+version = "0.1.0"
+description = "É Só Opinião? — observatório de datasets brasileiros e site educativo estático"
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+# A raiz do repositório é o próprio pacote `eh_so_opiniao`.
+[tool.setuptools]
+packages = [
+  "eh_so_opiniao", "eh_so_opiniao.adapters", "eh_so_opiniao.classifiers", "eh_so_opiniao.evaluation",
+  "eh_so_opiniao.pipeline", "eh_so_opiniao.review", "eh_so_opiniao.regras_monitor",
+]
+package-dir = { "eh_so_opiniao" = "." }
+include-package-data = false
+
+[tool.setuptools.package-data]
+eh_so_opiniao = ["datasets/*.yaml", "casos/*.yaml", "fixtures/*", "docs/*.md", "relatorios/*.json", "site/**/*"]

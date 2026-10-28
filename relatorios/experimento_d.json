@@ -1,0 +1,377 @@
+{
+  "id": "D",
+  "titulo": "Falsos positivos e neutralidade partidária (contrafactual)",
+  "pergunta": "O modelo trata de modo diferente o mesmo texto quando só a sigla/lado político é trocado?",
+  "contrafactual": {
+    "hatebr": {
+      "n_avaliacao": 2107,
+      "limiar": 0.4748,
+      "nao_ofensivos": {
+        "esquerda_para_direita": {
+          "n": 39,
+          "delta_medio_assinado": -0.082,
+          "ic95_bootstrap": [
+            -0.1257,
+            -0.0458
+          ],
+          "delta_medio_absoluto": 0.0905,
+          "mudou_decisao": 10,
+          "fracao_mudou_decisao": 0.2564
+        },
+        "direita_para_esquerda": {
+          "n": 32,
+          "delta_medio_assinado": 0.0113,
+          "ic95_bootstrap": [
+            0.004,
+            0.0225
+          ],
+          "delta_medio_absoluto": 0.0141,
+          "mudou_decisao": 0,
+          "fracao_mudou_decisao": 0.0
+        }
+      },
+      "ofensivos": {
+        "esquerda_para_direita": {
+          "n": 99,
+          "delta_medio_assinado": -0.1143,
+          "ic95_bootstrap": [
+            -0.1299,
+            -0.0986
+          ],
+          "delta_medio_absoluto": 0.1146,
+          "mudou_decisao": 20,
+          "fracao_mudou_decisao": 0.202
+        },
+        "direita_para_esquerda": {
+          "n": 36,
+          "delta_medio_assinado": 0.0446,
+          "ic95_bootstrap": [
+            0.0224,
+            0.0744
+          ],
+          "delta_medio_absoluto": 0.0492,
+          "mudou_decisao": 2,
+          "fracao_mudou_decisao": 0.0556
+        }
+      }
+    },
+    "hatebr+olid_br": {
+      "n_avaliacao": 4622,
+      "limiar": 0.373232,
+      "nao_ofensivos": {
+        "esquerda_para_direita": {
+          "n": 39,
+          "delta_medio_assinado": -0.0595,
+          "ic95_bootstrap": [
+            -0.1034,
+            -0.0228
+          ],
+          "delta_medio_absoluto": 0.0894,
+          "mudou_decisao": 8,
+          "fracao_mudou_decisao": 0.2051
+        },
+        "direita_para_esquerda": {
+          "n": 42,
+          "delta_medio_assinado": -0.0048,
+          "ic95_bootstrap": [
+            -0.0116,
+            0.0022
+          ],
+          "delta_medio_absoluto": 0.017,
+          "mudou_decisao": 0,
+          "fracao_mudou_decisao": 0.0
+        }
+      },
+      "ofensivos": {
+        "esquerda_para_direita": {
+          "n": 136,
+          "delta_medio_assinado": -0.0984,
+          "ic95_bootstrap": [
+            -0.1137,
+            -0.0841
+          ],
+          "delta_medio_absoluto": 0.1045,
+          "mudou_decisao": 11,
+          "fracao_mudou_decisao": 0.0809
+        },
+        "direita_para_esquerda": {
+          "n": 76,
+          "delta_medio_assinado": 0.009,
+          "ic95_bootstrap": [
+            -0.0022,
+            0.0232
+          ],
+          "delta_medio_absoluto": 0.0269,
+          "mudou_decisao": 3,
+          "fracao_mudou_decisao": 0.0395
+        }
+      }
+    }
+  },
+  "falsos_positivos_hatebr_nao_ofensivos": {
+    "n_nao_ofensivos_teste": 429,
+    "taxa_falso_positivo_geral": 0.1212,
+    "menciona_termo_politico": {
+      "com": {
+        "n": 90,
+        "taxa_fp": 0.1222
+      },
+      "sem": {
+        "n": 339,
+        "taxa_fp": 0.1209
+      }
+    },
+    "curto_ate_3_palavras": {
+      "com": {
+        "n": 60,
+        "taxa_fp": 0.0833
+      },
+      "sem": {
+        "n": 369,
+        "taxa_fp": 0.1274
+      }
+    },
+    "contem_exclamacao": {
+      "com": {
+        "n": 129,
+        "taxa_fp": 0.0775
+      },
+      "sem": {
+        "n": 300,
+        "taxa_fp": 0.14
+      }
+    },
+    "contem_maiusculas_longas": {
+      "com": {
+        "n": 31,
+        "taxa_fp": 0.129
+      },
+      "sem": {
+        "n": 398,
+        "taxa_fp": 0.1206
+      }
+    }
+  },
+  "observacao_privacidade": "A lista com texto dos falsos positivos fica só em datasets/_local/experimentos (não versionada).",
+  "fixtures_do_monitor": {
+    "disponivel": true,
+    "carater": "QUALITATIVO: 27 casos não são amostra estatística e não geram métrica.",
+    "limiar": 0.373232,
+    "casos": [
+      {
+        "id": "FB-001",
+        "triagem_esperada_no_arquivo": "revisao_manual",
+        "score_ofensivo_B": 0.336,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-002",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.565,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-003",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.388,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-004",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.34,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-005",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.114,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-006",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.328,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-007",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.46,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-008",
+        "triagem_esperada_no_arquivo": "revisao_manual",
+        "score_ofensivo_B": 0.492,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-009",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.392,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-010",
+        "triagem_esperada_no_arquivo": "revisao_manual",
+        "score_ofensivo_B": 0.593,
+        "B_acima_do_limiar": true,
+        "A_lexico": true
+      },
+      {
+        "id": "FB-011",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.227,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-012",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.588,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-013",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.173,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-014",
+        "triagem_esperada_no_arquivo": "revisao_manual",
+        "score_ofensivo_B": 0.857,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "FB-015",
+        "triagem_esperada_no_arquivo": "revisao_manual",
+        "score_ofensivo_B": 0.212,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-001",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.655,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-002",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.416,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-003",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.615,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-004",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.347,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-005",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.669,
+        "B_acima_do_limiar": true,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-006",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.251,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-007",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.799,
+        "B_acima_do_limiar": true,
+        "A_lexico": true
+      },
+      {
+        "id": "SYN-008",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.345,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-009",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.338,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-010",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.368,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-011",
+        "triagem_esperada_no_arquivo": "baixa",
+        "score_ofensivo_B": 0.293,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      },
+      {
+        "id": "SYN-012",
+        "triagem_esperada_no_arquivo": "alta",
+        "score_ofensivo_B": 0.327,
+        "B_acima_do_limiar": false,
+        "A_lexico": false
+      }
+    ]
+  },
+  "versoes": {
+    "python": "3.14.8",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "taxonomia": "1.0.0",
+    "mapeamento": "1.0.0",
+    "sha256_arquivos": {
+      "told_br": {
+        "ToLD-BR.csv": "a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90"
+      },
+      "hatebr": {
+        "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
+        "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
+      },
+      "olid_br": {
+        "olid-br-test.parquet": "db0cf7b590513745d6ed5d74badcb2f062ce764ad2860e79a99bc7869dc6c7e3",
+        "olid-br-train.parquet": "f6aaf33f272ca2037b759d96c627375f5254b6f440cd3631cbba64d19d04055a"
+      }
+    },
+    "sementes": [
+      13,
+      42,
+      2026
+    ]
+  }
+}

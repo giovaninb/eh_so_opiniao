@@ -1,0 +1,10 @@
+text,homophobia,obscene,insult,racism,misogyny,xenophobia
+Exemplo sintético neutro número um sobre o trânsito da cidade,0.0,0.0,0.0,0.0,0.0,0.0
+Exemplo sintético: você é uma pessoa horrível e inútil,0.0,0.0,3.0,0.0,0.0,0.0
+"Exemplo sintético: [grupo X] não presta, todos iguais",0.0,0.0,1.0,3.0,0.0,0.0
+Exemplo sintético com palavrão leve no meio da frase,0.0,2.0,0.0,0.0,0.0,0.0
+Exemplo sintético: mulher não devia opinar sobre isso,0.0,0.0,1.0,0.0,3.0,0.0
+Exemplo sintético: [grupo Y] só atrapalha o país,0.0,0.0,0.0,0.0,0.0,2.0
+Exemplo sintético: quem é [grupo Z] não é gente,3.0,0.0,2.0,0.0,0.0,0.0
+RT @usuario exemplo sintético neutro número um sobre o trânsito da cidade,0.0,0.0,0.0,0.0,0.0,0.0
+Exemplo sintético com voto dividido entre anotadores,0.0,0.0,1.0,0.0,0.0,0.0

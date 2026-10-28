@@ -1,0 +1,97 @@
+# Estudo de caso qualitativo — cidade NÃO identificada
+#
+# ATENÇÃO — origem dos textos: estas frases são SINTÉTICAS e ILUSTRATIVAS, escritas para o
+# projeto a partir dos PADRÕES discutidos no monitor (exclusão por origem, por voto ou por
+# renda). NÃO são citações de pessoas reais e não identificam ninguém.
+# Para usar as frases originais da exposição, substitua o campo `texto` mantendo `id`, e
+# troque `origem` para `fornecida_pelo_operador` (somente se houver base legal e anonimização).
+#
+# ANONIMIZAÇÃO: não cite nomes de cidades, bairros, eventos locais, empresas, órgãos, pessoas ou
+# perfis. Um teste automático barra nomes de lugar já conhecidos neste repositório.
+#
+# É um estudo QUALITATIVO: não gera métrica de desempenho, não representa a cidade nem
+# qualquer grupo, e não conclui crime. "ambigua" é uma resposta válida e esperada.
+#
+# tipo: exclusao | nao_discriminatoria | ambigua
+# rotulos_editoriais: leitura proposta pela equipe — vira "Pendente" até revisão humana.
+versao: "1.0.0"
+frases:
+  - id: FR-01
+    tipo: exclusao
+    texto: "Quem vota nesse partido deveria comprar passagem só de ida e sair da nossa cidade."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [exclusao_social_territorial, hostilidade_politica]
+    mecanismo: "Pede que pessoas deixem a cidade por causa do voto. O alvo é a pessoa, não a ideia."
+    pode_publicar_ambigua: false
+  - id: FR-02
+    tipo: exclusao
+    texto: "Esse povo que veio do Nordeste só traz atraso para a nossa cidade."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional, xenofobia]
+    mecanismo: "Generaliza um defeito para todas as pessoas de uma região de origem."
+    pode_publicar_ambigua: false
+  - id: FR-03
+    tipo: exclusao
+    texto: "Eleitor de esquerda não é bem-vindo aqui, nossa cidade é de gente de bem."
+    origem: sintetica_ilustrativa
+    par_espelho: FR-04
+    rotulos_editoriais: [exclusao_social_territorial, hostilidade_politica]
+    mecanismo: "Define quem pertence à cidade pelo voto e sugere que o outro lado não é 'gente de bem'."
+    pode_publicar_ambigua: false
+  - id: FR-04
+    tipo: exclusao
+    texto: "Eleitor de direita não é bem-vindo aqui, nossa cidade é de gente de bem."
+    origem: sintetica_ilustrativa
+    par_espelho: FR-03
+    rotulos_editoriais: [exclusao_social_territorial, hostilidade_politica]
+    mecanismo: "Espelho de FR-03: o mesmo ato de exclusão, com o lado político trocado. Deve receber a mesma leitura."
+    pode_publicar_ambigua: false
+  - id: FR-05
+    tipo: exclusao
+    texto: "Quem vive de benefício não pertence a esta cidade de trabalhadores."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [estigmatizacao_socioeconomica, exclusao_social_territorial]
+    mecanismo: "Associa renda ou benefício social a não pertencer, transformando condição econômica em critério de exclusão."
+    pode_publicar_ambigua: false
+  - id: FR-06
+    tipo: nao_discriminatoria
+    texto: "Discordo da gestão da prefeitura na saúde e vou votar contra quem a defende."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    mecanismo: "Critica uma política pública e declara voto. Não ataca pessoas por quem elas são."
+    pode_publicar_ambigua: false
+  - id: FR-07
+    tipo: nao_discriminatoria
+    texto: "A festa da cidade estava linda este ano, mas o trânsito foi um caos."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: []
+    mecanismo: "Comentário cotidiano sem alvo, sem grupo e sem exclusão."
+    pode_publicar_ambigua: false
+  - id: FR-08
+    tipo: nao_discriminatoria
+    texto: "Esse deputado mentiu na campanha e a gente precisa cobrar explicação."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    mecanismo: "Crítica dura a uma figura pública por seus atos. Dura, mas dirigida a atos, não a um grupo de pessoas."
+    pode_publicar_ambigua: false
+  - id: FR-09
+    tipo: nao_discriminatoria
+    texto: "Aqui na nossa cidade a gente tem orgulho do trabalho, mas todo mundo é bem-vindo."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: []
+    mecanismo: "Orgulho local sem exclusão: afirma que todos são bem-vindos."
+    pode_publicar_ambigua: false
+  - id: FR-10
+    tipo: ambigua
+    texto: "Quem veio de fora precisa respeitar o jeito daqui."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua]
+    mecanismo: "Pode ser um pedido comum de convivência ou uma exclusão velada. Sem contexto, não dá para decidir."
+    pode_publicar_ambigua: true
+  - id: FR-11
+    tipo: ambigua
+    texto: "Vai ter muita gente fazendo as malas depois dessa eleição kkk"
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua, ironia_humor]
+    mecanismo: "Pode ser piada sobre o resultado ou sugestão de que alguém deve sair. O tom escrito não resolve."
+    pode_publicar_ambigua: true

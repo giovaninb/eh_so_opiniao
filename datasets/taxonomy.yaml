@@ -1,0 +1,98 @@
+# Taxonomia do observatório "É Só Opinião?" — versão 1.0.0
+#
+# tipo:
+#   supervisionado  -> existe ao menos um rótulo anotado por humanos em dataset acessível
+#                      (ou catalogado) que se relaciona com a classe (ver label_mapping.yaml).
+#   exploratorio    -> NÃO há rótulo anotado nos datasets integrados. Só pode ser tratado por
+#                      regras explícitas e revisão humana; qualquer resultado é hipótese, não medição.
+#   salvaguarda     -> classe de proteção contra falso positivo (crítica legítima, ironia, ambíguo).
+#
+# Nenhuma classe afirma crime, intenção ou identidade de autor. Probabilidade de modelo
+# nunca é evidência jurídica.
+versao: "1.0.0"
+rotulos:
+  - id: linguagem_ofensiva
+    nome: Linguagem ofensiva
+    tipo: supervisionado
+    definicao: Texto com insulto, xingamento ou linguagem que ofende, sem exigir alvo de grupo.
+    nao_e: Crítica dura e fundamentada a ideias, decisões públicas ou políticas.
+  - id: insulto_hostilidade
+    nome: Insulto ou hostilidade dirigida
+    tipo: supervisionado
+    definicao: Ataque pessoal ou desqualificação dirigida a uma pessoa ou grupo.
+    nao_e: Discordância educada, ainda que veemente.
+  - id: racismo
+    nome: Racismo
+    tipo: supervisionado
+    definicao: Preconceito ou ódio com base em raça, cor ou etnia.
+    nao_e: Menção neutra a raça/etnia ou denúncia de racismo.
+  - id: xenofobia
+    nome: Xenofobia (origem nacional ou regional)
+    tipo: supervisionado
+    definicao: Hostilidade contra pessoas por origem estrangeira ou, conforme a fonte, regional.
+    nao_e: Piada sem alvo depreciativo ou comparação cultural neutra.
+    observacao: >-
+      Os datasets não distinguem de forma consistente xenofobia nacional de preconceito
+      regional (ex.: contra nordestinos). A classe regional específica é exploratória.
+  - id: misoginia
+    nome: Misoginia e sexismo
+    tipo: supervisionado
+    definicao: Ódio, desprezo ou estereótipo depreciativo contra mulheres por serem mulheres.
+    nao_e: Crítica a uma mulher específica por seus atos públicos.
+  - id: lgbtfobia
+    nome: LGBTfobia
+    tipo: supervisionado
+    definicao: Hostilidade contra pessoas por orientação sexual ou identidade de gênero.
+    nao_e: Menção neutra ou denúncia de LGBTfobia.
+  - id: hostilidade_politica
+    nome: Hostilidade política
+    tipo: supervisionado
+    definicao: Ofensa dirigida a pessoas por posição política ou ideológica.
+    nao_e: Crítica política legítima a ideias, partidos, governos e candidaturas.
+    observacao: >-
+      Suporte apenas aproximado (OLID-BR `ideology`; HateBR tem contexto político, mas
+      rótulo geral de ofensa). Não é um detector de preferência política.
+  - id: discriminacao_regional
+    nome: Discriminação regional ou territorial
+    tipo: exploratorio
+    definicao: Generalização depreciativa sobre pessoas de uma região, cidade ou território.
+    nao_e: Comparação de indicadores regionais com fonte e sem desqualificar pessoas.
+  - id: desumanizacao
+    nome: Desumanização
+    tipo: exploratorio
+    definicao: Comparar pessoas ou grupos a animais, pragas, doenças ou objetos.
+    nao_e: Metáfora com objeto não humano claramente ficcional.
+  - id: exclusao_social_territorial
+    nome: Exclusão social ou territorial
+    tipo: exploratorio
+    definicao: Defender que pessoas "não pertencem", devem sair, ser expulsas ou ser excluídas de espaços.
+    nao_e: Opinião sobre política pública de ocupação do território sem alvo pessoal.
+  - id: estigmatizacao_socioeconomica
+    nome: Estigmatização socioeconômica
+    tipo: exploratorio
+    definicao: Atribuir defeitos morais a pessoas por renda, benefício social ou classe.
+    nao_e: Debate sobre desenho de políticas sociais.
+  - id: incitacao_violencia
+    nome: Incitação à violência
+    tipo: exploratorio
+    definicao: Convocar, desejar ou ameaçar dano físico a pessoas ou grupos.
+    nao_e: Hipérbole claramente fora de contexto real ou citação em denúncia.
+  - id: possivel_assedio_eleitoral_contextual
+    nome: Possível assédio eleitoral (somente com contexto)
+    tipo: exploratorio
+    definicao: >-
+      Indício de coação, promessa, ameaça ou discriminação em contexto de trabalho/emprego
+      ligado a voto. Exige contexto laboral; texto isolado nunca basta.
+    nao_e: Opinião política, provocação partidária ou xingamento sem vínculo laboral.
+  - id: critica_politica_legitima
+    nome: Crítica política legítima
+    tipo: salvaguarda
+    definicao: Crítica a ideias, partidos, governos e candidaturas, ainda que dura.
+  - id: ironia_humor
+    nome: Ironia ou humor
+    tipo: salvaguarda
+    definicao: Texto cujo sentido depende de ironia, sarcasmo ou humor.
+  - id: ambigua
+    nome: Ambígua / contexto insuficiente
+    tipo: salvaguarda
+    definicao: Não é possível decidir sem contexto adicional. Resposta legítima e esperada.
