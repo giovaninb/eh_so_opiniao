@@ -12,7 +12,7 @@ function lista(corpo, pares) {
 
 export const comparar = {
   titulo: "Duas frases, uma diferença",
-  rotaAtiva: "descobrir",
+  rotaAtiva: "comparar",
   async montar({ param }) {
     const corpo = document.getElementById("comparar-corpo");
     corpo.setAttribute("aria-busy", "false");

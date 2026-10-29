@@ -84,8 +84,9 @@ main { display: block; padding-bottom: calc(var(--altura-barra) + var(--esp-6) +
 .hero .lead { font-size: var(--texto-l); max-width: 34rem; color: var(--cor-tinta); }
 .hero .acoes { margin-top: var(--esp-5); }
 .atalhos { display: grid; gap: var(--esp-3); grid-template-columns: minmax(0, 1fr); }
-.atalho { overflow-wrap: anywhere; display: flex; align-items: center; justify-content: space-between; gap: var(--esp-3); padding: var(--esp-4) var(--esp-5); background: var(--cor-superficie); border-radius: var(--raio-m); box-shadow: var(--sombra-1); color: var(--cor-tinta); text-decoration: none; transition: box-shadow var(--transicao), transform var(--transicao); }
+.atalho { display: flex; align-items: center; justify-content: space-between; gap: var(--esp-3); min-height: 5.5rem; padding: var(--esp-4) var(--esp-5); background: var(--cor-superficie); border-radius: var(--raio-m); box-shadow: var(--sombra-1); color: var(--cor-tinta); text-decoration: none; transition: box-shadow var(--transicao), transform var(--transicao); }
 .atalho:hover { box-shadow: var(--sombra-2); color: var(--cor-tinta); }
+.atalho .t { flex: 1; min-width: 0; }
 .atalho strong { display: block; font: 800 var(--texto-l) / 1.2 var(--fonte-texto); margin-bottom: var(--esp-1); }
 .atalho .t span { color: var(--cor-suave); font-size: var(--texto-s); }
 .atalho::after { content: "→"; flex: none; color: var(--cor-destaque); font-weight: 800; font-size: var(--texto-l); }

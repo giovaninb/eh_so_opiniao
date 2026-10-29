@@ -47,6 +47,9 @@ test.describe("duas frases, uma diferença", () => {
   test("há atalho na home e no menu quando existem comparações revisadas", async ({ page }) => {
     await abrir(page, "#/");
     await expect(page.locator("#atalho-comparar")).toBeVisible();
+    const caixa = await page.locator("#atalho-comparar").boundingBox();
+    expect(caixa.height).toBeGreaterThanOrEqual(44);
+    await expect(page.locator("#atalho-comparar strong")).toHaveText("Comparar");
     await page.locator("#atalho-comparar").click();
     await expect(page).toHaveURL(/#\/comparar$/);
     await expect(page.getByRole("heading", { level: 1, name: "Duas frases, uma diferença" })).toBeVisible();
@@ -92,6 +95,7 @@ test.describe("duas frases, uma diferença", () => {
     await page.route("**/data/pares.json", (r) => r.fulfill({ status: 200, contentType: "application/json", body: '{"pares":[]}' }));
     await abrir(page, "#/");
     await expect(page.locator("#atalho-comparar")).toBeHidden();
+    await expect(page.locator("#item-comparar-nav")).toBeHidden();
     await abrir(page, "#/comparar");
     await expect(page.getByText("Ainda não há comparações revisadas")).toBeVisible();
   });

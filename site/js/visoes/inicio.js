@@ -4,10 +4,16 @@ import { fraseDeAbertura, paresValidos } from "../nucleo/logica.js";
 import { CartaoFrase } from "../componentes/cartaoFrase.js";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 
-function mostrarAtalhos() {
+export function mostrarAtalhosComparar() {
   const comparacoes = paresValidos(estado.pares, estado.porId).length > 0;
-  document.getElementById("atalho-comparar").hidden = !comparacoes;
-  document.getElementById("item-comparar-menu").hidden = !comparacoes;
+  for (const id of ["atalho-comparar", "item-comparar-menu", "item-comparar-nav"]) {
+    const n = document.getElementById(id);
+    if (n) n.hidden = !comparacoes;
+  }
+}
+
+function mostrarAtalhos() {
+  mostrarAtalhosComparar();
   const contagem = {};
   estado.frases.forEach((f) => { if (f.grupo) contagem[f.grupo] = (contagem[f.grupo] || 0) + 1; });
   const grupos = estado.grupos.filter((g) => contagem[g.id]);

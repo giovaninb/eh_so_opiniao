@@ -4,7 +4,7 @@ import { estado } from "./nucleo/estado.js";
 import { carregarBase } from "./nucleo/dados.js";
 import { iniciarRoteador } from "./nucleo/roteador.js";
 import { iniciarNavegacao, marcarRotaAtiva } from "./componentes/navegacao.js";
-import { inicio } from "./visoes/inicio.js";
+import { inicio, mostrarAtalhosComparar } from "./visoes/inicio.js";
 import { descobrir } from "./visoes/descobrir.js";
 import { explorar } from "./visoes/explorar.js";
 import { frase } from "./visoes/frase.js";
@@ -18,6 +18,7 @@ async function iniciar() {
   const menu = iniciarNavegacao();
   if (estado.rascunho) document.getElementById("faixa-rascunho").hidden = false;
   await carregarBase();
+  mostrarAtalhosComparar();
   await iniciarRoteador(visoes, (rota) => marcarRotaAtiva(rota, menu.fechar));
   document.documentElement.dataset.pronto = "true"; // sinal para os testes automatizados
 }
