@@ -1,4 +1,9 @@
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { teclaTab, test, expect, abrir, irPara } from "./fixtures.mjs";
+
+const DADOS = join(fileURLToPath(new URL("..", import.meta.url)), ".dados");
 
 const ehDesktop = (page) => page.viewportSize().width >= 960;
 
@@ -79,6 +84,23 @@ test("os botões principais da home levam a Descobrir e Entender", async ({ page
   await page.goBack();
   await page.getByRole("link", { name: "Explore uma frase" }).click();
   await expect(page).toHaveURL(/#\/descobrir$/);
+});
+
+test("abrir Comparar pelo endereço mostra o título na hora, mesmo com os dados ainda a caminho", async ({ page }) => {
+  let liberar;
+  const espera = new Promise((r) => { liberar = r; });
+  await page.route("**/data/frases.json", async (route) => {
+    await espera;
+    return route.fulfill({ status: 200, contentType: "application/json", body: readFileSync(join(DADOS, "frases.json")) });
+  });
+  await page.goto("/#/comparar");
+  await expect(page.getByRole("heading", { level: 1, name: "Duas frases, uma diferença" })).toBeVisible();
+  await expect(page.locator("#v-comparar .eyebrow")).toHaveText("Comparar");
+  await expect(page.locator("#v-inicio")).toBeHidden();
+  await expect(page.locator("#v-comparar")).toBeVisible();
+  liberar();
+  await page.waitForFunction(() => document.documentElement.dataset.pronto === "true");
+  expect(await page.locator(".lista-pares a").count()).toBeGreaterThan(0);
 });
 
 test("depois de abrir uma frase pelo link, a Início volta a aparecer (não fica em branco)", async ({ page }) => {

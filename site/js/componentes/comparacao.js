@@ -2,7 +2,7 @@
    leitura de cada uma e só depois revela o que muda. Ninguém precisa responder; nada vira nota. */
 import { el, idUnico, focar } from "../nucleo/dom.js";
 import { LEITURA_HUMANA } from "../nucleo/constantes.js";
-import { CompartilharComparacao } from "./compartilhar.js";
+import { CompartilharComparacao } from "./compartilhar.js?v=6";
 
 function CartaFrase(f, letra) {
   const id = idUnico("par");

@@ -4,7 +4,7 @@ import { el, idUnico, focar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { AVALIACOES, NOME_AVALIACAO, LEITURA_HUMANA, NATUREZA } from "../nucleo/constantes.js";
 import { Enquete } from "./enquete.js";
-import { Compartilhar } from "./compartilhar.js";
+import { Compartilhar } from "./compartilhar.js?v=6";
 import { Discordancia } from "./discordancia.js";
 
 function nomeTema(f) {

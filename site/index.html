@@ -19,16 +19,22 @@
   <meta property="og:image:alt" content="É Só Opinião? Onde termina a opinião e começa a discriminação?">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://giovaninb.github.io/eh_so_opiniao/og/padrao.png">
-  <script>/* Evita que a Início apareça por um instante antes de uma rota interna (ex.: link direto para uma frase): evita "pulo" de layout. */
+  <script>/* Esconde a Início e já mostra a vista da URL (Comparar, frase…) antes do JS dos dados. Sem isto, #/comparar fica em branco enquanto o JSON grande carrega. */
     document.documentElement.classList.add("js");
-    if (/^#\/[^?]/.test(location.hash)) document.documentElement.classList.add("rota-interna");</script>
+    (function () {
+      var m = location.hash.match(/^#\/([a-z0-9_-]+)/i);
+      if (!m) return;
+      document.documentElement.classList.add("rota-interna");
+      var v = document.querySelector('[data-vista="' + m[1].toLowerCase() + '"]');
+      if (v) v.hidden = false;
+    })();</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b53a1c'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='21' font-weight='700' text-anchor='middle' fill='%23fff'%3E?%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/estilo.css">
-  <link rel="modulepreload" href="js/app.js?v=5">
+  <link rel="modulepreload" href="js/app.js?v=6">
   <link rel="modulepreload" href="js/componentes/cartaoFrase.js">
-  <link rel="modulepreload" href="js/componentes/comparacao.js">
-  <link rel="modulepreload" href="js/componentes/compartilhar.js">
+  <link rel="modulepreload" href="js/componentes/comparacao.js?v=6">
+  <link rel="modulepreload" href="js/componentes/compartilhar.js?v=6">
   <link rel="modulepreload" href="js/componentes/enquete.js">
   <link rel="modulepreload" href="js/componentes/discordancia.js">
   <link rel="modulepreload" href="js/componentes/envio.js">
@@ -38,7 +44,7 @@
   <link rel="modulepreload" href="js/componentes/navegacao.js">
   <link rel="modulepreload" href="js/componentes/progresso.js">
   <link rel="modulepreload" href="js/componentes/temasDescoberta.js">
-  <link rel="modulepreload" href="js/nucleo/cartaoCanvas.js">
+  <link rel="modulepreload" href="js/nucleo/cartaoCanvas.js?v=6">
   <link rel="modulepreload" href="js/nucleo/constantes.js">
   <link rel="modulepreload" href="js/nucleo/dados.js">
   <link rel="modulepreload" href="js/nucleo/dom.js">
@@ -46,7 +52,7 @@
   <link rel="modulepreload" href="js/nucleo/logica.js">
   <link rel="modulepreload" href="js/nucleo/mascara.js">
   <link rel="modulepreload" href="js/nucleo/roteador.js">
-  <link rel="modulepreload" href="js/visoes/comparar.js">
+  <link rel="modulepreload" href="js/visoes/comparar.js?v=6">
   <link rel="modulepreload" href="js/visoes/descobrir.js">
   <link rel="modulepreload" href="js/visoes/explorar.js">
   <link rel="modulepreload" href="js/visoes/frase.js">
@@ -153,7 +159,7 @@
         <span class="eyebrow">Comparar</span>
         <h1 id="t-comparar" class="titulo-vista" tabindex="-1">Duas frases, uma diferença</h1>
         <p class="suave">Uma pequena mudança de alvo ou de linguagem pode mudar a interpretação. Compare, abra a leitura de cada frase e veja o que muda. Ninguém precisa responder.</p>
-        <div id="comparar-corpo" aria-busy="true"></div>
+        <div id="comparar-corpo" aria-busy="true"><p class="suave">Carregando as comparações…</p></div>
       </div>
     </section>
 
@@ -343,6 +349,14 @@
     <p id="rodape-meta"></p>
   </footer>
 
-  <script type="module" src="js/app.js?v=5"></script>
+  <script type="module">
+    import("./js/app.js?v=6").catch(function () {
+      var p = document.createElement("p");
+      p.className = "pagina";
+      p.setAttribute("role", "alert");
+      p.textContent = "Não foi possível carregar esta página. Atualize com Shift+Recarregar.";
+      document.getElementById("conteudo").prepend(p);
+    });
+  </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
    O link aponta para a página estática do caso (casos/<id>/), que tem prévia própria em redes sociais e leva à experiência interativa. */
 import { el } from "../nucleo/dom.js";
 import { mensagemCompartilhar, mensagemComparacao, linkWhatsApp, nomeArquivoImagem } from "../nucleo/logica.js";
-import { FORMATOS, gerarImagem, textoAlternativo, textoAlternativoPar } from "../nucleo/cartaoCanvas.js";
+import { FORMATOS, gerarImagem, textoAlternativo, textoAlternativoPar } from "../nucleo/cartaoCanvas.js?v=6";
 
 /** Raiz do site (onde está o index.html), a partir deste módulo: funciona em qualquer subcaminho, inclusive no GitHub Pages. */
 export function raizDoSite() {

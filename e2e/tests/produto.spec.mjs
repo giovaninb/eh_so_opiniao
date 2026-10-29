@@ -314,9 +314,9 @@ test.describe("matriz de larguras das telas novas", () => {
       let r = await new AxeBuilder({ page }).withTags(TAGS).analyze();
       expect(r.violations.map((x) => x.id + ": " + x.nodes.map((n) => n.target.join(" ")).join(" | "))).toEqual([]);
       await abrir(page, "#/frase/EX-01");
-      await page.locator("details.imagem-cartao summary").click();
-      await page.getByRole("button", { name: /Stories e Status/ }).click();
-      await expect(page.locator(".imagem-resultado img")).toBeVisible();
+      await page.locator("#v-frase details.imagem-cartao summary").click();
+      await page.locator("#v-frase").getByRole("button", { name: /Stories e Status/ }).click();
+      await expect(page.locator("#v-frase .imagem-resultado img")).toBeVisible();
       r = await new AxeBuilder({ page }).withTags(TAGS).analyze();
       expect(r.violations.map((x) => x.id + ": " + x.nodes.map((n) => n.target.join(" ")).join(" | "))).toEqual([]);
       await abrir(page, "#/");
