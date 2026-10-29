@@ -16,9 +16,21 @@ CAMPOS_OBRIGATORIOS = (
     "url_arquivos", "licenca", "redistribuicao", "acesso", "status_acesso", "formatos",
     "registros_confirmados", "esquema_anotacao", "rotulos_originais", "idioma",
     "plataforma", "contexto", "hash_ou_revisao", "limitacoes_vieses",
+    "condicoes_licenca", "integracao",
 )
-ACESSOS = ("aberto", "restrito_autorizacao")
-STATUS = ("acessado", "pendente_autorizacao")
+# acesso:
+#   aberto               -> arquivos publicados sem credencial;
+#   restrito_autorizacao -> exige aceite/credencial do operador;
+#   sem_fonte_publica    -> o artigo cita uma fonte, mas nenhuma fonte pública verificável existe hoje.
+ACESSOS = ("aberto", "restrito_autorizacao", "sem_fonte_publica")
+STATUS = ("acessado", "pendente_autorizacao", "pendente_fonte")
+# integracao:
+#   integrado            -> tem adaptador e entra nos experimentos;
+#   somente_sobreposicao -> arquivos só são lidos para medir sobreposição com outros corpora;
+#   pendente_fonte       -> contrato do adaptador existe (testado com fixtures sintéticas), dados não.
+INTEGRACOES = ("integrado", "somente_sobreposicao", "pendente_fonte")
+CAMPOS_CONDICOES = ("declarada", "identificador", "fonte_da_verificacao", "uso_pelo_projeto", "restricoes",
+                    "exige_reconhecimento_do_operador", "verificado_em")
 TIPOS_TAXONOMIA = ("supervisionado", "exploratorio", "salvaguarda")
 
 
@@ -54,11 +66,53 @@ def validar_registry(dados: dict[str, Any]) -> None:
             raise CatalogoInvalido(f"{ds_id}: status_acesso inválido {ds['status_acesso']!r}")
         if ds["acesso"] != "aberto" and ds["status_acesso"] == "acessado":
             raise CatalogoInvalido(f"{ds_id}: dataset restrito não pode constar como acessado sem verificação")
+        if ds["integracao"] not in INTEGRACOES:
+            raise CatalogoInvalido(f"{ds_id}: integracao inválida {ds['integracao']!r}")
+        _validar_condicoes(ds_id, ds)
+        _validar_pendente_fonte(ds_id, ds)
         for arq in ds["url_arquivos"]:
             if "arquivo" not in arq or "url" not in arq:
                 raise CatalogoInvalido(f"{ds_id}: arquivo sem nome/url")
             if ds["acesso"] == "aberto" and not (arq.get("sha256") or arq.get("md5")):
                 raise CatalogoInvalido(f"{ds_id}: arquivo aberto sem hash de integridade ({arq['arquivo']})")
+
+
+def _validar_condicoes(ds_id: str, ds: dict[str, Any]) -> None:
+    """Condições de licença são registradas ANTES de qualquer arquivo entrar no cache."""
+    cond = ds["condicoes_licenca"]
+    faltando = [c for c in CAMPOS_CONDICOES if c not in cond]
+    if faltando:
+        raise CatalogoInvalido(f"{ds_id}: condicoes_licenca sem {faltando}")
+    if not cond["declarada"]:
+        if not cond["exige_reconhecimento_do_operador"]:
+            raise CatalogoInvalido(f"{ds_id}: licença não declarada exige reconhecimento explícito do operador antes do download")
+        if not str(ds["redistribuicao"]).strip().lower().startswith("não"):
+            raise CatalogoInvalido(f"{ds_id}: licença não declarada não autoriza redistribuição")
+    if not cond["restricoes"]:
+        raise CatalogoInvalido(f"{ds_id}: condicoes_licenca.restricoes não pode ser vazio")
+
+
+def _validar_pendente_fonte(ds_id: str, ds: dict[str, Any]) -> None:
+    pendente = ds["status_acesso"] == "pendente_fonte"
+    if pendente != (ds["integracao"] == "pendente_fonte"):
+        raise CatalogoInvalido(f"{ds_id}: status_acesso pendente_fonte e integracao pendente_fonte devem andar juntos")
+    if not pendente:
+        if ds["acesso"] == "sem_fonte_publica":
+            raise CatalogoInvalido(f"{ds_id}: sem_fonte_publica exige status pendente_fonte")
+        return
+    if ds["acesso"] != "sem_fonte_publica":
+        raise CatalogoInvalido(f"{ds_id}: pendente_fonte exige acesso sem_fonte_publica")
+    if ds["url_arquivos"]:
+        raise CatalogoInvalido(f"{ds_id}: dataset pendente_fonte não pode listar arquivos de download")
+    if ds["registros_confirmados"] is not None:
+        raise CatalogoInvalido(f"{ds_id}: sem leitura do arquivo, registros_confirmados deve ser null")
+    for campo in ("fontes_verificadas", "ficha_cientifica"):
+        if not ds.get(campo):
+            raise CatalogoInvalido(f"{ds_id}: pendente_fonte exige {campo} (o que foi checado e o que o artigo declara)")
+
+
+def exige_reconhecimento_de_licenca(ds_id: str) -> bool:
+    return bool(dataset(ds_id)["condicoes_licenca"]["exige_reconhecimento_do_operador"])
 
 
 def listar_datasets() -> list[str]:
@@ -153,3 +207,28 @@ def rotulo_normalizado(dataset_id: str, original: str, valor: bool | None, polit
         "source": fontes or [original],
         "mapping_version": versao_mapeamento(),
     }
+
+
+# ---------------------------------------------------------------- referências adicionais
+TIPOS_REFERENCIA = ("dataset_avaliado", "recurso_explicabilidade", "referencia_teorica", "artigo")
+CAMPOS_REFERENCIA = ("id", "tipo", "titulo", "autores", "ano", "veiculo", "url", "citacao", "papel_no_projeto",
+                     "licenca_ou_direitos", "o_que_nao_e")
+
+
+@lru_cache(maxsize=1)
+def carregar_referencias() -> list[dict[str, Any]]:
+    """Recursos citados que não são (ou não só são) datasets integrados: escala teórica, recursos avaliados."""
+    itens = _ler(paths.REFERENCIAS)["referencias"]
+    ids: set[str] = set()
+    for r in itens:
+        faltando = [c for c in CAMPOS_REFERENCIA if c not in r]
+        if faltando:
+            raise CatalogoInvalido(f"referência {r.get('id')}: campos ausentes {faltando}")
+        if r["tipo"] not in TIPOS_REFERENCIA:
+            raise CatalogoInvalido(f"referência {r['id']}: tipo inválido {r['tipo']!r}")
+        if r["id"] in ids:
+            raise CatalogoInvalido(f"referência duplicada: {r['id']}")
+        ids.add(r["id"])
+        if r["tipo"] == "referencia_teorica" and r.get("usar_como_dataset_supervisionado") is not False:
+            raise CatalogoInvalido(f"referência teórica {r['id']} deve declarar usar_como_dataset_supervisionado: false")
+    return itens

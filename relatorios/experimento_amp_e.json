@@ -1,0 +1,659 @@
+{
+  "id": "AMP-E",
+  "titulo": "Falsos positivos em comentários políticos legítimos",
+  "pergunta": "Os classificadores marcam como ofensivos ou hostis comentários políticos que humanos consideraram NÃO tóxicos?",
+  "definicao_de_alvo": "'Comentário político não tóxico' = contém termo político (lista de E/D) E foi rotulado como NÃO ofensivo pelos anotadores do próprio corpus. É um proxy: não é uma revisão humana específica de 'crítica legítima'.",
+  "modelos": [
+    "told_br:linguagem_ofensiva",
+    "hatebr:linguagem_ofensiva",
+    "multidomain_yt_toxbr:linguagem_ofensiva",
+    "multidomain_yt_toxbr:hostilidade_politica"
+  ],
+  "resultado_por_modelo_e_corpus": {
+    "told_br:linguagem_ofensiva": {
+      "told_br": {
+        "em_dominio": true,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.1101,
+          "desvio": 0.0255,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.1279,
+          "desvio": 0.0301,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 84,
+            "fp_politico": 7,
+            "ic95_wilson_politico": [
+              0.041,
+              0.1622
+            ],
+            "n_demais_negativos": 2438,
+            "fp_demais": 248
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 78,
+            "fp_politico": 8,
+            "ic95_wilson_politico": [
+              0.0529,
+              0.1895
+            ],
+            "n_demais_negativos": 2468,
+            "fp_demais": 276
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 90,
+            "fp_politico": 13,
+            "ic95_wilson_politico": [
+              0.0864,
+              0.2316
+            ],
+            "n_demais_negativos": 2446,
+            "fp_demais": 416
+          }
+        ]
+      },
+      "hatebr": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.0317,
+          "desvio": 0.0181,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.0124,
+          "desvio": 0.0068,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 20,
+            "ic95_wilson_politico": [
+              0.0151,
+              0.0356
+            ],
+            "n_demais_negativos": 2637,
+            "fp_demais": 18
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 13,
+            "ic95_wilson_politico": [
+              0.0088,
+              0.0257
+            ],
+            "n_demais_negativos": 2637,
+            "fp_demais": 22
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 49,
+            "ic95_wilson_politico": [
+              0.0433,
+              0.0744
+            ],
+            "n_demais_negativos": 2637,
+            "fp_demais": 58
+          }
+        ]
+      },
+      "multidomain_yt_toxbr": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.1492,
+          "desvio": 0.056,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.0757,
+          "desvio": 0.0299,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 373,
+            "fp_politico": 44,
+            "ic95_wilson_politico": [
+              0.0891,
+              0.1547
+            ],
+            "n_demais_negativos": 3161,
+            "fp_demais": 171
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 373,
+            "fp_politico": 38,
+            "ic95_wilson_politico": [
+              0.0751,
+              0.1367
+            ],
+            "n_demais_negativos": 3162,
+            "fp_demais": 174
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 373,
+            "fp_politico": 85,
+            "ic95_wilson_politico": [
+              0.1882,
+              0.2731
+            ],
+            "n_demais_negativos": 3163,
+            "fp_demais": 373
+          }
+        ]
+      }
+    },
+    "hatebr:linguagem_ofensiva": {
+      "told_br": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.6673,
+          "desvio": 0.0176,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.6134,
+          "desvio": 0.0235,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 378,
+            "ic95_wilson_politico": [
+              0.6351,
+              0.7125
+            ],
+            "n_demais_negativos": 16374,
+            "fp_demais": 10369
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 360,
+            "ic95_wilson_politico": [
+              0.6023,
+              0.6814
+            ],
+            "n_demais_negativos": 16372,
+            "fp_demais": 9502
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 383,
+            "ic95_wilson_politico": [
+              0.6443,
+              0.7211
+            ],
+            "n_demais_negativos": 16372,
+            "fp_demais": 10260
+          }
+        ]
+      },
+      "hatebr": {
+        "em_dominio": true,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.128,
+          "desvio": 0.0351,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.152,
+          "desvio": 0.0249,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 144,
+            "fp_politico": 25,
+            "ic95_wilson_politico": [
+              0.1204,
+              0.2437
+            ],
+            "n_demais_negativos": 445,
+            "fp_demais": 81
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 90,
+            "fp_politico": 11,
+            "ic95_wilson_politico": [
+              0.0696,
+              0.2057
+            ],
+            "n_demais_negativos": 339,
+            "fp_demais": 41
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 102,
+            "fp_politico": 9,
+            "ic95_wilson_politico": [
+              0.0471,
+              0.1592
+            ],
+            "n_demais_negativos": 340,
+            "fp_demais": 52
+          }
+        ]
+      },
+      "multidomain_yt_toxbr": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.7176,
+          "desvio": 0.0128,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.6048,
+          "desvio": 0.0177,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 373,
+            "fp_politico": 272,
+            "ic95_wilson_politico": [
+              0.682,
+              0.7718
+            ],
+            "n_demais_negativos": 3170,
+            "fp_demais": 1983
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 373,
+            "fp_politico": 261,
+            "ic95_wilson_politico": [
+              0.6514,
+              0.744
+            ],
+            "n_demais_negativos": 3169,
+            "fp_demais": 1845
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 373,
+            "fp_politico": 270,
+            "ic95_wilson_politico": [
+              0.6764,
+              0.7668
+            ],
+            "n_demais_negativos": 3169,
+            "fp_demais": 1922
+          }
+        ]
+      }
+    },
+    "multidomain_yt_toxbr:linguagem_ofensiva": {
+      "told_br": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.2321,
+          "desvio": 0.0372,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.2251,
+          "desvio": 0.0291,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 101,
+            "ic95_wilson_politico": [
+              0.1507,
+              0.2143
+            ],
+            "n_demais_negativos": 16366,
+            "fp_demais": 3075
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 140,
+            "ic95_wilson_politico": [
+              0.2159,
+              0.2875
+            ],
+            "n_demais_negativos": 16368,
+            "fp_demais": 3742
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 149,
+            "ic95_wilson_politico": [
+              0.2312,
+              0.3042
+            ],
+            "n_demais_negativos": 16367,
+            "fp_demais": 4238
+          }
+        ]
+      },
+      "hatebr": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.0832,
+          "desvio": 0.0175,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.034,
+          "desvio": 0.0112,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 61,
+            "ic95_wilson_politico": [
+              0.0555,
+              0.09
+            ],
+            "n_demais_negativos": 2636,
+            "fp_demais": 58
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 61,
+            "ic95_wilson_politico": [
+              0.0555,
+              0.09
+            ],
+            "n_demais_negativos": 2635,
+            "fp_demais": 82
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 93,
+            "ic95_wilson_politico": [
+              0.089,
+              0.1305
+            ],
+            "n_demais_negativos": 2636,
+            "fp_demais": 129
+          }
+        ]
+      },
+      "multidomain_yt_toxbr": {
+        "em_dominio": true,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.3081,
+          "desvio": 0.065,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.1348,
+          "desvio": 0.0351,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 50,
+            "fp_politico": 13,
+            "ic95_wilson_politico": [
+              0.1587,
+              0.3955
+            ],
+            "n_demais_negativos": 485,
+            "fp_demais": 43
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 53,
+            "fp_politico": 14,
+            "ic95_wilson_politico": [
+              0.1644,
+              0.3958
+            ],
+            "n_demais_negativos": 472,
+            "fp_demais": 67
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 60,
+            "fp_politico": 24,
+            "ic95_wilson_politico": [
+              0.2857,
+              0.5263
+            ],
+            "n_demais_negativos": 489,
+            "fp_demais": 85
+          }
+        ]
+      }
+    },
+    "multidomain_yt_toxbr:hostilidade_politica": {
+      "told_br": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.1137,
+          "desvio": 0.0584,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.0016,
+          "desvio": 0.0015,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 109,
+            "ic95_wilson_politico": [
+              0.164,
+              0.2295
+            ],
+            "n_demais_negativos": 16366,
+            "fp_demais": 61
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 49,
+            "ic95_wilson_politico": [
+              0.0668,
+              0.1138
+            ],
+            "n_demais_negativos": 16368,
+            "fp_demais": 10
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 560,
+            "fp_politico": 33,
+            "ic95_wilson_politico": [
+              0.0423,
+              0.0816
+            ],
+            "n_demais_negativos": 16367,
+            "fp_demais": 8
+          }
+        ]
+      },
+      "hatebr": {
+        "em_dominio": false,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.1216,
+          "desvio": 0.0685,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.0021,
+          "desvio": 0.0028,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 188,
+            "ic95_wilson_politico": [
+              0.192,
+              0.2472
+            ],
+            "n_demais_negativos": 2636,
+            "fp_demais": 16
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 66,
+            "ic95_wilson_politico": [
+              0.0607,
+              0.0964
+            ],
+            "n_demais_negativos": 2635,
+            "fp_demais": 1
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 861,
+            "fp_politico": 60,
+            "ic95_wilson_politico": [
+              0.0545,
+              0.0887
+            ],
+            "n_demais_negativos": 2636,
+            "fp_demais": 0
+          }
+        ]
+      },
+      "multidomain_yt_toxbr": {
+        "em_dominio": true,
+        "taxa_fp_politico_nao_toxico": {
+          "media": 0.1814,
+          "desvio": 0.056,
+          "n": 3
+        },
+        "taxa_fp_demais_negativos": {
+          "media": 0.0041,
+          "desvio": 0.0029,
+          "n": 3
+        },
+        "contagens_por_semente": [
+          {
+            "semente": 13,
+            "n_politico_nao_toxico": 50,
+            "fp_politico": 13,
+            "ic95_wilson_politico": [
+              0.1587,
+              0.3955
+            ],
+            "n_demais_negativos": 485,
+            "fp_demais": 4
+          },
+          {
+            "semente": 42,
+            "n_politico_nao_toxico": 53,
+            "fp_politico": 8,
+            "ic95_wilson_politico": [
+              0.0785,
+              0.2705
+            ],
+            "n_demais_negativos": 472,
+            "fp_demais": 1
+          },
+          {
+            "semente": 2026,
+            "n_politico_nao_toxico": 60,
+            "fp_politico": 8,
+            "ic95_wilson_politico": [
+              0.0691,
+              0.2417
+            ],
+            "n_demais_negativos": 489,
+            "fp_demais": 1
+          }
+        ]
+      }
+    }
+  },
+  "datasets_indisponiveis": {},
+  "avisos": [
+    "Taxa de falso positivo alta em comentários políticos significa que a triagem automática NÃO deve priorizar casos sem revisão humana.",
+    "Nenhuma outra ferramenta de IA do projeto é usada como classificador de intolerância política; só estes baselines, sob revisão humana.",
+    "Ids dos falsos positivos ficam só em datasets/_local/experimentos."
+  ],
+  "modelo": {
+    "nome": "B_tfidf",
+    "versao": "tfidf-1.0.0",
+    "modelo": "lr",
+    "C": 1.0,
+    "semente": 0,
+    "class_weight": "balanced",
+    "ngramas_palavra": [
+      1,
+      2
+    ],
+    "ngramas_char_wb": [
+      3,
+      5
+    ],
+    "sklearn": "1.9.1",
+    "numpy": "2.5.4"
+  },
+  "versoes": {
+    "python": "3.14.8",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "taxonomia": "1.1.0",
+    "mapeamento": "1.1.0",
+    "sha256_arquivos": {
+      "told_br": {
+        "ToLD-BR.csv": "a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90"
+      },
+      "hatebr": {
+        "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
+        "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
+      },
+      "multidomain_yt_toxbr": {
+        "3_Tratamento.ipynb": "f99071b6100cc2da5c0315b96649bbab86353cc572f8c06d3c06e497671965c9",
+        "Guia_para_anotacao.pdf": "0379886b4904ac01dc8eea6c431db41fde324c7cf4b043ff8e5124ae51fc08dc",
+        "comentariosParaAnotacao1.xlsx": "4963f326ab37cad26840ff8bffc410c3611235cb5f58d6f62a2c62b6eb5afcb8",
+        "comentariosParaAnotacao2.xlsx": "3bc0e9c978b8914516250ad519aa145f82b456c16785f8703b5025b52d9d7152",
+        "comentariosParaAnotacao3.xlsx": "0d4a6f623264661d119b9be28269dd950bda2fc00e5a52b068e4dcd4ef6e72e9",
+        "comentariosParaAnotacao4.xlsx": "d80bb569d4e273f41bb023a0fa78e8dda5de4239f5fd4ccb5d6fb8af3d57838c",
+        "comentariosParaAnotacao5.xlsx": "bd29e73364b32dccf2f2a7d892b7806b1912b1867015bca4af5aa7b787c24e54",
+        "comentariosParaAnotacao6.xlsx": "86f47fb4ca48d2e7655aa90bf2b1a9416bb54a238072be04fe6957cc38734f6c",
+        "multiDomainYtBinary.csv": "a1fb214039b5f9195886463a1565cafd0a8e0112f94c227df3e82e95d3bbd620",
+        "multiDomainYtMultilabel.csv": "ef21d90206c6bbaacde03b76708835b29430b782ce8ea7c5c855aa145611e670"
+      },
+      "tupye": {
+        "tupye_binary_test.csv": "1fc67fba66bba7a645e8e4213cb24fddb4f2a1804e58c96b16da7c05da18271c",
+        "tupye_binary_train.csv": "73cb2181052fc8ee74467600fba4ff27ab19b78a37777886b97b08a606eed137"
+      }
+    },
+    "sementes": [
+      13,
+      42,
+      2026
+    ]
+  }
+}

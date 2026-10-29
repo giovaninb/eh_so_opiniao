@@ -19,8 +19,9 @@ def cmd_datasets(args: argparse.Namespace) -> int:
     estado = download.estado_geral()
     for ds_id in registry.listar_datasets():
         info = registry.dataset(ds_id)
-        print(f"{ds_id:10s} | {info['licenca'][:18]:18s} | acesso={info['acesso']:21s} | catálogo={info['status_acesso']:24s} | "
-              f"cache={'sim' if estado[ds_id]['no_cache'] else 'não'} | registros={info['registros_confirmados']}")
+        registros = info["registros_confirmados"] if info["registros_confirmados"] is not None else "não confirmado"
+        print(f"{ds_id:22s} | {info['licenca'][:18]:18s} | acesso={info['acesso']:21s} | catálogo={info['status_acesso']:22s} | "
+              f"integração={info['integracao']:20s} | cache={'sim' if estado[ds_id]['no_cache'] else 'não'} | registros={registros}")
     return 0
 
 
@@ -28,10 +29,14 @@ def cmd_baixar(args: argparse.Namespace) -> int:
     alvos = [args.dataset] if args.dataset else registry.listar_datasets()
     codigo = 0
     for ds_id in alvos:
-        for r in download.baixar(ds_id, forcar=args.forcar):
+        avisou = False
+        for r in download.baixar(ds_id, forcar=args.forcar, aceito_licenca=args.aceito_licenca):
             print(f"[{ds_id}] {r.arquivo}: {r.status} {r.detalhe}")
             if r.status in ("falha_integridade", "falha_rede"):
                 codigo = 1
+            if r.status == "pendente_licenca" and not avisou:
+                avisou = True
+                print(f"[{ds_id}] CONDIÇÕES REGISTRADAS: {download.resumo_condicoes(ds_id)}")
     return codigo
 
 
@@ -52,6 +57,8 @@ def construir_parser() -> argparse.ArgumentParser:
     b = sub.add_parser("baixar", help="baixa datasets abertos (cache + integridade)")
     b.add_argument("--dataset")
     b.add_argument("--forcar", action="store_true")
+    b.add_argument("--aceito-licenca", action="store_true",
+                   help="reconhece as condições de licença registradas (obrigatório para datasets sem licença declarada)")
     b.set_defaults(func=cmd_baixar)
     n = sub.add_parser("normalizar", help="gera JSONL normalizado a partir do cache")
     n.add_argument("--dataset")

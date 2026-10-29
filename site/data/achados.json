@@ -35,6 +35,24 @@
       "titulo": "Destacar o trecho ofensivo é difícil",
       "texto": "Ao tentar marcar quais palavras tornam um texto ofensivo, o baseline teve F1 0.75, abaixo dos 0.78 de simplesmente marcar tudo (a maior parte das palavras desses comentários já está dentro do trecho ofensivo). O destaque ajuda a revisão humana, mas não é uma explicação confiável.",
       "experimento": "E"
+    },
+    {
+      "id": "poucas_classes_passam",
+      "titulo": "Poucas categorias passam no teste de qualidade",
+      "texto": "No corpus de comentários do YouTube, só 2 de 9 categorias tiveram exemplos suficientes e desempenho bem acima do acaso para serem avaliadas separadamente. As demais não devem ser usadas, mesmo que o resultado geral de 'tóxico ou não' pareça bom.",
+      "experimento": "AMP-G"
+    },
+    {
+      "id": "onde_humanos_discordam",
+      "titulo": "Onde as pessoas discordam, o modelo também tropeça",
+      "texto": "Nos comentários em que os anotadores concordaram em tudo, o modelo separa bem o ofensivo do não ofensivo (AUC 0.91). Onde houve voto dividido em alguma categoria, cai para 0.70. Parte do erro do modelo é desacordo humano, não só falha da máquina.",
+      "experimento": "AMP-G"
+    },
+    {
+      "id": "politica_nao_e_ofensa",
+      "titulo": "Falar de política não é ofender, mas o modelo se confunde",
+      "texto": "Entre comentários sobre política que as pessoas anotadoras consideraram NÃO tóxicos, o modelo marcou como ofensivos cerca de 31%, contra 13% nos demais comentários não tóxicos. Crítica política legítima não deve ser tratada como ofensa por automação.",
+      "experimento": "AMP-E"
     }
   ],
   "aviso": "Conteúdo educativo e experimental. Uma classificação de IA é uma hipótese, não uma prova: não conclui crime, intenção nem identidade, e só é exibida depois de revisão humana."

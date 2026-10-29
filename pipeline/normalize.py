@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from .. import paths, registry
-from ..adapters import HateBrAdapter, ToldBrAdapter
+from ..adapters import HateBrAdapter, MultiDomainYtToxBrAdapter, ToldBrAdapter
 from ..adapters.base import AdapterBase
 from ..schema import NormalizedTextSample, escrever_jsonl, ler_jsonl
 from . import download
@@ -33,6 +33,15 @@ def construir_adaptador(ds_id: str, **opcoes: Any) -> AdapterBase | None:
     if ds_id == "hatebr":
         f, x = _arquivo(ds_id, "HateBR.csv"), _arquivo(ds_id, "HateBRXplain.csv")
         return HateBrAdapter(f, x) if f else None
+    if ds_id == "multidomain_yt_toxbr":
+        b, m = _arquivo(ds_id, "multiDomainYtBinary.csv"), _arquivo(ds_id, "multiDomainYtMultilabel.csv")
+        if not (b and m):
+            return None
+        planilhas = [_arquivo(ds_id, f"comentariosParaAnotacao{k}.xlsx") for k in range(1, 7)]
+        # Sem as seis planilhas a concordância fica indisponível e a ordem do vetor não é reconferida.
+        return MultiDomainYtToxBrAdapter(b, m, planilhas if all(planilhas) else None, modo=opcoes.get("modo", "ambos"))
+    if ds_id == "racismobr":
+        return None  # pendente_fonte: nenhum arquivo para ler; o contrato só é exercitado por fixtures sintéticas
     raise registry.CatalogoInvalido(f"sem fábrica para {ds_id}")
 
 
@@ -46,6 +55,12 @@ def resumo_rotulos(amostras: list[NormalizedTextSample]) -> dict[str, dict[str, 
 
 def normalizar_dataset(ds_id: str, destino: Path | None = None, **opcoes: Any) -> dict[str, Any]:
     info = registry.dataset(ds_id)
+    if info["integracao"] == "somente_sobreposicao":
+        return {"dataset_id": ds_id, "status": "nao_normalizado", "amostras": 0,
+                "motivo": "dataset lido apenas para análise de sobreposição; seus rótulos não entram nos experimentos"}
+    if info["status_acesso"] == "pendente_fonte":
+        return {"dataset_id": ds_id, "status": "pendente_fonte", "amostras": 0,
+                "motivo": "sem fonte pública verificável; nenhum dado foi lido (ver registry.yaml)"}
     adaptador = construir_adaptador(ds_id, **opcoes)
     if adaptador is None:
         return {"dataset_id": ds_id, "status": info["status_acesso"] if info["status_acesso"] != "acessado" else "ausente_no_cache",

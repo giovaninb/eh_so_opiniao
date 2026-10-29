@@ -1,0 +1,183 @@
+{
+  "metodo": "chave de quase-duplicata (textnorm.hash_chave: sem caixa, pontuação, URL, menção, 'RT'); só contagens",
+  "corpora": {
+    "told_br": {
+      "textos": 21000,
+      "chaves_unicas": 20561,
+      "duplicatas_internas": 439
+    },
+    "hatebr": {
+      "textos": 7000,
+      "chaves_unicas": 6996,
+      "duplicatas_internas": 4
+    },
+    "multidomain_yt_toxbr": {
+      "textos": 4999,
+      "chaves_unicas": 4971,
+      "duplicatas_internas": 28
+    },
+    "tupye": {
+      "textos": 43668,
+      "chaves_unicas": 42210,
+      "duplicatas_internas": 1458
+    }
+  },
+  "indisponiveis_sem_dados": [
+    "racismobr"
+  ],
+  "pares": {
+    "hatebr__multidomain_yt_toxbr": {
+      "em_comum": 5,
+      "fracao_de_a": 0.0007,
+      "fracao_de_b": 0.001
+    },
+    "hatebr__told_br": {
+      "em_comum": 4,
+      "fracao_de_a": 0.0006,
+      "fracao_de_b": 0.0002
+    },
+    "hatebr__tupye": {
+      "em_comum": 5220,
+      "fracao_de_a": 0.7461,
+      "fracao_de_b": 0.1237
+    },
+    "multidomain_yt_toxbr__told_br": {
+      "em_comum": 9,
+      "fracao_de_a": 0.0018,
+      "fracao_de_b": 0.0004
+    },
+    "multidomain_yt_toxbr__tupye": {
+      "em_comum": 23,
+      "fracao_de_a": 0.0046,
+      "fracao_de_b": 0.0005
+    },
+    "told_br__tupye": {
+      "em_comum": 20561,
+      "fracao_de_a": 1.0,
+      "fracao_de_b": 0.4871
+    }
+  },
+  "tupye_por_fonte_original": {
+    "fortuna et al": {
+      "textos": 5668,
+      "em_told_br": 0,
+      "em_hatebr": 1,
+      "em_multidomain_yt_toxbr": 3
+    },
+    "leite et al": {
+      "textos": 21000,
+      "em_told_br": 20561,
+      "em_hatebr": 4,
+      "em_multidomain_yt_toxbr": 9
+    },
+    "oliveira et al": {
+      "textos": 10000,
+      "em_told_br": 38,
+      "em_hatebr": 7,
+      "em_multidomain_yt_toxbr": 4
+    },
+    "vargas et al": {
+      "textos": 7000,
+      "em_told_br": 43,
+      "em_hatebr": 5217,
+      "em_multidomain_yt_toxbr": 15
+    }
+  },
+  "tupye_x_outro_corpus_definicao_de_rotulo": {
+    "told_br": [
+      {
+        "tupye_aggressive": "tupye_aggressive=0",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "told_br_ofensivo=False",
+        "textos": 16274
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=0",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "told_br_ofensivo=True",
+        "textos": 27
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "told_br_ofensivo=False",
+        "textos": 660
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "told_br_ofensivo=True",
+        "textos": 1889
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=1",
+        "outro_corpus_ofensivo": "told_br_ofensivo=False",
+        "textos": 170
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=1",
+        "outro_corpus_ofensivo": "told_br_ofensivo=True",
+        "textos": 2156
+      }
+    ],
+    "hatebr": [
+      {
+        "tupye_aggressive": "tupye_aggressive=0",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "hatebr_ofensivo=False",
+        "textos": 2448
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=0",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "hatebr_ofensivo=True",
+        "textos": 82
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "hatebr_ofensivo=True",
+        "textos": 2243
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=1",
+        "outro_corpus_ofensivo": "hatebr_ofensivo=True",
+        "textos": 610
+      }
+    ],
+    "multidomain_yt_toxbr": [
+      {
+        "tupye_aggressive": "tupye_aggressive=0",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "multidomain_yt_toxbr_ofensivo=False",
+        "textos": 105
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "multidomain_yt_toxbr_ofensivo=False",
+        "textos": 12
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=0",
+        "outro_corpus_ofensivo": "multidomain_yt_toxbr_ofensivo=True",
+        "textos": 4
+      },
+      {
+        "tupye_aggressive": "tupye_aggressive=1",
+        "tupye_hate": "tupye_hate=1",
+        "outro_corpus_ofensivo": "multidomain_yt_toxbr_ofensivo=False",
+        "textos": 2
+      }
+    ]
+  },
+  "racismobr": {
+    "status": "pendente_fonte",
+    "sobreposicao_esperada": "Parte dos 629 posts da literatura vem de Fortuna et al. (2019) e de Leite et al. (2020, ToLD-Br), logo há sobreposição esperada com ToLD-Br e TuPyE. NÃO MEDIDA: sem arquivo. Medir antes de qualquer avaliação cruzada."
+  },
+  "leitura": "TuPyE contém ToLD-Br e HateBR por construção; não treinar nele para avaliar nesses corpora. Entre ToLD-Br, HateBR e MultiDomainYT-ToxBR a sobreposição de textos é a que consta em `pares`; textos em comum são removidos da avaliação cruzada."
+}

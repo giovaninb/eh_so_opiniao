@@ -1,0 +1,27 @@
+{
+  "id": "AMP-C",
+  "titulo": "Discriminação racial explícita x linguisticamente implícita",
+  "pergunta": "A revocação do classificador de racismo cai nos casos que humanos consideram implícitos?",
+  "metodo": "Folha LOCAL de positivos de racismo (datasets/_local/experimentos) para avaliação humana: explicito | implicito | indeterminado. O experimento só calcula a revocação por estrato quando há pelo menos 20 itens anotados em cada um dos dois estratos. Nenhum rótulo é inferido automaticamente.",
+  "limite": "Nenhum dataset integrado traz a distinção explícito/implícito; o artigo do RacismoBR a discute só qualitativamente.",
+  "folha": {
+    "arquivo_local": "/Users/gnbettoni/Developer/monitor_assedio_eleitoral/eh_so_opiniao/datasets/_local/experimentos/folha_explicito_implicito.csv",
+    "linhas": 50,
+    "novas": 0,
+    "anotadas": 0,
+    "por_estrato": {
+      "explicito": 0,
+      "implicito": 0,
+      "indeterminado": 0
+    }
+  },
+  "datasets_indisponiveis": {
+    "racismobr": {
+      "status": "pendente_fonte",
+      "motivo": "Não há URL oficial nova verificada. Próximos passos legítimos: pedir aos autores (contato publicado no artigo, UFMG/DCC) o acesso pelo protocolo de divulgação responsável, ou aguardar o repositório voltar. Enquanto isso o dataset fica pendente_fonte e nenhum resultado real é reportado."
+    }
+  },
+  "status": "aguardando_anotacao_humana",
+  "motivo": "são necessários >= 20 itens 'explicito' e >= 20 'implicito' anotados por pessoas; há {'explicito': 0, 'implicito': 0, 'indeterminado': 0}",
+  "resultado": null
+}

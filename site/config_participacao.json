@@ -1,0 +1,14 @@
+{
+  "ativo": false,
+  "endpoint": "",
+  "modo_resposta": "cors",
+  "campos": {
+    "tipo": "tipo",
+    "frase": "frase",
+    "avaliacao": "avaliacao",
+    "frase_id": "frase_id",
+    "consentimento": "consentimento",
+    "armadilha": "site"
+  },
+  "_como_ativar": "Crie um formulário privado que aceite POST com CORS e responda JSON (ex.: Formspree), cole a URL https em 'endpoint', ajuste 'campos' e mude 'ativo' para true. Com serviços sem CORS (ex.: Google Forms) use \"modo_resposta\": \"opaca\": o site NÃO consegue confirmar o recebimento e avisa isso. Veja docs/PARTICIPACAO.md."
+}

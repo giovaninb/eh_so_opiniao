@@ -353,8 +353,8 @@
     "python": "3.14.8",
     "scikit_learn": "1.9.1",
     "numpy": "2.5.4",
-    "taxonomia": "1.0.0",
-    "mapeamento": "1.0.0",
+    "taxonomia": "1.1.0",
+    "mapeamento": "1.1.0",
     "sha256_arquivos": {
       "told_br": {
         "ToLD-BR.csv": "a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90"
@@ -362,6 +362,22 @@
       "hatebr": {
         "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
         "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
+      },
+      "multidomain_yt_toxbr": {
+        "3_Tratamento.ipynb": "f99071b6100cc2da5c0315b96649bbab86353cc572f8c06d3c06e497671965c9",
+        "Guia_para_anotacao.pdf": "0379886b4904ac01dc8eea6c431db41fde324c7cf4b043ff8e5124ae51fc08dc",
+        "comentariosParaAnotacao1.xlsx": "4963f326ab37cad26840ff8bffc410c3611235cb5f58d6f62a2c62b6eb5afcb8",
+        "comentariosParaAnotacao2.xlsx": "3bc0e9c978b8914516250ad519aa145f82b456c16785f8703b5025b52d9d7152",
+        "comentariosParaAnotacao3.xlsx": "0d4a6f623264661d119b9be28269dd950bda2fc00e5a52b068e4dcd4ef6e72e9",
+        "comentariosParaAnotacao4.xlsx": "d80bb569d4e273f41bb023a0fa78e8dda5de4239f5fd4ccb5d6fb8af3d57838c",
+        "comentariosParaAnotacao5.xlsx": "bd29e73364b32dccf2f2a7d892b7806b1912b1867015bca4af5aa7b787c24e54",
+        "comentariosParaAnotacao6.xlsx": "86f47fb4ca48d2e7655aa90bf2b1a9416bb54a238072be04fe6957cc38734f6c",
+        "multiDomainYtBinary.csv": "a1fb214039b5f9195886463a1565cafd0a8e0112f94c227df3e82e95d3bbd620",
+        "multiDomainYtMultilabel.csv": "ef21d90206c6bbaacde03b76708835b29430b782ce8ea7c5c855aa145611e670"
+      },
+      "tupye": {
+        "tupye_binary_test.csv": "1fc67fba66bba7a645e8e4213cb24fddb4f2a1804e58c96b16da7c05da18271c",
+        "tupye_binary_train.csv": "73cb2181052fc8ee74467600fba4ff27ab19b78a37777886b97b08a606eed137"
       }
     },
     "sementes": [

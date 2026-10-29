@@ -2,126 +2,309 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf8f2">
   <title>É Só Opinião? — Onde termina a opinião e começa a discriminação?</title>
-  <meta name="description" content="Projeto educativo e de pesquisa sobre a fronteira entre opinião política e discriminação. Exposição: Quem Pode Pertencer?">
+  <meta name="description" content="Leia frases, diga como você as interpreta e descubra onde a opinião vira discriminação. Projeto educativo da exposição Quem Pode Pertencer?">
+  <script>/* Evita que a Início apareça por um instante antes de uma rota interna (ex.: link direto para uma frase): evita "pulo" de layout. */
+    document.documentElement.classList.add("js");
+    if (/^#\/[^?]/.test(location.hash)) document.documentElement.classList.add("rota-interna");</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b53a1c'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='21' font-weight='700' text-anchor='middle' fill='%23fff'%3E?%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/estilo.css">
+  <link rel="modulepreload" href="js/app.js">
+  <link rel="modulepreload" href="js/componentes/cartaoFrase.js">
+  <link rel="modulepreload" href="js/componentes/enquete.js">
+  <link rel="modulepreload" href="js/componentes/envio.js">
+  <link rel="modulepreload" href="js/componentes/estados.js">
+  <link rel="modulepreload" href="js/componentes/filtros.js">
+  <link rel="modulepreload" href="js/componentes/formulario.js">
+  <link rel="modulepreload" href="js/componentes/navegacao.js">
+  <link rel="modulepreload" href="js/componentes/progresso.js">
+  <link rel="modulepreload" href="js/nucleo/constantes.js">
+  <link rel="modulepreload" href="js/nucleo/dados.js">
+  <link rel="modulepreload" href="js/nucleo/dom.js">
+  <link rel="modulepreload" href="js/nucleo/estado.js">
+  <link rel="modulepreload" href="js/nucleo/logica.js">
+  <link rel="modulepreload" href="js/nucleo/mascara.js">
+  <link rel="modulepreload" href="js/nucleo/roteador.js">
+  <link rel="modulepreload" href="js/visoes/descobrir.js">
+  <link rel="modulepreload" href="js/visoes/explorar.js">
+  <link rel="modulepreload" href="js/visoes/frase.js">
+  <link rel="modulepreload" href="js/visoes/inicio.js">
+  <link rel="modulepreload" href="js/visoes/participar.js">
+  <link rel="preload" as="fetch" href="data/frases.json" crossorigin="anonymous">
 </head>
 <body>
-  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <a class="pular" href="#conteudo" data-pular>Pular para o conteúdo</a>
 
-  <header class="topo">
-    <div class="topo-interno">
-      <a class="marca" href="#inicio">É Só Opinião?</a>
-      <nav aria-label="Seções">
+  <header class="topo" id="topo">
+    <div class="pagina topo-interno">
+      <a class="marca" href="#/">É Só Opinião?</a>
+      <nav class="nav-desktop" aria-label="Principal">
         <ul>
-          <li><a href="#inicio">Início</a></li>
-          <li><a href="#frases">Explore as frases</a></li>
-          <li><a href="#mecanismo">Entenda o mecanismo</a></li>
-          <li><a href="#ia">O que a IA identifica</a></li>
-          <li><a href="#pesquisa">Como pesquisamos</a></li>
-          <li><a href="#erros">O que a IA pode errar</a></li>
-          <li><a href="#referencias">Referências científicas</a></li>
+          <li><a href="#/" data-rota="inicio">Início</a></li>
+          <li><a href="#/descobrir" data-rota="descobrir">Descobrir</a></li>
+          <li><a href="#/explorar" data-rota="explorar">Explorar</a></li>
+          <li><a href="#/participar" data-rota="participar">Participar</a></li>
+          <li><a href="#/entender" data-rota="entender">Entender</a></li>
+          <li><a href="#/pesquisa" data-rota="pesquisa">Pesquisa</a></li>
         </ul>
       </nav>
+      <button type="button" class="botao-menu" id="botao-menu" aria-expanded="false" aria-controls="painel-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menu</span>
+      </button>
     </div>
+    <nav class="painel-menu" id="painel-menu" aria-label="Todas as seções" hidden>
+      <ul class="pagina">
+        <li><a href="#/" data-rota="inicio">Início</a></li>
+        <li><a href="#/descobrir" data-rota="descobrir">Descobrir: uma frase de cada vez</a></li>
+        <li><a href="#/explorar" data-rota="explorar">Explorar: biblioteca de frases</a></li>
+        <li><a href="#/participar" data-rota="participar">Participar com uma frase</a></li>
+        <li><a href="#/entender" data-rota="entender">Entender o mecanismo</a></li>
+        <li><a href="#/pesquisa" data-rota="pesquisa">Pesquisa, bases e referências</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <div id="faixa-rascunho" class="faixa-rascunho" hidden role="status">
-    MODO RASCUNHO LOCAL: itens ainda não revisados por humanos. Não publique esta versão.
-  </div>
+  <div id="faixa-rascunho" class="faixa-rascunho" hidden role="status">MODO RASCUNHO LOCAL: itens ainda não revisados por pessoas. Não publique esta versão.</div>
 
-  <main id="conteudo">
-    <section id="inicio" class="hero" aria-labelledby="t-inicio">
-      <p class="selo">Exposição · Quem Pode Pertencer?</p>
-      <h1 id="t-inicio">É Só Opinião?</h1>
-      <p class="sub">Onde termina a opinião e começa a discriminação?</p>
-      <p>Discordar faz parte da democracia. Dizer que alguém não merece <em>pertencer</em> à cidade, à região ou ao trabalho por causa de como vota, de onde veio ou de quanto ganha é outra coisa.
-         Este projeto mostra a diferença com frases de exemplo, explica como a inteligência artificial tenta reconhecer esses padrões e, principalmente, onde ela erra.</p>
-      <div class="caixa">
-        <strong>Antes de começar</strong>
-        <ul>
-          <li>As frases do site são <strong>exemplos escritos para fins educativos</strong> ou foram fornecidas e anonimizadas; não identificam pessoas.</li>
-          <li>Nenhuma classificação aqui <strong>afirma que houve crime</strong>. Isso é decisão da Justiça.</li>
-          <li>Nada aqui tenta adivinhar o voto ou o partido de ninguém.</li>
-          <li>O site não executa IA: ele só mostra resultados <strong>já revisados por pessoas</strong>.</li>
+  <main id="conteudo" tabindex="-1">
+    <noscript>
+      <div class="pagina vista"><p class="nota">Este site precisa de JavaScript para mostrar as frases. Ele não usa rastreadores nem guarda nada no seu aparelho.</p></div>
+    </noscript>
+
+    <!-- ============================================================ INÍCIO -->
+    <section class="vista" id="v-inicio" data-vista="inicio" aria-labelledby="t-inicio">
+      <div class="pagina">
+        <div class="hero">
+          <span class="eyebrow">Exposição · Quem Pode Pertencer?</span>
+          <h1 id="t-inicio" tabindex="-1">É Só Opinião?</h1>
+          <p class="sub">Onde termina a opinião e começa a discriminação?</p>
+          <p class="lead">Discordar faz parte da democracia. Dizer que alguém não pertence à cidade, ao trabalho ou à conversa por causa de onde veio, de quem é ou de como vota é outra coisa. Leia algumas frases e descubra onde você coloca essa linha.</p>
+          <div class="acoes">
+            <a class="botao" href="#/descobrir">Explore as frases</a>
+            <a class="botao botao-claro" href="#/entender">Entenda o projeto</a>
+          </div>
+        </div>
+
+        <section class="secao" aria-labelledby="t-primeira">
+          <span class="eyebrow">Para começar</span>
+          <h2 id="t-primeira" class="visualmente-oculto">Primeira frase</h2>
+          <div id="primeira-interacao" aria-live="polite" aria-busy="true"></div>
+          <p class="nota" style="margin-top: var(--esp-4)">As frases são fictícias, adaptadas ou anonimizadas: não identificam ninguém. Nada aqui afirma que houve crime, e a classificação automática, quando aparece, é só uma hipótese.</p>
+        </section>
+
+        <section class="secao" aria-labelledby="t-continue">
+          <h2 id="t-continue">O que você quer fazer?</h2>
+          <div class="atalhos">
+            <a class="atalho" href="#/descobrir"><span class="t"><strong>Descobrir</strong><span>Cinco frases, uma de cada vez, com a leitura da revisão.</span></span></a>
+            <a class="atalho" href="#/explorar"><span class="t"><strong>Explorar</strong><span id="texto-explorar">Busque e filtre a biblioteca de frases.</span></span></a>
+            <a class="atalho" href="#/entender"><span class="t"><strong>Entender</strong><span>Cinco perguntas para separar opinião de discriminação.</span></span></a>
+            <a class="atalho" href="#/participar"><span class="t"><strong>Participar</strong><span>Uma frase já fez você pensar? Conte, sem se identificar.</span></span></a>
+            <a class="atalho" href="#/pesquisa"><span class="t"><strong>Pesquisa</strong><span>Bases científicas, limites da IA e referências.</span></span></a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================================================ DESCOBRIR -->
+    <section class="vista" id="v-descobrir" data-vista="descobrir" aria-labelledby="t-descobrir" hidden>
+      <div class="pagina coluna-central">
+        <span class="eyebrow">Modo Descoberta</span>
+        <h1 id="t-descobrir" class="titulo-vista" tabindex="-1">Uma frase de cada vez</h1>
+        <p class="suave">Leia, diga como interpreta e veja a leitura da revisão. Você pode pular qualquer frase ou ver a análise sem responder. Não há pontos nem certo e errado.</p>
+        <div id="descobrir-corpo" aria-busy="true"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ EXPLORAR -->
+    <section class="vista" id="v-explorar" data-vista="explorar" aria-labelledby="t-explorar" hidden>
+      <div class="pagina">
+        <span class="eyebrow">Biblioteca</span>
+        <h1 id="t-explorar" class="titulo-vista" tabindex="-1">Explorar as frases</h1>
+        <form id="form-busca" role="search" aria-label="Buscar e filtrar frases" novalidate>
+          <label class="busca">
+            <span class="visualmente-oculto">Buscar nas frases</span>
+            <input type="search" id="campo-busca" name="q" placeholder="Buscar nas frases" autocomplete="off" enterkeyhint="search" maxlength="80">
+          </label>
+          <details class="filtros" id="filtros">
+            <summary><span id="resumo-filtros">Filtros</span></summary>
+            <div class="filtros-corpo">
+              <fieldset class="grupo-filtro">
+                <legend>Leitura da revisão</legend>
+                <div class="segmentos" id="segmentos-tipo">
+                  <button type="button" class="segmento" data-tipo="" aria-pressed="true">Todas</button>
+                  <button type="button" class="segmento" data-tipo="exclusao" aria-pressed="false">Discriminação</button>
+                  <button type="button" class="segmento" data-tipo="nao_discriminatoria" aria-pressed="false">Sem discriminação</button>
+                  <button type="button" class="segmento" data-tipo="ambigua" aria-pressed="false">Ambíguas</button>
+                </div>
+              </fieldset>
+              <div class="grupo-filtro">
+                <label class="rotulo" for="filtro-tema">Tema</label>
+                <select id="filtro-tema" name="tema"><option value="">Todos os temas</option></select>
+              </div>
+              <div class="grupo-filtro">
+                <label class="rotulo" for="filtro-ordem">Ordenar</label>
+                <select id="filtro-ordem" name="ord">
+                  <option value="">Ordem da biblioteca</option>
+                  <option value="curtas">Frases mais curtas primeiro</option>
+                  <option value="longas">Frases mais longas primeiro</option>
+                  <option value="tema">Por tema (A–Z)</option>
+                </select>
+              </div>
+            </div>
+          </details>
+        </form>
+        <div class="resultado-info">
+          <p id="contagem-resultados" role="status" aria-live="polite" style="margin:0"></p>
+          <button type="button" class="botao-texto" id="limpar-filtros" hidden>Limpar filtros</button>
+        </div>
+        <div id="explorar-lista" aria-busy="true"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ FRASE (link direto) -->
+    <section class="vista" id="v-frase" data-vista="frase" aria-labelledby="t-frase" hidden>
+      <div class="pagina coluna-central">
+        <p><a href="#/explorar" id="voltar-biblioteca" class="botao-texto" style="padding-left:0">← Biblioteca</a></p>
+        <h1 id="t-frase" class="titulo-vista" tabindex="-1">Uma frase para ler</h1>
+        <div id="frase-corpo" aria-busy="true"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ PARTICIPAR -->
+    <section class="vista" id="v-participar" data-vista="participar" aria-labelledby="t-participar" hidden>
+      <div class="pagina coluna-central">
+        <span class="eyebrow">Participe</span>
+        <h1 id="t-participar" class="titulo-vista" tabindex="-1">Uma frase já fez você pensar?</h1>
+        <p class="lead">Compartilhe uma frase ou uma interpretação para contribuir com a discussão. Não inclua dados que identifiquem pessoas.</p>
+
+        <form id="form-participar" class="formulario" novalidate aria-describedby="privacidade-resumo">
+          <div id="aviso-indisponivel" class="indisponivel" role="status" hidden>
+            <strong>O envio ainda não está disponível.</strong>
+            Este site ainda não tem um serviço de recebimento configurado, então nada é enviado nem guardado. Você pode ler como o tratamento funcionará abaixo e voltar mais tarde.
+          </div>
+          <div class="campo">
+            <label for="campo-frase">Escreva a frase</label>
+            <p class="dica" id="dica-frase">Reescreva com as suas palavras, de 10 a 280 caracteres. Por exemplo: “Quem veio de fora devia ficar quieto sobre o que acontece aqui.”</p>
+            <textarea id="campo-frase" name="frase" rows="5" maxlength="400" aria-describedby="dica-frase contador-frase erro-frase" autocomplete="off" autocapitalize="sentences" enterkeyhint="done"></textarea>
+            <div class="contador">
+              <span id="contador-frase">0 de 280 caracteres</span>
+              <span id="aviso-mascara" class="perto" hidden></span>
+            </div>
+            <p class="erro-campo" id="erro-frase" hidden></p>
+          </div>
+          <fieldset class="campo" aria-describedby="erro-avaliacao">
+            <legend>Como você lê essa frase?</legend>
+            <label class="escolha"><input type="radio" name="avaliacao" value="opiniao"> É só opinião</label>
+            <label class="escolha"><input type="radio" name="avaliacao" value="discriminacao"> Pode ser discriminação</label>
+            <label class="escolha"><input type="radio" name="avaliacao" value="contexto"> Depende do contexto</label>
+            <p class="erro-campo" id="erro-avaliacao" hidden></p>
+          </fieldset>
+
+          <div class="privacidade" id="privacidade-resumo">
+            <p><strong>Antes de enviar:</strong> sua frase vai para um formulário privado, é mascarada (links, @, telefones), lida por uma pessoa e só aparece no site se estiver anonimizada e aprovada. Não pedimos nome nem e-mail. O serviço do formulário pode registrar dados técnicos, como o endereço de IP.</p>
+          </div>
+          <details class="detalhe">
+            <summary>Como tratamos a sua contribuição</summary>
+            <ul>
+              <li>Nada é publicado automaticamente e nenhuma frase aparece com o texto original.</li>
+              <li>Uma pessoa reescreve o que for necessário para que ninguém possa ser reconhecido. Se for impossível, a frase é descartada.</li>
+              <li>Não guardamos quem enviou e não tentamos descobrir. Pedidos de remoção são atendidos rejeitando o item.</li>
+              <li>Se for uma enquete de leitura, os votos viram só contagens por frase, exibidas quando há pelo menos 10.</li>
+              <li>Frases que apontem para uma pessoa real são rejeitadas. Este site não faz denúncias nem monta lista de autores.</li>
+            </ul>
+          </details>
+
+          <label class="escolha"><input type="checkbox" id="campo-consentimento" name="consentimento" aria-describedby="erro-consentimento"> Entendo como a minha frase será tratada e não estou enviando dados pessoais de terceiros.</label>
+          <p class="erro-campo" id="erro-consentimento" hidden></p>
+          <div class="armadilha" aria-hidden="true"><label>Deixe em branco <input type="text" id="campo-armadilha" name="site" tabindex="-1" autocomplete="off"></label></div>
+
+          <p style="margin-top: var(--esp-4)"><button type="submit" class="botao botao-largo" id="botao-enviar">Enviar frase</button></p>
+          <div id="mensagem-envio" role="status" aria-live="polite"></div>
+        </form>
+
+        <h2 style="margin-top: var(--esp-7)">Viu discurso de ódio? Dá para agir sem alimentá-lo</h2>
+        <ul class="leitura">
+          <li><strong>Não amplifique.</strong> Citar para criticar, compartilhar com indignação ou comentar de volta também faz o conteúdo circular.</li>
+          <li><strong>Denuncie na plataforma</strong> e guarde uma captura de tela com data.</li>
+          <li><strong>Apoie quem foi alvo</strong> com uma mensagem privada de acolhimento.</li>
+          <li><strong>Procure canais oficiais</strong> em caso de ameaça ou discriminação: o Disque 100 (direitos humanos), a delegacia ou o Ministério Público. Se envolver seu trabalho, o sindicato ou o Ministério Público do Trabalho. Este site não decide o que é crime.</li>
+          <li><strong>Converse sem humilhar.</strong> Pergunte “quem você inclui nesse ‘nós’?” antes de rebater.</li>
         </ul>
       </div>
-      <p><a class="botao" href="#frases">Explore as frases</a></p>
     </section>
 
-    <section id="frases" aria-labelledby="t-frases">
-      <h2 id="t-frases">Explore as frases</h2>
-      <p>Leia cada frase e escolha o que você acha. Depois veja a leitura da equipe, o que a IA sugeriu e a decisão da revisão humana. Há frases que ficam <strong>ambíguas</strong> de propósito: sem contexto, nem pessoas nem máquinas conseguem decidir.</p>
-      <div class="filtros" role="group" aria-label="Filtrar frases">
-        <button type="button" class="filtro ativo" data-filtro="todas" aria-pressed="true">Todas</button>
-        <button type="button" class="filtro" data-filtro="exclusao" aria-pressed="false">Exclusão</button>
-        <button type="button" class="filtro" data-filtro="nao_discriminatoria" aria-pressed="false">Não discriminatórias</button>
-        <button type="button" class="filtro" data-filtro="ambigua" aria-pressed="false">Ambíguas</button>
+    <!-- ============================================================ ENTENDER -->
+    <section class="vista" id="v-entender" data-vista="entender" aria-labelledby="t-entender" hidden>
+      <div class="pagina coluna-central">
+        <span class="eyebrow">Entender</span>
+        <h1 id="t-entender" class="titulo-vista" tabindex="-1">Opinião ou discriminação?</h1>
+        <p class="lead">Cinco perguntas ajudam a separar uma da outra. Nenhuma sozinha decide; juntas orientam a leitura.</p>
+        <ol class="cinco-perguntas">
+          <li><strong>Quem é o alvo?</strong><p>Uma <em>ideia, decisão ou ato</em> (“essa política da saúde é ruim”) ou <em>pessoas</em> por quem são (“esse povo não presta”)?</p></li>
+          <li><strong>Generaliza?</strong><p>Um defeito atribuído a <em>todos</em> de um grupo (região, voto, renda) é estereótipo, mesmo dito com educação.</p></li>
+          <li><strong>Fala de pertencimento?</strong><p>“Sai daqui”, “não é bem-vindo”, “não pertence” transformam divergência em exclusão.</p></li>
+          <li><strong>Rebaixa a condição humana?</strong><p>Comparar pessoas a animais, pragas ou doenças desumaniza.</p></li>
+          <li><strong>Há poder ou contexto?</strong><p>O mesmo texto pesa diferente se vem de quem decide emprego ou renda. Sem contexto de trabalho, não se fala em assédio eleitoral.</p></li>
+        </ol>
+        <p class="nota"><strong>E o espelho?</strong> Teste de neutralidade: troque o lado político e mantenha o ato. Se a leitura muda, o problema está no método, não no texto. Há pares assim na biblioteca.</p>
+        <p><a class="botao" href="#/descobrir">Praticar com frases</a></p>
+
+        <h2 class="secao">O que a IA identifica e onde erra</h2>
+        <p>O site <strong>não executa IA</strong>. Os resultados de baselines aparecem sempre separados da decisão humana e só depois de revisão. Eles são hipóteses, não prova.</p>
+        <details class="acordeao" id="acordeao-taxonomia"><summary>Categorias que o projeto observa</summary><div class="corpo" id="lista-taxonomia"></div></details>
+        <details class="acordeao" id="acordeao-erros"><summary>O que a IA pode errar (números reais)</summary><div class="corpo"><div id="lista-achados" class="cartoes"></div>
+          <ul class="suave">
+            <li>Ironia, citação e denúncia podem parecer ofensa para um modelo.</li>
+            <li>Classes raras têm poucos exemplos e métricas instáveis.</li>
+            <li>Bases de outros contextos (rede social, época, tema) não representam qualquer cidade.</li>
+            <li>Anotações humanas também carregam vieses e divergências.</li>
+          </ul></div></details>
       </div>
-      <p id="status-frases" role="status" class="status"></p>
-      <div id="lista-frases" class="grade"></div>
     </section>
 
-    <section id="mecanismo" aria-labelledby="t-mecanismo">
-      <h2 id="t-mecanismo">Entenda o mecanismo</h2>
-      <p>Cinco perguntas ajudam a separar opinião de discriminação. Nenhuma sozinha decide; juntas orientam a leitura.</p>
-      <div class="cartoes">
-        <article class="cartao"><h3>1. Quem é o alvo?</h3><p>Uma <strong>ideia, decisão ou ato</strong> (“essa política da saúde é ruim”) ou <strong>pessoas</strong> por quem são (“esse povo não presta”)?</p></article>
-        <article class="cartao"><h3>2. Generaliza?</h3><p>Um defeito atribuído a <strong>todos</strong> de um grupo (região, voto, renda) é estereótipo, mesmo dito de forma educada.</p></article>
-        <article class="cartao"><h3>3. Fala de pertencimento?</h3><p>“Sai daqui”, “não é bem-vindo”, “não pertence”: transformam divergência em <strong>exclusão</strong>.</p></article>
-        <article class="cartao"><h3>4. Rebaixa a condição humana?</h3><p>Comparar pessoas a animais, pragas ou doenças <strong>desumaniza</strong>.</p></article>
-        <article class="cartao"><h3>5. Há poder ou contexto?</h3><p>O mesmo texto pesa diferente se vier de quem decide emprego ou renda. Sem contexto de trabalho, <strong>não se fala em assédio eleitoral</strong>.</p></article>
+    <!-- ============================================================ PESQUISA -->
+    <section class="vista" id="v-pesquisa" data-vista="pesquisa" aria-labelledby="t-pesquisa" hidden>
+      <div class="pagina coluna-central">
+        <span class="eyebrow">Pesquisa</span>
+        <h1 id="t-pesquisa" class="titulo-vista" tabindex="-1">Como pesquisamos</h1>
+        <ol class="passos">
+          <li><strong>Bases científicas</strong> brasileiras, citadas abaixo, com as condições de licença verificadas. Os textos delas <strong>não são publicados</strong> aqui.</li>
+          <li><strong>Adaptadores</strong> leem cada base sem misturá-las: rótulos originais preservados e correspondências marcadas como equivalentes, aproximadas ou incompatíveis.</li>
+          <li><strong>Divisão sem vazamento</strong>: comentários da mesma publicação ou quase duplicados nunca ficam em treino e teste ao mesmo tempo.</li>
+          <li><strong>Baselines simples</strong> (regras e TF-IDF) antes de qualquer modelo grande, com métricas por classe e comparação com chutes triviais.</li>
+          <li><strong>Revisão humana</strong>: Pendente, Aprovado, Rejeitado, Ambíguo ou Corrigido. Só o que foi revisado chega ao site.</li>
+        </ol>
+        <h2 class="secao">Bases de dados</h2>
+        <div id="lista-catalogo" class="cartoes"></div>
+        <h2 class="secao">Referências científicas</h2>
+        <h3 class="subsecao">Bases de dados e artigos</h3>
+        <ul id="lista-referencias" class="referencias"></ul>
+        <h3 class="subsecao">Outros recursos citados</h3>
+        <ul id="lista-referencias-outros" class="referencias"></ul>
+        <p class="pequeno suave">Bases sem fonte pública ou sem licença formal aparecem marcadas e só são usadas dentro das condições registradas. Os textos delas não são publicados aqui.</p>
       </div>
-      <div class="caixa">
-        <strong>E o espelho?</strong> O teste de neutralidade: trocar o lado político e manter o ato. Se a leitura muda, o problema está no método, não no texto.
-        Veja os pares marcados como “espelho” nas frases.
-      </div>
-    </section>
-
-    <section id="ia" aria-labelledby="t-ia">
-      <h2 id="t-ia">O que a IA identifica</h2>
-      <p>Cada categoria tem uma situação diferente de evidência. <strong>Supervisionada</strong> significa que existem exemplos anotados por pessoas em bases científicas. <strong>Exploratória</strong> significa que não há base anotada: é só uma hipótese baseada em regras e sempre exige revisão. <strong>Salvaguarda</strong> existe para evitar confundir crítica legítima, ironia e ambiguidade com discriminação.</p>
-      <div id="lista-taxonomia" class="grade pequena"></div>
-    </section>
-
-    <section id="pesquisa" aria-labelledby="t-pesquisa">
-      <h2 id="t-pesquisa">Como pesquisamos</h2>
-      <ol class="passos">
-        <li><strong>Bases científicas</strong> brasileiras, citadas abaixo, com licença verificada. Os textos delas <strong>não são publicados</strong> aqui.</li>
-        <li><strong>Adaptadores</strong> leem cada base sem misturá-las: os rótulos originais são preservados e as correspondências são marcadas como equivalentes, aproximadas ou incompatíveis.</li>
-        <li><strong>Divisão sem vazamento</strong>: comentários da mesma publicação ou quase-duplicados nunca ficam em treino e teste ao mesmo tempo.</li>
-        <li><strong>Baselines simples</strong> (regras e TF-IDF) antes de qualquer modelo grande, com métricas por classe e comparação com “chutes” triviais.</li>
-        <li><strong>Revisão humana</strong>: Pendente, Aprovado, Rejeitado, Ambíguo ou Corrigido. Só o que foi revisado chega ao site.</li>
-      </ol>
-      <h3>Bases de dados</h3>
-      <div id="lista-catalogo" class="grade pequena"></div>
-    </section>
-
-    <section id="erros" aria-labelledby="t-erros">
-      <h2 id="t-erros">O que a IA pode errar</h2>
-      <p>Os números abaixo vêm dos experimentos reais do projeto (não são estimativas). Eles são baixos de propósito para mostrar limites: <strong>pontuação de modelo não é prova</strong>.</p>
-      <div id="lista-achados" class="grade"></div>
-      <ul class="limites">
-        <li>Ironia, citação e denúncia podem parecer ofensa para um modelo.</li>
-        <li>Classes raras têm poucos exemplos e métricas instáveis.</li>
-        <li>Bases de outros contextos (rede social, época, tema) não representam qualquer cidade.</li>
-        <li>Anotações humanas também carregam vieses e divergências.</li>
-      </ul>
-    </section>
-
-    <section id="referencias" aria-labelledby="t-ref">
-      <h2 id="t-ref">Referências científicas</h2>
-      <ul id="lista-referencias" class="referencias"></ul>
-      <p class="pequeno">Licenças e termos de cada base são respeitados. Só entram bases de acesso aberto; os textos delas não são publicados aqui.</p>
     </section>
   </main>
 
+  <nav class="barra-inferior" aria-label="Atalhos">
+    <ul>
+      <li><a href="#/" data-rota="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg><span>Início</span></a></li>
+      <li><a href="#/descobrir" data-rota="descobrir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a9 9 0 1 1-9-9M21 3l-9 9M16 3h5v5"/></svg><span>Descobrir</span></a></li>
+      <li><a href="#/explorar" data-rota="explorar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Explorar</span></a></li>
+      <li><a href="#/participar" data-rota="participar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4z"/></svg><span>Participar</span></a></li>
+    </ul>
+  </nav>
+
   <footer class="rodape">
-    <p>É Só Opinião? · Conteúdo educativo e experimental · Não conclui crime, intenção ou identidade · Sem coleta de dados de visitantes.</p>
-    <p id="rodape-meta" class="pequeno"></p>
+    <p>É Só Opinião? · Conteúdo educativo e experimental · Não conclui crime, intenção ou identidade.</p>
+    <p>Sem rastreadores. Só recebemos o que você escolher enviar em “Participar”, sem identificar quem enviou.</p>
+    <p id="rodape-meta"></p>
   </footer>
 
-  <script src="js/app.js" defer></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

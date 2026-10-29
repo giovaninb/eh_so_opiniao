@@ -1,0 +1,63 @@
+# Referências e recursos citados que NÃO são (ou não só são) datasets integrados ao pipeline.
+# Fonte única para docs/REFERENCIAS.md e para a seção "Referências científicas" do site.
+# Regras: nenhum texto de corpus aqui; recurso teórico nunca vira dataset supervisionado.
+versao: "1.0.0"
+consultado_em: "2026-10-29"
+referencias:
+  - id: racismobr_artigo
+    tipo: artigo
+    titulo: "RacismoBR: A Manually Annotated Dataset for Racist Discourse Detection in Brazilian Portuguese"
+    autores: ["João Vítor Vaz", "Fabrício Benevenuto", "Marcos André Gonçalves"]
+    ano: 2026
+    veiculo: "PROPOR 2026, vol. 1, pp. 770-779 (ACL Anthology)"
+    url: https://aclanthology.org/2026.propor-1.76/
+    citacao: "Vaz, J. V., Benevenuto, F., Gonçalves, M. A. (2026). RacismoBR: A Manually Annotated Dataset for Racist Discourse Detection in Brazilian Portuguese. PROPOR 2026, 770-779."
+    papel_no_projeto: "Fonte da definição operacional, da composição e do método de anotação do RacismoBR. O dataset está pendente de fonte pública (ver registry.yaml); nenhum dado dele é usado."
+    licenca_ou_direitos: "Artigo em acesso aberto na ACL Anthology (ver a licença indicada na página)."
+    o_que_nao_e: "Não é prova de que o dataset esteja acessível."
+  - id: multidomain_yt_toxbr_artigo
+    tipo: artigo
+    titulo: "MultiDomainYT-ToxBR: Um Corpus Multidomínio de Comentários Tóxicos do YouTube em Português Brasileiro"
+    autores: ["Gabriel Z. de Souza", "Isabel H. Manssour"]
+    ano: 2026
+    veiculo: "STIL 2026 (ACL Anthology)"
+    url: https://aclanthology.org/2026.stil-1.36/
+    citacao: "de Souza, G. Z., Manssour, I. H. (2026). MultiDomainYT-ToxBR: Um Corpus Multidomínio de Comentários Tóxicos do YouTube em Português Brasileiro. STIL 2026."
+    papel_no_projeto: "Fonte da taxonomia de nove categorias, da concordância reportada e do desempenho de referência. O F1 binário de 0,78 NÃO mede a capacidade de identificar categorias; no multirrótulo o artigo reporta F1 médio de 0,11."
+    licenca_ou_direitos: "Artigo em acesso aberto na ACL Anthology."
+    o_que_nao_e: "Não declara licença do corpus; o artigo informa apenas uso acadêmico."
+  - id: hatebrxplain
+    tipo: recurso_explicabilidade
+    titulo: "HateBRXplain: A Benchmark Dataset with Human-Annotated Rationales for Explainable Hate Speech Detection in Brazilian Portuguese"
+    autores: ["Isadora Salles", "Francielle Vargas", "Fabrício Benevenuto"]
+    ano: 2025
+    veiculo: "COLING 2025"
+    url: https://github.com/isadorasalles/HateBRXplain
+    citacao: "Salles, I., Vargas, F., Benevenuto, F. (2025). HateBRXplain. In: Proceedings of COLING 2025. aclanthology 2025.coling-main.446."
+    papel_no_projeto: "Justificativas humanas (trechos) para 3.500 comentários ofensivos do HateBR, já integradas pelo adaptador do HateBR. O repositório foi auditado: mesmos 7.000 comentários e mesmas justificativas do arquivo integrado (6.998 de 7.000 idênticas). Apoia o protocolo AMP-F (explicabilidade); pontuações de LIME/SHAP do repositório não são importadas."
+    licenca_ou_direitos: "Repositório sem licença declarada; o projeto lê o arquivo do repositório HateBR (CC-BY-NC-4.0)."
+    o_que_nao_e: "Atenção, SHAP ou LIME não provam a causa da decisão de um modelo; trechos humanos são justificativas, não verdade absoluta."
+  - id: tupye
+    tipo: dataset_avaliado
+    titulo: "TuPy-E: detecting hate speech in Brazilian Portuguese social media with a novel dataset and comprehensive analysis of models"
+    autores: ["Felipe Oliveira", "colaboradores (UFRJ/COPPE)"]
+    ano: 2023
+    veiculo: "arXiv:2312.17704"
+    url: https://github.com/Silly-Machine/TuPyE-Expanded-Brazilian-Hate-Speech-Dataset
+    citacao: "Oliveira et al. (2023). TuPy-E. arXiv:2312.17704."
+    papel_no_projeto: "Avaliado só para sobreposição: reúne ToLD-Br, HateBR e Fortuna et al., por isso 64% dos documentos são do ToLD-Br e do HateBR. Seus rótulos não entram nos experimentos; evita-se treinar nele e testar nos corpora que ele contém."
+    licenca_ou_direitos: "CC-BY-4.0 no cartão do Hugging Face, inconsistente com as licenças dos componentes (CC-BY-SA-4.0 e CC-BY-NC-4.0)."
+    o_que_nao_e: "Não é corpus independente dos outros."
+  - id: epn_psico_2025
+    tipo: referencia_teorica
+    titulo: "Escala de Preconceito contra Nordestinos: desenvolvimento e evidências de validade e confiabilidade"
+    autores: ["Luana Elayne Cunha de Souza", "Tiago Jessé Souza de Lima", "Adhele Santiago de Paula", "Cicero Roberto Pereira"]
+    ano: 2025
+    veiculo: "Psico, v. 56, n. 1, e47118 (PUCRS)"
+    url: https://revistaseletronicas.pucrs.br/revistapsico/article/view/47118
+    doi: "10.15448/1980-8623.2025.1.47118"
+    citacao: "de Souza, L. E. C., de Lima, T. J. S., de Paula, A. S., Pereira, C. R. (2025). Escala de Preconceito contra Nordestinos. Psico, 56(1), e47118. doi:10.15448/1980-8623.2025.1.47118."
+    papel_no_projeto: "Referência TEÓRICA para uma taxonomia de estereótipos regionais (três fatores: incompetência, inferioridade, sociabilidade; Modelo de Conteúdo de Estereótipos). Apoia a leitura da classe exploratória 'discriminação regional'."
+    licenca_ou_direitos: "CC BY-NC-ND 4.0: os itens da escala não são reproduzidos nem adaptados aqui."
+    o_que_nao_e: "NÃO é dataset de comentários nem fornece rótulos supervisionados; não gera métrica de classificador."
+    usar_como_dataset_supervisionado: false

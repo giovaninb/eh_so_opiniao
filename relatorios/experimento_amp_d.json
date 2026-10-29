@@ -1,0 +1,399 @@
+{
+  "id": "AMP-D",
+  "titulo": "Xenofobia e discriminação regional",
+  "pergunta": "Um baseline detecta xenofobia anotada, e quanto desses positivos é regional (nordestinos, sulistas etc.) ou de nacionalidade?",
+  "datasets_usados": [
+    "told_br",
+    "multidomain_yt_toxbr"
+  ],
+  "datasets_indisponiveis": {},
+  "definicoes": {
+    "told_br": {
+      "rotulo_original": "xenophobia",
+      "relacao": "aproximado"
+    },
+    "multidomain_yt_toxbr": {
+      "rotulo_original": "xenofobia",
+      "relacao": "aproximado"
+    }
+  },
+  "matriz_xenofobia": {
+    "told_br->told_br": {
+      "em_dominio": true,
+      "relacao_treino": {
+        "rotulo_original": "xenophobia",
+        "relacao": "aproximado"
+      },
+      "relacao_teste": {
+        "rotulo_original": "xenophobia",
+        "relacao": "aproximado"
+      },
+      "avaliado_em": "split de teste do próprio dataset",
+      "excluidos_por_sobreposicao_por_semente": [
+        0,
+        0,
+        0
+      ],
+      "precision": {
+        "media": 0.1282,
+        "desvio": 0.0959,
+        "n": 3
+      },
+      "recall": {
+        "media": 0.2095,
+        "desvio": 0.1751,
+        "n": 3
+      },
+      "f1": {
+        "media": 0.158,
+        "desvio": 0.123,
+        "n": 3
+      },
+      "macro_f1": {
+        "media": 0.5779,
+        "desvio": 0.0613,
+        "n": 3
+      },
+      "positivos_por_semente": [
+        7,
+        10,
+        8
+      ],
+      "n_por_semente": [
+        3150,
+        3150,
+        3150
+      ],
+      "suporte_insuficiente": true,
+      "prevalencia": {
+        "media": 0.0026,
+        "desvio": 0.0004,
+        "n": 3
+      },
+      "average_precision": {
+        "media": 0.1402,
+        "desvio": 0.0404,
+        "n": 3
+      },
+      "roc_auc": {
+        "media": 0.8744,
+        "desvio": 0.0129,
+        "n": 3
+      },
+      "chute_trivial_macro_f1": {
+        "media": 0.0026,
+        "desvio": 0.0004,
+        "n": 3
+      },
+      "taxa_falso_positivo": {
+        "media": 0.0022,
+        "desvio": 0.0016,
+        "n": 3
+      },
+      "aviso": "menos de 30 positivos no teste em ao menos uma semente: não interpretar P/R/F1"
+    },
+    "told_br->multidomain_yt_toxbr": {
+      "em_dominio": false,
+      "relacao_treino": {
+        "rotulo_original": "xenophobia",
+        "relacao": "aproximado"
+      },
+      "relacao_teste": {
+        "rotulo_original": "xenofobia",
+        "relacao": "aproximado"
+      },
+      "avaliado_em": "dataset inteiro, sem textos vistos no treino/validação",
+      "excluidos_por_sobreposicao_por_semente": [
+        11,
+        10,
+        9
+      ],
+      "precision": {
+        "media": 0.1481,
+        "desvio": 0.1386,
+        "n": 3
+      },
+      "recall": {
+        "media": 0.0113,
+        "desvio": 0.008,
+        "n": 3
+      },
+      "f1": {
+        "media": 0.0206,
+        "desvio": 0.0146,
+        "n": 3
+      },
+      "macro_f1": {
+        "media": 0.5072,
+        "desvio": 0.0072,
+        "n": 3
+      },
+      "positivos_por_semente": [
+        59,
+        59,
+        59
+      ],
+      "n_por_semente": [
+        4988,
+        4989,
+        4990
+      ],
+      "suporte_insuficiente": false,
+      "prevalencia": {
+        "media": 0.0118,
+        "desvio": 0.0,
+        "n": 3
+      },
+      "average_precision": {
+        "media": 0.0193,
+        "desvio": 0.0025,
+        "n": 3
+      },
+      "roc_auc": {
+        "media": 0.5812,
+        "desvio": 0.0094,
+        "n": 3
+      },
+      "chute_trivial_macro_f1": {
+        "media": 0.0117,
+        "desvio": 0.0,
+        "n": 3
+      },
+      "taxa_falso_positivo": {
+        "media": 0.0007,
+        "desvio": 0.0007,
+        "n": 3
+      }
+    },
+    "multidomain_yt_toxbr->told_br": {
+      "em_dominio": false,
+      "relacao_treino": {
+        "rotulo_original": "xenofobia",
+        "relacao": "aproximado"
+      },
+      "relacao_teste": {
+        "rotulo_original": "xenophobia",
+        "relacao": "aproximado"
+      },
+      "avaliado_em": "dataset inteiro, sem textos vistos no treino/validação",
+      "excluidos_por_sobreposicao_por_semente": [
+        13,
+        11,
+        12
+      ],
+      "precision": {
+        "media": 0.0537,
+        "desvio": 0.0454,
+        "n": 3
+      },
+      "recall": {
+        "media": 0.0159,
+        "desvio": 0.0112,
+        "n": 3
+      },
+      "f1": {
+        "media": 0.0238,
+        "desvio": 0.0171,
+        "n": 3
+      },
+      "macro_f1": {
+        "media": 0.5112,
+        "desvio": 0.0086,
+        "n": 3
+      },
+      "positivos_por_semente": [
+        42,
+        42,
+        42
+      ],
+      "n_por_semente": [
+        20987,
+        20989,
+        20988
+      ],
+      "suporte_insuficiente": false,
+      "prevalencia": {
+        "media": 0.002,
+        "desvio": 0.0,
+        "n": 3
+      },
+      "average_precision": {
+        "media": 0.0083,
+        "desvio": 0.0055,
+        "n": 3
+      },
+      "roc_auc": {
+        "media": 0.5401,
+        "desvio": 0.0038,
+        "n": 3
+      },
+      "chute_trivial_macro_f1": {
+        "media": 0.002,
+        "desvio": 0.0,
+        "n": 3
+      },
+      "taxa_falso_positivo": {
+        "media": 0.0008,
+        "desvio": 0.0003,
+        "n": 3
+      }
+    },
+    "multidomain_yt_toxbr->multidomain_yt_toxbr": {
+      "em_dominio": true,
+      "relacao_treino": {
+        "rotulo_original": "xenofobia",
+        "relacao": "aproximado"
+      },
+      "relacao_teste": {
+        "rotulo_original": "xenofobia",
+        "relacao": "aproximado"
+      },
+      "avaliado_em": "split de teste do próprio dataset",
+      "excluidos_por_sobreposicao_por_semente": [
+        0,
+        0,
+        0
+      ],
+      "precision": {
+        "media": 0.2814,
+        "desvio": 0.116,
+        "n": 3
+      },
+      "recall": {
+        "media": 0.3863,
+        "desvio": 0.0964,
+        "n": 3
+      },
+      "f1": {
+        "media": 0.3219,
+        "desvio": 0.1094,
+        "n": 3
+      },
+      "macro_f1": {
+        "media": 0.6553,
+        "desvio": 0.0554,
+        "n": 3
+      },
+      "positivos_por_semente": [
+        11,
+        11,
+        8
+      ],
+      "n_por_semente": [
+        750,
+        750,
+        750
+      ],
+      "suporte_insuficiente": true,
+      "prevalencia": {
+        "media": 0.0134,
+        "desvio": 0.0019,
+        "n": 3
+      },
+      "average_precision": {
+        "media": 0.3633,
+        "desvio": 0.1022,
+        "n": 3
+      },
+      "roc_auc": {
+        "media": 0.9393,
+        "desvio": 0.026,
+        "n": 3
+      },
+      "chute_trivial_macro_f1": {
+        "media": 0.0132,
+        "desvio": 0.0018,
+        "n": 3
+      },
+      "taxa_falso_positivo": {
+        "media": 0.0144,
+        "desvio": 0.0035,
+        "n": 3
+      },
+      "aviso": "menos de 30 positivos no teste em ao menos uma semente: não interpretar P/R/F1"
+    }
+  },
+  "composicao_dos_positivos": {
+    "told_br": {
+      "positivos_xenofobia": 42,
+      "com_marcador_regional": 26,
+      "com_marcador_nacionalidade": 2,
+      "com_ambos": 0,
+      "sem_marcador_da_lista": 14,
+      "leitura": "Listas simples de marcadores lexicais: DIAGNÓSTICO de composição, não rótulo nem prova de preconceito regional."
+    },
+    "multidomain_yt_toxbr": {
+      "positivos_xenofobia": 59,
+      "com_marcador_regional": 3,
+      "com_marcador_nacionalidade": 29,
+      "com_ambos": 0,
+      "sem_marcador_da_lista": 27,
+      "leitura": "Listas simples de marcadores lexicais: DIAGNÓSTICO de composição, não rótulo nem prova de preconceito regional."
+    }
+  },
+  "discriminacao_regional": {
+    "status": "sem_rotulo_anotado",
+    "classe_taxonomia": "exploratorio",
+    "referencia_teorica": "Escala de Preconceito contra Nordestinos (Psico, 2025): só referência teórica; não é dataset nem fonte de rótulos.",
+    "leitura": "Nenhum dataset integrado distingue xenofobia regional da nacional por comentário; nada aqui mede discriminação regional."
+  },
+  "avisos": [
+    "Nenhuma outra ferramenta de IA do projeto é usada como classificador de preconceito regional; só estes baselines, sob revisão humana.",
+    "O F1 binário do MultiDomainYT-ToxBR (0,78 no artigo) mede 'tóxico ou não' e NÃO indica capacidade de identificar categorias específicas; só os resultados por classe abaixo servem para isso."
+  ],
+  "modelo": {
+    "nome": "B_tfidf",
+    "versao": "tfidf-1.0.0",
+    "modelo": "lr",
+    "C": 1.0,
+    "semente": 0,
+    "class_weight": "balanced",
+    "ngramas_palavra": [
+      1,
+      2
+    ],
+    "ngramas_char_wb": [
+      3,
+      5
+    ],
+    "sklearn": "1.9.1",
+    "numpy": "2.5.4"
+  },
+  "versoes": {
+    "python": "3.14.8",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "taxonomia": "1.1.0",
+    "mapeamento": "1.1.0",
+    "sha256_arquivos": {
+      "told_br": {
+        "ToLD-BR.csv": "a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90"
+      },
+      "hatebr": {
+        "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
+        "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
+      },
+      "multidomain_yt_toxbr": {
+        "3_Tratamento.ipynb": "f99071b6100cc2da5c0315b96649bbab86353cc572f8c06d3c06e497671965c9",
+        "Guia_para_anotacao.pdf": "0379886b4904ac01dc8eea6c431db41fde324c7cf4b043ff8e5124ae51fc08dc",
+        "comentariosParaAnotacao1.xlsx": "4963f326ab37cad26840ff8bffc410c3611235cb5f58d6f62a2c62b6eb5afcb8",
+        "comentariosParaAnotacao2.xlsx": "3bc0e9c978b8914516250ad519aa145f82b456c16785f8703b5025b52d9d7152",
+        "comentariosParaAnotacao3.xlsx": "0d4a6f623264661d119b9be28269dd950bda2fc00e5a52b068e4dcd4ef6e72e9",
+        "comentariosParaAnotacao4.xlsx": "d80bb569d4e273f41bb023a0fa78e8dda5de4239f5fd4ccb5d6fb8af3d57838c",
+        "comentariosParaAnotacao5.xlsx": "bd29e73364b32dccf2f2a7d892b7806b1912b1867015bca4af5aa7b787c24e54",
+        "comentariosParaAnotacao6.xlsx": "86f47fb4ca48d2e7655aa90bf2b1a9416bb54a238072be04fe6957cc38734f6c",
+        "multiDomainYtBinary.csv": "a1fb214039b5f9195886463a1565cafd0a8e0112f94c227df3e82e95d3bbd620",
+        "multiDomainYtMultilabel.csv": "ef21d90206c6bbaacde03b76708835b29430b782ce8ea7c5c855aa145611e670"
+      },
+      "tupye": {
+        "tupye_binary_test.csv": "1fc67fba66bba7a645e8e4213cb24fddb4f2a1804e58c96b16da7c05da18271c",
+        "tupye_binary_train.csv": "73cb2181052fc8ee74467600fba4ff27ab19b78a37777886b97b08a606eed137"
+      }
+    },
+    "sementes": [
+      13,
+      42,
+      2026
+    ]
+  }
+}

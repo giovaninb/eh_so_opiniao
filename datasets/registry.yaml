@@ -1,11 +1,19 @@
-# Catálogo de datasets — "É Só Opinião?" — versão do catálogo 1.0.0
+# Catálogo de datasets — "É Só Opinião?" — versão do catálogo 1.1.0
 # Consultado em 2026-10-28. "registros_confirmados: null" = NÃO confirmado por leitura do arquivo.
 #
 # acesso:
 #   aberto               -> download sem credencial; o pipeline baixa com cache e valida integridade.
 #   restrito_autorizacao -> exige aceite/credencial do operador (HF gated). O pipeline NUNCA contorna;
 #                           sem token válido o dataset fica "pendente_autorizacao" e o resto segue.
-versao_catalogo: "1.0.0"
+#   sem_fonte_publica    -> o artigo cita uma fonte, mas nenhuma fonte pública verificável existe hoje
+#                           (status "pendente_fonte"): nada é baixado, inventado nem buscado em cópias não oficiais.
+#
+# integracao:
+#   integrado | somente_sobreposicao (lido só para contar textos em comum) | pendente_fonte.
+#
+# condicoes_licenca (OBRIGATÓRIO): registradas ANTES de qualquer arquivo entrar no cache. Quando a licença não é
+# declarada, o download só ocorre com reconhecimento explícito do operador (--aceito-licenca ou ESO_ACEITE_LICENCA).
+versao_catalogo: "1.1.0"
 politica_geral:
   corpora_brutos_no_git: false
   contornar_controle_de_acesso: false
@@ -33,6 +41,15 @@ datasets:
     redistribuicao: "Permitida com atribuição e mesma licença. Mesmo assim, este projeto NÃO redistribui o corpus (nem no Git nem no site)."
     acesso: aberto
     status_acesso: acessado
+    integracao: integrado
+    condicoes_licenca:
+      declarada: true
+      identificador: CC-BY-SA-4.0
+      fonte_da_verificacao: "Repositório oficial (arquivo de licença e README)."
+      uso_pelo_projeto: "Pesquisa e educação sem fins comerciais; apenas métricas agregadas são publicadas."
+      restricoes: ["atribuição", "compartilhamento pela mesma licença em derivados que redistribuam dados"]
+      exige_reconhecimento_do_operador: false
+      verificado_em: "2026-10-28"
     formatos: [csv]
     registros_confirmados: 21000
     esquema_anotacao: "3 anotadores por tweet; 6 categorias com contagem de votos 0-3 (float no CSV)."
@@ -69,6 +86,23 @@ datasets:
     redistribuicao: "Somente uso não comercial, com atribuição. O corpus NÃO é redistribuído por este projeto."
     acesso: aberto
     status_acesso: acessado
+    integracao: integrado
+    condicoes_licenca:
+      declarada: true
+      identificador: CC-BY-NC-4.0
+      fonte_da_verificacao: "Repositório oficial franciellevargas/HateBR (licença e README)."
+      uso_pelo_projeto: "Pesquisa e educação sem fins comerciais; apenas métricas agregadas são publicadas."
+      restricoes: ["atribuição", "somente uso não comercial"]
+      exige_reconhecimento_do_operador: false
+      verificado_em: "2026-10-28"
+    verificacao_cruzada_hatebrxplain:
+      repositorio_auditado: https://github.com/isadorasalles/HateBRXplain
+      revisao_auditada: "main@e951f1755b (2025-02-04)"
+      verificado_em: "2026-10-29"
+      conteudo_do_repositorio: "data/HateBRXplain.json e data/hatebr_and_rationales.csv (7.000 comentários), notebooks de classificadores (mBERT, BERTimbau, DistilBERTimbau, PTT5), explicabilidade com LIME e SHAP, métricas de plausibilidade e fidelidade, concordância entre anotadores."
+      comparacao_com_o_arquivo_integrado: "Os mesmos 7.000 comentários; os trechos de justificativa de 6.998 dos 7.000 são idênticos aos de HateBRXplain.csv (franciellevargas/HateBR), com mesma ordem de anotadores. Os trechos não localizáveis no texto (cerca de 1,2%) são os mesmos nas duas fontes. Nenhum dado novo foi integrado."
+      licenca_no_repositorio_auditado: "Não declarada (sem arquivo LICENSE; README não cita licença). O projeto continua lendo apenas o arquivo do repositório com licença CC-BY-NC-4.0."
+      uso_no_projeto: "Apoia o experimento de explicabilidade (trechos relevantes, protocolo AMP-F). Pontuações de LIME/SHAP do repositório NÃO são importadas."
     formatos: [csv]
     registros_confirmados: 7000
     esquema_anotacao: "Binário (ofensivo/não) com 3 anotadores especialistas; HateBRXplain acrescenta justificativas (rationales) de 2 anotadores como trechos de texto. Níveis de ofensa e alvos de ódio existem só na versão 1.0, sob pedido, NÃO integrados."
@@ -82,3 +116,270 @@ datasets:
       - Só 78 publicações; split por publicação gera poucos grupos.
       - Rationales são trechos textuais, não offsets; offsets são derivados por busca e podem falhar.
       - Equilíbrio artificial 50/50 (3.500/3.500) não reflete prevalência real.
+  multidomain_yt_toxbr:
+    nome: MultiDomainYT-ToxBR — corpus multidomínio de comentários tóxicos do YouTube (PUCRS, 2026)
+    adaptador: MultiDomainYtToxBrAdapter
+    versao: "main@3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f"
+    data_versao: "2026-10-29"
+    autores:
+      - Gabriel Z. de Souza
+      - Isabel H. Manssour
+    referencia: "de Souza, G. Z., Manssour, I. H. (2026). MultiDomainYT-ToxBR: Um Corpus Multidomínio de Comentários Tóxicos do YouTube em Português Brasileiro. STIL 2026, aclanthology 2026.stil-1.36."
+    url_origem: https://github.com/DAVINTLAB/MultiDomainYT-ToxBR
+    url_artigo: https://aclanthology.org/2026.stil-1.36/
+    url_arquivos:
+      - arquivo: multiDomainYtBinary.csv
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/multiDomainYtBinary.csv
+        sha256: a1fb214039b5f9195886463a1565cafd0a8e0112f94c227df3e82e95d3bbd620
+        bytes: 663727
+        uso: "versão binária (text,label 0/1)"
+      - arquivo: multiDomainYtMultilabel.csv
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/multiDomainYtMultilabel.csv
+        sha256: ef21d90206c6bbaacde03b76708835b29430b782ce8ea7c5c855aa145611e670
+        bytes: 803727
+        uso: "versão multirrótulo (text,label = vetor de 9 posições)"
+      - arquivo: comentariosParaAnotacao1.xlsx
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/comentariosParaAnotacao1.xlsx
+        sha256: 4963f326ab37cad26840ff8bffc410c3611235cb5f58d6f62a2c62b6eb5afcb8
+        bytes: 280149
+        uso: "anotador 1 (grupo 1; comentários 0-2499): preserva a concordância"
+      - arquivo: comentariosParaAnotacao2.xlsx
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/comentariosParaAnotacao2.xlsx
+        sha256: 3bc0e9c978b8914516250ad519aa145f82b456c16785f8703b5025b52d9d7152
+        bytes: 283776
+        uso: "anotador 2 (grupo 1)"
+      - arquivo: comentariosParaAnotacao3.xlsx
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/comentariosParaAnotacao3.xlsx
+        sha256: 0d4a6f623264661d119b9be28269dd950bda2fc00e5a52b068e4dcd4ef6e72e9
+        bytes: 279838
+        uso: "anotador 3 (grupo 1)"
+      - arquivo: comentariosParaAnotacao4.xlsx
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/comentariosParaAnotacao4.xlsx
+        sha256: d80bb569d4e273f41bb023a0fa78e8dda5de4239f5fd4ccb5d6fb8af3d57838c
+        bytes: 274068
+        uso: "anotador 4 (grupo 2; comentários 2500-4999)"
+      - arquivo: comentariosParaAnotacao5.xlsx
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/comentariosParaAnotacao5.xlsx
+        sha256: bd29e73364b32dccf2f2a7d892b7806b1912b1867015bca4af5aa7b787c24e54
+        bytes: 272282
+        uso: "anotador 5 (grupo 2)"
+      - arquivo: comentariosParaAnotacao6.xlsx
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Dados/comentariosParaAnotacao6.xlsx
+        sha256: 86f47fb4ca48d2e7655aa90bf2b1a9416bb54a238072be04fe6957cc38734f6c
+        bytes: 273017
+        uso: "anotador 6 (grupo 2)"
+      - arquivo: Guia_para_anotacao.pdf
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Guia%20para%20anota%C3%A7%C3%A3o.pdf
+        sha256: 0379886b4904ac01dc8eea6c431db41fde324c7cf4b043ff8e5124ae51fc08dc
+        bytes: 364396
+        uso: "NÃO ingerido (documentação: definições das nove categorias)"
+      - arquivo: 3_Tratamento.ipynb
+        url: https://raw.githubusercontent.com/DAVINTLAB/MultiDomainYT-ToxBR/3d6ca38c3b340e50f4a3cd141b9c0f2a1a41689f/Notebooks/3_Tratamento.ipynb
+        sha256: f99071b6100cc2da5c0315b96649bbab86353cc572f8c06d3c06e497671965c9
+        bytes: 42981
+        uso: "NÃO ingerido (evidência da ordem do vetor e da regra de consenso)"
+    licenca: "Não declarada no repositório (sem arquivo LICENSE; GitHub: license=null). O artigo informa disponibilização exclusivamente para fins acadêmicos."
+    redistribuicao: "Não. Sem licença declarada, nenhuma redistribuição é presumida: o corpus não vai ao Git, ao site nem a terceiros."
+    acesso: aberto
+    status_acesso: acessado
+    integracao: integrado
+    condicoes_licenca:
+      declarada: false
+      identificador: "nenhuma (sem LICENSE no repositório; artigo: 'exclusivamente para fins acadêmicos')"
+      fonte_da_verificacao: "API do GitHub (license=null), árvore do repositório no commit 3d6ca38c e seção 8 (Considerações Éticas) do artigo."
+      uso_pelo_projeto: "Pesquisa acadêmica sem fins comerciais, apenas em cache local; apenas métricas agregadas são publicadas."
+      restricoes:
+        - "somente fins acadêmicos (declaração do artigo)"
+        - "sem redistribuição dos comentários, dos vetores de rótulos nem das planilhas de anotadores"
+        - "sem publicar comentários no site nem no Git"
+        - "licença formal ausente: recomenda-se pedir confirmação por escrito aos autores antes de qualquer uso além da pesquisa local"
+      exige_reconhecimento_do_operador: true
+      verificado_em: "2026-10-29"
+    formatos: [csv, xlsx]
+    registros_confirmados: 5000
+    nota_contagem: "5.000 linhas em cada CSV (1 texto vazio e 15 duplicatas exatas incluídos); 6 planilhas com 2.500 linhas cada (2 grupos de 3 anotadores)."
+    esquema_anotacao: "Cada comentário tem 3 anotadores (dois grupos independentes de três: grupo 1 anotou os 2.500 primeiros, grupo 2 os 2.500 restantes). Nove categorias binárias por anotador, mais a coluna 'inválido'. O vetor do CSV é o consenso por maioria (>=2 de 3) em cada categoria; o rótulo binário é 1 se qualquer categoria tem consenso."
+    rotulos_originais: [insulto_de_baixo_calao, homofobia, racismo, misoginia_machismo, xenofobia, violencia_extremismo, intolerancia_religiosa, intolerancia_politica, anticapacitismo]
+    idioma: pt-BR
+    plataforma: youtube
+    contexto: "Comentários de 50 vídeos (2 por termo de busca, 25 termos) em cinco domínios temáticos: política polarizada, futebol, conflitos internacionais, feminismo e direitos das mulheres, conteúdo LGBTQIA+. O domínio e o vídeo de cada comentário NÃO constam nos arquivos publicados (as planilhas foram embaralhadas e só a coluna do comentário foi mantida)."
+    hash_ou_revisao: "sha256 dos arquivos (acima) e commit git 3d6ca38c"
+    ficha_cientifica:
+      verificacao_do_esquema:
+        verificado_em: "2026-10-29"
+        csv_binario: "cabeçalho text,label; 5.000 linhas; label ∈ {0,1} (3.546 zeros e 1.454 uns)."
+        csv_multirrotulo: "cabeçalho text,label; 5.000 linhas; label é uma string '[a, b, ..., i]' com 9 inteiros 0/1 (42 vetores distintos). Os nomes das classes NÃO estão no arquivo."
+        planilhas: "cabeçalho comentario + 9 categorias + inválido; valores 0/1 por anotador."
+      ordem_do_vetor_multirrotulo:
+        ordem_verificada: [insulto_de_baixo_calao, homofobia, racismo, misoginia_machismo, xenofobia, violencia_extremismo, intolerancia_religiosa, intolerancia_politica, anticapacitismo]
+        como_foi_verificada: "O vetor de cada uma das 5.000 linhas foi reconstruído a partir das seis planilhas (maioria >=2 de 3 por grupo) e comparado posição a posição; as 9 posições coincidem 100% com as 9 colunas das planilhas na ordem acima, e o rótulo binário coincide 100% com 'qualquer categoria'. A ordem também é a de `classesFinais` no notebook 3_Tratamento (autores) e a do guia de anotação."
+        divergencia_do_readme: "O README descreve o vetor como [insulto, obsceno, homofobia, racismo, misoginia, xenofobia, violência, intolerância_religiosa, intolerância_política]. Isso é inconsistente com os dados: não existe categoria 'obsceno', falta 'anticapacitismo', e todas as posições seguintes ao insulto ficariam deslocadas. NÃO foi usada a ordem do README."
+        nota_sobre_o_nome_anticapacitismo: "A coluna se chama 'anticapacitismo', mas a definição do guia descreve comentários que zombam, menosprezam ou desumanizam pessoas com deficiência, isto é, conteúdo capacitista. O rótulo mede a PRESENÇA de capacitismo."
+      concordancia_reportada_no_artigo:
+        medida: "Kappa de Fleiss por categoria e por grupo (alfa de Krippendorff difere menos de 0,0001)"
+        grupo_1: {insulto_de_baixo_calao: 0.481, homofobia: 0.734, racismo: 0.422, misoginia_machismo: 0.532, xenofobia: 0.329, violencia_extremismo: 0.364, intolerancia_religiosa: 0.549, intolerancia_politica: 0.584, anticapacitismo: 0.443, media: 0.493}
+        grupo_2: {insulto_de_baixo_calao: 0.262, homofobia: 0.442, racismo: 0.332, misoginia_machismo: 0.407, xenofobia: 0.420, violencia_extremismo: 0.215, intolerancia_religiosa: 0.555, intolerancia_politica: 0.499, anticapacitismo: 0.218, media: 0.372}
+        observacao: "A concordância recalculada a partir das planilhas está em relatorios/concordancia_multidomain_yt_toxbr.json (comando `concordancia`)."
+      composicao_reportada_no_artigo:
+        total: 5000
+        por_dominio: "1.000 comentários por domínio (100 por vídeo; 50% sinalizados como potencialmente tóxicos pelo Detoxify, 50% aleatórios)"
+        prevalencias_reportadas: "insulto 18,5%; intolerância política 5,1%; homofobia 3,1%; racismo 17 comentários (0,34%); anticapacitismo 32 (0,64%); violência/extremismo 57 (1,14%)"
+      desempenho_reportado_no_artigo:
+        binario: "F1 0,78 (BERTweet.BR, teste de 500 comentários). NÃO é indicador de capacidade de identificar categorias específicas."
+        multirrotulo: "F1 médio 0,11; só insulto (0,50) e intolerância política (0,52) têm F1 > 0; as outras sete categorias têm F1 0,00; racismo tinha 2 exemplos e anticapacitismo 3 no teste."
+      domino_tematico_disponivel_por_comentario: false
+    limitacoes_vieses:
+      - "Sem licença declarada: uso restrito à pesquisa acadêmica local, sem redistribuição."
+      - "Amostragem enviesada: 50% dos comentários de cada vídeo foram escolhidos por pontuação do Detoxify (modelo treinado sobretudo em inglês), o que superestima a prevalência de toxicidade e favorece marcadores explícitos."
+      - "Domínio temático e identificador do vídeo ausentes nos arquivos: não é possível dividir por vídeo nem reportar resultados por domínio; comentários do mesmo vídeo podem cair em divisões diferentes."
+      - "Duas turmas de três anotadores (nenhum anotador viu o corpus inteiro); concordância moderada no grupo 1 e justa no grupo 2 (kappa médio 0,493 e 0,372)."
+      - "Categorias raras: racismo tem apenas 17 comentários por consenso; resultados por classe são instáveis."
+      - "Os anotadores trabalharam sem discutir; divergências foram preservadas nas planilhas, mas o CSV só traz o consenso por maioria."
+      - "A coluna 'inválido' (marcada em 1.472 de 2.500 linhas pelo anotador 2) é descartada pelos autores; foi preservada aqui como metadado e não como rótulo."
+      - "Rótulo binário inclui insulto de baixo calão: 'tóxico' neste corpus não é sinônimo de discurso de ódio."
+  racismobr:
+    nome: RacismoBR — discurso racista em português do Brasil (UFMG, 2026)
+    adaptador: RacismoBrAdapter
+    versao: "indisponivel (sem revisão pública verificável)"
+    data_versao: "2026-04-13"
+    autores:
+      - João Vítor Vaz
+      - Fabrício Benevenuto
+      - Marcos André Gonçalves
+    referencia: "Vaz, J. V., Benevenuto, F., Gonçalves, M. A. (2026). RacismoBR: A Manually Annotated Dataset for Racist Discourse Detection in Brazilian Portuguese. PROPOR 2026, vol. 1, pp. 770-779. aclanthology 2026.propor-1.76."
+    url_origem: https://github.com/joaovitorvaz/RacismoBR-Dataset
+    url_artigo: https://aclanthology.org/2026.propor-1.76/
+    url_arquivos: []
+    licenca: "Não declarada. O artigo diz que o dataset será liberado sob protocolo de divulgação responsável."
+    redistribuicao: "Não. Sem fonte pública nem licença verificadas, nenhuma redistribuição é presumida."
+    acesso: sem_fonte_publica
+    status_acesso: pendente_fonte
+    integracao: pendente_fonte
+    condicoes_licenca:
+      declarada: false
+      identificador: "nenhuma verificada; artigo: liberação sob protocolo de divulgação responsável"
+      fonte_da_verificacao: "Seção de Considerações Éticas do artigo; a URL do repositório citado devolve 404."
+      uso_pelo_projeto: "Nenhum dado é usado. Só o contrato do adaptador é validado, com fixtures sintéticas."
+      restricoes:
+        - "seguir o protocolo de divulgação responsável dos autores quando houver acesso"
+        - "não contornar controle de acesso nem buscar cópias não oficiais"
+        - "sem redistribuição"
+      exige_reconhecimento_do_operador: true
+      verificado_em: "2026-10-29"
+    formatos: []
+    registros_confirmados: null
+    registros_declarados_no_artigo: "1.054 (corpus original, derivado) e 858 (subconjunto experimental balanceado); ver ficha_cientifica. NENHUM confirmado por leitura de arquivo."
+    esquema_anotacao: "Binário: 1 = racista, 0 = não racista (racismo contra pessoas negras). Pares independentes de pesquisadores negros; terceiro avaliador nos casos de divergência."
+    rotulos_originais: [racist, non_racist]
+    idioma: pt-BR
+    plataforma: twitter
+    contexto: "Posts do X (antigo Twitter): 405 coletados entre setembro/2024 e janeiro/2025 por palavras-chave, mais 629 posts de trabalhos anteriores (2017-2021) reanotados."
+    hash_ou_revisao: "indisponível: nenhum arquivo foi obtido"
+    fontes_verificadas:
+      - {fonte: "https://github.com/joaovitorvaz/RacismoBR-Dataset (página)", resultado: "HTTP 404", verificado_em: "2026-10-29"}
+      - {fonte: "API do GitHub para o mesmo repositório", resultado: "HTTP 404", verificado_em: "2026-10-29"}
+      - {fonte: "raw.githubusercontent.com para o mesmo repositório", resultado: "HTTP 404", verificado_em: "2026-10-29"}
+      - {fonte: "Lista dos repositórios públicos do autor no GitHub (14)", resultado: "nenhum chamado RacismoBR ou equivalente", verificado_em: "2026-10-29"}
+      - {fonte: "Busca por 'RacismoBR' no GitHub e no Hugging Face", resultado: "sem resultados", verificado_em: "2026-10-29"}
+      - {fonte: "Zenodo", resultado: "HTTP 403 (INCONCLUSIVO: bloqueio automático, não prova ausência)", verificado_em: "2026-10-29"}
+      - {fonte: "Internet Archive (Wayback Machine)", resultado: "HTTP 429 (INCONCLUSIVO: limite de requisições)", verificado_em: "2026-10-29"}
+    pendencia: "Não há URL oficial nova verificada. Próximos passos legítimos: pedir aos autores (contato publicado no artigo, UFMG/DCC) o acesso pelo protocolo de divulgação responsável, ou aguardar o repositório voltar. Enquanto isso o dataset fica pendente_fonte e nenhum resultado real é reportado."
+    ficha_cientifica:
+      definicao_operacional:
+        original_en: "Racism is any form of expression, direct or indirect, that conveys the hierarchization of phenotypes, the internalization of a negative self-image, or the subordination of black people. This includes discourse that demeans, offends, discriminates, or stigmatizes black individuals on the basis of race, ancestry, or phenotypic traits, whether explicitly or implicitly. (adaptada de Almeida, 2019)"
+        traducao_pt: "Racismo é toda forma de expressão, direta ou indireta, que transmita a hierarquização de fenótipos, a internalização de uma autoimagem negativa ou a subordinação de pessoas negras. Inclui discurso que deprecia, ofende, discrimina ou estigmatiza pessoas negras com base em raça, ascendência ou traços fenotípicos, de forma explícita ou implícita."
+        alvo: "racismo contra pessoas negras; outras formas de preconceito racial ou étnico não são o foco declarado"
+      rotulos_originais_binarios: {"1": racista, "0": nao_racista}
+      proveniencia:
+        coleta_nova: "405 posts e respostas do X, coletados de setembro/2024 a janeiro/2025 por serviço pago da API, só conteúdo público, identificadores diretos removidos; seleção intencional por palavras-chave (mulambo, racismo, racista, angolano/a, candomblé, africano/a, neguinho/a)."
+        literatura: "629 posts do X, coletados em 2017-2021 e rotulados como racistas em trabalhos anteriores (Fortuna et al. 2019; Leite et al. 2020 [ToLD-Br]; Augusto 2021; Silva Neto 2017), reanotados do zero com a mesma definição."
+        plataforma_unica: "X (Twitter)"
+      composicao_de_classes:
+        coleta_nova_apos_reanotacao: {racista: 113, nao_racista: 312}
+        literatura_apos_reanotacao: {racista: 316, nao_racista: 313}
+        total_racista: 429
+        reservatorio_nao_racista: 625
+        corpus_original_derivado: "1.054 = 429 racistas + 625 não racistas (soma derivada pelo projeto; o artigo cita 429 e 625, não o total)"
+        subconjunto_experimental_balanceado: {total: 858, racista: 429, nao_racista: 429, metodo: "subamostragem aleatória da classe majoritária antes da validação cruzada (semente 42)"}
+        observacao: "Corpus original (desbalanceado) e subconjunto experimental (balanceado artificialmente) são objetos distintos: resultados do subconjunto não refletem a prevalência real."
+      anotacao_e_consenso:
+        anotadores: "8 pesquisadores negros, em 4 pares independentes, de origens acadêmicas e regiões diversas"
+        regras: "cada par rotulou de forma independente o seu subconjunto; divergências foram revisadas por um terceiro avaliador independente"
+        concordancia: "386 dos 405 posts novos com concordância completa; kappa de Cohen mínimo entre os pares = 0,655; 39 posts divergentes revistos por um terceiro avaliador, com 16 reclassificados"
+        posicionalidade: "anotação feita exclusivamente por pesquisadores negros, como escolha epistêmica declarada"
+      limitacoes_de_amostragem:
+        - "Amostragem intencional por palavras-chave: pode moldar a distribuição lexical e não é probabilística."
+        - "Foco em racismo contra pessoas negras; não separa outras formas de preconceito."
+        - "Análise de turno único, sem contexto conversacional."
+        - "Mistura de posts de 2017-2021 e 2024-2025: possível deriva temporal de linguagem, mitigada pela reanotação única."
+        - "Plataforma única (X)."
+        - "Parte dos posts da literatura vem do ToLD-Br: sobreposição esperada com o ToLD-Br (e com o TuPyE), que deve ser medida antes de qualquer avaliação cruzada."
+      inconsistencias_do_artigo:
+        - "Declara 405 posts novos anotados, mas 113 racistas + 312 não racistas somam 425."
+        - "Declara 386 de 405 com concordância completa e, em seguida, 39 posts divergentes: 386 + 39 = 425, não 405."
+      contrato_esperado_do_arquivo:
+        status: "NÃO verificado contra o arquivo real, que não foi obtido"
+        colunas_minimas: [text, label]
+        colunas_opcionais: [origin, subset]
+        label: "1 = racista, 0 = não racista (convenção do artigo)"
+        origin: "coleta_nova | literatura (proveniência por exemplo)"
+        subset: "experimental_balanceado | reservatorio (separa o subconjunto de 858 do restante)"
+        nota: "O adaptador aceita um mapa de colunas para absorver os nomes reais quando o arquivo existir e recusa o que não bater."
+    limitacoes_vieses:
+      - "Fonte pública indisponível hoje: nenhum número sobre o dataset foi confirmado, apenas os declarados no artigo."
+      - "Amostragem por palavras-chave, foco em racismo contra pessoas negras, turno único, plataforma única (X)."
+      - "Sobreposição esperada com o ToLD-Br e com o TuPyE: avaliação cruzada exige deduplicação por texto."
+      - "O subconjunto de 858 é balanceado artificialmente (429/429) e não representa prevalência."
+      - "Inconsistência numérica no artigo (405 versus 425 posts novos)."
+  tupye:
+    nome: TuPyE — Expanded Brazilian Hate Speech Dataset (somente análise de sobreposição)
+    adaptador: null
+    versao: "master@b89c2c3a8d3bc784677f12131e2c2ee560909886"
+    data_versao: "2024-01-02"
+    autores:
+      - "Felipe Oliveira e colaboradores (UFRJ/COPPE)"
+    referencia: "Oliveira et al. (2023). TuPy-E: detecting hate speech in Brazilian Portuguese social media with a novel dataset and comprehensive analysis of models. arXiv:2312.17704."
+    url_origem: https://github.com/Silly-Machine/TuPyE-Expanded-Brazilian-Hate-Speech-Dataset
+    url_arquivos:
+      - arquivo: tupye_binary_train.csv
+        url: https://raw.githubusercontent.com/Silly-Machine/TuPyE-Expanded-Brazilian-Hate-Speech-Dataset/b89c2c3a8d3bc784677f12131e2c2ee560909886/binary/binary_train.csv
+        sha256: 73cb2181052fc8ee74467600fba4ff27ab19b78a37777886b97b08a606eed137
+        bytes: 3988034
+        uso: "análise de sobreposição (texto, researcher, source)"
+      - arquivo: tupye_binary_test.csv
+        url: https://raw.githubusercontent.com/Silly-Machine/TuPyE-Expanded-Brazilian-Hate-Speech-Dataset/b89c2c3a8d3bc784677f12131e2c2ee560909886/binary/binary_test.csv
+        sha256: 1fc67fba66bba7a645e8e4213cb24fddb4f2a1804e58c96b16da7c05da18271c
+        bytes: 988824
+        uso: "análise de sobreposição"
+    licenca: "CC-BY-4.0 no cartão do Hugging Face; o repositório do GitHub não tem arquivo de licença; conflito com as licenças dos componentes (ToLD-Br CC-BY-SA-4.0, HateBR CC-BY-NC-4.0)."
+    redistribuicao: "Não. O conflito de licenças com os componentes impede presumir permissão; o corpus não vai ao Git nem ao site."
+    acesso: aberto
+    status_acesso: acessado
+    integracao: somente_sobreposicao
+    condicoes_licenca:
+      declarada: true
+      identificador: "CC-BY-4.0 (cartão HF) — inconsistente com componentes CC-BY-SA-4.0 e CC-BY-NC-4.0"
+      fonte_da_verificacao: "Cartão do dataset no Hugging Face (Silly-Machine/TuPyE-Dataset) e árvore do repositório GitHub (sem LICENSE)."
+      uso_pelo_projeto: "Leitura local só para contar sobreposição de textos com ToLD-Br, HateBR, MultiDomainYT-ToxBR e RacismoBR; os rótulos do TuPyE NÃO entram nos experimentos."
+      restricoes:
+        - "a licença do TuPyE não sobrepõe as dos componentes: tratar o conjunto sob a mais restritiva (CC-BY-NC-4.0 e CC-BY-SA-4.0)"
+        - "sem redistribuição"
+      exige_reconhecimento_do_operador: true
+      verificado_em: "2026-10-29"
+    formatos: [csv]
+    registros_confirmados: 43668
+    nota_contagem: "34.934 linhas no treino e 8.734 no teste (binário); soma 43.668, igual ao total do README. Os arquivos multirrótulo e de votos não foram baixados."
+    esquema_anotacao: "Binário agressivo/ódio (colunas aggressive e hate) agregando três fontes por voto de maioria. 'hate' EXCLUI textos que só são ofensivos ou obscenos: definição de ódio diferente da do ToLD-Br e da do HateBR. A versão multirrótulo (13 colunas) não foi usada."
+    rotulos_originais: [aggressive, hate]
+    idioma: pt-BR
+    plataforma: "twitter e instagram"
+    contexto: "Composição por pesquisador: Leite et al. (ToLD-Br) 21.000, TuPy 10.000, Vargas et al. (HateBR) 7.000, Fortuna et al. 5.668. Por construção, 28.000 dos 43.668 documentos (64%) vêm do ToLD-Br e do HateBR."
+    hash_ou_revisao: "sha256 dos arquivos (acima) e commit git b89c2c3a8d"
+    ficha_cientifica:
+      sobreposicao_por_construcao: "A coluna 'researcher' identifica a fonte de cada documento; a sobreposição com ToLD-Br e HateBR é estrutural. O resultado medido está em relatorios/sobreposicao_corpora.json."
+      risco_de_uso: "Treinar com TuPyE e avaliar em ToLD-Br, HateBR ou RacismoBR (cuja parte da literatura também vem de Fortuna e Leite) produz vazamento. Qualquer uso futuro exige remoção prévia por texto."
+    limitacoes_vieses:
+      - "Mistura corpora com definições de ódio e esquemas de anotação diferentes, unificados por voto de maioria."
+      - "Sobreposição estrutural com ToLD-Br e HateBR."
+      - "Licença declarada inconsistente com as dos componentes."
+      - "Classes específicas muito raras no multirrótulo (ex.: etarismo 57, aporofobia 66 em 43.668)."

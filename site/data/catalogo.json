@@ -6,9 +6,13 @@
     "plataforma": "twitter",
     "acesso": "aberto",
     "status": "acessado",
+    "integracao": "integrado",
+    "rotulo_uso": "Em uso nos experimentos",
+    "explicacao_uso": "Licença declarada e respeitada. Os textos não são publicados aqui.",
     "registros": 21000,
     "referencia": "Leite et al. (2020). Toxic Language Detection in Social Media for Brazilian Portuguese: New Dataset and Multilingual Analysis. arXiv:2010.04543 (AACL-IJCNLP 2020).",
     "url": "https://github.com/JAugusto97/ToLD-Br",
+    "url_artigo": null,
     "limitacoes": [
       "Sem identificadores nem metadados de conversa; deduplicação só por texto.",
       "Categorias raras (xenofobia, racismo) com poucos positivos por consenso.",
@@ -23,14 +27,86 @@
     "plataforma": "instagram",
     "acesso": "aberto",
     "status": "acessado",
+    "integracao": "integrado",
+    "rotulo_uso": "Em uso nos experimentos",
+    "explicacao_uso": "Licença declarada e respeitada. Os textos não são publicados aqui.",
     "registros": 7000,
     "referencia": "Vargas et al. (2022) HateBR, LREC 2022, aclanthology 2022.lrec-1.777; Salles, Vargas & Benevenuto (2025) HateBRXplain, COLING 2025, aclanthology 2025.coling-main.446.",
     "url": "https://github.com/franciellevargas/HateBR",
+    "url_artigo": null,
     "limitacoes": [
       "Domínio político em Instagram; ofensa binária mistura insulto, xingamento e discurso de ódio.",
       "Só 78 publicações; split por publicação gera poucos grupos.",
       "Rationales são trechos textuais, não offsets; offsets são derivados por busca e podem falhar.",
       "Equilíbrio artificial 50/50 (3.500/3.500) não reflete prevalência real."
+    ]
+  },
+  {
+    "id": "multidomain_yt_toxbr",
+    "nome": "MultiDomainYT-ToxBR — corpus multidomínio de comentários tóxicos do YouTube (PUCRS, 2026)",
+    "licenca": "não declarada",
+    "plataforma": "youtube",
+    "acesso": "aberto",
+    "status": "acessado",
+    "integracao": "integrado",
+    "rotulo_uso": "Em uso local, sob condições de licença",
+    "explicacao_uso": "Sem licença formal publicada: uso só acadêmico, no computador da equipe, sem redistribuição.",
+    "registros": 5000,
+    "referencia": "de Souza, G. Z., Manssour, I. H. (2026). MultiDomainYT-ToxBR: Um Corpus Multidomínio de Comentários Tóxicos do YouTube em Português Brasileiro. STIL 2026, aclanthology 2026.stil-1.36.",
+    "url": "https://github.com/DAVINTLAB/MultiDomainYT-ToxBR",
+    "url_artigo": "https://aclanthology.org/2026.stil-1.36/",
+    "limitacoes": [
+      "Sem licença declarada: uso restrito à pesquisa acadêmica local, sem redistribuição.",
+      "Amostragem enviesada: 50% dos comentários de cada vídeo foram escolhidos por pontuação do Detoxify (modelo treinado sobretudo em inglês), o que superestima a prevalência de toxicidade e favorece marcadores explícitos.",
+      "Domínio temático e identificador do vídeo ausentes nos arquivos: não é possível dividir por vídeo nem reportar resultados por domínio; comentários do mesmo vídeo podem cair em divisões diferentes.",
+      "Duas turmas de três anotadores (nenhum anotador viu o corpus inteiro); concordância moderada no grupo 1 e justa no grupo 2 (kappa médio 0,493 e 0,372).",
+      "Categorias raras: racismo tem apenas 17 comentários por consenso; resultados por classe são instáveis.",
+      "Os anotadores trabalharam sem discutir; divergências foram preservadas nas planilhas, mas o CSV só traz o consenso por maioria.",
+      "A coluna 'inválido' (marcada em 1.472 de 2.500 linhas pelo anotador 2) é descartada pelos autores; foi preservada aqui como metadado e não como rótulo.",
+      "Rótulo binário inclui insulto de baixo calão: 'tóxico' neste corpus não é sinônimo de discurso de ódio."
+    ]
+  },
+  {
+    "id": "racismobr",
+    "nome": "RacismoBR — discurso racista em português do Brasil (UFMG, 2026)",
+    "licenca": "não declarada",
+    "plataforma": "twitter",
+    "acesso": "sem_fonte_publica",
+    "status": "pendente_fonte",
+    "integracao": "pendente_fonte",
+    "rotulo_uso": "Aguardando fonte oficial",
+    "explicacao_uso": "O repositório citado pelos autores não está acessível. Nenhum dado dela foi usado nem inventado.",
+    "registros": null,
+    "referencia": "Vaz, J. V., Benevenuto, F., Gonçalves, M. A. (2026). RacismoBR: A Manually Annotated Dataset for Racist Discourse Detection in Brazilian Portuguese. PROPOR 2026, vol. 1, pp. 770-779. aclanthology 2026.propor-1.76.",
+    "url": "https://github.com/joaovitorvaz/RacismoBR-Dataset",
+    "url_artigo": "https://aclanthology.org/2026.propor-1.76/",
+    "limitacoes": [
+      "Fonte pública indisponível hoje: nenhum número sobre o dataset foi confirmado, apenas os declarados no artigo.",
+      "Amostragem por palavras-chave, foco em racismo contra pessoas negras, turno único, plataforma única (X).",
+      "Sobreposição esperada com o ToLD-Br e com o TuPyE: avaliação cruzada exige deduplicação por texto.",
+      "O subconjunto de 858 é balanceado artificialmente (429/429) e não representa prevalência.",
+      "Inconsistência numérica no artigo (405 versus 425 posts novos)."
+    ]
+  },
+  {
+    "id": "tupye",
+    "nome": "TuPyE — Expanded Brazilian Hate Speech Dataset (somente análise de sobreposição)",
+    "licenca": "não declarada",
+    "plataforma": "twitter e instagram",
+    "acesso": "aberto",
+    "status": "acessado",
+    "integracao": "somente_sobreposicao",
+    "rotulo_uso": "Só para medir sobreposição",
+    "explicacao_uso": "Serve para checar textos repetidos entre bases. Não é usada para treinar nem para avaliar.",
+    "registros": 43668,
+    "referencia": "Oliveira et al. (2023). TuPy-E: detecting hate speech in Brazilian Portuguese social media with a novel dataset and comprehensive analysis of models. arXiv:2312.17704.",
+    "url": "https://github.com/Silly-Machine/TuPyE-Expanded-Brazilian-Hate-Speech-Dataset",
+    "url_artigo": null,
+    "limitacoes": [
+      "Mistura corpora com definições de ódio e esquemas de anotação diferentes, unificados por voto de maioria.",
+      "Sobreposição estrutural com ToLD-Br e HateBR.",
+      "Licença declarada inconsistente com as dos componentes.",
+      "Classes específicas muito raras no multirrótulo (ex.: etarismo 57, aporofobia 66 em 43.668)."
     ]
   }
 ]

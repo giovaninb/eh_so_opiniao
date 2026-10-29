@@ -126,7 +126,7 @@ def test_site_publica_so_o_que_foi_revisado(conn, tmp_path):
     assert "FR-07" not in {f["id"] for f in rasc["frases"]}
     assert all(f["revisao"]["estado"] == "RASCUNHO" for f in rasc["frases"] if f["id"] != "FR-06")
     assert "não conclui crime" in pub["aviso"]
-    for nome in ("taxonomia.json", "catalogo.json", "achados.json"):
+    for nome in ("taxonomia.json", "catalogo.json", "achados.json", "referencias.json"):
         assert (tmp_path / "data" / nome).exists()
 
 
@@ -147,7 +147,12 @@ def test_varredura_pega_variacao_de_caixa_e_pontuacao():
 
 def test_catalogo_publico_nao_tem_texto_de_amostra():
     cat = {d["id"]: d for d in publicacao.catalogo_publico()}
-    assert set(cat) == {"told_br", "hatebr"} and all(d["status"] == "acessado" for d in cat.values())
+    assert set(cat) == {"told_br", "hatebr", "multidomain_yt_toxbr", "racismobr", "tupye"}
+    assert cat["racismobr"]["status"] == "pendente_fonte" and cat["racismobr"]["registros"] is None
+    assert cat["racismobr"]["rotulo_uso"] == "Aguardando fonte oficial"
+    assert cat["tupye"]["rotulo_uso"] == "Só para medir sobreposição"
+    assert cat["multidomain_yt_toxbr"]["rotulo_uso"].startswith("Em uso local") and cat["multidomain_yt_toxbr"]["licenca"] == "não declarada"
+    assert cat["told_br"]["rotulo_uso"] == "Em uso nos experimentos"
     chaves = {k for d in cat.values() for k in d}
     assert not chaves & {"texto", "text", "amostras", "exemplos", "comentarios"}
 
@@ -156,35 +161,48 @@ def test_achados_dos_relatorios_vem_de_numeros_reais_ou_ficam_vazios(tmp_path):
     assert publicacao.achados_dos_relatorios(tmp_path) == []
     real = publicacao.achados_dos_relatorios()
     if (paths.RELATORIOS / "experimento_b.json").exists():
-        assert {a["experimento"] for a in real} <= set("ABCDE") and all(a["texto"] for a in real)
+        assert {a["experimento"] for a in real} <= set("ABCDE") | {"AMP-E", "AMP-G"} and all(a["texto"] for a in real)
 
 
 # ------------------------------------------------------------------ site estático
-def test_site_tem_as_sete_secoes_e_navegacao():
+def _js_do_site() -> str:
+    """Todo o JavaScript do site, sem comentários (eles podem citar as regras que proíbem certas práticas)."""
+    codigo = "\n".join(p.read_text(encoding="utf-8") for p in sorted((paths.SITE / "js").rglob("*.js")))
+    return re.sub(r"/\*.*?\*/|(?<!:)//[^\n]*", "", codigo, flags=re.S)
+
+
+def test_site_tem_as_vistas_e_a_navegacao_adaptativa():
     html = (paths.SITE / "index.html").read_text(encoding="utf-8")
-    secoes = {"inicio": "Início", "frases": "Explore as frases", "mecanismo": "Entenda o mecanismo", "ia": "O que a IA identifica",
-              "pesquisa": "Como pesquisamos", "erros": "O que a IA pode errar", "referencias": "Referências científicas"}
-    for sid, titulo in secoes.items():
-        assert f'id="{sid}"' in html and f'href="#{sid}"' in html and titulo in html
+    vistas = {"inicio": "Início", "descobrir": "Descobrir", "explorar": "Explorar", "frase": "frase", "participar": "Participar",
+              "entender": "Entender", "pesquisa": "Pesquisa"}
+    for vista in vistas:
+        assert f'data-vista="{vista}"' in html, vista
+    for rota in ("#/", "#/descobrir", "#/explorar", "#/participar", "#/entender", "#/pesquisa"):
+        assert f'href="{rota}"' in html, rota
+    # no celular a barra inferior tem no máximo quatro destinos e há um botão de menu com os demais
+    barra = re.search(r'<nav class="barra-inferior".*?</nav>', html, flags=re.S).group(0)
+    assert barra.count("<a ") <= 4
+    assert 'id="botao-menu"' in html and 'aria-expanded="false"' in html and 'aria-controls="painel-menu"' in html
     assert "Quem Pode Pertencer?" in html and "Onde termina a opinião e começa a discriminação?" in html
     assert '<html lang="pt-BR">' in html and "Pular para o conteúdo" in html
+    assert "O que você acha desta frase?" in (paths.SITE / "js" / "componentes" / "cartaoFrase.js").read_text(encoding="utf-8")
 
 
 def test_site_e_estatico_sem_cdn_sem_rastreamento_e_sem_innerhtml():
     html = (paths.SITE / "index.html").read_text(encoding="utf-8")
-    js = (paths.SITE / "js" / "app.js").read_text(encoding="utf-8")
-    css = (paths.SITE / "css" / "estilo.css").read_text(encoding="utf-8")
-    for arq in (html, js, css):
-        assert not re.search(r"https?://(?!exemplo)", arq), "site não deve chamar recursos externos"
-    codigo = re.sub(r"/\*.*?\*/|//[^\n]*", "", js, flags=re.S)  # comentários podem citar a regra
-    assert "innerHTML" not in codigo and "eval(" not in codigo and "document.write" not in codigo
-    for termo in ("analytics", "gtag", "pixel", "localStorage", "cookie"):
-        assert termo not in (html + js).lower()
+    css = (paths.SITE / "css" / "estilo.css").read_text(encoding="utf-8") + (paths.SITE / "css" / "tokens.css").read_text(encoding="utf-8")
+    js = _js_do_site()
+    for arq in (html, css, js):
+        sem_namespace_svg = arq.replace("http://www.w3.org/2000/svg", "")  # xmlns de SVG não é requisição de rede
+        assert not re.search(r"https?://(?!exemplo)", sem_namespace_svg), "site não deve chamar recursos externos"
+    assert "innerHTML" not in js and "eval(" not in js and "document.write" not in js and "outerHTML" not in js
+    for termo in ("analytics", "gtag", "localstorage", "sessionstorage", "document.cookie"):
+        assert termo not in (html + js).lower(), termo
     assert (paths.SITE / ".nojekyll").exists()
 
 
 def test_site_nao_executa_classificacao_nem_carrega_corpora():
-    js = (paths.SITE / "js" / "app.js").read_text(encoding="utf-8")
+    js = _js_do_site()
     for proibido in ("told", "hatebr", "tf-idf", "predict"):
         assert proibido not in js.lower()
     publicado = sorted(p.name for p in (paths.SITE / "data").glob("*.json")) if (paths.SITE / "data").exists() else []
@@ -209,4 +227,15 @@ def test_nenhum_nome_de_lugar_identificavel_no_conteudo_publicavel():
     for arq in alvos:
         if "_rascunho" in arq.parts:
             continue
-        assert not proibidos.search(arq.read_text(encoding="utf-8")), arq
+        texto = arq.read_text(encoding="utf-8")
+        for autor in ("Marcos André Gonçalves", "Gonçalves, M. A."):  # sobrenome de autor citado em referência bibliográfica, não é lugar
+            texto = texto.replace(autor, "")
+        assert not proibidos.search(texto), arq
+
+
+def test_referencias_publicas_nao_tratam_escala_teorica_como_dataset():
+    r = {x["id"]: x for x in publicacao.referencias_publicas()["referencias"]}
+    assert r["epn_psico_2025"]["tipo"] == "referencia_teorica" and r["epn_psico_2025"]["eh_dataset_supervisionado"] is False
+    assert {"hatebrxplain", "tupye"} <= set(r)
+    proibidas = {"texto", "text", "amostras", "exemplos", "comentarios"}
+    assert not {k for x in r.values() for k in x} & proibidas

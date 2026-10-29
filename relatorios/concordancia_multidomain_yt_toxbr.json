@@ -1,0 +1,274 @@
+{
+  "dataset": "multidomain_yt_toxbr",
+  "fonte": "planilhas dos 6 anotadores (3 por grupo; 2.500 comentários por grupo)",
+  "metodo": "Fleiss e Krippendorff (nominal) por categoria, dados completos, 3 anotadores, categoria binária",
+  "por_grupo": {
+    "grupo_1": {
+      "comentarios": 2500,
+      "classes": {
+        "insulto_de_baixo_calao": {
+          "kappa_fleiss": 0.4811,
+          "alfa_krippendorff": 0.4812,
+          "kappa_reportado_no_artigo": 0.481,
+          "diferenca_para_o_artigo": 0.0001,
+          "comentarios_com_algum_voto": 895,
+          "positivos_por_maioria": 511,
+          "marcados_so_por_um_anotador": 384,
+          "marcados_por_dois": 280,
+          "marcados_por_tres": 231,
+          "fracao_unanime_entre_os_marcados": 0.2581
+        },
+        "homofobia": {
+          "kappa_fleiss": 0.7341,
+          "alfa_krippendorff": 0.7341,
+          "kappa_reportado_no_artigo": 0.734,
+          "diferenca_para_o_artigo": 0.0001,
+          "comentarios_com_algum_voto": 116,
+          "positivos_por_maioria": 91,
+          "marcados_so_por_um_anotador": 25,
+          "marcados_por_dois": 41,
+          "marcados_por_tres": 50,
+          "fracao_unanime_entre_os_marcados": 0.431
+        },
+        "racismo": {
+          "kappa_fleiss": 0.4219,
+          "alfa_krippendorff": 0.422,
+          "kappa_reportado_no_artigo": 0.422,
+          "diferenca_para_o_artigo": -0.0001,
+          "comentarios_com_algum_voto": 31,
+          "positivos_por_maioria": 12,
+          "marcados_so_por_um_anotador": 19,
+          "marcados_por_dois": 8,
+          "marcados_por_tres": 4,
+          "fracao_unanime_entre_os_marcados": 0.129
+        },
+        "misoginia_machismo": {
+          "kappa_fleiss": 0.532,
+          "alfa_krippendorff": 0.5321,
+          "kappa_reportado_no_artigo": 0.532,
+          "diferenca_para_o_artigo": -0.0,
+          "comentarios_com_algum_voto": 106,
+          "positivos_por_maioria": 56,
+          "marcados_so_por_um_anotador": 50,
+          "marcados_por_dois": 34,
+          "marcados_por_tres": 22,
+          "fracao_unanime_entre_os_marcados": 0.2075
+        },
+        "xenofobia": {
+          "kappa_fleiss": 0.3294,
+          "alfa_krippendorff": 0.3295,
+          "kappa_reportado_no_artigo": 0.329,
+          "diferenca_para_o_artigo": 0.0004,
+          "comentarios_com_algum_voto": 106,
+          "positivos_por_maioria": 30,
+          "marcados_so_por_um_anotador": 76,
+          "marcados_por_dois": 20,
+          "marcados_por_tres": 10,
+          "fracao_unanime_entre_os_marcados": 0.0943
+        },
+        "violencia_extremismo": {
+          "kappa_fleiss": 0.3643,
+          "alfa_krippendorff": 0.3644,
+          "kappa_reportado_no_artigo": 0.364,
+          "diferenca_para_o_artigo": 0.0003,
+          "comentarios_com_algum_voto": 99,
+          "positivos_por_maioria": 39,
+          "marcados_so_por_um_anotador": 60,
+          "marcados_por_dois": 31,
+          "marcados_por_tres": 8,
+          "fracao_unanime_entre_os_marcados": 0.0808
+        },
+        "intolerancia_religiosa": {
+          "kappa_fleiss": 0.549,
+          "alfa_krippendorff": 0.549,
+          "kappa_reportado_no_artigo": 0.549,
+          "diferenca_para_o_artigo": -0.0,
+          "comentarios_com_algum_voto": 85,
+          "positivos_por_maioria": 42,
+          "marcados_so_por_um_anotador": 43,
+          "marcados_por_dois": 22,
+          "marcados_por_tres": 20,
+          "fracao_unanime_entre_os_marcados": 0.2353
+        },
+        "intolerancia_politica": {
+          "kappa_fleiss": 0.5835,
+          "alfa_krippendorff": 0.5836,
+          "kappa_reportado_no_artigo": 0.584,
+          "diferenca_para_o_artigo": -0.0005,
+          "comentarios_com_algum_voto": 275,
+          "positivos_por_maioria": 143,
+          "marcados_so_por_um_anotador": 132,
+          "marcados_por_dois": 62,
+          "marcados_por_tres": 81,
+          "fracao_unanime_entre_os_marcados": 0.2945
+        },
+        "anticapacitismo": {
+          "kappa_fleiss": 0.4426,
+          "alfa_krippendorff": 0.4426,
+          "kappa_reportado_no_artigo": 0.443,
+          "diferenca_para_o_artigo": -0.0004,
+          "comentarios_com_algum_voto": 66,
+          "positivos_por_maioria": 23,
+          "marcados_so_por_um_anotador": 43,
+          "marcados_por_dois": 12,
+          "marcados_por_tres": 11,
+          "fracao_unanime_entre_os_marcados": 0.1667
+        }
+      },
+      "kappa_medio_recalculado": 0.4931,
+      "kappa_medio_reportado": 0.493
+    },
+    "grupo_2": {
+      "comentarios": 2500,
+      "classes": {
+        "insulto_de_baixo_calao": {
+          "kappa_fleiss": 0.2621,
+          "alfa_krippendorff": 0.2622,
+          "kappa_reportado_no_artigo": 0.262,
+          "diferenca_para_o_artigo": 0.0001,
+          "comentarios_com_algum_voto": 1014,
+          "positivos_por_maioria": 415,
+          "marcados_so_por_um_anotador": 599,
+          "marcados_por_dois": 304,
+          "marcados_por_tres": 111,
+          "fracao_unanime_entre_os_marcados": 0.1095
+        },
+        "homofobia": {
+          "kappa_fleiss": 0.4415,
+          "alfa_krippendorff": 0.4416,
+          "kappa_reportado_no_artigo": 0.442,
+          "diferenca_para_o_artigo": -0.0005,
+          "comentarios_com_algum_voto": 131,
+          "positivos_por_maioria": 62,
+          "marcados_so_por_um_anotador": 69,
+          "marcados_por_dois": 45,
+          "marcados_por_tres": 17,
+          "fracao_unanime_entre_os_marcados": 0.1298
+        },
+        "racismo": {
+          "kappa_fleiss": 0.3315,
+          "alfa_krippendorff": 0.3316,
+          "kappa_reportado_no_artigo": 0.332,
+          "diferenca_para_o_artigo": -0.0005,
+          "comentarios_com_algum_voto": 15,
+          "positivos_por_maioria": 5,
+          "marcados_so_por_um_anotador": 10,
+          "marcados_por_dois": 4,
+          "marcados_por_tres": 1,
+          "fracao_unanime_entre_os_marcados": 0.0667
+        },
+        "misoginia_machismo": {
+          "kappa_fleiss": 0.4071,
+          "alfa_krippendorff": 0.4072,
+          "kappa_reportado_no_artigo": 0.407,
+          "diferenca_para_o_artigo": 0.0001,
+          "comentarios_com_algum_voto": 103,
+          "positivos_por_maioria": 39,
+          "marcados_so_por_um_anotador": 64,
+          "marcados_por_dois": 26,
+          "marcados_por_tres": 13,
+          "fracao_unanime_entre_os_marcados": 0.1262
+        },
+        "xenofobia": {
+          "kappa_fleiss": 0.4197,
+          "alfa_krippendorff": 0.4197,
+          "kappa_reportado_no_artigo": 0.42,
+          "diferenca_para_o_artigo": -0.0003,
+          "comentarios_com_algum_voto": 61,
+          "positivos_por_maioria": 29,
+          "marcados_so_por_um_anotador": 32,
+          "marcados_por_dois": 23,
+          "marcados_por_tres": 6,
+          "fracao_unanime_entre_os_marcados": 0.0984
+        },
+        "violencia_extremismo": {
+          "kappa_fleiss": 0.2148,
+          "alfa_krippendorff": 0.2149,
+          "kappa_reportado_no_artigo": 0.215,
+          "diferenca_para_o_artigo": -0.0002,
+          "comentarios_com_algum_voto": 100,
+          "positivos_por_maioria": 18,
+          "marcados_so_por_um_anotador": 82,
+          "marcados_por_dois": 13,
+          "marcados_por_tres": 5,
+          "fracao_unanime_entre_os_marcados": 0.05
+        },
+        "intolerancia_religiosa": {
+          "kappa_fleiss": 0.5546,
+          "alfa_krippendorff": 0.5547,
+          "kappa_reportado_no_artigo": 0.555,
+          "diferenca_para_o_artigo": -0.0004,
+          "comentarios_com_algum_voto": 65,
+          "positivos_por_maioria": 34,
+          "marcados_so_por_um_anotador": 31,
+          "marcados_por_dois": 19,
+          "marcados_por_tres": 15,
+          "fracao_unanime_entre_os_marcados": 0.2308
+        },
+        "intolerancia_politica": {
+          "kappa_fleiss": 0.4991,
+          "alfa_krippendorff": 0.4992,
+          "kappa_reportado_no_artigo": 0.499,
+          "diferenca_para_o_artigo": 0.0001,
+          "comentarios_com_algum_voto": 221,
+          "positivos_por_maioria": 110,
+          "marcados_so_por_um_anotador": 111,
+          "marcados_por_dois": 67,
+          "marcados_por_tres": 43,
+          "fracao_unanime_entre_os_marcados": 0.1946
+        },
+        "anticapacitismo": {
+          "kappa_fleiss": 0.2181,
+          "alfa_krippendorff": 0.2182,
+          "kappa_reportado_no_artigo": 0.218,
+          "diferenca_para_o_artigo": 0.0001,
+          "comentarios_com_algum_voto": 47,
+          "positivos_por_maioria": 9,
+          "marcados_so_por_um_anotador": 38,
+          "marcados_por_dois": 7,
+          "marcados_por_tres": 2,
+          "fracao_unanime_entre_os_marcados": 0.0426
+        }
+      },
+      "kappa_medio_recalculado": 0.3721,
+      "kappa_medio_reportado": 0.372
+    }
+  },
+  "replicacao_da_tabela_4_do_artigo": {
+    "maior_diferenca_absoluta": 0.0005,
+    "leitura": "Diferenças pequenas indicam que a concordância reportada foi reproduzida a partir dos dados públicos."
+  },
+  "comentarios_marcados_invalido_por_planilha": {
+    "planilha_1": {
+      "linhas": 2500,
+      "marcadas_invalido": 0,
+      "fracao": 0.0
+    },
+    "planilha_2": {
+      "linhas": 2500,
+      "marcadas_invalido": 1472,
+      "fracao": 0.5888
+    },
+    "planilha_3": {
+      "linhas": 2500,
+      "marcadas_invalido": 1,
+      "fracao": 0.0004
+    },
+    "planilha_4": {
+      "linhas": 2500,
+      "marcadas_invalido": 137,
+      "fracao": 0.0548
+    },
+    "planilha_5": {
+      "linhas": 2500,
+      "marcadas_invalido": 1,
+      "fracao": 0.0004
+    },
+    "planilha_6": {
+      "linhas": 2500,
+      "marcadas_invalido": 10,
+      "fracao": 0.004
+    }
+  },
+  "leitura": "Classes com kappa baixo (racismo, xenofobia, violência, anticapacitismo no grupo 2) têm rótulo de consenso ruidoso: métricas de modelo nelas medem também o desacordo humano. A coluna 'inválido' não é usada como rótulo."
+}

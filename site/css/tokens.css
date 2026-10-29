@@ -1,0 +1,67 @@
+/* Tokens de design do É Só Opinião?. Mude aqui, não nos componentes.
+   Contrastes (WCAG 2.2 AA) conferidos para texto sobre --cor-papel e --cor-superficie. */
+:root {
+  /* cor */
+  --cor-papel: #fbf8f2;
+  --cor-superficie: #ffffff;
+  --cor-superficie-2: #f3eee4;
+  --cor-tinta: #17181c;
+  --cor-suave: #4f5560;
+  --cor-linha: #e2dbcc;
+  --cor-destaque: #b3361b;
+  --cor-destaque-forte: #8c2711;
+  --cor-destaque-suave: #f9e9e3;
+  --cor-ok: #1d6b45;
+  --cor-ok-suave: #e6f3ec;
+  --cor-aviso: #7a4a00;
+  --cor-aviso-suave: #fdf1d9;
+  --cor-erro: #a1260f;
+  --cor-erro-suave: #fdebe6;
+  --cor-foco: #1451a8;
+
+  /* tipografia: só fontes do sistema (sem download, sem layout shift) */
+  --fonte-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fonte-texto: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+  --texto-xs: 0.8125rem;
+  --texto-s: 0.9375rem;
+  --texto-m: 1.0625rem;
+  --texto-l: 1.25rem;
+  --texto-frase: clamp(1.3rem, 1.05rem + 1.3vw, 1.85rem);
+  --texto-h2: clamp(1.6rem, 1.3rem + 1.5vw, 2.3rem);
+  --texto-h1: clamp(2.5rem, 1.6rem + 5vw, 4.5rem);
+  --entrelinha: 1.6;
+
+  /* espaço (escala de 4 px) */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.5rem;
+  --esp-6: 2rem;
+  --esp-7: 3rem;
+  --esp-8: 4.5rem;
+
+  /* forma */
+  --raio-s: 8px;
+  --raio-m: 14px;
+  --raio-l: 22px;
+  --raio-pilula: 999px;
+  --sombra-1: 0 1px 2px rgb(23 24 28 / 8%), 0 2px 8px rgb(23 24 28 / 6%);
+  --sombra-2: 0 2px 4px rgb(23 24 28 / 8%), 0 8px 24px rgb(23 24 28 / 10%);
+
+  /* interação */
+  --alvo-min: 2.75rem; /* 44 px */
+  --foco: 3px solid var(--cor-foco);
+  --foco-desvio: 2px;
+  --transicao: 160ms ease;
+
+  /* layout */
+  --largura-leitura: 42rem;
+  --largura-max: 72rem;
+  --altura-topo: 3.5rem;
+  --altura-barra: 3.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --transicao: 0ms; }
+}

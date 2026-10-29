@@ -1,0 +1,8 @@
+node_modules/
+.browsers/
+.dados/
+test-results/
+playwright-report/
+resultados/lighthouse-*.json
+resultados/lighthouse-*.html
+resultados/ultimo-relatorio.json

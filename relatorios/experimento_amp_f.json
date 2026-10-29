@@ -1,0 +1,352 @@
+{
+  "id": "AMP-F",
+  "titulo": "Explicação humana x trechos destacados por modelos (HateBRXplain)",
+  "pergunta": "Os trechos que modelos destacam coincidem com as justificativas humanas, e o quanto os dois humanos coincidem entre si?",
+  "avisos": [
+    "Coeficientes e oclusão medem a sensibilidade do MODELO; atenção, SHAP ou LIME também não provam a causa de uma decisão.",
+    "Justificativas humanas são trechos escolhidos por 2 anotadores, não verdade absoluta; por isso a concordância entre eles é o teto de comparação.",
+    "Treino e avaliação no mesmo dataset (HateBR)."
+  ],
+  "status": "executado",
+  "semente": 42,
+  "amostras": {
+    "validacao": 513,
+    "teste": 626,
+    "teste_com_os_dois_anotadores": 615
+  },
+  "teto_humano_anotador_1_vs_2": {
+    "precision": 0.8796,
+    "recall": 0.6904,
+    "f1": 0.7736,
+    "kappa_de_cohen_por_token": 0.5367,
+    "tokens": 7095,
+    "tokens_gold_positivos": 4125
+  },
+  "metodos": {
+    "coeficientes_tfidf": {
+      "contra_uniao_dos_dois_anotadores": {
+        "precision": 0.6402,
+        "recall": 0.9746,
+        "f1": 0.7728,
+        "kappa_de_cohen_por_token": 0.0328,
+        "tokens": 7207,
+        "tokens_gold_positivos": 4568
+      },
+      "contra_anotador_1": {
+        "precision": 0.5874,
+        "recall": 0.9738,
+        "f1": 0.7328,
+        "kappa_de_cohen_por_token": 0.0248,
+        "tokens": 7162,
+        "tokens_gold_positivos": 4168
+      },
+      "contra_anotador_2": {
+        "precision": 0.4633,
+        "recall": 0.9828,
+        "f1": 0.6298,
+        "kappa_de_cohen_por_token": 0.0301,
+        "tokens": 7140,
+        "tokens_gold_positivos": 3248
+      }
+    },
+    "oclusao_do_modelo_completo": {
+      "contra_uniao_dos_dois_anotadores": {
+        "precision": 0.633,
+        "recall": 0.9365,
+        "f1": 0.7554,
+        "kappa_de_cohen_por_token": -0.0039,
+        "tokens": 7207,
+        "tokens_gold_positivos": 4568
+      },
+      "contra_anotador_1": {
+        "precision": 0.5815,
+        "recall": 0.9369,
+        "f1": 0.7176,
+        "kappa_de_cohen_por_token": -0.0019,
+        "tokens": 7162,
+        "tokens_gold_positivos": 4168
+      },
+      "contra_anotador_2": {
+        "precision": 0.4549,
+        "recall": 0.9381,
+        "f1": 0.6127,
+        "kappa_de_cohen_por_token": 0.0,
+        "tokens": 7140,
+        "tokens_gold_positivos": 3248
+      }
+    },
+    "tudo": {
+      "contra_uniao_dos_dois_anotadores": {
+        "precision": 0.6338,
+        "recall": 1.0,
+        "f1": 0.7759,
+        "kappa_de_cohen_por_token": 0.0,
+        "tokens": 7207,
+        "tokens_gold_positivos": 4568
+      },
+      "contra_anotador_1": {
+        "precision": 0.582,
+        "recall": 1.0,
+        "f1": 0.7357,
+        "kappa_de_cohen_por_token": 0.0,
+        "tokens": 7162,
+        "tokens_gold_positivos": 4168
+      },
+      "contra_anotador_2": {
+        "precision": 0.4549,
+        "recall": 1.0,
+        "f1": 0.6253,
+        "kappa_de_cohen_por_token": 0.0,
+        "tokens": 7140,
+        "tokens_gold_positivos": 3248
+      }
+    },
+    "aleatorio_prob_0.3": {
+      "contra_uniao_dos_dois_anotadores": {
+        "precision": 0.632,
+        "recall": 0.294,
+        "f1": 0.4013,
+        "kappa_de_cohen_por_token": -0.0019,
+        "tokens": 7207,
+        "tokens_gold_positivos": 4568
+      },
+      "contra_anotador_1": {
+        "precision": 0.5839,
+        "recall": 0.2956,
+        "f1": 0.3925,
+        "kappa_de_cohen_por_token": 0.0021,
+        "tokens": 7162,
+        "tokens_gold_positivos": 4168
+      },
+      "contra_anotador_2": {
+        "precision": 0.445,
+        "recall": 0.2879,
+        "f1": 0.3496,
+        "kappa_de_cohen_por_token": -0.0121,
+        "tokens": 7140,
+        "tokens_gold_positivos": 3248
+      }
+    }
+  },
+  "ranking_independente_de_limiar": {
+    "densidade_de_tokens_humanos": 0.6338,
+    "coeficientes_tfidf": {
+      "r_precision_media_por_comentario": {
+        "media": 0.8061,
+        "desvio": 0.2577,
+        "n": 626
+      },
+      "average_precision_tokens_agrupados": 0.7291
+    },
+    "oclusao_do_modelo_completo": {
+      "r_precision_media_por_comentario": {
+        "media": 0.8232,
+        "desvio": 0.2322,
+        "n": 626
+      },
+      "average_precision_tokens_agrupados": 0.7621
+    },
+    "aleatorio": {
+      "r_precision_media_por_comentario": {
+        "media": 0.7594,
+        "desvio": 0.3053,
+        "n": 626
+      },
+      "average_precision_tokens_agrupados": 0.6357
+    },
+    "leitura": "O acaso acerta cerca da densidade; o teto humano é o F1/kappa entre anotadores. Quando 'tudo' empata com os métodos, o F1 por limiar não discrimina e vale o ranking."
+  },
+  "limiares_escolhidos_na_validacao": {
+    "coeficientes_tfidf": -1.0,
+    "oclusao": -0.05
+  },
+  "sensibilidade_do_modelo_a_remocao": {
+    "base": "538 comentários ofensivos do teste marcados pelo modelo",
+    "remover_trechos_humanos": {
+      "queda_media_da_pontuacao": {
+        "media": 0.3281,
+        "desvio": 0.1771,
+        "n": 538
+      },
+      "fracao_que_deixou_de_ser_marcado": 0.7491
+    },
+    "remover_aleatorios_mesmo_numero": {
+      "queda_media_da_pontuacao": {
+        "media": -0.0048,
+        "desvio": 0.0543,
+        "n": 538
+      },
+      "fracao_que_deixou_de_ser_marcado": 0.0279
+    },
+    "remover_topk_coeficiente_mesmo_numero": {
+      "queda_media_da_pontuacao": {
+        "media": 0.4068,
+        "desvio": 0.1565,
+        "n": 538
+      },
+      "fracao_que_deixou_de_ser_marcado": 0.8996
+    },
+    "leitura": "Mede o quanto a pontuação do MODELO depende dos trechos; não prova que os trechos causam a decisão nem que o modelo 'entende' a ofensa."
+  },
+  "casos_selecionados": {
+    "n": 25,
+    "f1_token_por_caso": [
+      {
+        "sample_id": "hatebr:115",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:26",
+        "f1_token": 0.6154
+      },
+      {
+        "sample_id": "hatebr:656",
+        "f1_token": 0.5882
+      },
+      {
+        "sample_id": "hatebr:251",
+        "f1_token": 0.6957
+      },
+      {
+        "sample_id": "hatebr:229",
+        "f1_token": 0.9697
+      },
+      {
+        "sample_id": "hatebr:143",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:105",
+        "f1_token": 0.5946
+      },
+      {
+        "sample_id": "hatebr:1752",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:90",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:3419",
+        "f1_token": 0.9167
+      },
+      {
+        "sample_id": "hatebr:1625",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:33",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:31",
+        "f1_token": 0.96
+      },
+      {
+        "sample_id": "hatebr:96",
+        "f1_token": 0.9333
+      },
+      {
+        "sample_id": "hatebr:224",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:239",
+        "f1_token": 0.9231
+      },
+      {
+        "sample_id": "hatebr:1711",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:3491",
+        "f1_token": 0.5
+      },
+      {
+        "sample_id": "hatebr:28",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:3083",
+        "f1_token": 0.5714
+      },
+      {
+        "sample_id": "hatebr:204",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:1622",
+        "f1_token": 0.963
+      },
+      {
+        "sample_id": "hatebr:226",
+        "f1_token": 1.0
+      },
+      {
+        "sample_id": "hatebr:1652",
+        "f1_token": 0.5714
+      },
+      {
+        "sample_id": "hatebr:3418",
+        "f1_token": 0.8333
+      }
+    ],
+    "onde_ler_o_texto": "datasets/_local/experimentos/amp_f_casos_explicados.jsonl (não versionado)"
+  },
+  "modelo": {
+    "nome": "B_tfidf",
+    "versao": "tfidf-1.0.0",
+    "modelo": "lr",
+    "C": 1.0,
+    "semente": 42,
+    "class_weight": "balanced",
+    "ngramas_palavra": [
+      1,
+      2
+    ],
+    "ngramas_char_wb": [
+      3,
+      5
+    ],
+    "sklearn": "1.9.1",
+    "numpy": "2.5.4"
+  },
+  "versoes": {
+    "python": "3.14.8",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "taxonomia": "1.1.0",
+    "mapeamento": "1.1.0",
+    "sha256_arquivos": {
+      "told_br": {
+        "ToLD-BR.csv": "a905b90d5886b9c80d737aa26c41dd29077155f23b9b857080634a78f8203c90"
+      },
+      "hatebr": {
+        "HateBR.csv": "0586a15eea2d9e7743b19ccd5385eedf4074ccf4cfc530cc161bbd3fe5b1ec15",
+        "HateBRXplain.csv": "dd2b669ab8c055805b4813b2628961d951273577fc637039f5eec1238cc9f8bb"
+      },
+      "multidomain_yt_toxbr": {
+        "3_Tratamento.ipynb": "f99071b6100cc2da5c0315b96649bbab86353cc572f8c06d3c06e497671965c9",
+        "Guia_para_anotacao.pdf": "0379886b4904ac01dc8eea6c431db41fde324c7cf4b043ff8e5124ae51fc08dc",
+        "comentariosParaAnotacao1.xlsx": "4963f326ab37cad26840ff8bffc410c3611235cb5f58d6f62a2c62b6eb5afcb8",
+        "comentariosParaAnotacao2.xlsx": "3bc0e9c978b8914516250ad519aa145f82b456c16785f8703b5025b52d9d7152",
+        "comentariosParaAnotacao3.xlsx": "0d4a6f623264661d119b9be28269dd950bda2fc00e5a52b068e4dcd4ef6e72e9",
+        "comentariosParaAnotacao4.xlsx": "d80bb569d4e273f41bb023a0fa78e8dda5de4239f5fd4ccb5d6fb8af3d57838c",
+        "comentariosParaAnotacao5.xlsx": "bd29e73364b32dccf2f2a7d892b7806b1912b1867015bca4af5aa7b787c24e54",
+        "comentariosParaAnotacao6.xlsx": "86f47fb4ca48d2e7655aa90bf2b1a9416bb54a238072be04fe6957cc38734f6c",
+        "multiDomainYtBinary.csv": "a1fb214039b5f9195886463a1565cafd0a8e0112f94c227df3e82e95d3bbd620",
+        "multiDomainYtMultilabel.csv": "ef21d90206c6bbaacde03b76708835b29430b782ce8ea7c5c855aa145611e670"
+      },
+      "tupye": {
+        "tupye_binary_test.csv": "1fc67fba66bba7a645e8e4213cb24fddb4f2a1804e58c96b16da7c05da18271c",
+        "tupye_binary_train.csv": "73cb2181052fc8ee74467600fba4ff27ab19b78a37777886b97b08a606eed137"
+      }
+    },
+    "sementes": [
+      13,
+      42,
+      2026
+    ]
+  }
+}

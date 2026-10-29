@@ -1,0 +1,928 @@
+# Biblioteca editorial — exemplos FICTÍCIOS escritos para a exposição.
+#
+# NATUREZA: todas as frases são FICTÍCIAS. Foram escritas pela equipe a partir de padrões gerais de
+# linguagem discutidos na literatura e no monitor. NÃO são citações de pessoas reais, NÃO foram copiadas
+# de bases científicas nem de redes sociais e não identificam ninguém. O site as marca como "fictício".
+#
+# FILA DE REVISÃO: o comando `casos` coloca todas como PENDENTE. Nada daqui é publicado sem decisão humana
+# (aprovar/corrigir/ambíguo) registrada com revisor, justificativa e histórico. Os rótulos propostos são
+# uma leitura da equipe editorial, não decisão. Tipo "ambigua" é um resultado válido e esperado.
+#
+# ANONIMIZAÇÃO: sem cidade, evento, empresa, órgão, partido, político ou perfil reais. Um teste barra isso.
+# Campos: tema (casos/temas.yaml) · contexto (cena imaginada) · mecanismo (o que a frase faz) ·
+#         razoes (o que sustenta a leitura) · muda_se (o que poderia alterá-la).
+versao: "1.0.0"
+frases:
+  # ---------------------------------------------------------------- discriminação regional
+  - id: EX-01
+    tema: discriminacao_regional
+    tipo: exclusao
+    texto: "Gente do interior é tudo atrasada, não sabe nem usar um aplicativo."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional]
+    contexto: "Comentário num grupo de moradores sobre um aplicativo novo do transporte."
+    mecanismo: "Transforma o lugar onde alguém vive num defeito pessoal."
+    razoes:
+      - "O “tudo” aplica a falha a um grupo inteiro definido pelo endereço."
+      - "O aplicativo é só pretexto: a crítica é a quem mora no interior, não ao serviço."
+    muda_se: "Se a frase falasse de falta de sinal de internet em áreas rurais, o alvo seria uma condição de infraestrutura."
+    pode_publicar_ambigua: false
+  - id: EX-02
+    tema: discriminacao_regional
+    tipo: exclusao
+    texto: "Quem é do litoral só pensa em praia e festa, não dá pra confiar em trabalho dessa gente."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional]
+    contexto: "Conversa sobre contratar uma equipe para uma obra."
+    mecanismo: "Liga confiabilidade profissional ao lugar de origem."
+    razoes:
+      - "A conclusão (“não dá pra confiar”) vem do local, sem olhar para nenhuma pessoa real."
+      - "Seria possível desconfiar de uma empresa específica; aqui se desconfia de todo um litoral."
+    muda_se: "Se alguém contasse uma experiência ruim com uma empresa e parasse aí, seria queixa pontual, não generalização."
+    pode_publicar_ambigua: false
+  - id: EX-03
+    tema: discriminacao_regional
+    tipo: exclusao
+    texto: "Esse sotaque do Sul já diz tudo: povo frio e arrogante."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional]
+    contexto: "Reação a um vídeo de uma pessoa falando."
+    mecanismo: "Usa o jeito de falar como prova de caráter."
+    razoes:
+      - "Sotaque indica de onde alguém veio, não como é; a frase ignora isso."
+      - "“Povo” e “já diz tudo” fecham o julgamento antes de conhecer qualquer pessoa."
+    muda_se: "Se fosse uma brincadeira entre amigos da própria região, o tom pesaria diferente, ainda que o estereótipo permaneça."
+    pode_publicar_ambigua: false
+  - id: EX-04
+    tema: discriminacao_regional
+    tipo: exclusao
+    texto: "Nem adianta contratar gente do Norte, é tudo preguiçoso."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional]
+    contexto: "Diálogo imaginado entre dois gerentes sobre uma vaga."
+    mecanismo: "Usa a região como filtro de emprego."
+    razoes:
+      - "Funciona como regra de exclusão: a pessoa nem chega a ser avaliada."
+      - "“Tudo preguiçoso” atribui um traço moral a milhões de pessoas diferentes."
+    muda_se: "Se houvesse uma experiência de trabalho específica narrada, o foco sairia da região e iria para o caso."
+    pode_publicar_ambigua: false
+  - id: EX-05
+    tema: discriminacao_regional
+    tipo: exclusao
+    texto: "A capital manda e o interior obedece; quem mora lá nem deveria opinar no que acontece aqui."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional, exclusao_social_territorial]
+    contexto: "Discussão sobre uma decisão que afeta vários municípios."
+    mecanismo: "Retira de um grupo o direito de opinar por causa do lugar."
+    razoes:
+      - "Não discute o argumento do outro lado; nega a voz de quem o diz."
+      - "A hierarquia “manda/obedece” é atribuída ao território, não a uma decisão concreta."
+    muda_se: "Se afirmasse que um órgão regional decide sozinho por lei, seria uma crítica institucional."
+    pode_publicar_ambigua: false
+  - id: EX-06
+    tema: discriminacao_regional
+    tipo: exclusao
+    texto: "Cada região tem seu defeito, mas a do Sudeste é a pior: só tem gente falsa."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [discriminacao_regional]
+    contexto: "Resposta numa conversa sobre onde morar."
+    mecanismo: "Estereótipo que se apresenta como equilíbrio."
+    razoes:
+      - "Começar com “cada região tem seu defeito” não neutraliza o “só tem gente falsa”."
+      - "Vale para qualquer região: trocar o nome não muda o mecanismo."
+    muda_se: "Se a pessoa comparasse custo de vida ou clima, não haveria juízo sobre quem são os moradores."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- xenofobia
+  - id: EX-07
+    tema: xenofobia
+    tipo: exclusao
+    texto: "Esses imigrantes vêm pra cá só pra tirar emprego de brasileiro."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [xenofobia]
+    contexto: "Comentário sobre uma notícia de chegada de famílias estrangeiras."
+    mecanismo: "Atribui a todo um grupo uma intenção única e hostil."
+    razoes:
+      - "Ninguém sabe os motivos de cada pessoa; a frase decide por todas."
+      - "Põe imigrantes como ameaça, o que prepara o terreno para exclusão."
+    muda_se: "Um debate sobre política de vagas ou fiscalização do trabalho, sem atribuir intenção a um povo, seria outra conversa."
+    pode_publicar_ambigua: false
+  - id: EX-08
+    tema: xenofobia
+    tipo: exclusao
+    texto: "Venezuelano não tem jeito, onde chega estraga o bairro."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [xenofobia]
+    contexto: "Fala imaginada numa reunião de condomínio."
+    mecanismo: "Culpa uma nacionalidade inteira por um suposto efeito."
+    razoes:
+      - "“Não tem jeito” nega qualquer possibilidade de mudança ou diversidade individual."
+      - "A nacionalidade é o único critério usado."
+    muda_se: "Se alguém relatasse um problema concreto e identificasse o ato (barulho, por exemplo), não a origem, o alvo seria o ato."
+    pode_publicar_ambigua: false
+  - id: EX-09
+    tema: xenofobia
+    tipo: exclusao
+    texto: "Se não nasceu aqui, não tem direito de reclamar do serviço público."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [xenofobia, exclusao_social_territorial]
+    contexto: "Resposta a uma reclamação sobre fila num posto de atendimento."
+    mecanismo: "Nega o direito de falar por causa do local de nascimento."
+    razoes:
+      - "Quem usa e paga pelo serviço também pode avaliá-lo."
+      - "A frase desqualifica a pessoa e ignora a reclamação."
+    muda_se: "Se tratasse de uma regra legal que de fato limita um benefício, a discussão seria sobre a regra, não sobre quem pode falar."
+    pode_publicar_ambigua: false
+  - id: EX-10
+    tema: xenofobia
+    tipo: exclusao
+    texto: "Gringo que mora aqui tinha que aprender a falar direito ou voltar pro país dele."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [xenofobia]
+    contexto: "Cena imaginada numa padaria."
+    mecanismo: "Coloca a permanência da pessoa como condição de falar como o grupo."
+    razoes:
+      - "“Voltar pro país dele” sugere que a pessoa não pertence."
+      - "Aprender o idioma é um pedido comum; ameaçar com a saída é outra coisa."
+    muda_se: "“Seria bom oferecer aulas de português para quem chegou” é convite, não exclusão."
+    pode_publicar_ambigua: false
+  - id: EX-11
+    tema: xenofobia
+    tipo: exclusao
+    texto: "Haitiano trabalha por qualquer preço porque não se valoriza; é cultura deles."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [xenofobia]
+    contexto: "Conversa sobre salários numa obra."
+    mecanismo: "Explica exploração como traço cultural da vítima."
+    razoes:
+      - "Troca a responsabilidade de quem paga pouco por uma suposta característica do povo."
+      - "“É cultura deles” fecha a discussão com um estereótipo."
+    muda_se: "Se a frase apontasse que a falta de documentação leva a salários menores, discutiria a condição, não a cultura."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- racismo
+  - id: EX-12
+    tema: racismo
+    tipo: exclusao
+    texto: "Não sou racista, mas pessoas negras sempre dão mais trabalho em qualquer emprego."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [racismo]
+    contexto: "Conversa imaginada sobre seleção de candidatos."
+    mecanismo: "Declara-se isento e generaliza no mesmo fôlego."
+    razoes:
+      - "“Não sou racista, mas” costuma anteceder o que vem a seguir; o conteúdo é a generalização racial."
+      - "“Sempre” e “qualquer emprego” não deixam espaço para exceções."
+    muda_se: "Nada no contexto de trabalho transforma uma generalização racial em avaliação individual."
+    pode_publicar_ambigua: false
+  - id: EX-13
+    tema: racismo
+    tipo: exclusao
+    texto: "Esse cabelo não é profissional; se quiser ser levada a sério aqui, vai ter que alisar."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [racismo]
+    contexto: "Orientação imaginada de uma chefia a uma funcionária."
+    mecanismo: "Impõe padrão de aparência que recai sobre traços associados a pessoas negras."
+    razoes:
+      - "Cabelo crespo ou cacheado vira “falta de profissionalismo” sem relação com o trabalho."
+      - "A condição para ser levada a sério é mudar o corpo, não entregar resultado."
+    muda_se: "Uma regra de segurança objetiva (por exemplo, prender o cabelo perto de máquinas) valeria para todas as pessoas e teria justificativa."
+    pode_publicar_ambigua: false
+  - id: EX-14
+    tema: racismo
+    tipo: exclusao
+    texto: "Gente da cor dele sempre acaba dando problema, é só esperar."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [racismo]
+    contexto: "Comentário imaginado sobre um novo vizinho."
+    mecanismo: "Prevê mau comportamento com base na cor."
+    razoes:
+      - "O “é só esperar” indica uma profecia que já condena a pessoa."
+      - "O critério é a cor, não qualquer ato observado."
+    muda_se: "Se a frase citasse um fato ocorrido e verificável com essa pessoa, o debate seria sobre o fato, não sobre a cor."
+    pode_publicar_ambigua: false
+  - id: EX-15
+    tema: racismo
+    tipo: exclusao
+    texto: "Pra uma pessoa negra, você se expressa muito bem."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [racismo]
+    contexto: "“Elogio” imaginado depois de uma apresentação."
+    mecanismo: "Elogio que revela expectativa de incapacidade."
+    razoes:
+      - "O “pra uma pessoa negra” indica que se esperava menos."
+      - "Quem fala pode estar sendo gentil sem perceber, e o efeito continua sendo de rebaixamento."
+    muda_se: "Sem a ressalva racial, seria um elogio comum. A comparação é o que muda a leitura."
+    pode_publicar_ambigua: false
+  - id: EX-16
+    tema: racismo
+    tipo: exclusao
+    texto: "Moreno daquele jeito é sempre suspeito; melhor ficar de olho na loja quando ele entra."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [racismo]
+    contexto: "Orientação imaginada de um dono de loja a um funcionário."
+    mecanismo: "Vigilância dirigida pela aparência racial."
+    razoes:
+      - "O motivo da suspeita é a aparência, não uma ação."
+      - "Vira prática: mais vigilância para um grupo, menos para outro."
+    muda_se: "Se alguém estivesse realmente mexendo em mercadorias sem pagar, a atenção seria por um ato."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- misoginia
+  - id: EX-17
+    tema: misoginia
+    tipo: exclusao
+    texto: "Mulher no volante, perigo constante; e na chefia, pior ainda."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [misoginia]
+    contexto: "Brincadeira imaginada em uma roda de colegas."
+    mecanismo: "Provérbio que se apresenta como humor, mas estende a incompetência a todas as mulheres."
+    razoes:
+      - "A “piada” funciona porque o estereótipo é repetido, não porque é dito uma só vez."
+      - "A segunda parte leva o preconceito ao ambiente de trabalho."
+    muda_se: "Ditos entre pessoas que se conhecem podem ter tom leve, mas o conteúdo ainda ensina que mulheres lideram pior."
+    pode_publicar_ambigua: false
+  - id: EX-18
+    tema: misoginia
+    tipo: exclusao
+    texto: "Ela só chegou lá porque é bonita; competência mesmo ninguém viu."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [misoginia]
+    contexto: "Comentário imaginado sobre uma promoção."
+    mecanismo: "Reduz o mérito de uma mulher à aparência."
+    razoes:
+      - "Troca a pergunta “quais resultados ela entregou?” por “como ela é?”."
+      - "Quem faz o comentário não apresenta nenhum fato sobre o trabalho."
+    muda_se: "Se apontasse critérios de promoção que não foram seguidos, o alvo seria o processo."
+    pode_publicar_ambigua: false
+  - id: EX-19
+    tema: misoginia
+    tipo: exclusao
+    texto: "Mulher que dá opinião política demais devia cuidar mais da casa."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [misoginia]
+    contexto: "Resposta imaginada a um comentário numa rede social."
+    mecanismo: "Aponta lugar social para silenciar a opinião."
+    razoes:
+      - "Não responde ao que foi dito; manda a pessoa para outra função."
+      - "Só faz sentido se opinião política fosse “coisa de homem”."
+    muda_se: "Se a frase dissesse “você opina demais” a qualquer pessoa, seria grosseria, não misoginia."
+    pode_publicar_ambigua: false
+  - id: EX-20
+    tema: misoginia
+    tipo: exclusao
+    texto: "Na reunião de planejamento, melhor as meninas servirem o café e os homens decidirem."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [misoginia]
+    contexto: "Combinado imaginado entre colegas antes de um evento."
+    mecanismo: "Distribui tarefas por gênero e tira as mulheres da decisão."
+    razoes:
+      - "A divisão é feita pelo sexo das pessoas, não por função ou habilidade."
+      - "Quem “serve” e quem “decide” reforçam hierarquia."
+    muda_se: "Se o grupo sorteasse quem serve o café, a tarefa seria neutra."
+    pode_publicar_ambigua: false
+  - id: EX-21
+    tema: misoginia
+    tipo: exclusao
+    texto: "Se ela está reclamando de assédio, deve ter provocado."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [misoginia]
+    contexto: "Reação imaginada a uma denúncia numa empresa."
+    mecanismo: "Transfere a responsabilidade do ato para a vítima."
+    razoes:
+      - "Presume culpa antes de qualquer apuração."
+      - "Desestimula denúncias futuras ao dizer que quem denuncia é quem errou."
+    muda_se: "Pedir que a denúncia seja apurada com provas é outra coisa: a frase descarta a apuração."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- LGBTfobia
+  - id: EX-22
+    tema: lgbtfobia
+    tipo: exclusao
+    texto: "Esse tipo de família não é de verdade; criança precisa de pai e mãe, senão cresce errada."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [lgbtfobia]
+    contexto: "Comentário imaginado numa conversa sobre adoção."
+    mecanismo: "Nega legitimidade a famílias com pais do mesmo sexo."
+    razoes:
+      - "“Não é de verdade” diz que essas famílias valem menos."
+      - "“Cresce errada” é uma afirmação sobre pessoas que a frase não demonstra."
+    muda_se: "Uma discussão sobre critérios de adoção igual para todos os casais, sem negar o valor das famílias, seria política pública."
+    pode_publicar_ambigua: false
+  - id: EX-23
+    tema: lgbtfobia
+    tipo: exclusao
+    texto: "Casal gay não devia ir na festa da escola; as crianças não precisam ver isso."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [lgbtfobia, exclusao_social_territorial]
+    contexto: "Opinião imaginada em um grupo de pais."
+    mecanismo: "Pede a exclusão de um casal de um espaço comum."
+    razoes:
+      - "A presença de um casal é tratada como algo a esconder."
+      - "A frase não pede o mesmo de casais de sexos diferentes."
+    muda_se: "Uma regra igual para todos (“sem demonstrações de afeto na escola”) mudaria o caso."
+    pode_publicar_ambigua: false
+  - id: EX-24
+    tema: lgbtfobia
+    tipo: exclusao
+    texto: "Professor assim não pode dar aula pra criança, nem precisa saber se é bom."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [lgbtfobia]
+    contexto: "Reação imaginada a um professor que mencionou o marido."
+    mecanismo: "Desqualifica um profissional pela orientação sexual, sem olhar para o trabalho."
+    razoes:
+      - "“Nem precisa saber se é bom” admite que a qualidade do trabalho não importa."
+      - "A orientação é tratada como risco, sem fato que sustente isso."
+    muda_se: "Se houvesse uma queixa concreta sobre uma conduta em sala, ela seria apurada pelo ato."
+    pode_publicar_ambigua: false
+  - id: EX-25
+    tema: lgbtfobia
+    tipo: exclusao
+    texto: "Trans não é gente normal; que fique longe do banheiro das mulheres."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [lgbtfobia, desumanizacao]
+    contexto: "Comentário imaginado sobre regras de um shopping."
+    mecanismo: "Classifica pessoas trans como anormais e pede afastamento."
+    razoes:
+      - "“Não é gente normal” desumaniza."
+      - "O pedido de afastamento é dirigido a um grupo, não a uma conduta."
+    muda_se: "Debates sobre estrutura de banheiros (privacidade, segurança) existem; esta frase nega a humanidade das pessoas."
+    pode_publicar_ambigua: false
+  - id: EX-26
+    tema: lgbtfobia
+    tipo: exclusao
+    texto: "Lésbica é só mulher que não encontrou um homem de verdade."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [lgbtfobia, misoginia]
+    contexto: "Piada imaginada num almoço de família."
+    mecanismo: "Reduz uma orientação a uma falta."
+    razoes:
+      - "Diz que a escolha afetiva de uma mulher só existe em relação aos homens."
+      - "Apresentada como “piada”, repete uma ideia de que a orientação é algo a corrigir."
+    muda_se: "Se a pessoa perguntasse com curiosidade, sem sentenciar, seria uma pergunta, não um julgamento."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- estigma socioeconômico
+  - id: EX-27
+    tema: estigmatizacao_socioeconomica
+    tipo: exclusao
+    texto: "Quem mora em comunidade já sai de casa pensando em roubar."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [estigmatizacao_socioeconomica]
+    contexto: "Comentário imaginado sobre um assalto noticiado."
+    mecanismo: "Associa moradia a intenção criminosa."
+    razoes:
+      - "A maioria das pessoas ali trabalha e estuda; a frase as apaga."
+      - "Transforma endereço em suspeita."
+    muda_se: "Se a notícia falasse de um suspeito identificado pela polícia, o foco seria o caso, não o bairro."
+    pode_publicar_ambigua: false
+  - id: EX-28
+    tema: estigmatizacao_socioeconomica
+    tipo: exclusao
+    texto: "Pobre não sabe votar, vende o voto por uma cesta básica."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [estigmatizacao_socioeconomica, hostilidade_politica]
+    contexto: "Comentário imaginado depois de uma eleição."
+    mecanismo: "Desqualifica o voto de um grupo pela renda."
+    razoes:
+      - "Presume que a renda determina a escolha, sem olhar para as razões das pessoas."
+      - "Ignora que compra de votos é crime de quem compra, não prova de quem vota."
+    muda_se: "Criticar práticas de compra de votos, sem atribuí-las aos pobres, seria crítica legítima."
+    pode_publicar_ambigua: false
+  - id: EX-29
+    tema: estigmatizacao_socioeconomica
+    tipo: exclusao
+    texto: "Esse povo da periferia não tem educação, por isso a cidade é suja."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [estigmatizacao_socioeconomica]
+    contexto: "Reclamação imaginada sobre lixo nas ruas."
+    mecanismo: "Culpa um grupo social por um problema coletivo."
+    razoes:
+      - "O problema do lixo envolve coleta, estrutura e hábitos de todos os bairros."
+      - "“Não tem educação” serve de ofensa e explicação ao mesmo tempo."
+    muda_se: "Cobrar mais coleta nos bairros afastados trataria o problema, sem acusar quem mora lá."
+    pode_publicar_ambigua: false
+  - id: EX-30
+    tema: estigmatizacao_socioeconomica
+    tipo: exclusao
+    texto: "Emprego bom é pra quem estudou em escola cara; o resto que aceite o que sobrar."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [estigmatizacao_socioeconomica]
+    contexto: "Fala imaginada num processo seletivo."
+    mecanismo: "Naturaliza a exclusão por origem social."
+    razoes:
+      - "Define quem “merece” pela escola paga, não por habilidade."
+      - "“O que sobrar” é condição imposta a quem já tem menos oportunidade."
+    muda_se: "Se a vaga exigisse uma formação específica, o critério seria a formação, não a escola."
+    pode_publicar_ambigua: false
+  - id: EX-31
+    tema: estigmatizacao_socioeconomica
+    tipo: exclusao
+    texto: "Não alugo apartamento pra quem veio de bairro pobre, já sei como é."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [estigmatizacao_socioeconomica, exclusao_social_territorial]
+    contexto: "Fala imaginada de um proprietário."
+    mecanismo: "Recusa antes de conhecer, com base no endereço de origem."
+    razoes:
+      - "“Já sei como é” substitui a análise da pessoa por um palpite."
+      - "Pedir fiador ou comprovante de renda a todos seria critério; o bairro, não."
+    muda_se: "Um critério objetivo igual para todos (comprovante de renda) não seria discriminação."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- hostilidade política
+  - id: EX-32
+    tema: hostilidade_politica
+    tipo: exclusao
+    texto: "Gente de esquerda não presta e não devia nem ser contratada por empresa séria."
+    origem: sintetica_ilustrativa
+    par_espelho: EX-33
+    rotulos_editoriais: [hostilidade_politica]
+    contexto: "Conversa imaginada entre dois empresários."
+    mecanismo: "Defende barrar emprego por posição política."
+    razoes:
+      - "Passa do desacordo para a retirada de uma oportunidade de trabalho."
+      - "“Não presta” vale para todas as pessoas do grupo."
+    muda_se: "Se o tema fosse a conduta de uma pessoa no trabalho, a análise seria sobre a conduta."
+    pode_publicar_ambigua: false
+  - id: EX-33
+    tema: hostilidade_politica
+    tipo: exclusao
+    texto: "Gente de direita não presta e não devia nem ser contratada por empresa séria."
+    origem: sintetica_ilustrativa
+    par_espelho: EX-32
+    rotulos_editoriais: [hostilidade_politica]
+    contexto: "Conversa imaginada entre dois empresários."
+    mecanismo: "Espelho de EX-32 com o lado trocado. Deve receber a mesma leitura."
+    razoes:
+      - "Mesma estrutura: posição política vira motivo para negar emprego."
+      - "Se a leitura mudasse só porque o lado mudou, o problema estaria no método."
+    muda_se: "O mesmo que em EX-32: só uma conduta concreta no trabalho muda o foco."
+    pode_publicar_ambigua: false
+  - id: EX-34
+    tema: hostilidade_politica
+    tipo: exclusao
+    texto: "Vou lembrar de todo mundo que votou do lado errado na hora de distribuir serviço aqui no bairro."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [hostilidade_politica, exclusao_social_territorial]
+    contexto: "Fala imaginada de alguém que controla um serviço local."
+    mecanismo: "Promete tratar pessoas de forma diferente pelo voto."
+    razoes:
+      - "Liga o acesso a um serviço à escolha eleitoral."
+      - "A frase não afirma que isso aconteceu, mas descreve a intenção de fazer."
+    muda_se: "Quem fala e que poder tem sobre o serviço mudam o peso. Só um contexto de trabalho ou serviço permite falar em assédio eleitoral, e essa conclusão é humana e jurídica, não do site."
+    pode_publicar_ambigua: false
+  - id: EX-35
+    tema: hostilidade_politica
+    tipo: exclusao
+    texto: "A ceia é só pra quem pensa igual; os outros nem precisam aparecer."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [hostilidade_politica]
+    contexto: "Mensagem imaginada num grupo de família."
+    mecanismo: "Condiciona o pertencimento ao grupo à opinião."
+    razoes:
+      - "Convida só quem concorda, e diz isso de forma geral."
+      - "Num espaço familiar, é exclusão afetiva, não decisão pública."
+    muda_se: "Se fosse um acordo de “nesta ceia não falamos de política”, o foco seria o assunto, não as pessoas."
+    pode_publicar_ambigua: false
+  - id: EX-36
+    tema: hostilidade_politica
+    tipo: exclusao
+    texto: "Só quem votou certo devia ter direito de opinar sobre o orçamento da cidade."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [hostilidade_politica, exclusao_social_territorial]
+    contexto: "Comentário imaginado num grupo de bairro."
+    mecanismo: "Condiciona um direito cidadão ao voto dado."
+    razoes:
+      - "O direito de opinar não depende de quem se apoiou."
+      - "“Votou certo” trata o voto como prova de legitimidade."
+    muda_se: "Pedir que a pessoa se informe antes de opinar é diferente de negar o direito."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- exclusão territorial
+  - id: EX-37
+    tema: exclusao_territorial
+    tipo: exclusao
+    texto: "Esse bairro não é lugar pra quem mora de aluguel; quem é de fora que se mude."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [exclusao_social_territorial, estigmatizacao_socioeconomica]
+    contexto: "Fala imaginada numa associação de moradores."
+    mecanismo: "Define quem pertence ao bairro pelo tipo de moradia e pela origem."
+    razoes:
+      - "“Quem é de fora que se mude” é um pedido direto de saída."
+      - "Mora de aluguel não diz nada sobre convivência."
+    muda_se: "Uma regra de condomínio igual para todos seria outro assunto."
+    pode_publicar_ambigua: false
+  - id: EX-38
+    tema: exclusao_territorial
+    tipo: exclusao
+    texto: "Aqui só entra quem é daqui desde sempre; o resto que fique do outro lado do rio."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [exclusao_social_territorial]
+    contexto: "Fala imaginada num bairro de ocupação antiga."
+    mecanismo: "Traça fronteira de pertencimento por tempo de residência."
+    razoes:
+      - "Divide a cidade em “nós” e “eles” por uma regra de antiguidade."
+      - "O pedido de ficar “do outro lado” é uma separação espacial."
+    muda_se: "Preservar uma tradição local não exige impedir a presença de ninguém."
+    pode_publicar_ambigua: false
+  - id: EX-39
+    tema: exclusao_territorial
+    tipo: exclusao
+    texto: "A praça é dos moradores antigos; quem chegou depois que use a outra."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [exclusao_social_territorial]
+    contexto: "Conversa imaginada sobre o uso de um espaço público."
+    mecanismo: "Reserva um espaço público a quem chegou primeiro."
+    razoes:
+      - "Praça pública é de todos; a frase cria um dono."
+      - "A separação por antiguidade tende a recair sobre quem é mais novo na cidade."
+    muda_se: "Se fosse um acordo temporário de horários entre grupos que usam o mesmo espaço, seria organização."
+    pode_publicar_ambigua: false
+  - id: EX-40
+    tema: exclusao_territorial
+    tipo: exclusao
+    texto: "Ninguém de fora compra terreno na nossa rua; só vendemos pra gente conhecida."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [exclusao_social_territorial]
+    contexto: "Combinado imaginado entre vizinhos."
+    mecanismo: "Combina barrar pessoas por não pertencerem ao círculo."
+    razoes:
+      - "É acordo coletivo para fechar a rua, não preferência individual."
+      - "“Gente conhecida” reproduz quem já é do grupo."
+    muda_se: "Uma pessoa vendendo ao parente que conhece pode ser decisão privada; um acordo da rua para barrar estranhos é outra coisa."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- desumanização
+  - id: EX-41
+    tema: desumanizacao
+    tipo: exclusao
+    texto: "Essa gente é uma praga que infesta a cidade."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [desumanizacao]
+    contexto: "Comentário imaginado sobre moradores de rua."
+    mecanismo: "Compara pessoas a pragas."
+    razoes:
+      - "Pragas se eliminam; a metáfora prepara a ideia de remover pessoas."
+      - "Não há argumento; a imagem faz o trabalho."
+    muda_se: "Falar de políticas para a cidade sem comparar pessoas a animais mudaria o caso."
+    pode_publicar_ambigua: false
+  - id: EX-42
+    tema: desumanizacao
+    tipo: exclusao
+    texto: "Quem pensa assim é um câncer da sociedade e precisa ser removido."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [desumanizacao, hostilidade_politica]
+    contexto: "Frase imaginada numa discussão política."
+    mecanismo: "Compara pessoas a uma doença e propõe retirá-las."
+    razoes:
+      - "A metáfora da doença sugere eliminar o grupo."
+      - "O alvo é quem “pensa assim”, não a ideia."
+    muda_se: "“Essa ideia é prejudicial e vou argumentar contra ela” critica o argumento, não a pessoa."
+    pode_publicar_ambigua: false
+  - id: EX-43
+    tema: desumanizacao
+    tipo: exclusao
+    texto: "Aquele povo não é gente, é bicho."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [desumanizacao]
+    contexto: "Frase imaginada sobre um grupo qualquer."
+    mecanismo: "Nega a condição humana de um grupo."
+    razoes:
+      - "É o exemplo mais direto de desumanização: afirma que o grupo não é humano."
+      - "Não depende do grupo: com qualquer nome no lugar, o mecanismo é o mesmo."
+    muda_se: "Nenhum contexto de conversa torna esta afirmação uma crítica legítima."
+    pode_publicar_ambigua: false
+  - id: EX-44
+    tema: desumanizacao
+    tipo: exclusao
+    texto: "Perder tempo tratando esse tipo de pessoa como ser humano é desperdício."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [desumanizacao]
+    contexto: "Comentário imaginado sobre atendimento a um grupo vulnerável."
+    mecanismo: "Retira de um grupo o direito a tratamento digno."
+    razoes:
+      - "Nega humanidade pelo custo, não por um ato."
+      - "Se vira regra de atendimento, tem efeito prático sobre pessoas reais."
+    muda_se: "Reclamar de tempo de fila ou de recursos escassos mira o serviço; esta frase mira as pessoas."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- insultos sem discriminação identificável
+  - id: EX-45
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "Esse motorista é um idiota, quase me atropelou na faixa."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [insulto_hostilidade]
+    contexto: "Desabafo imaginado depois de um susto no trânsito."
+    mecanismo: "Insulta um indivíduo por um ato, sem alvo coletivo."
+    razoes:
+      - "Há ofensa, mas ela vem de um fato concreto e não de um grupo."
+      - "Ofensivo não é o mesmo que discriminatório."
+    muda_se: "Se o insulto usasse características de um grupo (origem, gênero), a leitura mudaria."
+    pode_publicar_ambigua: false
+  - id: EX-46
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "Que time horrível, o técnico é um completo incompetente."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [insulto_hostilidade]
+    contexto: "Reação imaginada após uma derrota."
+    mecanismo: "Crítica áspera ao desempenho de um profissional."
+    razoes:
+      - "O alvo é o trabalho de uma pessoa específica."
+      - "Linguagem dura, sem referência a nenhum grupo."
+    muda_se: "Se a crítica citasse a origem ou a aparência do técnico, deixaria de ser sobre o desempenho."
+    pode_publicar_ambigua: false
+  - id: EX-47
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "Cala a boca, você não sabe do que está falando."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [insulto_hostilidade]
+    contexto: "Resposta imaginada numa discussão de internet."
+    mecanismo: "Grosseria que tenta encerrar a conversa."
+    razoes:
+      - "É agressiva, mas não atinge ninguém por pertencer a um grupo."
+      - "Silenciar alguém na discussão é diferente de negar o direito de pertencer."
+    muda_se: "Se viesse com “porque você é de tal lugar”, a leitura mudaria."
+    pode_publicar_ambigua: false
+  - id: EX-48
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "Atendimento péssimo, o gerente foi grosseiro e mal-educado."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: []
+    contexto: "Avaliação imaginada de uma loja."
+    mecanismo: "Reclamação de consumo."
+    razoes:
+      - "Descreve um comportamento e avalia o serviço."
+      - "Não há alvo coletivo nem exclusão."
+    muda_se: "Se a avaliação dissesse que “gente de tal lugar é grosseira”, o alvo seria um grupo."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- crítica política legítima
+  - id: EX-49
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "O governo errou ao cortar o orçamento da educação e isso vai prejudicar a cidade."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Opinião imaginada num debate público."
+    mecanismo: "Critica uma decisão e aponta consequência."
+    razoes:
+      - "O alvo é a decisão do governo, não as pessoas que o apoiam."
+      - "Há um argumento: o corte prejudicaria a cidade."
+    muda_se: "Se a frase passasse a atacar eleitores do governo, a leitura mudaria."
+    pode_publicar_ambigua: false
+  - id: EX-50
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "Não concordo com o projeto de lei e vou ligar para o meu vereador para dizer isso."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Mensagem imaginada num grupo de bairro."
+    mecanismo: "Divergência com ação cívica."
+    razoes:
+      - "Discorda de um projeto e procura o canal para dizer isso."
+      - "Participar assim é o uso normal do direito de opinar."
+    muda_se: "Nada nesta frase exclui ou desqualifica pessoas."
+    pode_publicar_ambigua: false
+  - id: EX-51
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "A prefeitura prometeu o posto de saúde há três anos e até agora nada. Quero explicações."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Cobrança imaginada num canal público de reclamações."
+    mecanismo: "Cobrança por uma promessa não cumprida."
+    razoes:
+      - "Cita um fato (a promessa) e pede resposta."
+      - "Cobrar quem governa é parte da democracia."
+    muda_se: "Se a frase fosse “quem votou nesse prefeito merece ficar sem posto”, o alvo passaria a ser o eleitor."
+    pode_publicar_ambigua: false
+  - id: EX-52
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "Esse partido tem uma proposta econômica que eu considero perigosa; vou votar em outra pessoa."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Opinião imaginada de um eleitor indeciso."
+    mecanismo: "Discordância programática e escolha de voto."
+    razoes:
+      - "Critica uma proposta, não quem a apoia."
+      - "Explica a decisão de voto sem pedir que ninguém seja excluído."
+    muda_se: "Dizer que “quem vota nesse partido é perigoso” transformaria a crítica em ataque a pessoas."
+    pode_publicar_ambigua: false
+  - id: EX-53
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "O ministro precisa responder pelas decisões que tomou, e a imprensa tem o dever de perguntar."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Comentário imaginado sobre uma crise de gestão."
+    mecanismo: "Defende prestação de contas."
+    razoes:
+      - "Foca em decisões de uma autoridade pública."
+      - "Reforça a função de fiscalização da imprensa."
+    muda_se: "Atacar a vida pessoal ou a origem do ministro sairia do tema das decisões."
+    pode_publicar_ambigua: false
+  - id: EX-54
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "Seu argumento tem falhas e explico quais; dá pra discordar sem desrespeitar."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Resposta imaginada num debate online."
+    mecanismo: "Discorda do argumento e preserva o respeito."
+    razoes:
+      - "Diz que vai explicar as falhas, ou seja, argumenta."
+      - "Separa a ideia da pessoa."
+    muda_se: "Sem a explicação, a frase viraria só uma desqualificação."
+    pode_publicar_ambigua: false
+
+  # ---------------------------------------------------------------- ironia e sarcasmo
+  - id: EX-55
+    tema: ironia
+    tipo: nao_discriminatoria
+    texto: "Ah, claro, outra obra “urgente” parada desde antes do último carnaval. Genial planejamento."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima, ironia_humor]
+    contexto: "Comentário imaginado sobre uma obra atrasada."
+    mecanismo: "Sarcasmo para cobrar um atraso."
+    razoes:
+      - "O elogio é falso de propósito: o que se diz é o contrário do que se quer dizer."
+      - "O alvo é o planejamento da obra, não um grupo."
+    muda_se: "Um modelo de linguagem que lê só as palavras (“genial”, “urgente”) pode confundir o tom, mas a leitura humana pega a ironia."
+    pode_publicar_ambigua: false
+  - id: EX-56
+    tema: ironia
+    tipo: nao_discriminatoria
+    texto: "Que maravilha, mais um político que descobriu o povo na semana da eleição."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima, ironia_humor]
+    contexto: "Comentário imaginado sobre visitas de campanha."
+    mecanismo: "Ironia crítica sobre oportunismo eleitoral."
+    razoes:
+      - "Critica um comportamento público (aparecer só em campanha)."
+      - "Não ataca quem vota nem um grupo de eleitores."
+    muda_se: "Se fosse dirigida a “o povo dessa região”, seria sobre as pessoas."
+    pode_publicar_ambigua: false
+  - id: EX-57
+    tema: ironia
+    tipo: nao_discriminatoria
+    texto: "Parabéns aos organizadores: conseguiram fazer duas mil pessoas esperarem em pé por três horas. Recorde!"
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ironia_humor]
+    contexto: "Avaliação imaginada de um evento mal organizado."
+    mecanismo: "Sarcasmo sobre organização."
+    razoes:
+      - "O elogio é irônico e o alvo é a organização."
+      - "Mostra que “parabéns” e “recorde” nem sempre querem dizer o que dizem."
+    muda_se: "Sem o contexto do evento, ler só as palavras sugeriria elogio."
+    pode_publicar_ambigua: false
+  - id: EX-58
+    tema: ironia
+    tipo: ambigua
+    texto: "Ótimo, mais um que acha que pobre não sabe votar. Continue assim."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua, ironia_humor]
+    contexto: "Resposta imaginada a um comentário alheio."
+    mecanismo: "Pode ser ironia contra um preconceito ou eco dele."
+    razoes:
+      - "Lido como ironia, a frase critica quem diz que pobre não sabe votar."
+      - "Lido literalmente, concordaria com o preconceito. Sem o comentário anterior, não dá para decidir."
+    muda_se: "Ver a mensagem a que responde resolveria. Sem isso, a leitura honesta é “depende”."
+    pode_publicar_ambigua: true
+
+  # ---------------------------------------------------------------- ambíguos
+  - id: EX-59
+    tema: depende_contexto
+    tipo: ambigua
+    texto: "Cota é esmola pra quem não consegue passar sozinho."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua]
+    contexto: "Opinião imaginada numa conversa sobre políticas de acesso à universidade."
+    mecanismo: "Mistura crítica a uma política com juízo sobre quem a usa."
+    razoes:
+      - "Criticar uma política pública é legítimo."
+      - "Dizer que beneficiários “não conseguem sozinhos” atribui incapacidade a um grupo. As duas leituras são sustentáveis."
+    muda_se: "Se apontasse falhas da política com dados, ficaria crítica. Se generalizasse sobre os beneficiários, o alvo seriam as pessoas."
+    pode_publicar_ambigua: true
+  - id: EX-60
+    tema: depende_contexto
+    tipo: ambigua
+    texto: "Se você votou nele, apaga meu contato; não quero amigo assim."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua, hostilidade_politica]
+    contexto: "Mensagem imaginada numa rede social depois de uma eleição."
+    mecanismo: "Escolha pessoal de amizade ou exclusão por voto."
+    razoes:
+      - "Cada pessoa escolhe com quem se relaciona, e isso é privado."
+      - "A mesma frase, dita por quem tem poder sobre o outro (chefia, por exemplo), pesa diferente."
+    muda_se: "Uma relação de trabalho ou serviço entre quem fala e quem ouve mudaria a leitura."
+    pode_publicar_ambigua: true
+  - id: EX-61
+    tema: depende_contexto
+    tipo: ambigua
+    texto: "Quem é de fora não entende como as coisas funcionam aqui."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua]
+    contexto: "Fala imaginada num bairro com costumes próprios."
+    mecanismo: "Pode ser conhecimento local ou barreira de pertencimento."
+    razoes:
+      - "Pode ser um aviso gentil de que há costumes que levam tempo para aprender."
+      - "Também pode ser usado para desqualificar quem chegou e barrar sua voz."
+    muda_se: "O tom e o que vem depois: se o convite é para aprender, é acolhimento; se é para calar, é exclusão."
+    pode_publicar_ambigua: true
+  - id: EX-62
+    tema: depende_contexto
+    tipo: ambigua
+    texto: "Dá pra saber em quem você votou só de olhar pro seu carro."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua]
+    contexto: "Brincadeira imaginada entre vizinhos."
+    mecanismo: "Brincadeira com estereótipo de eleitor."
+    razoes:
+      - "Entre amigos, pode ser provocação leve, sem consequência."
+      - "Inferir voto por aparência é um palpite sem base, e pode virar rótulo se repetido."
+    muda_se: "Se fosse dita por quem escolhe clientes ou funcionários, seria um sinal de alerta."
+    pode_publicar_ambigua: true
+  - id: EX-63
+    tema: depende_contexto
+    tipo: ambigua
+    texto: "Prefiro contratar gente que já conheço; é mais seguro."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua]
+    contexto: "Fala imaginada de um dono de pequeno negócio."
+    mecanismo: "Preferência por confiança que pode reproduzir exclusão."
+    razoes:
+      - "É comum em pequenos negócios e não cita nenhum grupo."
+      - "Na prática, pode barrar quem não pertence ao círculo de quem contrata."
+    muda_se: "Se o círculo fosse definido por origem ou voto, a leitura mudaria."
+    pode_publicar_ambigua: true
+  - id: EX-64
+    tema: depende_contexto
+    tipo: ambigua
+    texto: "Mulher também pode ser prefeita, mas será que aguenta a pressão?"
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [ambigua]
+    contexto: "Comentário imaginado num debate sobre candidaturas."
+    mecanismo: "Pergunta que pode carregar um estereótipo."
+    razoes:
+      - "A pergunta se aplicaria a qualquer candidato e é comum em debates."
+      - "Feita só a mulheres, indica que se espera menos delas."
+    muda_se: "Se a mesma pergunta fosse feita a candidatos homens, o viés ficaria evidente."
+    pode_publicar_ambigua: true
+
+  # ---------------------------------------------------------------- cotidiano e convivência (não discriminatórios)
+  - id: EX-65
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "Detesto o calor desta cidade, mas adoro o povo daqui."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: []
+    contexto: "Conversa imaginada com um amigo de fora."
+    mecanismo: "Opinião sobre o clima e carinho pelas pessoas."
+    razoes:
+      - "A generalização é positiva e afetiva, não pede exclusão de ninguém."
+      - "Mostra que nem toda generalização é preconceito: o que pesa é o que ela faz."
+    muda_se: "Se o elogio ao “povo daqui” viesse acompanhado do desprezo por quem é “de lá”, o efeito seria outro."
+    pode_publicar_ambigua: false
+  - id: EX-66
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "A fila do posto demorou duas horas. A culpa é do sistema, não de quem trabalha lá, que estava sobrecarregado."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Relato imaginado depois de um atendimento."
+    mecanismo: "Crítica ao serviço sem culpar pessoas."
+    razoes:
+      - "Distingue o sistema (alvo da crítica) de quem trabalha nele."
+      - "Mostra uma queixa firme e respeitosa."
+    muda_se: "Se culpasse os atendentes por serem de certo grupo, o alvo mudaria."
+    pode_publicar_ambigua: false
+  - id: EX-67
+    tema: sem_discriminacao
+    tipo: nao_discriminatoria
+    texto: "Votei diferente do meu irmão e a gente continua conversando todo domingo."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: []
+    contexto: "Relato imaginado sobre a convivência depois da eleição."
+    mecanismo: "Divergência política sem ruptura."
+    razoes:
+      - "Mostra que discordar do voto do outro não precisa significar afastamento."
+      - "Não há nenhuma exclusão no que é dito."
+    muda_se: "Nada nessa frase atinge ninguém; é um contraponto para as outras."
+    pode_publicar_ambigua: false
+  - id: EX-68
+    tema: critica_legitima
+    tipo: nao_discriminatoria
+    texto: "Discordo de quem defende esse projeto, mas respeito o direito de cada um de ir à praça dizer o que pensa."
+    origem: sintetica_ilustrativa
+    rotulos_editoriais: [critica_politica_legitima]
+    contexto: "Comentário imaginado antes de uma manifestação."
+    mecanismo: "Discordância com respeito ao direito de manifestação."
+    razoes:
+      - "Declara o desacordo e preserva o direito do outro."
+      - "Combina duas ideias que costumam ser tratadas como opostas."
+    muda_se: "Se pedisse que quem defende o projeto “não aparecesse” na praça, a leitura mudaria."
+    pode_publicar_ambigua: false

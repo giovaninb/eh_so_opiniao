@@ -1,5 +1,5 @@
 {
-  "versao": "1.0.0",
+  "versao": "1.1.0",
   "rotulos": [
     {
       "id": "linguagem_ofensiva",
@@ -23,7 +23,7 @@
       "tipo": "supervisionado",
       "definicao": "Preconceito ou ódio com base em raça, cor ou etnia.",
       "nao_e": "Menção neutra a raça/etnia ou denúncia de racismo.",
-      "observacao": ""
+      "observacao": "Rótulos anotados: ToLD-Br (equivalente) e MultiDomainYT-ToxBR (aproximado, 17 positivos por consenso). O RacismoBR (racismo contra pessoas negras, com protocolo de anotação por pesquisadores negros) está catalogado, mas sem fonte pública verificável: não há dado dele em uso."
     },
     {
       "id": "xenofobia",
@@ -31,7 +31,7 @@
       "tipo": "supervisionado",
       "definicao": "Hostilidade contra pessoas por origem estrangeira ou, conforme a fonte, regional.",
       "nao_e": "Piada sem alvo depreciativo ou comparação cultural neutra.",
-      "observacao": "Os datasets não distinguem de forma consistente xenofobia nacional de preconceito regional (ex.: contra nordestinos). A classe regional específica é exploratória."
+      "observacao": "Os datasets não distinguem de forma consistente xenofobia nacional de preconceito regional (ex.: contra nordestinos). O guia do MultiDomainYT-ToxBR inclui explicitamente migrantes internos (nordestinos, sulistas) em \"xenofobia\". A classe regional específica é exploratória."
     },
     {
       "id": "misoginia",
@@ -40,6 +40,22 @@
       "definicao": "Ódio, desprezo ou estereótipo depreciativo contra mulheres por serem mulheres.",
       "nao_e": "Crítica a uma mulher específica por seus atos públicos.",
       "observacao": ""
+    },
+    {
+      "id": "intolerancia_religiosa",
+      "nome": "Intolerância religiosa",
+      "tipo": "supervisionado",
+      "definicao": "Ataque, zombaria ou desvalorização de pessoas por suas crenças ou pela religião que praticam.",
+      "nao_e": "Crítica a ideias, instituições ou líderes religiosos sem depreciar as pessoas que creem.",
+      "observacao": ""
+    },
+    {
+      "id": "capacitismo",
+      "nome": "Capacitismo",
+      "tipo": "supervisionado",
+      "definicao": "Zombaria, menosprezo ou desumanização de pessoas com deficiência, inclusive como insulto disfarçado.",
+      "nao_e": "Menção neutra a deficiência ou denúncia de capacitismo.",
+      "observacao": "No MultiDomainYT-ToxBR o rótulo se chama \"anticapacitismo\", mas a definição do guia descreve conteúdo capacitista. O rótulo mede a presença de capacitismo."
     },
     {
       "id": "lgbtfobia",
@@ -52,10 +68,10 @@
     {
       "id": "hostilidade_politica",
       "nome": "Hostilidade política",
-      "tipo": "exploratorio",
+      "tipo": "supervisionado",
       "definicao": "Ofensa dirigida a pessoas por posição política ou ideológica.",
       "nao_e": "Crítica política legítima a ideias, partidos, governos e candidaturas.",
-      "observacao": "Sem rótulo anotado nas bases usadas (o HateBR tem contexto político, mas só o rótulo geral de ofensa). Hipótese baseada em regras; não é um detector de preferência política."
+      "observacao": "Rótulo anotado só no MultiDomainYT-ToxBR (\"intolerância política\", aproximado: ataque, deslegitimação ou desumanização por orientação política ou filiação). O HateBR tem contexto político, mas só o rótulo geral de ofensa. Não é um detector de preferência política e a TybyrIA não é usada para esta classe; o falso positivo em crítica legítima é medido no protocolo AMP-E."
     },
     {
       "id": "discriminacao_regional",
@@ -92,10 +108,10 @@
     {
       "id": "incitacao_violencia",
       "nome": "Incitação à violência",
-      "tipo": "exploratorio",
+      "tipo": "supervisionado",
       "definicao": "Convocar, desejar ou ameaçar dano físico a pessoas ou grupos.",
       "nao_e": "Hipérbole claramente fora de contexto real ou citação em denúncia.",
-      "observacao": ""
+      "observacao": "Rótulo anotado só no MultiDomainYT-ToxBR (\"violência/extremismo\", aproximado e mais amplo: inclui defender, minimizar ou justificar violência e discursos autoritários de eliminação). Com 57 positivos por consenso, as métricas são instáveis."
     },
     {
       "id": "possivel_assedio_eleitoral_contextual",

@@ -12,7 +12,7 @@ from eh_so_opiniao.schema import AmostraInvalida, NormalizedTextSample, ler_json
 
 def test_registry_valido_e_completo():
     dados = registry.carregar_registry()
-    assert set(dados["datasets"]) == {"told_br", "hatebr"}
+    assert set(dados["datasets"]) == {"told_br", "hatebr", "multidomain_yt_toxbr", "racismobr", "tupye"}
     for ds_id, ds in dados["datasets"].items():
         for campo in registry.CAMPOS_OBRIGATORIOS:
             assert campo in ds, f"{ds_id} sem {campo}"
@@ -26,17 +26,21 @@ def test_politicas_do_catalogo():
     assert pol["usar_tybyria_como_classificador"] is False
 
 
-def test_catalogo_so_tem_datasets_abertos_e_acessados():
+def test_catalogo_so_tem_datasets_abertos_ou_pendentes_de_fonte():
     for ds_id in registry.listar_datasets():
         ds = registry.dataset(ds_id)
-        assert ds["acesso"] == "aberto" and ds["status_acesso"] == "acessado", ds_id
-        assert ds["registros_confirmados"] > 0
+        if ds["status_acesso"] == "pendente_fonte":
+            assert ds["acesso"] == "sem_fonte_publica" and ds["integracao"] == "pendente_fonte", ds_id
+            assert ds["registros_confirmados"] is None and not ds["url_arquivos"], ds_id
+        else:
+            assert ds["acesso"] == "aberto" and ds["status_acesso"] == "acessado", ds_id
+            assert ds["registros_confirmados"] > 0
 
 
 def test_datasets_abertos_tem_hash_de_integridade():
-    for ds_id in ("told_br", "hatebr"):
+    for ds_id in registry.listar_datasets():
         for arq in registry.dataset(ds_id)["url_arquivos"]:
-            assert len(arq["sha256"]) == 64
+            assert len(arq["sha256"]) == 64, (ds_id, arq["arquivo"])
 
 
 def test_registry_rejeita_dataset_restrito_marcado_como_acessado():
@@ -72,7 +76,7 @@ def test_classes_sem_dataset_sao_exploratorias():
 
 
 def test_docs_gerados_em_sincronia_com_os_catalogos():
-    for nome, fn in (("MAPEAMENTO_ROTULOS.md", docsgen.mapeamento_md), ("TAXONOMIA.md", docsgen.taxonomia_md), ("DATASETS.md", docsgen.datasets_md)):
+    for nome, fn in docsgen.GERADOS.items():
         atual = (paths.DOCS / nome).read_text(encoding="utf-8")
         assert atual == fn(), f"{nome} desatualizado: rode `python -m eh_so_opiniao docs`"
 

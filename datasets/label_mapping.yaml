@@ -1,4 +1,4 @@
-# Mapeamento de rótulos originais -> taxonomia "É Só Opinião?" — versão 1.0.0
+# Mapeamento de rótulos originais -> taxonomia "É Só Opinião?" — versão 1.1.0
 #
 # relacao:
 #   equivalente  -> definição e escopo da fonte coincidem com a classe da taxonomia.
@@ -11,7 +11,7 @@
 #  - "aproximado" NUNCA é tratado como "equivalente" em experimentos; os experimentos C medem
 #    justamente o custo dessa aproximação.
 #  - A tabela documentada (docs/MAPEAMENTO_ROTULOS.md) é gerada a partir deste arquivo.
-versao: "1.0.0"
+versao: "1.1.0"
 datasets:
   told_br:
     rotulos:
@@ -54,3 +54,82 @@ datasets:
         alvo: null
         relacao: incompativel
         nota: Camadas de discurso de ódio, nível de ofensa e alvos existem só na versão 1.0, sob pedido; indisponíveis aqui.
+  multidomain_yt_toxbr:
+    # Ordem do vetor multirrótulo VERIFICADA contra as planilhas dos anotadores (não a do README). Ver registry.yaml.
+    rotulos:
+      insulto_de_baixo_calao:
+        alvo: insulto_hostilidade
+        relacao: aproximado
+        nota: >-
+          Agressão verbal sem conotação discriminatória nem identidade social específica (palavrões, xingamentos); inclui ataque à aparência, inteligência ou caráter.
+      homofobia:
+        alvo: lgbtfobia
+        relacao: aproximado
+        nota: >-
+          Orientação sexual ou identidade de gênero; inclui estereótipos e piadas ofensivas.
+      racismo:
+        alvo: racismo
+        relacao: aproximado
+        nota: >-
+          Guia inclui "pejorativos ou estereotipados" e exemplos de escopo largo; apenas 17 positivos por consenso e concordância baixa (kappa 0,33-0,42). Não tratar como equivalente ao racismo do ToLD-Br.
+      misoginia_machismo:
+        alvo: misoginia
+        relacao: aproximado
+        nota: >-
+          Ódio, desprezo ou inferiorização da mulher por ser mulher; inclui "machismo", mais amplo que misoginia estrita.
+      xenofobia:
+        alvo: xenofobia
+        relacao: aproximado
+        nota: >-
+          Inclui origem geográfica, nacionalidade, etnia e REGIÃO (migrantes internos, como nordestinos e sulistas). Não distingue xenofobia nacional de preconceito regional por comentário.
+      violencia_extremismo:
+        alvo: incitacao_violencia
+        relacao: aproximado
+        nota: >-
+          Mais amplo que incitação: inclui defender, minimizar ou justificar violência e discursos autoritários de eliminação do "inimigo". 57 positivos; instável.
+      intolerancia_religiosa:
+        alvo: intolerancia_religiosa
+        relacao: aproximado
+        nota: >-
+          Ataque, zombaria ou desvalorização com base em crença ou religião; classe criada na taxonomia 1.1.0 a partir desta fonte (sem segundo dataset para validar equivalência).
+      intolerancia_politica:
+        alvo: hostilidade_politica
+        relacao: aproximado
+        nota: >-
+          Ataque, deslegitimação ou desumanização por orientação política ou filiação partidária, em comentários do YouTube; não é detector de preferência política.
+      anticapacitismo:
+        alvo: capacitismo
+        relacao: aproximado
+        nota: >-
+          Apesar do nome, mede a PRESENÇA de conteúdo capacitista (zombaria ou desumanização de pessoas com deficiência), conforme o guia de anotação.
+      invalido:
+        alvo: null
+        relacao: incompativel
+        nota: >-
+          Marca de comentário inválido por anotador (ignorada pelos autores na consolidação); preservada só como metadado de anotação.
+    derivados:
+      toxico_qualquer_categoria:
+        alvo: linguagem_ofensiva
+        relacao: aproximado
+        nota: >-
+          Rótulo binário do corpus = 1 se qualquer das nove categorias tem consenso (>=2 de 3). Inclui insulto de baixo calão; "tóxico" aqui não é sinônimo de discurso de ódio. O F1 binário não indica capacidade de identificar categorias.
+  racismobr:
+    rotulos:
+      racist:
+        alvo: racismo
+        relacao: aproximado
+        nota: >-
+          Racismo contra pessoas negras, conforme a definição operacional dos autores (adaptada de Almeida, 2019), anotado por pesquisadores negros. Escopo mais estreito que a classe "racismo" da taxonomia (raça, cor ou etnia). Sem dados: mapeamento validado só com fixtures sintéticas.
+  tupye:
+    # Não integrado a experimentos: mapeamento registrado só para documentar a incompatibilidade de definições.
+    rotulos:
+      aggressive:
+        alvo: linguagem_ofensiva
+        relacao: aproximado
+        nota: >-
+          Agressividade agregada de três fontes por voto de maioria; definições herdadas de ToLD-Br, HateBR e Fortuna et al.
+      hate:
+        alvo: null
+        relacao: incompativel
+        nota: >-
+          Ódio definido pelos autores EXCLUINDO textos só ofensivos ou obscenos; não coincide com nenhuma classe da taxonomia nem com o rótulo de ofensa do HateBR e do ToLD-Br. Rótulos específicos (multirrótulo) não foram baixados.

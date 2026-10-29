@@ -1,0 +1,15 @@
+# Temas de exibição (filtro e rótulo curto nos cartões). São editoriais: não são a taxonomia científica.
+temas:
+  - {id: discriminacao_regional, nome: "Discriminação regional"}
+  - {id: xenofobia, nome: "Xenofobia"}
+  - {id: racismo, nome: "Racismo"}
+  - {id: misoginia, nome: "Misoginia"}
+  - {id: lgbtfobia, nome: "LGBTfobia"}
+  - {id: estigmatizacao_socioeconomica, nome: "Estigma socioeconômico"}
+  - {id: hostilidade_politica, nome: "Hostilidade política"}
+  - {id: exclusao_territorial, nome: "Exclusão territorial"}
+  - {id: desumanizacao, nome: "Desumanização"}
+  - {id: sem_discriminacao, nome: "Sem discriminação identificável"}
+  - {id: critica_legitima, nome: "Crítica política legítima"}
+  - {id: ironia, nome: "Ironia e sarcasmo"}
+  - {id: depende_contexto, nome: "Depende do contexto"}

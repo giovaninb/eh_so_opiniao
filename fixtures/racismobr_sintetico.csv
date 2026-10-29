@@ -1,0 +1,8 @@
+text,label,origin,subset
+Exemplo sintético 01 marcado como positivo apenas para testar o contrato.,1,coleta_nova,experimental_balanceado
+Exemplo sintético 02 marcado como positivo apenas para testar o contrato.,1,literatura,experimental_balanceado
+Exemplo sintético 03 marcado como positivo apenas para testar o contrato.,1,literatura,reservatorio
+Exemplo sintético 04 marcado como negativo apenas para testar o contrato.,0,coleta_nova,experimental_balanceado
+Exemplo sintético 05 marcado como negativo apenas para testar o contrato.,0,literatura,experimental_balanceado
+Exemplo sintético 06 marcado como negativo apenas para testar o contrato.,0,coleta_nova,reservatorio
+Exemplo sintético 07 marcado como negativo apenas para testar o contrato.,0,literatura,reservatorio

@@ -1,0 +1,338 @@
+{
+  "gerado_em": "2026-10-29T15:20:58.932Z",
+  "repeticoes": 3,
+  "metas": {
+    "performance": 90,
+    "acessibilidade": 95,
+    "boas_praticas": 90,
+    "lcp_ms": 2500,
+    "cls": 0.1
+  },
+  "resultados": [
+    {
+      "pagina": "home",
+      "url": "#/",
+      "mediana": {
+        "performance": 100,
+        "acessibilidade": 100,
+        "boas_praticas": 100,
+        "seo": 100,
+        "lcp_ms": 1506,
+        "cls": 0,
+        "fcp_ms": 1356,
+        "tbt_ms": 0,
+        "transferido_kb": 42
+      },
+      "execucoes": [
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1512,
+          "cls": 0,
+          "fcp_ms": 1361,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1505,
+          "cls": 0,
+          "fcp_ms": 1355,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1506,
+          "cls": 0,
+          "fcp_ms": 1356,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        }
+      ]
+    },
+    {
+      "pagina": "explorar (dados reais)",
+      "url": "#/explorar",
+      "mediana": {
+        "performance": 100,
+        "acessibilidade": 100,
+        "boas_praticas": 100,
+        "seo": 100,
+        "lcp_ms": 1507,
+        "cls": 0,
+        "fcp_ms": 1356,
+        "tbt_ms": 0,
+        "transferido_kb": 42
+      },
+      "execucoes": [
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1507,
+          "cls": 0,
+          "fcp_ms": 1356,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1506,
+          "cls": 0,
+          "fcp_ms": 1356,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1507,
+          "cls": 0,
+          "fcp_ms": 1356,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        }
+      ]
+    },
+    {
+      "pagina": "frase",
+      "url": "#/frase/FR-01",
+      "mediana": {
+        "performance": 100,
+        "acessibilidade": 100,
+        "boas_praticas": 100,
+        "seo": 100,
+        "lcp_ms": 1505,
+        "cls": 0,
+        "fcp_ms": 1355,
+        "tbt_ms": 0,
+        "transferido_kb": 42
+      },
+      "execucoes": [
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1506,
+          "cls": 0,
+          "fcp_ms": 1356,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1505,
+          "cls": 0,
+          "fcp_ms": 1355,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1505,
+          "cls": 0,
+          "fcp_ms": 1355,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        }
+      ]
+    },
+    {
+      "pagina": "participar",
+      "url": "#/participar",
+      "mediana": {
+        "performance": 100,
+        "acessibilidade": 100,
+        "boas_praticas": 100,
+        "seo": 100,
+        "lcp_ms": 1506,
+        "cls": 0,
+        "fcp_ms": 1355,
+        "tbt_ms": 0,
+        "transferido_kb": 42
+      },
+      "execucoes": [
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1506,
+          "cls": 0,
+          "fcp_ms": 1355,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1506,
+          "cls": 0,
+          "fcp_ms": 1356,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1506,
+          "cls": 0,
+          "fcp_ms": 1355,
+          "tbt_ms": 0,
+          "transferido_kb": 42,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        }
+      ]
+    },
+    {
+      "pagina": "explorar (79 frases, pior caso)",
+      "url": "#/explorar",
+      "mediana": {
+        "performance": 100,
+        "acessibilidade": 100,
+        "boas_praticas": 100,
+        "seo": 100,
+        "lcp_ms": 1657,
+        "cls": 0,
+        "fcp_ms": 1357,
+        "tbt_ms": 0,
+        "transferido_kb": 54
+      },
+      "execucoes": [
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1662,
+          "cls": 0,
+          "fcp_ms": 1361,
+          "tbt_ms": 0,
+          "transferido_kb": 54,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1657,
+          "cls": 0,
+          "fcp_ms": 1357,
+          "tbt_ms": 0,
+          "transferido_kb": 54,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        },
+        {
+          "performance": 100,
+          "acessibilidade": 100,
+          "boas_praticas": 100,
+          "seo": 100,
+          "lcp_ms": 1657,
+          "cls": 0,
+          "fcp_ms": 1357,
+          "tbt_ms": 0,
+          "transferido_kb": 54,
+          "falhas": [
+            "bf-cache"
+          ],
+          "versao": "12.8.2",
+          "ambiente": "mobile / simulate"
+        }
+      ]
+    }
+  ]
+}

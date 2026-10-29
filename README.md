@@ -24,7 +24,7 @@ Dataset → Adaptador → Validação → Normalização → Mapeamento → Expe
 | Mapeamento de rótulos versionado | `datasets/label_mapping.yaml` |
 | Taxonomia (supervisionada x exploratória) | `datasets/taxonomy.yaml` |
 | Baselines A (regras) e B (TF-IDF) | `classifiers/` |
-| Métricas e experimentos A–E | `evaluation/` |
+| Métricas e experimentos A–E e AMP-A..AMP-G | `evaluation/` |
 | Revisão humana (SQLite, histórico) | `review/` |
 | Publicação (só aprovados, varredura de vazamento) | `publicacao.py` |
 
@@ -44,6 +44,10 @@ python -m eh_so_opiniao datasets                 # catálogo e estado no cache
 python -m eh_so_opiniao baixar                   # só datasets abertos (cache + integridade)
 python -m eh_so_opiniao normalizar               # JSONL normalizado local
 python -m eh_so_opiniao experimentos             # A–E; grava relatorios/experimento_*.json
+python -m eh_so_opiniao experimentos --quais amp_a,amp_b,amp_c,amp_d,amp_e,amp_f,amp_g   # catálogo ampliado (ou --ampliados para A–E + AMP)
+python -m eh_so_opiniao baixar --dataset multidomain_yt_toxbr --aceito-licenca           # só após ler as condições de licença (sem licença formal)
+python -m eh_so_opiniao concordancia             # kappa/alfa do MultiDomainYT-ToxBR, recalculados das planilhas
+python -m eh_so_opiniao sobreposicao             # textos em comum entre os corpora do cache
 python -m eh_so_opiniao mapeamento               # tabela de correspondência de rótulos
 python -m eh_so_opiniao casos                    # enfileira o estudo de caso como Pendente
 python -m eh_so_opiniao revisao listar --estado Pendente
@@ -54,12 +58,17 @@ python -m eh_so_opiniao site --rascunho          # + prévia LOCAL com ?rascunho
 python -m eh_so_opiniao docs                     # regenera tabelas e resultados em docs/
 ```
 
-### Datasets (somente as bases aprovadas)
+### Datasets
 
-| Dataset | Licença | Acesso |
+| Dataset | Licença | Acesso e estado |
 |---|---|---|
 | ToLD-Br | CC-BY-SA-4.0 | aberto, baixado e conferido por SHA-256 |
 | HateBR / HateBRXplain | CC-BY-NC-4.0 | aberto, baixado e conferido por SHA-256 |
+| MultiDomainYT-ToxBR (PUCRS, 2026) | **não declarada** (artigo: só fins acadêmicos) | aberto no GitHub; só baixa com `--aceito-licenca`; uso local, sem redistribuição |
+| RacismoBR (UFMG, 2026) | não declarada | **`pendente_fonte`**: o repositório citado no artigo dá 404; nada é lido nem inventado |
+| TuPyE | inconsistente entre cartão e componentes | só para medir sobreposição (reúne ToLD-Br e HateBR); não treina nem avalia |
+
+A Escala de Preconceito contra Nordestinos (Psico/PUCRS) é só referência teórica para a classe exploratória `discriminacao_regional`; não é base de comentários nem gera classificador. Detalhes em [docs/DATASETS.md](docs/DATASETS.md), [docs/COMPATIBILIDADE_DATASETS.md](docs/COMPATIBILIDADE_DATASETS.md) e [docs/REFERENCIAS.md](docs/REFERENCIAS.md).
 
 O pipeline nunca contorna controle de acesso: se um dataset futuro exigir credencial (`acesso: restrito_autorizacao`), sem `HF_TOKEN` nada é tentado e 401/403 vira `pendente_autorizacao`, sem derrubar as demais fontes.
 
@@ -79,7 +88,7 @@ Antes de gerar `site/data/`, uma varredura compara o texto a publicar com os cor
 
 ## Site
 
-Veja [docs/GITHUB_PAGES.md](docs/GITHUB_PAGES.md). Prévia local:
+Mobile-first, estático (HTML, CSS e módulos JS puros, sem build, sem cookies, sem rastreamento). Cinco áreas: **Início**, **Descobrir** (uma frase de cada vez), **Explorar** (busca, filtros e links por frase), **Participar** e **Entender**/**Pesquisa**. Veja [docs/GITHUB_PAGES.md](docs/GITHUB_PAGES.md). Prévia local:
 
 ```bash
 cd site && python3 -m http.server 8000   # http://localhost:8000
@@ -92,6 +101,10 @@ Não abra `index.html` por `file://`: o navegador bloqueia o `fetch` dos JSON.
 - [docs/METODOLOGIA.md](docs/METODOLOGIA.md): splits, baselines, métricas, limites.
 - [docs/RESULTADOS.md](docs/RESULTADOS.md): números reais (gerado).
 - [docs/DATASETS.md](docs/DATASETS.md), [docs/MAPEAMENTO_ROTULOS.md](docs/MAPEAMENTO_ROTULOS.md), [docs/TAXONOMIA.md](docs/TAXONOMIA.md): gerados a partir dos YAML.
+- [docs/PARTICIPACAO.md](docs/PARTICIPACAO.md): frases e leituras enviadas por visitantes (privadas até serem anonimizadas e aprovadas).
+- [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md): biblioteca de exemplos fictícios e revisão em lote (candidato → revisado → publicado).
+- [docs/TESTES_MOBILE.md](docs/TESTES_MOBILE.md): testes de interface, matriz de telas, Lighthouse, acessibilidade e roteiro em celulares reais.
+- [docs/AUDITORIA_USABILIDADE.md](docs/AUDITORIA_USABILIDADE.md): auditoria heurística e perguntas para teste com pessoas.
 - [docs/LICENCAS.md](docs/LICENCAS.md), [docs/PRIVACIDADE_LGPD.md](docs/PRIVACIDADE_LGPD.md), [docs/GITHUB_PAGES.md](docs/GITHUB_PAGES.md).
 
 ## Testes
@@ -102,8 +115,21 @@ Não abra `index.html` por `file://`: o navegador bloqueia o `fetch` dos JSON.
 
 Usam só fixtures sintéticas em `fixtures/`; não precisam de rede nem dos corpora.
 
+Interface (Playwright em Chromium, Firefox e WebKit, axe-core, regressão visual e Lighthouse), em `e2e/`:
+
+```bash
+cd e2e && npm install && npx playwright install chromium firefox webkit
+npm test                # funcionais (usam uma biblioteca de TESTE, nunca publicada)
+npm run test:visual     # regressão visual
+npm run lighthouse      # Lighthouse mobile
+```
+
+Detalhes, resultados e limites (emulação não é celular real) em [docs/TESTES_MOBILE.md](docs/TESTES_MOBILE.md).
+
 ## Limitações principais
 
 - Baseline C (transformer) é só um plano: `torch`/`transformers` não fazem parte do ambiente reprodutível e nada foi treinado.
 - As frases do estudo de caso são **sintéticas e ilustrativas** (cidade não identificada); para usar frases reais, anonimize antes (sem nomes de cidades, eventos, empresas ou pessoas) e edite `casos/estudo_de_caso.yaml`.
+- O site tem 79 frases de exemplo na biblioteca, mas só **11 estão aprovadas e publicadas**: as outras 68 aguardam revisão humana (veja [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md)).
+- O envio de frases pelo formulário está **desligado** até um serviço de recebimento real ser configurado ([docs/PARTICIPACAO.md](docs/PARTICIPACAO.md)).
 - Resultados refletem datasets de outros contextos (rede social, época, tema). Não são desempenho em produção.

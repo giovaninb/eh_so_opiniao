@@ -6,6 +6,10 @@ Regras:
 - `restrito_autorizacao`: só tenta com credencial fornecida pelo operador (variável HF_TOKEN
   ou parâmetro). Sem credencial, ou com 401/403, o dataset fica `pendente_autorizacao` e o
   pipeline segue com os demais. Nada é contornado.
+- `pendente_fonte`: não existe fonte pública verificável; nada é baixado, procurado em espelhos nem inventado.
+- Licença NÃO declarada (`condicoes_licenca.exige_reconhecimento_do_operador`): o download só acontece com
+  reconhecimento explícito do operador (`aceito_licenca=True`, `--aceito-licenca` ou ESO_ACEITE_LICENCA=<ds_id>);
+  o aceite fica registrado no manifest. As condições são lidas do registry ANTES de qualquer byte entrar no cache.
 - Corpora ficam em `datasets/_local/` (ignorado pelo Git) ou em ESO_DATA_DIR.
 """
 
@@ -99,17 +103,40 @@ def validar_integridade(ds_id: str, arq: dict) -> ResultadoArquivo:
                             criterio, sha, str(destino))
 
 
-def baixar(ds_id: str, *, token: str | None = None, forcar: bool = False, abrir: Abridor | None = None) -> list[ResultadoArquivo]:
+def licenca_reconhecida(ds_id: str, aceito: bool = False) -> bool:
+    """O operador reconheceu as condições de licença (parâmetro ou variável ESO_ACEITE_LICENCA=ds1,ds2)."""
+    if aceito:
+        return True
+    return ds_id in {x.strip() for x in os.environ.get("ESO_ACEITE_LICENCA", "").split(",") if x.strip()}
+
+
+def resumo_condicoes(ds_id: str) -> str:
+    return _resumo_condicoes(registry.dataset(ds_id))
+
+
+def _resumo_condicoes(info: dict) -> str:
+    c = info["condicoes_licenca"]
+    return f"licença: {c['identificador']}; restrições: {'; '.join(c['restricoes'])}"
+
+
+def baixar(ds_id: str, *, token: str | None = None, forcar: bool = False, abrir: Abridor | None = None,
+           aceito_licenca: bool = False) -> list[ResultadoArquivo]:
     info = registry.dataset(ds_id)
+    if info["integracao"] == "pendente_fonte":
+        return [ResultadoArquivo(ds_id, "-", "pendente_fonte",
+                                 "sem fonte pública verificável (ver registry.yaml: fontes_verificadas e pendencia); nada foi tentado")]
     abrir = abrir or _abridor_padrao()
+    aceite = licenca_reconhecida(ds_id, aceito_licenca)
     resultados: list[ResultadoArquivo] = []
     for arq in info["url_arquivos"]:
-        resultados.append(_baixar_arquivo(ds_id, info, arq, token, forcar, abrir))
+        resultados.append(_baixar_arquivo(ds_id, info, arq, token, forcar, abrir, aceite))
     return resultados
 
 
-def _baixar_arquivo(ds_id: str, info: dict, arq: dict, token: str | None, forcar: bool, abrir: Abridor) -> ResultadoArquivo:
+def _baixar_arquivo(ds_id: str, info: dict, arq: dict, token: str | None, forcar: bool, abrir: Abridor,
+                    aceite_licenca: bool = True) -> ResultadoArquivo:
     nome = arq["arquivo"]
+    exige = registry.exige_reconhecimento_de_licenca(ds_id)
     credencial = None
     if info["acesso"] == "restrito_autorizacao":
         credencial = token or os.environ.get("HF_TOKEN")
@@ -123,6 +150,10 @@ def _baixar_arquivo(ds_id: str, info: dict, arq: dict, token: str | None, forcar
         if v.status == "integridade_ok":
             return ResultadoArquivo(ds_id, nome, "em_cache", v.detalhe, v.sha256, str(destino))
         destino.unlink()  # cache corrompido: baixa de novo
+
+    if exige and not aceite_licenca:
+        return ResultadoArquivo(ds_id, nome, "pendente_licenca",
+                                "reconhecimento das condições de licença pendente (--aceito-licenca); nada foi tentado")
 
     req = urllib.request.Request(arq["url"], headers={"User-Agent": USER_AGENT})
     if credencial:
@@ -154,6 +185,12 @@ def _baixar_arquivo(ds_id: str, info: dict, arq: dict, token: str | None, forcar
         "baixado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "criterio": criterio if criterio != "sem_hash_publicado" else "primeiro_uso_registrado",
     }
+    if exige:
+        manifest["aceite_de_licenca"] = {
+            "reconhecido_pelo_operador": True, "condicoes": info["condicoes_licenca"]["identificador"],
+            "restricoes": info["condicoes_licenca"]["restricoes"],
+            "em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        }
     _gravar_manifest(ds_id, manifest)
     return ResultadoArquivo(ds_id, nome, "baixado", criterio, sha, str(destino))
 
@@ -164,7 +201,7 @@ def estado_geral() -> dict[str, dict]:
     for ds_id in registry.listar_datasets():
         info = registry.dataset(ds_id)
         arquivos = [validar_integridade(ds_id, a) for a in info["url_arquivos"] if not a.get("uso", "").startswith("NÃO ingerido")]
-        presentes = all(r.status == "integridade_ok" for r in arquivos)
+        presentes = bool(arquivos) and all(r.status == "integridade_ok" for r in arquivos)
         saida[ds_id] = {
             "acesso": info["acesso"],
             "status_catalogo": info["status_acesso"],

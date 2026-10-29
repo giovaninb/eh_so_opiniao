@@ -1,0 +1,20 @@
+{
+  "id": "AMP-A",
+  "titulo": "RacismoBR: classificadores binários de racismo (em domínio)",
+  "pergunta": "Baselines clássicos separam posts racistas de não racistas no RacismoBR, no subconjunto balanceado e no corpus original?",
+  "protocolo": {
+    "subconjunto_experimental": "858 = 429 racistas + 429 não racistas, subamostragem da maioria (semente 42)",
+    "validacao": "StratifiedGroupKFold, 5 dobras, semente 42, agrupando quase-duplicatas",
+    "modelos": [
+      "TF-IDF + regressão logística",
+      "TF-IDF + SVM linear",
+      "chute trivial (sempre racista)"
+    ],
+    "separacao": "resultados do corpus ORIGINAL (desbalanceado) e do subconjunto balanceado são reportados em separado"
+  },
+  "referencia_do_artigo": "O artigo reporta Macro-F1 mais alto para GPT-4.1 e BERTimbau e nenhuma diferença significativa entre modelos; não é comparável a estes baselines.",
+  "status": "pendente_fonte",
+  "motivo": "Não há URL oficial nova verificada. Próximos passos legítimos: pedir aos autores (contato publicado no artigo, UFMG/DCC) o acesso pelo protocolo de divulgação responsável, ou aguardar o repositório voltar. Enquanto isso o dataset fica pendente_fonte e nenhum resultado real é reportado.",
+  "resultado": null,
+  "nota": "Protocolo implementado e testado só com fixtures sintéticas. Nenhum número real existe até o dataset ter fonte verificável."
+}

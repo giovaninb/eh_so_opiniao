@@ -1,0 +1,76 @@
+// Fixtures e helpers compartilhados pelos testes de interface.
+import { test as base, expect } from "@playwright/test";
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { join } from "node:path";
+
+export { expect };
+const DADOS = join(fileURLToPath(new URL("..", import.meta.url)), ".dados");
+export const ENDPOINT_TESTE = "https://formulario.exemplo.test/enviar";
+
+/* `dados: "fixture"` (padrão) serve a biblioteca completa de TESTE (e2e/.dados, gerada por tools/gerar_dados_e2e.py).
+   `dados: "real"` usa o que está em site/data (só o que foi aprovado por uma pessoa). */
+export const test = base.extend({
+  dados: ["fixture", { option: true }],
+  page: async ({ page, dados }, use) => {
+    if (dados === "fixture") {
+      if (!existsSync(join(DADOS, "frases.json"))) throw new Error("rode `npm run preparar-dados` antes dos testes");
+      await page.route("**/data/*.json", (route) => {
+        const nome = new URL(route.request().url()).pathname.split("/").pop();
+        const arquivo = join(DADOS, nome);
+        if (!existsSync(arquivo)) return route.continue();
+        return route.fulfill({ status: 200, contentType: "application/json", body: readFileSync(arquivo) });
+      });
+    }
+    await use(page);
+  },
+});
+
+export async function abrir(page, hash = "#/", { semente = 7, extras = "" } = {}) {
+  await page.clock.setFixedTime(new Date("2026-10-29T12:00:00-03:00"));
+  await page.goto(`/?semente=${semente}${extras}${hash}`);
+  await page.waitForFunction(() => document.documentElement.dataset.pronto === "true");
+}
+
+export async function irPara(page, hash) {
+  await page.evaluate((h) => { location.hash = h; }, hash);
+  await page.waitForFunction((h) => location.hash.startsWith(h.split("?")[0]), hash);
+}
+
+/** Liga o envio com um serviço simulado. comportamento: ok | erro500 | recusa | rede | opaca. Devolve a lista de requisições. */
+export async function configurarEnvio(page, comportamento = "ok") {
+  const enviados = [];
+  const cfg = { ativo: true, endpoint: ENDPOINT_TESTE, modo_resposta: comportamento === "opaca" ? "opaca" : "cors",
+    campos: { tipo: "tipo", frase: "frase", avaliacao: "avaliacao", frase_id: "frase_id", consentimento: "consentimento", armadilha: "site" } };
+  await page.route("**/config_participacao.json", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(cfg) }));
+  await page.route(ENDPOINT_TESTE, async (route) => {
+    enviados.push({ metodo: route.request().method(), corpo: route.request().postData(), cabecalhos: route.request().headers() });
+    const cors = { "access-control-allow-origin": "*" };
+    if (comportamento === "rede") return route.abort("failed");
+    if (comportamento === "erro500") return route.fulfill({ status: 500, headers: cors, contentType: "application/json", body: '{"error":"falha interna"}' });
+    if (comportamento === "recusa") return route.fulfill({ status: 422, headers: cors, contentType: "application/json", body: '{"ok":false,"error":"campo invalido"}' });
+    return route.fulfill({ status: 200, headers: cors, contentType: "application/json", body: '{"ok":true}' });
+  });
+  return enviados;
+}
+
+export const VIEWPORTS = [
+  { nome: "320", largura: 320, altura: 640 },
+  { nome: "360", largura: 360, altura: 740 },
+  { nome: "375", largura: 375, altura: 667 },
+  { nome: "390", largura: 390, altura: 844 },
+  { nome: "430", largura: 430, altura: 932 },
+  { nome: "768", largura: 768, altura: 1024 },
+  { nome: "1024", largura: 1024, altura: 768 },
+  { nome: "1440", largura: 1440, altura: 900 },
+];
+export const PAISAGEM = [
+  { nome: "375-paisagem", largura: 667, altura: 375 },
+  { nome: "390-paisagem", largura: 844, altura: 390 },
+  { nome: "430-paisagem", largura: 932, altura: 430 },
+];
+export const ROTAS = ["#/", "#/descobrir", "#/explorar", "#/frase/EX-61", "#/participar", "#/entender", "#/pesquisa"];
+
+/** Tecla para andar entre controles. No Safari/WebKit do macOS, Tab pula links por padrão (só Option+Tab os alcança): é
+    comportamento do navegador, não do site, então o teste usa a tecla equivalente. */
+export const teclaTab = (page) => (page.context().browser().browserType().name() === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab");

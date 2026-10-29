@@ -111,8 +111,10 @@ def test_token_vai_so_no_cabecalho_do_pedido(dados_tmp, monkeypatch):
 
 def test_normalizacao_sem_cache_nao_derruba_o_pipeline(dados_tmp):
     relatorio = normalize.normalizar_todos()
-    assert set(relatorio) == {"told_br", "hatebr"}
-    assert all(r["status"] == "ausente_no_cache" for r in relatorio.values())  # cache vazio: não é falha
+    assert set(relatorio) == {"told_br", "hatebr", "multidomain_yt_toxbr", "racismobr", "tupye"}
+    esperado = {"told_br": "ausente_no_cache", "hatebr": "ausente_no_cache", "multidomain_yt_toxbr": "ausente_no_cache",  # cache vazio: não é falha
+                "racismobr": "pendente_fonte", "tupye": "nao_normalizado"}
+    assert {k: r["status"] for k, r in relatorio.items()} == esperado
     assert all(r["amostras"] == 0 for r in relatorio.values())
 
 
