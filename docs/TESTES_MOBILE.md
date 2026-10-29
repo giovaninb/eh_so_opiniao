@@ -41,7 +41,7 @@ Para evitar que os testes dependam de revisão humana, a biblioteca de 79 frases
 | `acessibilidade.spec.mjs` | axe-core com as tags WCAG 2.0/2.1/2.2 A e AA em todas as telas a 390 e 1440 px e em estados (filtros, sem resultados, menu, análise revelada, erro, validação); um `h1` por tela e hierarquia sem saltos; foco visível; formulário completável só por teclado; regiões `aria-live`; sem animações longas |
 | `visual.spec.mjs` | 11 cenas × 5 larguras (home, menu, biblioteca com filtros, cartão antes/depois, análise revelada, formulário indisponível/com erros/erro do serviço, vazio, erro) |
 
-Teste de serviço de envio: o endpoint é **simulado** com `page.route` (resposta 200, 422, 500, falha de rede, resposta opaca). Isso valida o comportamento do site, **não** o serviço real. Ainda não há endpoint real configurado (`site/config_participacao.json` está com `ativo: false`).
+Teste de serviço de envio: o endpoint é **simulado** com `page.route` (resposta 200, 422, 500, falha de rede, resposta opaca). Isso valida o comportamento do site, **não** o serviço real. O endpoint real (Formspree) está configurado em `site/config_participacao.json`, mas os testes o mantêm bloqueado e usam a configuração "indisponível" por padrão.
 
 ## Resultados da última rodada
 

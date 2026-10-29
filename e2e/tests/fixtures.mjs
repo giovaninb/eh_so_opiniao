@@ -22,6 +22,14 @@ export const test = base.extend({
         return route.fulfill({ status: 200, contentType: "application/json", body: readFileSync(arquivo) });
       });
     }
+    /* Os testes NUNCA falam com o serviço real de recebimento: por padrão o envio aparece como não
+       configurado e qualquer requisição ao Formspree é bloqueada. `configurarEnvio` sobrepõe isto
+       com um serviço simulado (rotas registradas depois têm prioridade). */
+    await page.route("**/config_participacao.json", (r) => r.fulfill({
+      status: 200, contentType: "application/json",
+      body: JSON.stringify({ ativo: false, endpoint: "", modo_resposta: "cors", campos: {} }),
+    }));
+    await page.route(/^https:\/\/([^/]+\.)?formspree\.io\//, (r) => r.abort("blockedbyclient"));
     await use(page);
   },
 });

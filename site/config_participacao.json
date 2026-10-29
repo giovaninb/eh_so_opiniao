@@ -1,6 +1,6 @@
 {
-  "ativo": false,
-  "endpoint": "",
+  "ativo": true,
+  "endpoint": "https://formspree.io/f/mdeedbjv",
   "modo_resposta": "cors",
   "campos": {
     "tipo": "tipo",

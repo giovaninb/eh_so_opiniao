@@ -30,7 +30,7 @@ Site (formulário) ──> serviço externo PRIVADO ──> CSV exportado por vo
 
 ## Ativar o envio
 
-O site vem com o envio **desligado** (`site/config_participacao.json`: `"ativo": false`). Enquanto estiver assim, o formulário fica desabilitado e nada é enviado.
+O envio está **ligado** e aponta para um formulário privado no Formspree (`site/config_participacao.json`: `"ativo": true`, `modo_resposta: "cors"`). Para desligar, mude `ativo` para `false`: o formulário fica desabilitado e nada é enviado. Os passos abaixo valem para trocar de serviço.
 
 1. Crie um formulário privado que aceite **POST com CORS** e responda JSON, como o **Formspree** (campos `tipo`, `frase`, `avaliacao`, `frase_id`, `consentimento`, `site`). Alternativa sem CORS: **Google Forms** (veja "modo opaco" abaixo).
 2. Em `config_participacao.json` coloque a URL de envio (precisa começar com `https:`), ajuste `campos` aos nomes que o serviço exige (no Google Forms são `entry.NNN`) e mude `ativo` para `true`.
@@ -40,9 +40,9 @@ O site vem com o envio **desligado** (`site/config_participacao.json`: `"ativo":
 
 - `"cors"` (padrão): o site lê a resposta do serviço. **Só mostra "Recebido" quando o serviço devolve sucesso** (HTTP 2xx e, se houver JSON, sem `ok: false`/`error`). Erro HTTP, recusa ou falha de rede mostram um erro claro, mantêm o texto escrito e permitem tentar de novo.
 - `"opaca"` (serviços sem CORS, como o Google Forms): o navegador não consegue ler a resposta. O site envia, **avisa que não consegue confirmar o recebimento** e não diz "Recebido". Confira no serviço.
-- Com `ativo: false` (estado atual): o formulário fica desabilitado, explica que o envio não está disponível e **nada é simulado nem enviado**.
+- Com `ativo: false`: o formulário fica desabilitado, explica que o envio não está disponível e **nada é simulado nem enviado**.
 
-Os testes automatizados usam um serviço **simulado** (`page.route` do Playwright) para cada um desses cenários; isso valida o comportamento do site, não um serviço real. **Ainda não há endpoint real configurado**; antes de ativar, faça um envio de verdade e confira.
+Os testes automatizados usam um serviço **simulado** (`page.route` do Playwright) para cada um desses cenários; isso valida o comportamento do site, não um serviço real. Os testes **nunca** contatam o Formspree (requisições a ele são bloqueadas). **O serviço real ainda não foi validado por mim**: depois de publicar, envie uma frase de verdade pelo site, confirme que chegou no painel do Formspree e rode `participacao envios.csv` para conferir a importação.
 
 ## Limites que você deve conhecer
 
