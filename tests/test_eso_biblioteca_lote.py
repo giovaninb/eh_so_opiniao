@@ -14,7 +14,7 @@ from eh_so_opiniao import casos, publicacao
 from eh_so_opiniao.review import lote, store
 
 # nomes que revelariam lugares ou eventos reais (a anonimização é uma regra do projeto)
-PROIBIDOS = re.compile(r"bento gon[cç]alves|festa da uva|\bRS\b|rio grande do sul|\bPT\b|\bPL\b|bolsonaro|lula|\bSTF\b", re.I)
+PROIBIDOS = re.compile(r"bento gon[cç]alves|festa da uva|\bRS\b|rio grande do sul|\bPT\b|\bPL\b|bolsonaro|\blula\b|\bSTF\b", re.I)
 
 
 @pytest.fixture

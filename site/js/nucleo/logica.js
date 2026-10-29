@@ -61,7 +61,10 @@ export function sortearSessao(frases, n, aleatorio = Math.random) {
 
 /** Frase de abertura estável por dia: prefere casos ambíguos, que convidam à reflexão. */
 export function fraseDeAbertura(frases, data = new Date()) {
-  if (!frases.length) return null;
+  // frases com aviso de conteúdo (termos pejorativos) nunca são o destaque da página inicial
+  const seguras = frases.filter((f) => !f.aviso_conteudo);
+  if (!seguras.length) return null;
+  frases = seguras;
   const ambiguas = frases.filter((f) => f.tipo === "ambigua");
   const base = ambiguas.length ? ambiguas : frases;
   const dia = Math.floor(Date.UTC(data.getFullYear(), data.getMonth(), data.getDate()) / 86400000);
@@ -76,6 +79,8 @@ export function proximaFrase(ids, idAtual) {
 
 /** Texto do convite para compartilhar uma frase. Tom de pergunta, sem apontar ninguém e sem dizer o que a pessoa "é". */
 export function mensagemCompartilhar(frase, url) {
+  // Frase com aviso de conteúdo (termo pejorativo explícito) não é citada na mensagem: vai só o link.
+  if (frase.aviso_conteudo) return `Onde você coloca a linha entre opinião e discriminação? Leia esta frase de exemplo, que tem aviso de conteúdo, e diga como você interpreta: ${url}`;
   const limite = 200;
   const t = (frase.texto || "").trim();
   const citacao = t.length > limite ? `${t.slice(0, limite - 1).trimEnd()}…` : t;
@@ -84,4 +89,9 @@ export function mensagemCompartilhar(frase, url) {
 
 export function linkWhatsApp(mensagem) {
   return `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+}
+
+/** Frases de um tema de descoberta (grupo). Grupo vazio = todas. */
+export function frasesDoGrupo(frases, grupo) {
+  return grupo ? frases.filter((f) => f.grupo === grupo) : frases;
 }

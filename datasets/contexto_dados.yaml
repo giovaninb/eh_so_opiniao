@@ -1,0 +1,29 @@
+# Dados de contexto mostrados ao lado de um grupo de frases (vista "Descobrir"). Cada item separa dado, fonte, ano,
+# metodologia e limitações, e diz o que foi conferido. Nenhum texto de corpus aqui; nada aqui afirma crime.
+versao: "1.0.0"
+conferido_em: "2026-10-29"
+itens:
+  - id: antra_assassinatos_2025
+    grupo: pessoas_trans
+    titulo: "Assassinatos de pessoas trans no Brasil em 2025"
+    dado: "80 assassinatos de pessoas trans registrados em 2025, cerca de 34% a menos do que os 122 de 2024. No mesmo período aumentou o número de tentativas de homicídio."
+    fonte: "ANTRA, Dossiê: Assassinatos e Violências contra Pessoas Trans em 2025 (lançado em 26/01/2026), noticiado pela Agência Brasil."
+    ano: 2025
+    metodologia: "Monitoramento diário de notícias, denúncias feitas diretamente a organizações trans e registros públicos. A ANTRA informa trabalhar com informações públicas, e a pesquisa é acompanhada por comitê de ética."
+    limitacoes: "É um registro de casos documentados pela sociedade civil, sujeito a subnotificação (a própria ANTRA aponta a falta de dados oficiais, o descrédito nas instituições e a menor cobertura da mídia). Não é censo, não é taxa por habitante e não mede a população trans. A queda nos assassinatos não significa queda da violência."
+    links:
+      - {rotulo: "Página dos dossiês da ANTRA", url: "https://antrabrasil.org/assassinatos/"}
+      - {rotulo: "Dossiê ANTRA 2026 (PDF)", url: "https://antrabrasil.org/wp-content/uploads/2026/01/dossie-antra-2026.pdf"}
+      - {rotulo: "Agência Brasil (26/01/2026)", url: "https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2026-01/brasil-ainda-e-o-pais-que-mais-mata-pessoas-trans-e-travestis-no-mundo"}
+    conferencia: "Número de 80 casos, queda de cerca de 34% e a metodologia de monitoramento conferidos na página da ANTRA e na reportagem da Agência Brasil em 2026-10-29. O PDF do dossiê não foi lido."
+  - id: antra_35_anos
+    grupo: pessoas_trans
+    titulo: "A estimativa dos “35 anos”"
+    dado: "A ANTRA associa a vulnerabilidade da população trans a uma estimativa de 35 anos, muito citada como expectativa de vida de parte dessa população."
+    fonte: "ANTRA, nota sobre a produção de dados (2024)."
+    ano: 2024
+    metodologia: "Estimativa associada à vulnerabilidade e à baixa expectativa de vida de parte da população trans. A própria nota reconhece a dificuldade de um cálculo exato e que o grupo não é homogêneo."
+    limitacoes: "Não é tábua de mortalidade do IBGE e não é esperança de vida da população trans. A idade média das vítimas de homicídio não é a expectativa de vida. Por isso este site não afirma que “pessoas trans vivem até 35 anos”."
+    links:
+      - {rotulo: "Nota da ANTRA sobre a produção de dados (PDF, 2024)", url: "https://antrabrasil.org/wp-content/uploads/2024/03/nota-producao-de-dados-antra-2024-1.pdf"}
+    conferencia: "Texto baseado na nota metodológica recebida pela equipe. O PDF da nota não foi lido nesta integração."

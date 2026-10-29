@@ -103,6 +103,7 @@ Não abra `index.html` por `file://`: o navegador bloqueia o `fetch` dos JSON.
 - [docs/DATASETS.md](docs/DATASETS.md), [docs/MAPEAMENTO_ROTULOS.md](docs/MAPEAMENTO_ROTULOS.md), [docs/TAXONOMIA.md](docs/TAXONOMIA.md): gerados a partir dos YAML.
 - [docs/PARTICIPACAO.md](docs/PARTICIPACAO.md): frases e leituras enviadas por visitantes (privadas até serem anonimizadas e aprovadas).
 - [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md): biblioteca de exemplos fictícios e revisão em lote (candidato → revisado → publicado).
+- [docs/EXPANSAO_GENERO_IDADISMO_RELIGIAO_TRANS.md](docs/EXPANSAO_GENERO_IDADISMO_RELIGIAO_TRANS.md): 176 exemplos ilustrativos novos (mulheres, homens, pessoas idosas, religiões, pessoas trans), dimensões, avisos de conteúdo e limites. Todos Pendentes.
 - [docs/TESTES_MOBILE.md](docs/TESTES_MOBILE.md): testes de interface, matriz de telas, Lighthouse, acessibilidade e roteiro em celulares reais.
 - [docs/AUDITORIA_USABILIDADE.md](docs/AUDITORIA_USABILIDADE.md): auditoria heurística e perguntas para teste com pessoas.
 - [docs/LICENCAS.md](docs/LICENCAS.md), [docs/PRIVACIDADE_LGPD.md](docs/PRIVACIDADE_LGPD.md), [docs/GITHUB_PAGES.md](docs/GITHUB_PAGES.md).
@@ -130,6 +131,6 @@ Detalhes, resultados e limites (emulação não é celular real) em [docs/TESTES
 
 - Baseline C (transformer) é só um plano: `torch`/`transformers` não fazem parte do ambiente reprodutível e nada foi treinado.
 - As frases do estudo de caso são **sintéticas e ilustrativas** (cidade não identificada); para usar frases reais, anonimize antes (sem nomes de cidades, eventos, empresas ou pessoas) e edite `casos/estudo_de_caso.yaml`.
-- O site publica 169 frases de exemplo, todas revisadas por uma pessoa (158 delas aprovadas em lote, depois de lidas na folha compacta) (veja [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md)).
+- O site publica 169 frases de exemplo, todas revisadas por uma pessoa (158 delas aprovadas em lote, depois de lidas na folha compacta); outras 176, da expansão 2026-10, aguardam revisão e não estão no site (veja [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md)).
 - O envio de frases pelo formulário está **desligado** até um serviço de recebimento real ser configurado ([docs/PARTICIPACAO.md](docs/PARTICIPACAO.md)).
 - Resultados refletem datasets de outros contextos (rede social, época, tema). Não são desempenho em produção.

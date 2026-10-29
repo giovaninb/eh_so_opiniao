@@ -26,12 +26,12 @@ Contagens atuais, separadas (a fila local não é versionada):
 
 | Etapa | Quantidade |
 |---|---|
-| Criados (arquivos YAML) | 169 |
+| Criados (arquivos YAML e JSONL) | 345 (169 anteriores + 176 da [expansão 2026-10](EXPANSAO_GENERO_IDADISMO_RELIGIAO_TRANS.md)) |
 | Revisados por uma pessoa (decididos) | 169 (158 aprovados em lote pelo revisor após ler a folha compacta) |
 | Publicados em `site/data/` | 169 |
-| Pendentes de revisão | 0 |
+| Pendentes de revisão | 176 (todos da expansão 2026-10; nenhum aprovado ou publicado) |
 
-Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 158 atuais já foram decididos). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
+Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 169 anteriores já foram decididos; os 176 NX-248 a NX-423 aguardam revisão). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
 
 ```bash
 cd eh_so_opiniao

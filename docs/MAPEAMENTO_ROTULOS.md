@@ -1,8 +1,8 @@
 <!-- GERADO AUTOMATICAMENTE por `python -m eh_so_opiniao docs`. Não edite à mão. -->
 
-# Mapeamento de rótulos (versão 1.1.0)
+# Mapeamento de rótulos (versão 1.2.0)
 
-Cada linha liga um rótulo ORIGINAL de um dataset a uma classe da taxonomia (v1.1.0). Fonte única: `datasets/label_mapping.yaml`.
+Cada linha liga um rótulo ORIGINAL de um dataset a uma classe da taxonomia (v1.2.0). Fonte única: `datasets/label_mapping.yaml`.
 
 - **equivalente**: definição e escopo coincidem.
 - **aproximado**: há sobreposição, mas escopo, definição ou domínio diferem; nunca é tratado como equivalente em experimentos.

@@ -16,6 +16,15 @@ export function MetaFrase(f) {
   return el("p", { class: "meta" }, [
     nomeTema(f) ? el("span", { class: "tema", text: nomeTema(f) }) : null,
     el("span", { class: "natureza", text: f.revisao && !f.revisao.por_humano ? "Rascunho (não revisado)" : nat.rotulo }),
+    f.aviso_conteudo ? el("span", { class: "aviso-chip", text: "Aviso de conteúdo" }) : null,
+  ]);
+}
+
+/** Aviso de conteúdo: a frase usa ou cita linguagem pejorativa, só para estudo. Não bloqueia nem rotula a pessoa que lê. */
+function AvisoConteudo() {
+  return el("p", { class: "aviso-conteudo", role: "note" }, [
+    el("strong", { text: "Aviso de conteúdo: " }),
+    "a frase abaixo usa ou cita linguagem pejorativa, só para estudo. Você pode pular ou ir direto à análise.",
   ]);
 }
 
@@ -92,6 +101,7 @@ export function CartaoFrase(f, opcoes = {}) {
 
   const elemento = el("article", { class: "cartao-frase", "aria-labelledby": idFrase, tabindex: "-1" }, [
     MetaFrase(f),
+    f.aviso_conteudo ? AvisoConteudo() : null,
     el("p", { class: "frase", id: idFrase, text: f.texto }),
     el("p", { class: "pergunta", id: idPergunta, text: "O que você acha desta frase?" }),
     el("div", { class: "opcoes", role: "group", "aria-labelledby": idPergunta }, botoes),

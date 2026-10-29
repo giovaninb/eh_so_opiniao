@@ -1,6 +1,6 @@
 <!-- GERADO AUTOMATICAMENTE por `python -m eh_so_opiniao docs`. Não edite à mão. -->
 
-# Taxonomia (versão 1.1.0)
+# Taxonomia (versão 1.2.0)
 
 - **supervisionado**: há rótulo anotado por humanos em dataset catalogado que se relaciona com a classe.
 - **exploratorio**: não há rótulo anotado; só regras e revisão humana. Resultado é hipótese, não medição.
@@ -18,6 +18,9 @@ Nenhuma classe afirma crime, intenção ou identidade de autor. `possivel_assedi
 | `intolerancia_religiosa` | supervisionado | Ataque, zombaria ou desvalorização de pessoas por suas crenças ou pela religião que praticam. | Crítica a ideias, instituições ou líderes religiosos sem depreciar as pessoas que creem. |
 | `capacitismo` | supervisionado | Zombaria, menosprezo ou desumanização de pessoas com deficiência, inclusive como insulto disfarçado. | Menção neutra a deficiência ou denúncia de capacitismo. |
 | `lgbtfobia` | supervisionado | Hostilidade contra pessoas por orientação sexual ou identidade de gênero. | Menção neutra ou denúncia de LGBTfobia. |
+| `transfobia` | exploratorio | Hostilidade, desvalorização ou exclusão de pessoas trans (travestis, mulheres e homens trans, pessoas não binárias) por sua identidade de gênero, inclusive negar nome, pronome ou identidade. | Pergunta respeitosa de quem quer aprender, relato de pessoa trans sobre a própria vivência (como "sinto que nasci no corpo errado"), ou denúncia que cita o termo ofensivo para combatê-lo. |
+| `idadismo` | exploratorio | Estereótipo, desvalorização, infantilização ou exclusão de pessoas pela idade, em geral pessoas idosas. | Oferta de ajuda perguntada com respeito, adaptação de interface para quem precisa ou menção neutra à idade. |
+| `estereotipos_masculinidade` | exploratorio | Cobrança de virilidade, repressão emocional ou papéis rígidos impostos a homens e meninos, inclusive usando o feminino como ofensa. | Misoginia (desprezo ou ódio contra mulheres) nem violência jurídica por si só; também não é cuidado ou apoio emocional a homens. |
 | `hostilidade_politica` | supervisionado | Ofensa dirigida a pessoas por posição política ou ideológica. | Crítica política legítima a ideias, partidos, governos e candidaturas. |
 | `discriminacao_regional` | exploratorio | Generalização depreciativa sobre pessoas de uma região, cidade ou território. | Comparação de indicadores regionais com fonte e sem desqualificar pessoas. |
 | `desumanizacao` | exploratorio | Comparar pessoas ou grupos a animais, pragas, doenças ou objetos. | Metáfora com objeto não humano claramente ficcional. |

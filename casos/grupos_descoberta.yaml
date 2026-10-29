@@ -1,0 +1,9 @@
+# Temas de descoberta (celular): atalhos da vista "Descobrir" para ler frases de um grupo ou assunto.
+# É uma organização editorial para navegar; não é a taxonomia científica e não mede nada.
+grupos:
+  - {id: mulheres, nome: "Mulheres"}
+  - {id: homens, nome: "Homens e expectativas sociais"}
+  - {id: pessoas_idosas, nome: "Pessoas idosas"}
+  - {id: religioes, nome: "Religiões"}
+  - {id: pessoas_trans, nome: "Pessoas trans"}
+  - {id: pessoas_lgbt, nome: "Orientação sexual (LGB+)"}

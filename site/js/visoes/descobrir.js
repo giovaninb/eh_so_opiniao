@@ -1,14 +1,26 @@
 import { el, limpar, focar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { NOME_AVALIACAO, TAMANHO_SESSAO } from "../nucleo/constantes.js";
-import { criarAleatorio, sortearSessao } from "../nucleo/logica.js";
+import { criarAleatorio, sortearSessao, frasesDoGrupo } from "../nucleo/logica.js";
 import { CartaoFrase } from "../componentes/cartaoFrase.js";
 import { Progresso } from "../componentes/progresso.js";
+import { TemasDescoberta, ContextoDoGrupo } from "../componentes/temasDescoberta.js";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 
 function novaSessao() {
-  const n = Math.min(TAMANHO_SESSAO, estado.frases.length);
-  estado.sessao = { itens: sortearSessao(estado.frases, n, criarAleatorio(estado.semente)), indice: 0, historico: [] };
+  const base = frasesDoGrupo(estado.frases, estado.grupoAtual);
+  const n = Math.min(TAMANHO_SESSAO, base.length);
+  estado.sessao = { itens: sortearSessao(base, n, criarAleatorio(estado.semente)), indice: 0, historico: [], grupo: estado.grupoAtual };
+}
+
+function escolherTema(corpo, grupo) {
+  estado.grupoAtual = grupo;
+  novaSessao();
+  desenhar(corpo, { focarCartao: true });
+}
+
+function cabecalho(corpo) {
+  return [TemasDescoberta({ aoEscolher: (g) => escolherTema(corpo, g) }), estado.grupoAtual ? ContextoDoGrupo(estado.grupoAtual) : null];
 }
 
 function fim(corpo, s) {
@@ -17,12 +29,12 @@ function fim(corpo, s) {
   const linhas = Object.keys(NOME_AVALIACAO).filter((k) => contagem[k]).map((k) => `${contagem[k]} ${NOME_AVALIACAO[k]}`);
   if (contagem.pulou) linhas.push(`${contagem.pulou} pulada${contagem.pulou > 1 ? "s" : ""}`);
   const titulo = el("h2", { text: "Você chegou ao fim desta sequência", tabindex: "-1" });
-  limpar(corpo, el("section", { class: "fim-sessao", "aria-labelledby": "titulo-fim" }, [
+  limpar(corpo, ...cabecalho(corpo), el("section", { class: "fim-sessao", "aria-labelledby": "titulo-fim" }, [
     Object.assign(titulo, { id: "titulo-fim" }),
     el("p", { text: `Você leu ${s.itens.length} frase${s.itens.length > 1 ? "s" : ""}${linhas.length ? ": " + linhas.join(", ") : ""}. Isso não é uma nota: é só o seu percurso.` }),
     el("p", { class: "suave", text: "Se alguma frase te fez pensar, conte como você a lê, sem identificar ninguém." }),
     el("div", { class: "passo-seguinte" }, [
-      el("button", { type: "button", class: "botao", text: "Mais cinco frases", onclick: () => { novaSessao(); desenhar(corpo); } }),
+      el("button", { type: "button", class: "botao", text: estado.grupoAtual ? "Mais frases deste tema" : "Mais cinco frases", onclick: () => { novaSessao(); desenhar(corpo); } }),
       el("a", { class: "botao botao-claro", href: "#/explorar", text: "Explorar a biblioteca" }),
       el("a", { class: "botao botao-claro", href: "#/participar", text: "Participar com uma frase" }),
     ]),
@@ -40,7 +52,7 @@ function desenhar(corpo, { focarCartao = false } = {}) {
     permitirPular: true, aoPular: () => avancar("pulou"),
     rotuloProxima: ultima ? "Concluir" : "Próxima frase", aoProxima: () => avancar(),
   });
-  limpar(corpo, Progresso(s.indice + 1, s.itens.length), cartao.elemento);
+  limpar(corpo, ...cabecalho(corpo), Progresso(s.indice + 1, s.itens.length), cartao.elemento);
   if (focarCartao) cartao.focar();
 }
 

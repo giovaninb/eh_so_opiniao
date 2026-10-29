@@ -4,12 +4,12 @@ const cartoes = (page) => page.locator("#explorar-lista .item-frase");
 
 test("a biblioteca carrega os casos e pagina progressivamente (12 por vez)", async ({ page }) => {
   await abrir(page, "#/explorar");
-  await expect(page.locator("#contagem-resultados")).toHaveText("Mostrando 12 de 169 frases");
+  await expect(page.locator("#contagem-resultados")).toHaveText("Mostrando 12 de 345 frases");
   await expect(cartoes(page)).toHaveCount(12);
-  await page.getByRole("button", { name: /Mostrar mais \(157 restantes\)/ }).click();
+  await page.getByRole("button", { name: /Mostrar mais \(333 restantes\)/ }).click();
   await expect(cartoes(page)).toHaveCount(24);
   while (await page.getByRole("button", { name: /Mostrar mais/ }).count()) await page.getByRole("button", { name: /Mostrar mais/ }).click();
-  await expect(page.locator("#contagem-resultados")).toHaveText("169 frases");
+  await expect(page.locator("#contagem-resultados")).toHaveText("345 frases");
   await expect(page.getByRole("button", { name: /Mostrar mais/ })).toHaveCount(0);
 });
 
@@ -37,7 +37,7 @@ test("filtra por tema e por leitura, e limpa os filtros", async ({ page }) => {
   await expect(cartoes(page).first()).toBeVisible();
   await expect(page.locator("#resumo-filtros")).toContainText("1 ativo");
   await page.getByRole("button", { name: "Limpar filtros" }).first().click();
-  await expect(page.locator("#contagem-resultados")).toHaveText("Mostrando 12 de 169 frases");
+  await expect(page.locator("#contagem-resultados")).toHaveText("Mostrando 12 de 345 frases");
   await expect(page.locator("#resumo-filtros")).toHaveText("Filtros");
   await expect(page.locator("#limpar-filtros")).toBeHidden();
 });
@@ -46,7 +46,7 @@ test("filtros de casos ambíguos e de exemplos sem discriminação", async ({ pa
   await abrir(page, "#/explorar");
   await page.getByText("Filtros", { exact: true }).click();
   await page.getByRole("button", { name: "Ambíguas" }).click();
-  await expect(page.locator("#contagem-resultados")).toHaveText("Mostrando 12 de 21 frases"); // 9 anteriores (7 + 2 do estudo de caso) + 12 da biblioteca ampliada
+  await expect(page.locator("#contagem-resultados")).toHaveText("Mostrando 12 de 46 frases"); // 21 anteriores + 25 da expansão 2026-10 (genero, idade, religiao, trans)
   await page.getByRole("button", { name: "Sem discriminação" }).click();
   const total = Number((await page.locator("#contagem-resultados").textContent()).match(/\d+/g).pop());
   expect(total).toBeGreaterThanOrEqual(15);

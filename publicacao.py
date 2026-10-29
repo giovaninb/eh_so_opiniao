@@ -50,6 +50,8 @@ def _tema(editorial: dict[str, Any], rotulos: list[str], tipo: str | None) -> st
 
 
 def exportar_frases(conn, incluir_rascunho: bool = False) -> dict[str, Any]:
+    from . import expansao
+
     itens = []
     for linha in store.listar(conn):
         publicavel = store.publicavel(linha)
@@ -72,13 +74,19 @@ def exportar_frases(conn, incluir_rascunho: bool = False) -> dict[str, Any]:
             "ia": {"sinalizou": _nomes(ia), "metodo": linha["ia_metodo"], "concorda_com_revisao": sorted(ia) == sorted(finais)},
             "revisao": {"estado": linha["estado"] if publicavel else "RASCUNHO", "por_humano": publicavel},
             "origem": linha["origem"],
+            # dimensões independentes e aviso de conteúdo (só itens da expansão têm; os demais ficam nulos/falsos)
+            "subtema": editorial.get("subtema"), "aviso_conteudo": bool(editorial.get("aviso_conteudo")),
+            "dimensoes": editorial.get("dimensoes"),
+            "grupo": expansao.grupo_de(_tema(editorial, finais, linha["tipo"]), (editorial.get("dimensoes") or {}).get("grupo")),
         })
     usados = {i["tema"] for i in itens}
+    grupos_usados = {i["grupo"] for i in itens if i["grupo"]}
     from . import casos
 
     return {"schema": f"eso-site-{SCHEMA_VERSION}", "gerado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "taxonomia_versao": registry.versao_taxonomia(), "aviso": AVISO,
-            "temas": [t for t in casos.temas() if t["id"] in usados], "frases": itens}
+            "temas": [t for t in casos.temas() if t["id"] in usados],
+            "grupos": [g for g in expansao.grupos() if g["id"] in grupos_usados], "frases": itens}
 
 
 def taxonomia_publica() -> dict[str, Any]:
@@ -110,6 +118,15 @@ def catalogo_publico() -> list[dict[str, Any]]:
                       "registros": i["registros_confirmados"], "referencia": i["referencia"], "url": i["url_origem"],
                       "url_artigo": i.get("url_artigo"), "limitacoes": i["limitacoes_vieses"]})
     return saida
+
+
+def contexto_publico() -> dict[str, Any]:
+    """Dados de contexto por grupo (ex.: violência contra pessoas trans), com dado, fonte, ano, metodologia e limitações."""
+    import yaml
+
+    bruto = yaml.safe_load((paths.CATALOGO / "contexto_dados.yaml").read_text(encoding="utf-8"))
+    chaves = ("id", "grupo", "titulo", "dado", "fonte", "ano", "metodologia", "limitacoes", "links", "conferencia")
+    return {"conferido_em": bruto["conferido_em"], "itens": [{k: i[k] for k in chaves} for i in bruto["itens"]]}
 
 
 def referencias_publicas() -> dict[str, Any]:
@@ -237,7 +254,7 @@ def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = F
     destino.mkdir(parents=True, exist_ok=True)
     arquivos = {
         "frases.json": frases, "taxonomia.json": taxonomia_publica(), "catalogo.json": catalogo_publico(), "referencias.json": referencias_publicas(),
-        "achados.json": {"gerado_dos_relatorios": achados_dos_relatorios(), "aviso": AVISO},
+        "contexto.json": contexto_publico(), "achados.json": {"gerado_dos_relatorios": achados_dos_relatorios(), "aviso": AVISO},
         "participacao.json": participacao.resultados_publicos(conn, {f["id"] for f in frases["frases"]}),
     }
     for nome, conteudo in arquivos.items():

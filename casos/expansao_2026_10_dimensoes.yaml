@@ -1,0 +1,82 @@
+# Dimensões INDEPENDENTES da expansão 2026-10 (mulheres, homens, pessoas idosas, religiões e pessoas trans).
+# São uma proposta da equipe editorial, pendente de revisão humana: nenhuma dimensão é decisão nem declara crime.
+#
+#  - grupo        : de quem ou de que assunto a frase trata (navegação; ver casos/grupos_descoberta.yaml).
+#  - mecanismo    : COMO o discurso funciona (derivado do subtema; ver `mecanismos`).
+#  - gravidade    : estereotipo | ofensa | exclusao_material | incitacao_violencia | nao_se_aplica
+#                   estereotipo        = expressão estereotipada, sem ofensa direta nem barreira concreta.
+#                   ofensa             = comentário ofensivo ou pejorativo dirigido a pessoas.
+#                   exclusao_material  = nega emprego, espaço, serviço, voz ou autonomia.
+#                   incitacao_violencia= convoca, deseja ou ameaça dano. Nenhum item desta expansão recebe este valor.
+#                   nao_se_aplica      = controles (sem discriminação) e casos ambíguos.
+#  - contexto_de_uso: o uso presumido da frase na leitura da equipe (a frase é fictícia; o uso real pode ser outro).
+#  - certeza_rotulo : confiança da equipe na leitura proposta (alta | media | baixa). Ambíguas são sempre baixa.
+# O texto da frase NUNCA decide sozinho: um aviso de conteúdo (alerta_de_contexto) não é um rótulo.
+versao: "1.0.0"
+mecanismos:
+  merito_desqualificado: desqualificacao_de_merito
+  desqualificacao_intelectual: desqualificacao_de_merito
+  descartabilidade: desqualificacao_de_merito
+  objetificacao: desqualificacao_de_merito
+  masculinidade_como_elogio: falso_elogio
+  falso_elogio: falso_elogio
+  elogio_condicional: falso_elogio
+  maternidade_e_trabalho: barreira_por_papel_de_cuidado
+  emocionalidade_e_infantilizacao: patologizacao_emocional
+  culpabilizacao_vitima: culpabilizacao_da_vitima
+  papeis_relacionais: imposicao_de_papel
+  repressao_emocional: imposicao_de_papel
+  responsabilizacao_precoce: imposicao_de_papel
+  virilidade_e_provimento: imposicao_de_papel
+  expressao_de_genero: policiamento_de_expressao
+  policiamento_de_aparencia: policiamento_de_expressao
+  heteronormatividade_masculina: policiamento_de_expressao
+  infantilizacao: infantilizacao_e_tutela
+  matriz_africana_demonizacao: demonizacao_religiosa
+  matriz_africana_espaco_publico: exclusao_de_espaco_ou_servico
+  discriminacao_institucional: exclusao_de_espaco_ou_servico
+  cristianismo_estereotipos: estereotipo_de_grupo
+  antisemitismo: estereotipo_de_grupo
+  islamofobia: estereotipo_de_grupo
+  antiateismo: estereotipo_de_grupo
+  estereotipo_orientacao_identidade: estereotipo_de_grupo
+  negacao_identidade: negacao_de_identidade
+  pronome_e_nome: negacao_de_identidade
+  tratamento_travesti: negacao_de_identidade
+  curiosidade_invasiva: invasao_de_privacidade
+  # controles e ambíguas: o mecanismo depende do uso, ou não há mecanismo discriminatório
+  mulheres_ambiguidade: depende_de_tom_e_uso
+  masculinidade_ambiguidade: depende_de_tom_e_uso
+  idade_ambiguidade: depende_de_tom_e_uso
+  religiao_ambiguidade: depende_de_tom_e_uso
+  trans_ambiguidade: depende_de_tom_e_uso
+  mulheres_controle: sem_mecanismo_discriminatorio
+  homens_controle: sem_mecanismo_discriminatorio
+  idade_controle: sem_mecanismo_discriminatorio
+  religiao_controle: sem_mecanismo_discriminatorio
+  trans_controle: sem_mecanismo_discriminatorio
+grupo_por_subtema:   # só os subtemas que não dependem do tema; os demais seguem o tema
+  mulheres_ambiguidade: mulheres
+  mulheres_controle: mulheres
+  masculinidade_como_elogio: mulheres
+  masculinidade_ambiguidade: homens
+  homens_controle: homens
+  falso_elogio: pessoas_idosas
+  objetificacao: pessoas_idosas
+  idade_ambiguidade: pessoas_idosas
+  idade_controle: pessoas_idosas
+  religiao_ambiguidade: religioes
+  religiao_controle: religioes
+  trans_ambiguidade: pessoas_trans
+  trans_controle: pessoas_trans
+grupo_por_tema:
+  misoginia: mulheres
+  estereotipos_masculinidade: homens
+  idadismo: pessoas_idosas
+  intolerancia_religiosa: religioes
+  transfobia: pessoas_trans
+  lgbtfobia: pessoas_lgbt
+# Gravidade proposta por item (só os de leitura "discriminação"). O que não está listado como ofensa ou exclusão_material é estereótipo.
+gravidade:
+  ofensa: [NX-250, NX-261, NX-275, NX-284, NX-318, NX-319, NX-320, NX-324, NX-325, NX-326, NX-344, NX-347, NX-357, NX-358, NX-370]
+  exclusao_material: [NX-258, NX-260, NX-269, NX-295, NX-311, NX-312, NX-321, NX-322, NX-327, NX-328, NX-331, NX-332, NX-333, NX-335, NX-338, NX-341, NX-345, NX-348, NX-349, NX-360, NX-371, NX-372, NX-373, NX-374, NX-375, NX-376, NX-377]

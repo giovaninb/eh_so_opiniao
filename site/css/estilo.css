@@ -275,3 +275,17 @@ details.detalhe > :not(summary) { margin-top: var(--esp-2); }
 .rota-interna #v-inicio { display: none; }
 /* O rodapé só aparece quando o conteúdo já está montado: assim ele não é empurrado para baixo (CLS). */
 .js:not([data-pronto="true"]) .rodape { visibility: hidden; }
+
+/* Aviso de conteúdo e temas de descoberta */
+.aviso-chip { display: inline-flex; align-items: center; padding: 0.1rem var(--esp-3); border-radius: var(--raio-pilula); background: var(--cor-aviso-fundo, #fff4d6); color: var(--cor-aviso-texto, #5b4300); border: 1px solid var(--cor-aviso-borda, #e0b94a); font-size: var(--texto-xs); font-weight: 700; }
+.aviso-conteudo { margin: 0; padding: var(--esp-3) var(--esp-4); border-left: 4px solid var(--cor-aviso-borda, #e0b94a); background: var(--cor-aviso-fundo, #fff4d6); color: var(--cor-aviso-texto, #5b4300); border-radius: var(--raio-s, 0.5rem); font-size: var(--texto-s); }
+.temas-descoberta { margin: 0 0 var(--esp-4); }
+.temas-descoberta summary { min-height: var(--alvo-min); display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+.temas-descoberta .chips { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-2); }
+.temas-descoberta .chip { display: inline-flex; align-items: center; min-height: var(--alvo-min); padding: 0 var(--esp-4); border: 2px solid var(--cor-linha); border-radius: var(--raio-pilula); background: var(--cor-superficie); font-weight: 600; max-width: 100%; text-align: left; }
+.temas-descoberta .chip[aria-pressed="true"] { border-color: var(--cor-destaque); background: var(--cor-destaque-suave); color: var(--cor-destaque-forte); }
+.contexto-dados { margin: 0 0 var(--esp-4); }
+.contexto-dados .titulo-item { margin: var(--esp-3) 0 var(--esp-2); font-weight: 700; font-size: 1.05rem; }
+.contexto-dados dl { margin: 0; }
+.contexto-dados dt { font-weight: 700; margin-top: var(--esp-2); }
+.contexto-dados dd { margin: 0; overflow-wrap: anywhere; }

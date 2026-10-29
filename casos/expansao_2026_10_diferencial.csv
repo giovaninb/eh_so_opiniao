@@ -1,0 +1,177 @@
+﻿id,leitura,tema,texto
+NX-248,discriminação,misoginia,Ela conquistou sucesso mesmo sendo mulher.
+NX-249,discriminação,misoginia,"Só chegou à liderança porque é mulher; se não fosse a cota, não estaria ali."
+NX-250,discriminação,misoginia,Essa diretora deve estar saindo com o chefe para ter sido promovida.
+NX-251,discriminação,misoginia,"Para uma mulher, ela foi surpreendentemente boa na negociação."
+NX-252,discriminação,misoginia,O cliente só fechou contrato porque gostou da aparência dela.
+NX-253,discriminação,misoginia,Mulher em cargo de direção é sempre uma aposta arriscada.
+NX-254,ambígua,depende_contexto,Ela foi muito macho ao enfrentar aquela reunião.
+NX-255,discriminação,misoginia,"Essa mulher trabalha como homem, merece respeito."
+NX-256,discriminação,misoginia,Até parece homem quando assume a liderança.
+NX-257,discriminação,misoginia,"Vai dar conta de conciliar os filhos, a casa e a carreira?"
+NX-258,discriminação,misoginia,Não vou dar essa promoção; ela é mãe e logo vai faltar para cuidar das crianças.
+NX-259,discriminação,misoginia,"Se quisesse uma carreira de verdade, não teria tido filhos."
+NX-260,discriminação,misoginia,"O pai foi contratado sem perguntas, mas para ela precisamos saber se pretende engravidar."
+NX-261,discriminação,misoginia,Para de chorar como uma mulherzinha!
+NX-262,discriminação,misoginia,Ela discordou da equipe porque deve estar de TPM.
+NX-263,discriminação,misoginia,Não discuta com ela hoje; são os hormônios falando.
+NX-264,discriminação,misoginia,"Mulher decide com emoção, homem decide com razão."
+NX-265,discriminação,misoginia,Ela está muito nervosa para participar de uma decisão importante.
+NX-266,discriminação,misoginia,Usa roupa provocante e depois reclama de ser assediada.
+NX-267,discriminação,misoginia,"Se ela não quisesse atenção dos homens, não se vestiria assim."
+NX-268,discriminação,misoginia,Ela aceitou sair com ele; depois não pode dizer que foi desrespeitada.
+NX-269,discriminação,misoginia,"Lugar de mulher é na cozinha, não em debate sobre política."
+NX-270,discriminação,misoginia,"Se sabe cozinhar, já pode casar."
+NX-271,discriminação,misoginia,"Coitada, ficou para titia."
+NX-272,discriminação,misoginia,Como uma mulher tão bonita ainda está solteira?
+NX-273,discriminação,misoginia,"Mulher precisa se dar ao respeito, principalmente diante de homens."
+NX-274,discriminação,estereotipos_masculinidade,Menino não chora; engole o choro.
+NX-275,discriminação,estereotipos_masculinidade,"Para de chorar, parece uma mulherzinha."
+NX-276,discriminação,estereotipos_masculinidade,"Homem de verdade não procura terapia, resolve tudo sozinho."
+NX-277,discriminação,estereotipos_masculinidade,"Se está com medo, vira homem de uma vez."
+NX-278,discriminação,estereotipos_masculinidade,Homem que demonstra tristeza perde o respeito dos outros.
+NX-279,discriminação,estereotipos_masculinidade,"Seu pai morreu, mas você é homem: não pode desabar agora."
+NX-280,discriminação,estereotipos_masculinidade,"Agora que seu pai saiu de casa, você é o homem da família e tem que sustentar todos."
+NX-281,discriminação,estereotipos_masculinidade,Não importa que você tenha só quinze anos; é o homem da casa e precisa ser forte.
+NX-282,discriminação,estereotipos_masculinidade,Deixe sua irmã chorar; você é menino e deve aguentar sozinho.
+NX-283,discriminação,estereotipos_masculinidade,"Engrossa essa voz, assim ninguém vai te respeitar como homem."
+NX-284,discriminação,estereotipos_masculinidade,Homem que cuida da pele parece mulherzinha.
+NX-285,discriminação,estereotipos_masculinidade,Você dança balé? Isso não é coisa de homem.
+NX-286,discriminação,estereotipos_masculinidade,Um homem não deveria gostar de flores e roupas coloridas.
+NX-287,discriminação,estereotipos_masculinidade,"Se não gosta de futebol, não é homem de verdade."
+NX-288,discriminação,estereotipos_masculinidade,Homem tem que ser garanhão e pegar todo mundo.
+NX-289,discriminação,estereotipos_masculinidade,"Se não sustenta uma família sozinho, não é homem de verdade."
+NX-290,discriminação,estereotipos_masculinidade,"Com esse salário, que tipo de homem você acha que é?"
+NX-291,discriminação,estereotipos_masculinidade,Homem que recusa sexo não é homem de verdade.
+NX-292,discriminação,estereotipos_masculinidade,Um homem só merece respeito quando tem dinheiro e carro.
+NX-293,discriminação,lgbtfobia,"Você nem parece gay, pode considerar isso um elogio."
+NX-294,discriminação,lgbtfobia,"Nesse casal de homens, quem é o homem da relação?"
+NX-295,discriminação,lgbtfobia,Ele não pode cuidar das crianças porque fala muito afeminado.
+NX-296,discriminação,lgbtfobia,"Se você é gay, por que não age como os outros gays?"
+NX-297,ambígua,depende_contexto,Você está linda para a sua idade.
+NX-298,ambígua,depende_contexto,"Nossa, você nem parece ter essa idade!"
+NX-299,ambígua,depende_contexto,Você deve ter sido muito bonito na juventude.
+NX-300,discriminação,idadismo,É impressionante que alguém de setenta anos ainda tenha vaidade.
+NX-301,discriminação,idadismo,Até que você está lúcido para a sua idade.
+NX-302,discriminação,idadismo,Essa roupa não combina com sua idade.
+NX-303,discriminação,idadismo,Quer parecer garotão usando esse tênis?
+NX-304,discriminação,idadismo,Mulher dessa idade não deveria sair para dançar.
+NX-305,discriminação,idadismo,Você já passou da idade de namorar de novo.
+NX-306,discriminação,idadismo,"Depois de certa idade, aprender a dirigir é perda de tempo."
+NX-307,discriminação,idadismo,"Vamos comer a comidinha e mexer o bracinho, vovozinho?"
+NX-308,discriminação,idadismo,"Deixa que eu resolvo, você não dá conta."
+NX-309,discriminação,idadismo,"Fica quietinho, é melhor para você."
+NX-310,discriminação,idadismo,"Pode deixar que eu respondo por você, você já está muito velho."
+NX-311,discriminação,idadismo,A senhora não precisa decidir nada; os filhos escolhem.
+NX-312,discriminação,idadismo,"Vou falar com o acompanhante, não com você, porque idosos sempre se confundem."
+NX-313,discriminação,idadismo,Pra que aprender a usar celular agora? Isso já passou da sua idade.
+NX-314,discriminação,idadismo,Você é velho demais para entender aplicativos.
+NX-315,discriminação,idadismo,"Nem adianta explicar o banco digital para ela, já passou dos setenta."
+NX-316,discriminação,idadismo,"Na sua idade, ninguém mais acompanha essas mudanças."
+NX-317,discriminação,idadismo,Você esqueceu de novo? Velho é assim mesmo.
+NX-318,discriminação,idadismo,Esse aí está fazendo hora extra no mundo.
+NX-319,discriminação,idadismo,Queda de velho não levanta poeira.
+NX-320,discriminação,idadismo,Quem gosta de velho é museu.
+NX-321,discriminação,idadismo,Pessoa velha não tem nada a acrescentar ao trabalho.
+NX-322,discriminação,idadismo,"É melhor nem investir em curso para funcionário idoso, já está no fim da carreira."
+NX-323,ambígua,depende_contexto,"Panela velha é que faz comida boa, você sabe como é."
+NX-324,discriminação,idadismo,Esse tipo de idoso é só peso para a família.
+NX-325,discriminação,intolerancia_religiosa,"Lá vem o macumbeiro, deve estar fazendo coisa ruim."
+NX-326,discriminação,intolerancia_religiosa,"Chuta que é macumba, não deixa essa oferenda aí."
+NX-327,discriminação,intolerancia_religiosa,Todo terreiro é coisa do demônio e deveria fechar.
+NX-328,discriminação,intolerancia_religiosa,Não quero pessoas de Umbanda trabalhando aqui.
+NX-329,discriminação,intolerancia_religiosa,Ela usa guia no pescoço; essa gente mexe com coisa ruim.
+NX-330,discriminação,intolerancia_religiosa,Quem raspa a cabeça para ritual de Candomblé não é pessoa confiável.
+NX-331,discriminação,intolerancia_religiosa,"Não matriculem seus filhos com aquele professor, ele frequenta terreiro."
+NX-332,discriminação,intolerancia_religiosa,Roupas brancas e contas de terreiro não deveriam aparecer na nossa festa.
+NX-333,discriminação,intolerancia_religiosa,"Se é praticante de Candomblé, não pode participar do condomínio."
+NX-334,discriminação,intolerancia_religiosa,Oferenda é sempre sujeira; não importa onde nem como foi feita.
+NX-335,discriminação,intolerancia_religiosa,Crente é tudo ignorante; não deveria assumir cargo importante.
+NX-336,discriminação,intolerancia_religiosa,Católico que reza é incapaz de pensar por conta própria.
+NX-337,discriminação,intolerancia_religiosa,"Se é evangélico, deve estar querendo tirar dinheiro de alguém."
+NX-338,discriminação,intolerancia_religiosa,Quem lê a Bíblia é burro e não serve para a nossa equipe.
+NX-339,discriminação,intolerancia_religiosa,Pastor ou padre é tudo igual: só quer enganar os outros.
+NX-340,discriminação,intolerancia_religiosa,"Judeu é tudo pão-duro, nunca paga a conta."
+NX-341,discriminação,intolerancia_religiosa,"Não dá para confiar em sócio judeu, eles só pensam em dinheiro."
+NX-342,discriminação,intolerancia_religiosa,O dono daquela loja é judeu; claro que vai cobrar mais caro.
+NX-343,discriminação,intolerancia_religiosa,"Judeus controlam tudo, até o que a imprensa conta."
+NX-344,discriminação,intolerancia_religiosa,Olha a bomba! Lá vem um muçulmano.
+NX-345,discriminação,intolerancia_religiosa,Mulher de hijab não deveria trabalhar aqui porque assusta os clientes.
+NX-346,discriminação,intolerancia_religiosa,Muçulmano é tudo terrorista em potencial.
+NX-347,discriminação,intolerancia_religiosa,Quem faz Ramadã não deve ser gente civilizada.
+NX-348,discriminação,intolerancia_religiosa,Não deixaria um aluno muçulmano estudar com meus filhos.
+NX-349,discriminação,intolerancia_religiosa,"Ateu não tem moral, por isso não deve cuidar de crianças."
+NX-350,discriminação,intolerancia_religiosa,Quem não acredita em Deus não pode ser uma pessoa boa.
+NX-351,discriminação,transfobia,"Você até parece uma mulher de verdade, apesar de ser trans."
+NX-352,discriminação,transfobia,"Não é um homem de verdade, nasceu com outro corpo."
+NX-353,discriminação,transfobia,"Você é homem ou mulher, afinal? Decide logo."
+NX-354,discriminação,transfobia,"Você pode se apresentar como mulher, mas nunca vai ser uma mulher de verdade."
+NX-355,discriminação,transfobia,"Na minha opinião, trans é só gente querendo chamar atenção."
+NX-356,discriminação,transfobia,"Ser trans agora virou moda, daqui a pouco passa."
+NX-357,discriminação,transfobia,"Sei qual é seu nome social, mas vou usar o nome do registro antigo para todo mundo ouvir."
+NX-358,discriminação,transfobia,"Eu sei que você usa ela, mas vou insistir em chamar de ele."
+NX-359,discriminação,transfobia,"Para mim, seu nome de verdade é o que seus pais deram quando você nasceu."
+NX-360,discriminação,transfobia,Não vou mudar seus dados no crachá; isso de nome social é frescura.
+NX-361,discriminação,transfobia,Você já operou? Posso perguntar o que tem entre as pernas?
+NX-362,discriminação,transfobia,Já fez a transição completa ou ainda falta alguma coisa?
+NX-363,discriminação,transfobia,Como você transa sendo trans?
+NX-364,discriminação,transfobia,Qual era seu nome de verdade antes de virar trans?
+NX-365,discriminação,transfobia,Só vou acreditar que você é mulher se explicar suas cirurgias.
+NX-366,discriminação,transfobia,Nunca diria que você era trans; quase me enganou.
+NX-367,discriminação,transfobia,Você é bonita para alguém trans.
+NX-368,discriminação,transfobia,Você passou tão bem que ninguém perceberia o que você realmente é.
+NX-369,discriminação,transfobia,"Nem parece uma pessoa trans, parabéns por disfarçar."
+NX-370,discriminação,transfobia,"Vou chamar aquela travesti de o travesti, mesmo que ela peça outro tratamento."
+NX-371,discriminação,transfobia,Não quero uma travesti atendendo aqui; vão achar que é uma piada.
+NX-372,discriminação,transfobia,Esse traveco não deveria entrar na festa.
+NX-373,discriminação,transfobia,"Não contrato pessoas trans, clientes não aceitariam."
+NX-374,discriminação,transfobia,"Professor trans não deveria dar aula, independentemente da competência."
+NX-375,discriminação,transfobia,"Não deixe essa mulher trans usar o banheiro de jeito nenhum, mesmo sem problema ocorrido."
+NX-376,discriminação,transfobia,Uma pessoa trans não deveria representar a empresa publicamente.
+NX-377,discriminação,transfobia,"Se é trans, melhor não se candidatar à vaga de recepção."
+NX-378,discriminação,transfobia,"Trans, gay, travesti, é tudo a mesma coisa."
+NX-379,discriminação,transfobia,"Se um homem trans namora uma mulher, isso quer dizer que ele é lésbica e pronto."
+NX-380,discriminação,transfobia,Pessoa não binária só quer fugir de escolher ser homem ou mulher.
+NX-381,ambígua,depende_contexto,Você vai conseguir equilibrar filhos e carreira?
+NX-382,ambígua,depende_contexto,"Ela foi firme, foi muito macho."
+NX-383,ambígua,depende_contexto,Mulher tem que se dar ao respeito.
+NX-384,ambígua,depende_contexto,"Você está muito sensível hoje, aconteceu algo?"
+NX-385,ambígua,depende_contexto,Você é o homem da casa agora.
+NX-386,ambígua,depende_contexto,Vira homem e conversa com seu pai.
+NX-387,ambígua,depende_contexto,"Ele precisa sustentar a família, combinaram assim."
+NX-388,ambígua,depende_contexto,Deixa que eu resolvo isso para você.
+NX-389,ambígua,depende_contexto,"Nossa, você não parece ter essa idade."
+NX-390,ambígua,depende_contexto,Você quer que eu explique o aplicativo de novo?
+NX-391,ambígua,depende_contexto,Vamos dar uma andadinha depois do almoço?
+NX-392,ambígua,depende_contexto,"Na minha religião, acredito que esse caminho não leva ao céu."
+NX-393,ambígua,depende_contexto,"Para mim, essa prática é pecado."
+NX-394,ambígua,depende_contexto,Esse sermão do pastor parece promessa de ficar rico.
+NX-395,ambígua,depende_contexto,Fã-clube de padre não é religião.
+NX-396,ambígua,depende_contexto,Considero aquela denominação uma seita perigosa; quero entender como funciona.
+NX-397,ambígua,depende_contexto,"Sinto que nasci no corpo errado, é como descrevo minha vivência."
+NX-398,ambígua,depende_contexto,Você já fez a transição?
+NX-399,ambígua,depende_contexto,Qual nome você prefere que eu use?
+NX-400,ambígua,depende_contexto,"Não conheço bem o termo travesti, pode me explicar?"
+NX-401,sem discriminação,sem_discriminacao,Ela recebeu a promoção após apresentar resultados consistentes e cumprir os critérios da seleção.
+NX-402,sem discriminação,sem_discriminacao,Não acho correto perguntar apenas para mulheres quem vai cuidar dos filhos.
+NX-403,sem discriminação,sem_discriminacao,Quero entender quais medidas a empresa tem contra assédio no trabalho.
+NX-404,sem discriminação,sem_discriminacao,A capacidade de dirigir não depende do gênero da pessoa.
+NX-405,sem discriminação,sem_discriminacao,Meu filho pode chorar e pedir ajuda quando estiver triste.
+NX-406,sem discriminação,sem_discriminacao,Homens também precisam de apoio emocional.
+NX-407,sem discriminação,sem_discriminacao,Não gosto de futebol e isso não diz nada sobre minha masculinidade.
+NX-408,sem discriminação,sem_discriminacao,"Prefiro ser monogâmico, mas respeito os acordos afetivos de outras pessoas."
+NX-409,sem discriminação,sem_discriminacao,A senhora prefere preencher o formulário sozinha ou gostaria de ajuda?
+NX-410,sem discriminação,sem_discriminacao,Meu avô começou a aprender programação depois dos setenta.
+NX-411,sem discriminação,sem_discriminacao,Vamos confirmar com ele como deseja organizar os cuidados.
+NX-412,sem discriminação,sem_discriminacao,Pessoas idosas têm direitos e experiências diferentes entre si.
+NX-413,sem discriminação,sem_discriminacao,Acho importante adaptar a interface para quem precisa de letras maiores.
+NX-414,sem discriminação,sem_discriminacao,"Não concordo com a doutrina dessa igreja, mas respeito seus fiéis."
+NX-415,sem discriminação,sem_discriminacao,Quero discutir o impacto social de algumas propostas religiosas sem atacar seus seguidores.
+NX-416,sem discriminação,sem_discriminacao,"Tenho outra crença, então não participarei da cerimônia."
+NX-417,sem discriminação,sem_discriminacao,O respeito à liberdade religiosa também protege quem não acredita em Deus.
+NX-418,sem discriminação,sem_discriminacao,Discordo de uma liderança religiosa e quero cobrar transparência de sua instituição.
+NX-419,sem discriminação,sem_discriminacao,Vou usar o nome e os pronomes que minha colega pediu.
+NX-420,sem discriminação,sem_discriminacao,Uma pessoa trans pode envelhecer e construir projetos de vida como qualquer pessoa.
+NX-421,sem discriminação,sem_discriminacao,"Não quero responder perguntas sobre meu corpo, isso é privado."
+NX-422,sem discriminação,sem_discriminacao,"O empregador deve avaliar as qualificações para a vaga, não a identidade de gênero."
+NX-423,sem discriminação,sem_discriminacao,"Ainda estou aprendendo os termos, posso pedir uma explicação respeitosa?"

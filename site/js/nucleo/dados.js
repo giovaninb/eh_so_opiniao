@@ -14,13 +14,15 @@ export async function carregarBase() {
     const dados = await carregar(arquivo);
     estado.frases = dados.frases || [];
     estado.temas = dados.temas || [];
+    estado.grupos = dados.grupos || [];
     estado.meta = { gerado_em: dados.gerado_em, taxonomia_versao: dados.taxonomia_versao };
     estado.porId = new Map(estado.frases.map((f) => [f.id, f]));
   } catch (e) {
     estado.erro = e;
     return;
   }
-  const [config, part] = await Promise.allSettled([carregar("config_participacao.json"), carregar("data/participacao.json")]);
+  const [config, part, contexto] = await Promise.allSettled([carregar("config_participacao.json"), carregar("data/participacao.json"), carregar("data/contexto.json")]);
+  estado.contexto = contexto.status === "fulfilled" ? contexto.value.itens || [] : [];
   estado.config = config.status === "fulfilled" ? config.value : null;
   if (part.status === "fulfilled") {
     estado.resultados = part.value.resultados || {};

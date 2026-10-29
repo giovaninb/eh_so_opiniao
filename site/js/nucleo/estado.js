@@ -3,6 +3,9 @@ export const estado = {
   frases: [],
   porId: new Map(),
   temas: [],
+  grupos: [], // temas de descoberta (Mulheres, Pessoas idosas…) com frases publicadas
+  contexto: [], // dados de contexto (dado, fonte, ano, metodologia, limitações) por grupo
+  grupoAtual: "", // tema escolhido em Descobrir ("" = ao acaso)
   config: null,
   resultados: {},
   minimoVotos: 10,

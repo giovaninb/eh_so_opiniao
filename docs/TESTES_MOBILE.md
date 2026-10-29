@@ -16,7 +16,7 @@ npm run visual:atualizar                      # só após revisar a mudança vis
 npm run lighthouse                            # Lighthouse mobile, 3 execuções por página
 ```
 
-Para evitar que os testes dependam de revisão humana, a biblioteca de 169 frases usada nos testes vem de `e2e/.dados/` (gerada por `tools/gerar_dados_e2e.py` num banco temporário, com um revisor fictício `fixture-e2e`). **Esses dados nunca são publicados** e não indicam aprovação real: as 169 frases publicadas hoje foram revisadas por uma pessoa de verdade (158 em lote). Os testes de conteúdo (`conteudo.spec.mjs`) rodam também sobre os dados reais de `site/data/`.
+Para evitar que os testes dependam de revisão humana, a biblioteca de 345 frases usada nos testes (169 revisadas + 176 da expansão 2026-10) vem de `e2e/.dados/` (gerada por `tools/gerar_dados_e2e.py` num banco temporário, com um revisor fictício `fixture-e2e`). **Esses dados nunca são publicados** e não indicam aprovação real: as 169 frases publicadas hoje foram revisadas por uma pessoa de verdade (158 em lote); as 176 da expansão 2026-10 continuam Pendentes e só existem nos dados de teste. Os testes de conteúdo (`conteudo.spec.mjs`) rodam também sobre os dados reais de `site/data/`.
 
 ## Matriz
 
@@ -49,12 +49,12 @@ Ambiente: macOS 26.4 (arm64), Playwright 1.64.1, Chromium 156 (Chrome for Testin
 
 | Projeto | Passaram | Ignorados¹ | Falharam |
 |---|---|---|---|
-| chromium-movel | 160 | 1 | 0 |
-| webkit-movel | 160 | 1 | 0 |
-| firefox-movel | 160 | 1 | 0 |
-| chromium-desktop | 158 | 3 | 0 |
-| visual (64 referências) | 54 | 1 | 0 |
-| **Total** | **692** | **7** | **0** |
+| chromium-movel | 190 | 1 | 0 |
+| webkit-movel | 190 | 1 | 0 |
+| firefox-movel | 190 | 1 | 0 |
+| chromium-desktop | 188 | 3 | 0 |
+| visual (referências atualizadas em 2026-10-29) | 54 | 1 | 0 |
+| **Total** | **812** | **7** | **0** |
 
 ¹ Ignorados de propósito: testes que só fazem sentido em celular (menu em painel) ou só em desktop (navegação horizontal).
 
@@ -81,7 +81,7 @@ O que os testes encontraram **e foi corrigido** (não passou de primeira):
 | Participar | 100 | 100 | 100 | 100 | 1,5 s | 0 | 0 ms | 42 KB |
 | Explorar (79 frases, pior caso; medido antes da ampliação) | 100 | 100 | 100 | 100 | 1,7 s | 0 | 0 ms | 54 KB |
 
-**Atenção:** a tabela foi medida com 79 frases. A biblioteca de teste agora tem 169 e o Lighthouse **ainda não foi repetido** com ela; rode `npm run lighthouse` em `e2e/` antes de repetir esses números.
+**Atenção:** a tabela foi medida com 79 frases. A biblioteca de teste agora tem 345 e o Lighthouse **ainda não foi repetido** com ela; rode `npm run lighthouse` em `e2e/` antes de repetir esses números.
 
 Metas: desempenho ≥ 90, acessibilidade ≥ 95, boas práticas ≥ 90, LCP ≤ 2,5 s, CLS < 0,1. Atingidas em todas as páginas.
 

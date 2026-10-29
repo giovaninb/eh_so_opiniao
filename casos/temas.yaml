@@ -5,6 +5,9 @@ temas:
   - {id: racismo, nome: "Racismo"}
   - {id: misoginia, nome: "Misoginia"}
   - {id: lgbtfobia, nome: "LGBTfobia"}
+  - {id: transfobia, nome: "Transfobia"}
+  - {id: estereotipos_masculinidade, nome: "Expectativas sobre homens"}
+  - {id: idadismo, nome: "Idadismo"}
   - {id: intolerancia_religiosa, nome: "Intolerância religiosa"}
   - {id: capacitismo, nome: "Capacitismo"}
   - {id: estigmatizacao_socioeconomica, nome: "Estigma socioeconômico"}

@@ -1,5 +1,5 @@
 {
-  "versao": "1.1.0",
+  "versao": "1.2.0",
   "rotulos": [
     {
       "id": "linguagem_ofensiva",
@@ -64,6 +64,30 @@
       "definicao": "Hostilidade contra pessoas por orientação sexual ou identidade de gênero.",
       "nao_e": "Menção neutra ou denúncia de LGBTfobia.",
       "observacao": ""
+    },
+    {
+      "id": "transfobia",
+      "nome": "Transfobia",
+      "tipo": "exploratorio",
+      "definicao": "Hostilidade, desvalorização ou exclusão de pessoas trans (travestis, mulheres e homens trans, pessoas não binárias) por sua identidade de gênero, inclusive negar nome, pronome ou identidade.",
+      "nao_e": "Pergunta respeitosa de quem quer aprender, relato de pessoa trans sobre a própria vivência (como \"sinto que nasci no corpo errado\"), ou denúncia que cita o termo ofensivo para combatê-lo.",
+      "observacao": "Identidade de gênero não é orientação sexual nem expressão de gênero: a classe fica separada de `lgbtfobia`. Nenhum dataset integrado traz rótulo anotado de transfobia (o ToLD-Br só tem \"homophobia\", mapeado para `lgbtfobia`). O sentido de uma frase muda com o tom e com quem fala."
+    },
+    {
+      "id": "idadismo",
+      "nome": "Idadismo (etarismo)",
+      "tipo": "exploratorio",
+      "definicao": "Estereótipo, desvalorização, infantilização ou exclusão de pessoas pela idade, em geral pessoas idosas.",
+      "nao_e": "Oferta de ajuda perguntada com respeito, adaptação de interface para quem precisa ou menção neutra à idade.",
+      "observacao": "Muitos casos são elogios condicionais (\"para a sua idade\") cujo peso depende do tom e da relação entre as pessoas. Nenhum dataset integrado traz rótulo anotado para esta classe."
+    },
+    {
+      "id": "estereotipos_masculinidade",
+      "nome": "Estereótipos de masculinidade",
+      "tipo": "exploratorio",
+      "definicao": "Cobrança de virilidade, repressão emocional ou papéis rígidos impostos a homens e meninos, inclusive usando o feminino como ofensa.",
+      "nao_e": "Misoginia (desprezo ou ódio contra mulheres) nem violência jurídica por si só; também não é cuidado ou apoio emocional a homens.",
+      "observacao": "Sexismo dirigido a homens costuma ser estereótipo social, não incitação. A classe é separada de `misoginia` para não misturar mecanismos diferentes. Nenhum dataset integrado traz rótulo anotado para esta classe."
     },
     {
       "id": "hostilidade_politica",

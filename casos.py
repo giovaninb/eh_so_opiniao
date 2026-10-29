@@ -13,7 +13,7 @@ from .classifiers.rules import RegrasBaseline
 from .review import store
 
 ARQUIVO = paths.CASOS / "estudo_de_caso.yaml"
-ARQUIVOS = (ARQUIVO, paths.CASOS / "biblioteca_editorial.yaml", paths.CASOS / "biblioteca_ampliada.yaml")
+ARQUIVOS = (ARQUIVO, paths.CASOS / "biblioteca_editorial.yaml", paths.CASOS / "biblioteca_ampliada.yaml", paths.CASOS / "expansao_2026_10.jsonl")
 ARQUIVO_TEMAS = paths.CASOS / "temas.yaml"
 NATUREZAS = ("ficticio", "adaptado", "documentado")
 
@@ -38,7 +38,12 @@ def carregar_todos(caminhos: tuple[Path, ...] | None = None) -> dict[str, Any]:
 
 
 def carregar(caminho: Path | None = None) -> dict[str, Any]:
-    dados = yaml.safe_load((caminho or ARQUIVO).read_text(encoding="utf-8"))
+    if caminho is not None and Path(caminho).suffix == ".jsonl":
+        from . import expansao  # exemplos com metadados extras; vêm sempre como Pendente
+
+        dados = expansao.carregar(Path(caminho))
+    else:
+        dados = yaml.safe_load((caminho or ARQUIVO).read_text(encoding="utf-8"))
     tax = registry.rotulos_taxonomia()
     ids_tema = {t["id"] for t in temas()}
     ids = set()
@@ -82,7 +87,8 @@ def enfileirar(conn, caminho: Path | None = None, modelo_ofensivo=None) -> dict[
             "par_espelho": f.get("par_espelho"), "pode_publicar_ambigua": f.get("pode_publicar_ambigua", False),
             "ia_rotulos": rotulos, "ia_metodo": metodo, "ia_versao": RegrasBaseline.versao,
             "rotulos_propostos": f["rotulos_editoriais"],
-            "editorial": {k: f[k] for k in ("tema", "contexto", "razoes", "muda_se") if f.get(k)},
+            "editorial": {k: f[k] for k in ("tema", "contexto", "razoes", "muda_se", "subtema", "origem_original", "colecao",
+                                            "aviso_conteudo", "dimensoes") if f.get(k)},
         })
         novos += int(criado)
     return {"total": len(dados["frases"]), "novos": novos}
