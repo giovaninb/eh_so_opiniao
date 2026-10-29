@@ -96,6 +96,7 @@ def _topo(profundidade: int) -> str:
 def _rodape(profundidade: int, script: str = "") -> str:
     raiz = "../" * profundidade
     return f"""  <footer class="rodape"><div class="pagina"><p>{_e(NOME)} · Conteúdo educativo e experimental · Não conclui crime, intenção ou identidade.</p>
+    <p>CC BY 4.0 · Giovani Bettoni · <a href="https://www.linkedin.com/in/giovani-bettoni/" rel="noopener noreferrer">linkedin.com/in/giovani-bettoni</a></p>
     <p><a href="{raiz}#/entender">Entender o projeto</a> · <a href="{raiz}#/explorar">Explorar outras frases</a></p></div></footer>
   {script}
 </body>

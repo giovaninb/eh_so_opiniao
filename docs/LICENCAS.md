@@ -27,4 +27,4 @@ As informações vêm de `datasets/registry.yaml` (fonte única). Confirme sempr
 
 ## Código e conteúdo do projeto
 
-O código e as frases sintéticas deste projeto não herdam a licença dos datasets, pois não os contêm. Defina a licença do repositório antes de publicar (não escolhida automaticamente).
+O código, as frases sintéticas, os textos editoriais e os cartões deste projeto não herdam a licença dos datasets, pois não os contêm. Estão sob **CC BY 4.0**, com atribuição a **Giovani Bettoni** (`linkedin.com/in/giovani-bettoni`). Ver `LICENSE`.

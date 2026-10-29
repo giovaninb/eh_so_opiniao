@@ -194,8 +194,9 @@ def test_site_e_estatico_sem_cdn_sem_rastreamento_e_sem_innerhtml():
     js = _js_do_site()
     for arq in (html, css, js):
         sem_namespace_svg = arq.replace("http://www.w3.org/2000/svg", "")  # xmlns de SVG não é requisição de rede
-        # único destino externo permitido: o link de compartilhamento do WhatsApp, que só abre quando a pessoa toca no botão
+        # destinos externos só em clique: WhatsApp (compartilhar) e LinkedIn (crédito da autoria)
         sem_namespace_svg = sem_namespace_svg.replace("https://wa.me/?text=", "")
+        sem_namespace_svg = sem_namespace_svg.replace("https://www.linkedin.com/in/giovani-bettoni/", "")
         # endereços absolutos só em metadados de prévia social (canonical, og:url, og:image): não são requisições da página
         sem_namespace_svg = re.sub(r'<(?:link rel="canonical"|meta property="og:(?:url|image)"|meta name="twitter:image")[^>]*>', "", sem_namespace_svg)
         assert not re.search(r"https?://(?!exemplo)", sem_namespace_svg), "site não deve chamar recursos externos"

@@ -84,6 +84,17 @@ for (const v of LARGURAS) {
       await foto(page, `imagem-stories-${v.nome}`);
     });
 
+    test("cartão de imagem da comparação", async ({ page }) => {
+      await abrir(page, "#/comparar/p-01");
+      await page.locator("#v-comparar details.imagem-cartao summary").click();
+      await page.locator("#v-comparar").getByRole("button", { name: /Stories e Status/ }).click();
+      await page.locator("#v-comparar img.previa-stories").waitFor();
+      await foto(page, `imagem-comparacao-stories-${v.nome}`);
+      await page.locator("#v-comparar").getByRole("button", { name: /Prévia para redes/ }).click();
+      await page.locator("#v-comparar img.previa-previa").waitFor();
+      await foto(page, `imagem-comparacao-previa-${v.nome}`);
+    });
+
     test("formulário de participação (envio indisponível, estado padrão)", async ({ page }) => {
       await abrir(page, "#/participar");
       await foto(page, `formulario-indisponivel-${v.nome}`);

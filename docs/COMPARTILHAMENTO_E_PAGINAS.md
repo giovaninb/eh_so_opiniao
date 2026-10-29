@@ -22,7 +22,9 @@ Como cada caso ganha um endereço estável com prévia própria em redes sociais
 
 ## Imagem para Status e Stories
 
-Na página de cada frase, "Imagem para Status ou Stories" gera no aparelho, em `canvas`, um PNG de **1080×1920** (Stories/Status) ou **1200×630** (prévia). A miniatura na tela é menor de propósito: no celular, copiar a imagem da página pega o arquivo cheio e o recorte visual, e o WhatsApp recebe duas imagens. Use **Salvar imagem**, **Copiar imagem** ou **Compartilhar imagem**. O compartilhamento manda só o arquivo, sem o texto do link, para o WhatsApp não anexar também a prévia da página. Traz "Exemplo fictício · conteúdo educativo", a pergunta, o endereço curto do caso e o nome do projeto. Nenhum serviço externo é usado; frases com aviso de conteúdo não aparecem na imagem, e o texto alternativo diz isso.
+Na página de cada frase, "Imagem para Status ou Stories" gera no aparelho, em `canvas`, um PNG de **1080×1920** (Stories/Status) ou **1200×630** (prévia). A miniatura na tela é menor de propósito: no celular, copiar a imagem da página pega o arquivo cheio e o recorte visual, e o WhatsApp recebe duas imagens. Use **Salvar imagem**, **Copiar imagem** ou **Compartilhar imagem**. O compartilhamento manda só o arquivo. O cartão é autônomo: traz a frase, "Exemplo fictício · conteúdo educativo" e o crédito **CC BY 4.0 · Giovani Bettoni** com `linkedin.com/in/giovani-bettoni`. Não leva o endereço do GitHub. Frases com aviso de conteúdo não aparecem na imagem, e o texto alternativo diz isso.
+
+Nas comparações, o Stories empilha as duas frases e preenche o meio com o texto editorial **O que muda**. A prévia 1200×630 põe as frases lado a lado, compactas, e o mesmo texto embaixo. O `limite` (o que a comparação não prova) não entra na imagem: continua só no site, depois de "Ver o que muda".
 
 ## Duas frases, uma diferença
 

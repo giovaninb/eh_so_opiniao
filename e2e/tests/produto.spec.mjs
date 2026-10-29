@@ -84,7 +84,7 @@ test.describe("duas frases, uma diferença", () => {
     expect(m).toMatch(/\/comparar\/p-03\/$/);
   });
 
-  test("a comparação gera Stories 1080×1920 e prévia 1200×630, com as duas frases e sem a leitura editorial", async ({ page }) => {
+  test("a comparação gera Stories 1080×1920 e prévia 1200×630, com as duas frases e o que muda", async ({ page }) => {
     await abrir(page, "#/comparar/p-01");
     const secao = page.locator("#v-comparar section.compartilhar");
     await secao.locator("details.imagem-cartao summary").click();
@@ -94,7 +94,9 @@ test.describe("duas frases, uma diferença", () => {
     const alt = await img.getAttribute("alt");
     expect(alt).toMatch(/esquerda/i);
     expect(alt).toMatch(/direita/i);
-    expect(alt).not.toMatch(/critério de leitura|não demonstra/i);
+    expect(alt).toMatch(/grupo político|mesma estrutura/i);
+    expect(alt).toMatch(/CC BY 4\.0 · Giovani Bettoni/);
+    expect(alt).not.toMatch(/não demonstra que alguém tenha sido efetivamente impedido|giovaninb\.github/i);
     const [download] = await Promise.all([page.waitForEvent("download"), secao.getByRole("link", { name: "Salvar imagem" }).click()]);
     expect(download.suggestedFilename()).toBe("eh-so-opiniao-p-01-stories.png");
     const bytes = readFileSync(await download.path());

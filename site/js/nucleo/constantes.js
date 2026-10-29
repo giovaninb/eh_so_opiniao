@@ -18,6 +18,13 @@ export const NATUREZA = {
   contribuicao: { rotulo: "Contribuição de visitante", aviso: "Esta frase foi enviada por um visitante e reescrita por uma pessoa da equipe para não identificar ninguém." },
 };
 
+export const AUTORIA = {
+  nome: "Giovani Bettoni",
+  licenca: "CC BY 4.0",
+  linha: "CC BY 4.0 · Giovani Bettoni",
+  linkedin: "linkedin.com/in/giovani-bettoni",
+};
+
 export const LIMITE_MIN = 10;
 export const LIMITE_MAX = 280;
 export const TAMANHO_SESSAO = 5;

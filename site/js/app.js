@@ -8,7 +8,7 @@ import { inicio, mostrarAtalhosComparar } from "./visoes/inicio.js";
 import { descobrir } from "./visoes/descobrir.js";
 import { explorar } from "./visoes/explorar.js";
 import { frase } from "./visoes/frase.js";
-import { comparar } from "./visoes/comparar.js?v=6";
+import { comparar } from "./visoes/comparar.js?v=7";
 import { participar } from "./visoes/participar.js";
 import { entender, pesquisa } from "./visoes/saibaMais.js";
 
