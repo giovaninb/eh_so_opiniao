@@ -4,6 +4,7 @@ import { el, idUnico, focar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { AVALIACOES, NOME_AVALIACAO, LEITURA_HUMANA, NATUREZA } from "../nucleo/constantes.js";
 import { Enquete } from "./enquete.js";
+import { Compartilhar } from "./compartilhar.js";
 
 function nomeTema(f) {
   const t = estado.temas.find((x) => x.id === f.tema);
@@ -45,7 +46,6 @@ export function Revelacao(f, valor, { rotuloProxima, aoProxima } = {}) {
   item("Rótulos da revisão", f.rotulos && f.rotulos.length ? el("span", { text: f.rotulos.map((r) => r.nome).join(" · ") }) : null);
   const acoes = el("div", { class: "passo-seguinte" });
   if (aoProxima) acoes.append(el("button", { type: "button", class: "botao", text: rotuloProxima || "Próxima frase", onclick: aoProxima }));
-  acoes.append(BotaoCompartilhar(f));
   const caixa = el("div", { class: "revelacao" }, [
     titulo,
     el("p", { class: "sua-leitura", text: sua }),
@@ -57,21 +57,6 @@ export function Revelacao(f, valor, { rotuloProxima, aoProxima } = {}) {
     acoes,
   ]);
   return { elemento: caixa, titulo };
-}
-
-function BotaoCompartilhar(f) {
-  const url = `${location.origin}${location.pathname}#/frase/${encodeURIComponent(f.id)}`;
-  const retorno = el("span", { class: "pequeno suave", role: "status" });
-  const botao = el("button", { type: "button", class: "botao botao-claro", text: "Compartilhar esta frase" });
-  botao.addEventListener("click", async () => {
-    try {
-      if (navigator.share) await navigator.share({ title: "É Só Opinião?", url });
-      else { await navigator.clipboard.writeText(url); retorno.textContent = "Link copiado."; }
-    } catch (e) {
-      if (!e || e.name !== "AbortError") retorno.textContent = `Copie o link: ${url}`;
-    }
-  });
-  return el("div", {}, [botao, retorno]);
 }
 
 /**
@@ -112,6 +97,7 @@ export function CartaoFrase(f, opcoes = {}) {
     el("div", { class: "opcoes", role: "group", "aria-labelledby": idPergunta }, botoes),
     acoes,
     slot,
+    Compartilhar(f),
   ]);
   if (respostaAtual()) mostrarRevelacao(respostaAtual());
   return { elemento, focar: () => focar(elemento) };

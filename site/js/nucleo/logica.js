@@ -73,3 +73,15 @@ export function proximaFrase(ids, idAtual) {
   const i = ids.indexOf(idAtual);
   return ids[(i + 1) % ids.length];
 }
+
+/** Texto do convite para compartilhar uma frase. Tom de pergunta, sem apontar ninguém e sem dizer o que a pessoa "é". */
+export function mensagemCompartilhar(frase, url) {
+  const limite = 200;
+  const t = (frase.texto || "").trim();
+  const citacao = t.length > limite ? `${t.slice(0, limite - 1).trimEnd()}…` : t;
+  return `Onde você coloca a linha entre opinião e discriminação? Fiquei pensando nesta frase de exemplo: “${citacao}” Leia e diga como você interpreta: ${url}`;
+}
+
+export function linkWhatsApp(mensagem) {
+  return `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+}

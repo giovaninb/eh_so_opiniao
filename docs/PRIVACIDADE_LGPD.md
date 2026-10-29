@@ -59,3 +59,7 @@ Detalhes em [PARTICIPACAO.md](PARTICIPACAO.md).
 
 - Confirmar a anonimização das frases reais antes de aprovar.
 - Conferir os termos de uso de cada dataset antes de qualquer uso diferente do atual (pesquisa e educação sem fins comerciais).
+
+## Compartilhar uma frase
+
+Cada frase tem os botões "Compartilhar" (menu do celular), "WhatsApp" e "Copiar mensagem". A mensagem é um convite em forma de pergunta ("Onde você coloca a linha entre opinião e discriminação?"), com a frase de exemplo e o link direto; não rotula ninguém. Nada é enviado, medido ou guardado pelo site: o link do WhatsApp só abre quando a pessoa toca no botão, e o destino é o próprio WhatsApp (que tem a política dele). Frases em rascunho local não mostram esses botões.
