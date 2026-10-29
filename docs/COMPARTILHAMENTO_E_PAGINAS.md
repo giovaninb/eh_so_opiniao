@@ -27,7 +27,7 @@ Na página de cada frase, "Imagem para Status ou Stories" gera no aparelho, em `
 ## Duas frases, uma diferença
 
 - Pares em `casos/pares.yaml` (13 propostas, P-01..P-13). Cada um aponta para duas frases já existentes e traz um texto editorial `diferenca` e um `limite` (o que a comparação **não** prova). Os títulos não revelam a leitura.
-- **Nenhum par está aprovado.** Um par só vai ao site com revisão humana do par **e** as duas frases publicadas:
+- Os 13 pares foram revisados e aprovados por Giovani Bettoni em 2026-10-29 (`casos/pares_revisao.json`). Um par só vai ao site com revisão humana do par **e** as duas frases publicadas:
   `python -m eh_so_opiniao pares listar` · `pares aprovar --id P-03 --revisor NOME` · `pares retirar --id P-03` · depois `python -m eh_so_opiniao site`.
 - No celular as frases ficam empilhadas; a partir de 720 px, lado a lado. A leitura de cada frase abre em `<details>`; a diferença só aparece ao tocar "Ver o que muda". Cada par tem URL (`#/comparar/p-03`) e página estática (`/comparar/p-03/`, com Open Graph). Sem pares revisados, o atalho some e a rota explica por quê.
 
@@ -66,7 +66,7 @@ Testes novos: `tests/test_eso_paginas.py` (17), `e2e/tests/produto.spec.mjs`. Os
 
 ## Pendências (precisam de pessoas ou de decisão)
 
-- **Revisão dos 13 pares** (os 423 NX-* já foram decididos).
+- Nada pendente de revisão editorial: os 423 NX-* e os 13 pares já foram decididos.
 - **Páginas temáticas indexáveis** (capacitismo, bifobia, etarismo, racismo velado, transfobia, "crítica × generalização", expressões do dia a dia, monogamia × não monogamia consensual × infidelidade): exigem texto editorial e referências revisados. Não foram escritas para não publicar conteúdo sem revisão nem criar páginas quase duplicadas.
 - **QR code**: não implementado para evitar dependência; qualquer gerador externo serve para os endereços `/casos/<id>/`, e a página estática é a melhor página de destino.
 - "Já ouvi isso" (busca por expressão) e filtros por ambiente do dia a dia: dependem de metadados extras por frase.

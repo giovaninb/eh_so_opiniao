@@ -31,7 +31,7 @@ Contagens atuais, separadas (a fila local não é versionada):
 | Publicados em `site/data/` | 575 (os 15 ambíguos sem permissão de publicação ficam de fora) |
 | Pendentes de revisão | 0 |
 | Páginas estáticas de caso | 575 (uma por caso publicado, em `site/casos/<id>/`) |
-| Comparações ("Duas frases, uma diferença") | 13 propostas em `casos/pares.yaml`; 0 revisadas, 0 publicadas |
+| Comparações ("Duas frases, uma diferença") | 13 em `casos/pares.yaml`; 13 revisadas por Giovani Bettoni em 2026-10-29 e publicadas |
 
 Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 169 anteriores já foram decididos; os 423 NX-001 a NX-423 foram decididos em 2026-10-29). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
 

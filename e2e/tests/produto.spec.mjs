@@ -182,6 +182,22 @@ test.describe("páginas estáticas de caso (dados reais publicados)", () => {
     await expect(page.locator(".cartao-frase .frase")).toContainText("Gente do interior");
   });
 
+  test("cada comparação revisada tem página estática com Open Graph e leva à versão interativa", async ({ browser, baseURL, page, request }) => {
+    const pares = (await (await request.get("/data/pares.json")).json()).pares;
+    expect(pares.length).toBeGreaterThan(0);
+    const ctx = await browser.newContext({ javaScriptEnabled: false, baseURL });
+    const estatica = await ctx.newPage();
+    await estatica.goto(`/comparar/${pares[0].slug}/`);
+    await expect(estatica.locator('meta[property="og:title"]')).toHaveAttribute("content", /.+/);
+    await expect(estatica.locator('link[rel="canonical"]')).toHaveAttribute("href", new RegExp(`/comparar/${pares[0].slug}/$`));
+    await expect(estatica.locator("blockquote.frase")).toHaveCount(2);
+    await ctx.close();
+    await page.goto(`/comparar/${pares[0].slug}/`);
+    await page.waitForURL(new RegExp(`#/comparar/${pares[0].slug}$`));
+    await page.waitForFunction(() => document.documentElement.dataset.pronto === "true");
+    await expect(page.locator(".carta-par")).toHaveCount(2);
+  });
+
   test("a imagem padrão de prévia existe e tem 1200×630", async ({ request }) => {
     const r = await request.get("/og/padrao.png");
     expect(r.ok()).toBeTruthy();
@@ -193,8 +209,12 @@ test.describe("páginas estáticas de caso (dados reais publicados)", () => {
     const sm = await (await request.get("/sitemap.xml")).text();
     const ids = (await (await request.get("/data/frases.json")).json()).frases.map((f) => f.id.toLowerCase());
     const urls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    expect(urls.length).toBe(ids.length + 1);
-    for (const u of urls.slice(1)) expect(ids).toContain(u.replace(/\/$/, "").split("/").pop());
+    const pares = (await (await request.get("/data/pares.json")).json()).pares.map((p) => p.slug);
+    expect(urls.length).toBe(ids.length + 1 + pares.length);
+    for (const u of urls.slice(1)) {
+      const [pasta, slug] = u.replace(/\/$/, "").split("/").slice(-2);
+      expect(pasta === "comparar" ? pares : ids).toContain(slug);
+    }
     expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
   });
 

@@ -133,7 +133,8 @@ def test_paginas_do_site_real_batem_com_o_que_esta_publicado():
     historico = {i.lower() for i in json.loads((paths.CASOS / "registro_publicacao.json").read_text(encoding="utf-8"))["casos"]}
     assert {i.lower() for i in publicadas} <= pastas and pastas == historico
     sm = (paths.SITE / "sitemap.xml").read_text(encoding="utf-8")
-    assert sm.count("<loc>") == len(publicadas) + 1
+    n_pares = len(json.loads((paths.SITE / "data" / "pares.json").read_text(encoding="utf-8"))["pares"])
+    assert sm.count("<loc>") == len(publicadas) + 1 + n_pares
     for i in publicadas:
         h = (paths.SITE / "casos" / i.lower() / "index.html").read_text(encoding="utf-8")
         assert "noindex" not in h and f"/casos/{i.lower()}/" in sm
@@ -186,7 +187,13 @@ def test_aprovar_par_exige_revisor_e_nao_aprova_sozinho(tmp_path):
     assert pares.revisoes(arq) == {}
 
 
-def test_nenhum_par_aprovado_automaticamente_no_repositorio():
-    assert pares.revisoes() == {}, "pares só podem ser aprovados por uma pessoa (python -m eh_so_opiniao pares aprovar)"
-    publicado = json.loads((paths.SITE / "data" / "pares.json").read_text(encoding="utf-8"))
-    assert publicado == {"pares": []}
+def test_todo_par_publicado_tem_revisor_humano_e_frases_publicadas():
+    rev = pares.revisoes()
+    publicado = json.loads((paths.SITE / "data" / "pares.json").read_text(encoding="utf-8"))["pares"]
+    frases = {f["id"] for f in json.loads((paths.SITE / "data" / "frases.json").read_text(encoding="utf-8"))["frases"]}
+    por_id = {p["id"]: p for p in pares.carregar()}
+    assert {p["id"] for p in publicado} <= set(rev), "par só vai ao site com revisão humana registrada"
+    for p in publicado:
+        assert rev[p["id"]]["revisor"].strip() and p["a"] in frases and p["b"] in frases
+        assert p["diferenca"] == por_id[p["id"]]["diferenca"], "site desatualizado em relação a casos/pares.yaml: rode `site`"
+        assert (paths.SITE / "comparar" / p["slug"] / "index.html").exists()

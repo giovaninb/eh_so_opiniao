@@ -1,3 +1,121 @@
 {
-  "pares": []
+  "pares": [
+    {
+      "id": "P-01",
+      "slug": "p-01",
+      "titulo": "Mesma frase, lados trocados",
+      "a": "EX-32",
+      "b": "EX-33",
+      "diferenca": "As frases mantêm a mesma estrutura e trocam apenas o grupo político citado. Ambas desqualificam pessoas em razão de sua posição política e defendem afastá-las de oportunidades de trabalho. O critério de leitura é o mesmo para esquerda e direita; discordar de ideias não exige negar valor ou oportunidades a quem pensa diferente.",
+      "limite": "A comparação não define qual posição política está correta, não demonstra que alguém tenha sido efetivamente impedido de trabalhar e não comprova, por si só, a ocorrência de assédio eleitoral em um caso real."
+    },
+    {
+      "id": "P-02",
+      "slug": "p-02",
+      "titulo": "Duas afirmações sobre trabalho",
+      "a": "EX-48",
+      "b": "EX-04",
+      "diferenca": "A primeira relata insatisfação com um atendimento e critica a conduta de um gerente. A segunda atribui preguiça a pessoas de toda uma região e usa essa generalização para defender sua exclusão da contratação. As situações também são diferentes: uma avalia um serviço; outra propõe um critério de seleção de pessoas.",
+      "limite": "A comparação não mostra que toda crítica a serviços ou a práticas regionais seja preconceituosa. Também não permite concluir que houve discriminação efetiva em uma contratação: a segunda frase expressa uma justificativa excludente, mas não descreve um ato comprovado."
+    },
+    {
+      "id": "P-03",
+      "slug": "p-03",
+      "titulo": "Interior em duas frases",
+      "a": "EX-146",
+      "b": "EX-01",
+      "diferenca": "A primeira expressa satisfação com a vida no interior e usa a expressão coloquial “todo mundo se conhece”, uma generalização positiva que não deve ser tomada literalmente. A segunda atribui atraso e incapacidade tecnológica, de forma depreciativa, às pessoas do interior em geral.",
+      "limite": "Uma impressão pessoal não representa todos os municípios do interior. Nem toda generalização tem o mesmo sentido ou efeito: aqui, a diferença relevante está na desqualificação das pessoas, e não apenas no uso de expressões amplas."
+    },
+    {
+      "id": "P-04",
+      "slug": "p-04",
+      "titulo": "Vozes no debate público",
+      "a": "EX-50",
+      "b": "EX-139",
+      "diferenca": "A primeira discorda de um projeto de lei e afirma a intenção de se manifestar junto a um representante eleito. A segunda pretende negar a eleitores de um partido o direito de opinar. A diferença está entre participar do debate sobre uma proposta e excluir pessoas desse debate em razão de sua escolha política.",
+      "limite": "A comparação não indica qual partido ou projeto de lei está correto, nem permite inferir a preferência eleitoral de quem analisa as frases. A segunda frase defende uma exclusão discursiva; isso não comprova que uma restrição de direitos tenha ocorrido."
+    },
+    {
+      "id": "P-05",
+      "slug": "p-05",
+      "titulo": "Uma lei e uma família",
+      "a": "EX-93",
+      "b": "EX-88",
+      "diferenca": "A primeira expressa discordância de um projeto de lei não identificado, ao mesmo tempo que declara respeito ao direito de casais se casarem. A segunda desqualifica diretamente uma família formada por dois homens, chamando-a de imitação. São afirmações de naturezas diferentes: uma trata de posicionamento sobre uma proposta; a outra, de legitimidade familiar.",
+      "limite": "Como o projeto de lei não foi especificado, não é possível concluir qual política a primeira pessoa defende ou rejeita. A comparação não prova que toda discordância legislativa seja discriminatória, nem estabelece uma conclusão jurídica sobre a segunda frase isolada."
+    },
+    {
+      "id": "P-06",
+      "slug": "p-06",
+      "titulo": "Palavras sobre religião",
+      "a": "EX-102",
+      "b": "EX-100",
+      "diferenca": "A primeira discorda de uma doutrina religiosa e afirma respeitar seus seguidores. A segunda atribui hipocrisia e ignorância a todas as pessoas católicas, sem considerar diferenças individuais. A crítica a crenças ou instituições não é equivalente à desqualificação indiscriminada de seus fiéis.",
+      "limite": "A comparação não decide qual crença é verdadeira nem impede críticas firmes a organizações e líderes religiosos. Também não permite determinar, sozinha, a configuração jurídica de intolerância em uma situação concreta."
+    },
+    {
+      "id": "P-07",
+      "slug": "p-07",
+      "titulo": "Duas visões da escola",
+      "a": "EX-113",
+      "b": "EX-108",
+      "diferenca": "A primeira relata que uma estudante autista realizou provas adaptadas e teve bom desempenho. A segunda presume incapacidade e antecipa que uma pessoa autista não poderia ter uma “vida normal” ou frequentar escola comum. O contraste é entre considerar necessidades concretas e impor limites baseados em um estereótipo.",
+      "limite": "O caso positivo não comprova que uma adaptação isolada tenha causado o desempenho nem que todas as pessoas autistas precisem dos mesmos recursos. Decisões educacionais devem considerar cada estudante e seus direitos, não uma previsão genérica de incapacidade."
+    },
+    {
+      "id": "P-08",
+      "slug": "p-08",
+      "titulo": "Duas frases sobre liderança",
+      "a": "EX-122",
+      "b": "EX-117",
+      "diferenca": "A primeira descreve uma mulher como “dura” em reuniões e sugere uma motivação que não está demonstrada. Pode ser uma avaliação individual de conduta ou refletir uma expectativa diferente para mulheres, dependendo do contexto. A segunda faz uma generalização explícita sobre mulheres e a utiliza para questionar sua aptidão para chefiar.",
+      "limite": "Sem conhecer situações semelhantes, histórico de tratamento e intenção comunicativa, não se pode classificar a primeira fala com segurança. A comparação tampouco demonstra que toda crítica à atuação de uma mulher tenha motivação sexista."
+    },
+    {
+      "id": "P-09",
+      "slug": "p-09",
+      "titulo": "O alvo das palavras",
+      "a": "EX-45",
+      "b": "EX-43",
+      "diferenca": "A primeira usa um insulto dirigido a um motorista, ligado a uma conduta específica no trânsito. A segunda chama um conjunto de pessoas de “bicho”, expressão que desumaniza o grupo referido. Ambas podem ser agressivas, mas a segunda desloca o ataque do comportamento de alguém para a humanidade de um coletivo.",
+      "limite": "A palavra “povo”, sem contexto, não identifica qual grupo está sendo atacado nem permite afirmar discriminação por característica protegida. A comparação não torna o insulto individual aceitável e não estabelece, por si, enquadramento jurídico de qualquer frase."
+    },
+    {
+      "id": "P-10",
+      "slug": "p-10",
+      "titulo": "Uma situação em uma loja",
+      "a": "EX-78",
+      "b": "EX-16",
+      "diferenca": "A primeira frase é o relato de alguém que interpreta ter sido seguido na loja em razão de ser negro e afirma querer denunciar. A segunda atribui suspeição à aparência racializada de uma pessoa e recomenda vigilância. Relatar uma experiência de discriminação e defender uma prática de vigilância baseada na aparência são atos de fala distintos.",
+      "limite": "O relato, isoladamente, não comprova a motivação do segurança nem dispensa apuração; a segunda frase não documenta o mesmo episódio. A comparação analisa o conteúdo das falas, não verifica fatos ocorridos em uma loja específica."
+    },
+    {
+      "id": "P-11",
+      "slug": "p-11",
+      "titulo": "Duas afirmações sobre racismo",
+      "a": "EX-79",
+      "b": "EX-73",
+      "diferenca": "A primeira menciona um resultado atribuído a uma pesquisa sobre remuneração de pessoas negras e brancas; para usá-lo como dado factual, é necessário identificar a fonte e verificar o que foi comparado. A segunda minimiza o racismo e atribui interesse em obter vantagens às pessoas que o relatam, sem examinar seus casos ou argumentos.",
+      "limite": "A comparação não comprova a diferença salarial alegada na primeira frase sem referência, amostra, período e método. Questionar uma pesquisa com evidências é legítimo; isso não é o mesmo que atribuir má-fé indiscriminadamente a quem relata racismo."
+    },
+    {
+      "id": "P-12",
+      "slug": "p-12",
+      "titulo": "Relacionamentos em perspectiva",
+      "a": "NX-241",
+      "b": "NX-231",
+      "diferenca": "A primeira declara uma preferência pessoal pela monogamia e afirma respeito por quem estabelece outros acordos. A segunda associa pessoas não monogâmicas à falta de princípios e afirma que não merecem respeito. A distinção está entre escolher como viver uma relação e desqualificar moralmente outras pessoas pelo modelo de relacionamento consensual.",
+      "limite": "A comparação não demonstra que todo relacionamento, monogâmico ou não, seja saudável ou respeite acordos. Também não impede críticas a comportamentos específicos, como mentiras e violações de consentimento, nem estabelece uma conclusão jurídica a partir da frase isolada."
+    },
+    {
+      "id": "P-13",
+      "slug": "p-13",
+      "titulo": "Conversas sobre acessibilidade",
+      "a": "NX-154",
+      "b": "NX-118",
+      "diferenca": "A primeira propõe perguntar diretamente à pessoa com deficiência sobre adaptações de que possa precisar. A segunda orienta ignorar sua manifestação e falar apenas com o acompanhante por conveniência. O contraste envolve reconhecer a pessoa como interlocutora e presumir que outra pessoa deve falar por ela.",
+      "limite": "A comparação não significa que acompanhantes ou apoios à comunicação sejam inadequados: podem ser solicitados pela própria pessoa ou necessários em situações específicas. O ponto é não substituir automaticamente sua vontade ou participação sem considerar suas preferências e necessidades."
+    }
+  ]
 }
