@@ -198,13 +198,14 @@ test.describe("páginas estáticas de caso (dados reais publicados)", () => {
     expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
   });
 
-  test("caso ainda não publicado (pendente) não tem página: 404, nunca conteúdo", async ({ request }) => {
-    for (const id of ["nx-001", "nx-326", "nx-423"]) {
-      const r = await request.get(`/casos/${id}/`);
-      expect(r.status()).toBe(404);
-    }
+  test("caso que não foi publicado (pendente, rejeitado ou ambíguo sem permissão) não tem página: 404, nunca conteúdo", async ({ request }) => {
+    const publicados = new Set((await (await request.get("/data/frases.json")).json()).frases.map((f) => f.id));
+    const todos = JSON.parse(readFileSync(new URL("../.dados/frases.json", import.meta.url))).frases.map((f) => f.id);
+    const fora = todos.filter((id) => !publicados.has(id));
+    expect(fora.length).toBeGreaterThan(0);
+    for (const id of fora.slice(0, 25)) expect((await request.get(`/casos/${id.toLowerCase()}/`)).status(), id).toBe(404);
     const frases = (await (await request.get("/data/frases.json")).json()).frases;
-    expect(frases.some((f) => /^NX-/.test(f.id))).toBe(false); // nada de NX publicado sem aprovação humana
+    for (const f of frases) expect(["Aprovado", "Corrigido", "Ambíguo"], f.id).toContain(f.revisao.estado); // nada sem decisão humana
   });
 
   test("dados públicos não vazam revisor, corpus, rótulos humanos nem feedback", async ({ request }) => {

@@ -27,13 +27,13 @@ Contagens atuais, separadas (a fila local não é versionada):
 | Etapa | Quantidade |
 |---|---|
 | Criados (arquivos YAML e JSONL) | 592 (169 anteriores + 247 do catálogo consolidado NX-001..247 + 176 da [expansão 2026-10](EXPANSAO_GENERO_IDADISMO_RELIGIAO_TRANS.md)) |
-| Revisados por uma pessoa (decididos) | 169 (158 aprovados em lote pelo revisor após ler a folha compacta) |
-| Publicados em `site/data/` | 169 |
-| Pendentes de revisão | 423 (NX-001 a NX-423; nenhum aprovado ou publicado) |
-| Páginas estáticas de caso | 169 (uma por caso publicado, em `site/casos/<id>/`) |
+| Revisados por uma pessoa (decididos) | 592 (169 anteriores + 423 NX-001..423 decididos por Giovani Bettoni em 2026-10-29: 347 aprovados, 30 corrigidos, 46 marcados ambíguos) |
+| Publicados em `site/data/` | 575 (os 15 ambíguos sem permissão de publicação ficam de fora) |
+| Pendentes de revisão | 0 |
+| Páginas estáticas de caso | 575 (uma por caso publicado, em `site/casos/<id>/`) |
 | Comparações ("Duas frases, uma diferença") | 13 propostas em `casos/pares.yaml`; 0 revisadas, 0 publicadas |
 
-Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 169 anteriores já foram decididos; os 423 NX-001 a NX-423 aguardam revisão). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
+Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 169 anteriores já foram decididos; os 423 NX-001 a NX-423 foram decididos em 2026-10-29). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
 
 ```bash
 cd eh_so_opiniao

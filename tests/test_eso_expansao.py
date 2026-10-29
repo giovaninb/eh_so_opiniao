@@ -96,9 +96,12 @@ def test_nada_da_expansao_e_publicado_sem_aprovacao(conn):
     assert "NX-250" in ids and "NX-251" not in ids
 
 
-def test_nenhuma_frase_da_expansao_esta_aprovada_no_site_publicado():
+def test_toda_frase_nx_publicada_passou_por_decisao_humana():
     publicadas = json.loads((paths.RAIZ / "site" / "data" / "frases.json").read_text(encoding="utf-8"))["frases"]
-    assert not any(f["id"].startswith("NX-") for f in publicadas), "NX-* só pode estar no site depois de revisão humana"
+    nx = [f for f in publicadas if f["id"].startswith("NX-")]
+    assert all(f["revisao"]["por_humano"] and f["revisao"]["estado"] in ("Aprovado", "Corrigido", "Ambíguo") for f in nx), \
+        "NX-* só pode estar no site depois de revisão humana"
+    assert not any(f["revisao"]["estado"] == "RASCUNHO" for f in publicadas)
 
 
 @pytest.mark.parametrize("mudanca", [{"estado_revisao": "Aprovado"}, {"pode_publicar": True}])

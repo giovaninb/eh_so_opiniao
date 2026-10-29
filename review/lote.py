@@ -18,6 +18,7 @@ from typing import Any, Callable
 from .. import registry
 from . import store
 
+SEM_DISCRIMINACAO = "sem_discriminacao"  # em rotulos_finais: a leitura final é "sem discriminação" (tipo nao_discriminatoria)
 DECISOES = {"aprovar": store.aprovar, "rejeitar": store.rejeitar, "ambiguo": store.marcar_ambiguo, "corrigir": None}
 COLUNAS_COMPACTAS = ["id", "tema", "tipo", "texto", "rotulos_propostos", "decisao", "rotulos_finais", "nota"]
 NOTA_APROVACAO_EM_LOTE = "aprovada em lote pelo revisor após ler a folha compacta (sem decisão item a item)"
@@ -70,7 +71,7 @@ def validar(conn, decisoes: list[dict[str, str]], reabrir: bool = False) -> tupl
             continue  # linha não decidida: fica Pendente
         iid = d.get("id", "")
         onde = f"linha {n} ({iid or 'sem id'})"
-        linha = conn.execute("SELECT estado, origem FROM itens WHERE id = ?", (iid,)).fetchone()
+        linha = conn.execute("SELECT estado, origem, tipo FROM itens WHERE id = ?", (iid,)).fetchone()
         if acao not in DECISOES:
             erros.append(f"{onde}: decisão inválida '{acao}' (use aprovar, rejeitar, ambiguo ou corrigir)")
         elif linha is None:
@@ -85,13 +86,25 @@ def validar(conn, decisoes: list[dict[str, str]], reabrir: bool = False) -> tupl
             erros.append(f"{onde}: '{acao}' exige justificativa na coluna nota")
         else:
             rotulos = [r.strip() for r in d.get("rotulos_finais", "").replace(";", ",").split(",") if r.strip()]
+            sem_disc = acao == "corrigir" and SEM_DISCRIMINACAO in rotulos
+            if sem_disc:  # a leitura final é "sem discriminação": nenhum rótulo de discriminação
+                if rotulos != [SEM_DISCRIMINACAO]:
+                    erros.append(f"{onde}: '{SEM_DISCRIMINACAO}' não pode vir junto de outros rótulos")
+                    vistos.add(iid)
+                    continue
+                rotulos = []
             invalidos = [r for r in rotulos if r not in tax]
-            if acao == "corrigir" and not rotulos:
+            if acao == "corrigir" and not rotulos and not sem_disc:
                 erros.append(f"{onde}: 'corrigir' exige rotulos_finais")
             elif invalidos:
                 erros.append(f"{onde}: rótulos fora da taxonomia {invalidos}")
             else:
-                validas.append({"id": iid, "decisao": acao, "rotulos": rotulos, "nota": d.get("nota") or None})
+                tipo = None
+                if sem_disc:
+                    tipo = "nao_discriminatoria"
+                elif acao == "corrigir" and linha["tipo"] == "ambigua" and any(tax[r]["tipo"] != "salvaguarda" for r in rotulos):
+                    tipo = "exclusao"  # a pessoa fixou um rótulo de discriminação: a leitura deixa de ser ambígua
+                validas.append({"id": iid, "decisao": acao, "rotulos": rotulos, "nota": d.get("nota") or None, "tipo": tipo})
         vistos.add(iid)
     return validas, erros
 
@@ -120,7 +133,7 @@ def aplicar_folha(conn, caminho: Path, revisor: str, simular: bool = False, reab
     if not simular:
         for d in validas:
             if d["decisao"] == "corrigir":
-                store.corrigir(conn, d["id"], revisor, d["rotulos"], d["nota"])
+                store.corrigir(conn, d["id"], revisor, d["rotulos"], d["nota"], d.get("tipo"))
             else:
                 DECISOES[d["decisao"]](conn, d["id"], revisor, d["nota"])
         for iid in restantes:

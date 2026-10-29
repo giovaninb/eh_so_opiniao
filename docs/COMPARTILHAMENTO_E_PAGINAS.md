@@ -45,7 +45,7 @@ Medições de **2026-10-29**, neste Mac (Playwright 1.x com Chromium, WebKit e F
 
 | Verificação | Resultado |
 |---|---|
-| `pytest` | 260 passaram, 0 falharam |
+| `pytest` | 265 passaram, 0 falharam |
 | Playwright funcional (chromium-movel/Pixel 7, webkit-movel/iPhone 13, firefox-movel, chromium-desktop) | 905 passaram, 0 falharam, 7 ignorados (cenários só de desktop ou só de celular) |
 | Visual (390 px de base + 360/430/768/1440) | 64 passaram, 1 ignorado |
 | Larguras exercidas nas telas novas | 320, 360, 375, 390, 430, 768, 1024, 1440 (sem rolagem horizontal; alvos ≥ 44 px) |
@@ -66,7 +66,7 @@ Testes novos: `tests/test_eso_paginas.py` (17), `e2e/tests/produto.spec.mjs`. Os
 
 ## Pendências (precisam de pessoas ou de decisão)
 
-- **Revisão** dos 423 NX-* Pendentes e dos 13 pares.
+- **Revisão dos 13 pares** (os 423 NX-* já foram decididos).
 - **Páginas temáticas indexáveis** (capacitismo, bifobia, etarismo, racismo velado, transfobia, "crítica × generalização", expressões do dia a dia, monogamia × não monogamia consensual × infidelidade): exigem texto editorial e referências revisados. Não foram escritas para não publicar conteúdo sem revisão nem criar páginas quase duplicadas.
 - **QR code**: não implementado para evitar dependência; qualquer gerador externo serve para os endereços `/casos/<id>/`, e a página estática é a melhor página de destino.
 - "Já ouvi isso" (busca por expressão) e filtros por ambiente do dia a dia: dependem de metadados extras por frase.

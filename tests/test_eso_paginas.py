@@ -139,7 +139,8 @@ def test_paginas_do_site_real_batem_com_o_que_esta_publicado():
         assert "noindex" not in h and f"/casos/{i.lower()}/" in sm
     for retirada in pastas - {i.lower() for i in publicadas}:
         assert "noindex" in (paths.SITE / "casos" / retirada / "index.html").read_text(encoding="utf-8")
-    assert not any(p.startswith("nx-") for p in pastas), "NX-* só ganha página depois de revisão humana"
+    nx_com_pagina = {p for p in pastas if p.startswith("nx-")}
+    assert nx_com_pagina <= {i.lower() for i in publicadas}, "NX-* só ganha página depois de revisão humana"
 
 
 def test_nenhuma_pagina_publicada_cita_dado_de_revisao_ou_corpus():

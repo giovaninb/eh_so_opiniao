@@ -94,14 +94,24 @@ def adicionar(conn: sqlite3.Connection, item: dict[str, Any]) -> bool:
     return True
 
 
-def _mudar(conn: sqlite3.Connection, item_id: str, novo: str, revisor: str, nota: str | None, rotulos: list[str] | None = None) -> None:
+TIPOS_LEITURA = ("exclusao", "nao_discriminatoria", "ambigua")
+
+
+def _mudar(conn: sqlite3.Connection, item_id: str, novo: str, revisor: str, nota: str | None, rotulos: list[str] | None = None,
+           tipo: str | None = None) -> None:
     if novo not in ESTADOS:
         raise RevisaoInvalida(f"estado inválido: {novo}")
     if not (revisor or "").strip():
         raise RevisaoInvalida("informe o revisor: decisões anônimas não são aceitas")
-    linha = conn.execute("SELECT estado, rotulos_propostos FROM itens WHERE id = ?", (item_id,)).fetchone()
+    linha = conn.execute("SELECT estado, rotulos_propostos, tipo FROM itens WHERE id = ?", (item_id,)).fetchone()
     if linha is None:
         raise RevisaoInvalida(f"item inexistente: {item_id}")
+    if tipo is not None and tipo not in TIPOS_LEITURA:
+        raise RevisaoInvalida(f"tipo inválido: {tipo}")
+    if tipo is not None and novo != "Corrigido":
+        raise RevisaoInvalida("só uma correção pode mudar a leitura (tipo) do item")
+    if tipo is not None and tipo != linha["tipo"]:
+        nota = f"{nota or ''} [leitura alterada pelo revisor: {linha['tipo']} -> {tipo}]".strip()
     origem = conn.execute("SELECT origem FROM itens WHERE id = ?", (item_id,)).fetchone()["origem"]
     if origem == ORIGEM_VISITANTE and novo != "Rejeitado" and novo != "Pendente":
         raise RevisaoInvalida("frase de visitante: anonimize manualmente (revisao anonimizar) antes de aprovar, corrigir ou marcar como ambígua")
@@ -111,8 +121,8 @@ def _mudar(conn: sqlite3.Connection, item_id: str, novo: str, revisor: str, nota
             raise RevisaoInvalida(f"rótulos fora da taxonomia: {invalidos}")
     final = rotulos if novo == "Corrigido" else (json.loads(linha["rotulos_propostos"]) if novo == "Aprovado" else None)
     agora = _agora()
-    conn.execute("UPDATE itens SET estado=?, revisor=?, nota=?, rotulos_humanos=?, atualizado_em=? WHERE id=?",
-                 (novo, revisor.strip(), nota, None if final is None else json.dumps(final, ensure_ascii=False), agora, item_id))
+    conn.execute("UPDATE itens SET estado=?, revisor=?, nota=?, rotulos_humanos=?, atualizado_em=?, tipo=COALESCE(?, tipo) WHERE id=?",
+                 (novo, revisor.strip(), nota, None if final is None else json.dumps(final, ensure_ascii=False), agora, tipo, item_id))
     conn.execute("INSERT INTO historico (item_id, de_estado, para_estado, revisor, nota, quando) VALUES (?,?,?,?,?,?)",
                  (item_id, linha["estado"], novo, revisor.strip(), nota, agora))
     conn.commit()
@@ -130,8 +140,9 @@ def marcar_ambiguo(conn, item_id: str, revisor: str, nota: str | None = None) ->
     _mudar(conn, item_id, "Ambíguo", revisor, nota)
 
 
-def corrigir(conn, item_id: str, revisor: str, rotulos: list[str], nota: str | None = None) -> None:
-    _mudar(conn, item_id, "Corrigido", revisor, nota, rotulos)
+def corrigir(conn, item_id: str, revisor: str, rotulos: list[str], nota: str | None = None, tipo: str | None = None) -> None:
+    """Corrige os rótulos e, se `tipo` for informado, a leitura (exclusao | nao_discriminatoria | ambigua). Fica no histórico."""
+    _mudar(conn, item_id, "Corrigido", revisor, nota, rotulos, tipo)
 
 
 def anonimizar(conn, item_id: str, revisor: str, texto: str, tipo: str | None = None,
