@@ -16,14 +16,14 @@ const REPETICOES = Number(process.env.LH_REPETICOES || 3);
 
 const servidores = [
   { porta: 4181, args: [], rotulo: "dados reais de site/data" },
-  { porta: 4182, args: ["--fixture"], rotulo: "biblioteca de TESTE (79 frases)" },
+  { porta: 4182, args: ["--fixture"], rotulo: "biblioteca de TESTE (169 frases)" },
 ];
 const ALVOS = [
   { nome: "home", servidor: 4181, hash: "#/" },
   { nome: "explorar (dados reais)", servidor: 4181, hash: "#/explorar" },
   { nome: "frase", servidor: 4181, hash: "#/frase/FR-01" },
   { nome: "participar", servidor: 4181, hash: "#/participar" },
-  { nome: "explorar (79 frases, pior caso)", servidor: 4182, hash: "#/explorar" },
+  { nome: "explorar (169 frases, pior caso)", servidor: 4182, hash: "#/explorar" },
 ];
 
 const procs = servidores.map((s) => spawn("node", [join(AQUI, "servidor.mjs"), String(s.porta), ...s.args], { stdio: "ignore" }));

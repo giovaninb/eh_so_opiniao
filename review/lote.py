@@ -19,6 +19,8 @@ from .. import registry
 from . import store
 
 DECISOES = {"aprovar": store.aprovar, "rejeitar": store.rejeitar, "ambiguo": store.marcar_ambiguo, "corrigir": None}
+COLUNAS_COMPACTAS = ["id", "tema", "tipo", "texto", "rotulos_propostos", "decisao", "rotulos_finais", "nota"]
+NOTA_APROVACAO_EM_LOTE = "aprovada em lote pelo revisor após ler a folha compacta (sem decisão item a item)"
 COLUNAS = ["id", "tema", "tipo", "texto", "contexto", "mecanismo", "razoes", "muda_se", "rotulos_propostos", "sugestao_ia",
            "decisao", "rotulos_finais", "nota"]
 
@@ -28,12 +30,17 @@ def _nomes(ids: list[str]) -> str:
     return "; ".join(tax[i]["nome"] if i in tax else i for i in ids)
 
 
-def exportar_folha(conn, caminho: Path, estado: str = "Pendente") -> int:
+def exportar_folha(conn, caminho: Path, estado: str = "Pendente", compacta: bool = False) -> int:
+    """Grava a folha de revisão. `compacta`: só o essencial (id, tema, tipo, texto, rótulos propostos), ordenada por
+    tema, para ler rápido e marcar apenas o que NÃO deve ser aprovado (ver `aprovar_restantes` em `aplicar_folha`)."""
     caminho = Path(caminho)
     caminho.parent.mkdir(parents=True, exist_ok=True)
     linhas = store.listar(conn, estado)
+    if compacta:
+        linhas = sorted(linhas, key=lambda l: ((json.loads(l["editorial"]) if l["editorial"] else {}).get("tema", ""), l["id"]))
+    colunas = COLUNAS_COMPACTAS if compacta else COLUNAS
     with caminho.open("w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLUNAS)
+        w = csv.DictWriter(f, fieldnames=colunas, extrasaction="ignore")
         w.writeheader()
         for l in linhas:
             ed = json.loads(l["editorial"]) if l["editorial"] else {}
@@ -89,22 +96,42 @@ def validar(conn, decisoes: list[dict[str, str]], reabrir: bool = False) -> tupl
     return validas, erros
 
 
-def aplicar_folha(conn, caminho: Path, revisor: str, simular: bool = False, reabrir: bool = False) -> dict[str, Any]:
+def aplicar_folha(conn, caminho: Path, revisor: str, simular: bool = False, reabrir: bool = False,
+                  aprovar_restantes: bool = False) -> dict[str, Any]:
+    """Aplica a folha. Com `aprovar_restantes`, as linhas SEM decisão que ainda estão Pendentes (e não vieram de visitante)
+    são aprovadas em nome do revisor, com uma nota que registra que foi aprovação em lote. É uma decisão humana e
+    explícita: sem a flag, linha vazia continua Pendente. Frases de visitante nunca entram nisso."""
     if not (revisor or "").strip():
         raise store.RevisaoInvalida("informe o revisor: decisões anônimas não são aceitas")
-    validas, erros = validar(conn, _ler_decisoes(caminho), reabrir)
+    linhas = _ler_decisoes(caminho)
+    validas, erros = validar(conn, linhas, reabrir)
     if erros:
         return {"aplicadas": 0, "erros": erros, "simulado": simular}
+    ja = {d["id"] for d in validas}
+    restantes: list[str] = []
+    if aprovar_restantes:
+        for l in linhas:
+            iid = l.get("id", "")
+            if not iid or l.get("decisao") or iid in ja:
+                continue
+            linha = conn.execute("SELECT estado, origem FROM itens WHERE id = ?", (iid,)).fetchone()
+            if linha and linha["estado"] == "Pendente" and linha["origem"] != store.ORIGEM_VISITANTE:
+                restantes.append(iid)
     if not simular:
         for d in validas:
             if d["decisao"] == "corrigir":
                 store.corrigir(conn, d["id"], revisor, d["rotulos"], d["nota"])
             else:
                 DECISOES[d["decisao"]](conn, d["id"], revisor, d["nota"])
+        for iid in restantes:
+            store.aprovar(conn, iid, revisor, NOTA_APROVACAO_EM_LOTE)
     resumo: dict[str, int] = {}
     for d in validas:
         resumo[d["decisao"]] = resumo.get(d["decisao"], 0) + 1
-    return {"aplicadas": 0 if simular else len(validas), "previstas": resumo, "erros": [], "simulado": simular}
+    if restantes:
+        resumo["aprovar"] = resumo.get("aprovar", 0) + len(restantes)
+    return {"aplicadas": 0 if simular else len(validas) + len(restantes), "previstas": resumo, "erros": [], "simulado": simular,
+            "aprovadas_em_lote": len(restantes)}
 
 
 def interativa(conn, revisor: str, entrada: Callable[[str], str] = input, saida: Callable[[str], None] = print) -> dict[str, int]:

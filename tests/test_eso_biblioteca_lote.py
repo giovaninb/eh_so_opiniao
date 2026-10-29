@@ -237,3 +237,70 @@ def test_revisao_interativa_registra_revisor_e_permite_sair(conn):
     lote.interativa(conn, "Revisor X", entrada=lambda _: next(respostas), saida=saidas.append)
     estados = {l["id"]: l["estado"] for l in store.listar(conn)}
     assert estados["A"] == "Aprovado" and estados["B"] == "Pendente"
+
+
+# ------------------------------------------------------------------ biblioteca ampliada e revisão compacta
+def test_biblioteca_ampliada_cobre_os_temas_pedidos_com_contrapontos():
+    frases = casos.carregar_todos()["frases"]
+    assert len(frases) >= 160
+    por_rotulo = Counter(r for f in frases for r in f["rotulos_editoriais"])
+    for rotulo, minimo in (("racismo", 12), ("lgbtfobia", 12), ("intolerancia_religiosa", 8), ("capacitismo", 8), ("misoginia", 10), ("xenofobia", 8)):
+        assert por_rotulo[rotulo] >= minimo, rotulo
+    por_tipo = Counter(f["tipo"] for f in frases)
+    assert (por_tipo["nao_discriminatoria"] + por_tipo["ambigua"]) / len(frases) >= 0.3  # o outro lado da linha continua representado
+    # cada um dos temas pedidos tem também um exemplo sem discriminação ou ambíguo (pelas razões editoriais, não pelo tema)
+    textos = " ".join(f["texto"].lower() for f in frases if f["tipo"] != "exclusao")
+    for palavra in ("racismo", "gay", "religios", "cadeirante", "autista"):
+        assert palavra in textos, palavra
+
+
+def test_biblioteca_ampliada_nao_traz_texto_de_corpus_cientifico():
+    ampliada = casos.carregar((casos.paths.CASOS / "biblioteca_ampliada.yaml"))["frases"]
+    assert ampliada and {f["origem"] for f in ampliada} == {"sintetica_ilustrativa"}
+    for f in ampliada:
+        assert f.get("contexto") and f.get("muda_se") and len(f.get("razoes", [])) >= 2, f["id"]
+
+
+def test_folha_compacta_so_tem_o_essencial_e_vem_ordenada_por_tema(conn, tmp_path):
+    store.adicionar(conn, _item("B", editorial={"tema": "racismo", "contexto": "ctx", "razoes": ["a"], "muda_se": "m"}))
+    store.adicionar(conn, _item("A", editorial={"tema": "capacitismo", "contexto": "ctx", "razoes": ["a"], "muda_se": "m"}))
+    caminho = tmp_path / "c.csv"
+    assert lote.exportar_folha(conn, caminho, compacta=True) == 2
+    with caminho.open(encoding="utf-8-sig", newline="") as f:
+        linhas = list(csv.DictReader(f))
+    assert list(linhas[0]) == lote.COLUNAS_COMPACTAS and "contexto" not in linhas[0]
+    assert [l["id"] for l in linhas] == ["A", "B"]  # capacitismo antes de racismo
+
+
+def test_sem_a_flag_linha_sem_decisao_continua_pendente(conn, folha):
+    _preencher(folha, B={"decisao": "rejeitar", "nota": "não serve"})
+    r = lote.aplicar_folha(conn, folha, "Revisor X")
+    assert r["aplicadas"] == 1
+    assert {l["id"]: l["estado"] for l in store.listar(conn)} == {"A": "Pendente", "B": "Rejeitado", "C": "Pendente"}
+
+
+def test_aprovar_restantes_aprova_o_que_sobrou_com_nota_de_lote(conn, folha):
+    _preencher(folha, B={"decisao": "rejeitar", "nota": "não serve"})
+    r = lote.aplicar_folha(conn, folha, "Revisor X", aprovar_restantes=True)
+    assert r["erros"] == [] and r["aprovadas_em_lote"] == 2 and r["aplicadas"] == 3
+    assert {l["id"]: l["estado"] for l in store.listar(conn)} == {"A": "Aprovado", "B": "Rejeitado", "C": "Aprovado"}
+    hist = store.historico(conn, "A")[-1]
+    assert hist["revisor"] == "Revisor X" and "em lote" in hist["nota"]
+
+
+def test_aprovar_restantes_simulado_nao_grava_e_nunca_inclui_frase_de_visitante(conn, tmp_path):
+    store.adicionar(conn, _item("A"))
+    store.adicionar(conn, _item("V-1", origem=store.ORIGEM_VISITANTE))
+    caminho = tmp_path / "f.csv"
+    lote.exportar_folha(conn, caminho, compacta=True)
+    r = lote.aplicar_folha(conn, caminho, "R", simular=True, aprovar_restantes=True)
+    assert r["aplicadas"] == 0 and r["previstas"] == {"aprovar": 1}
+    assert {l["estado"] for l in store.listar(conn)} == {"Pendente"}
+    lote.aplicar_folha(conn, caminho, "R", aprovar_restantes=True)
+    assert {l["id"]: l["estado"] for l in store.listar(conn)} == {"A": "Aprovado", "V-1": "Pendente"}
+
+
+def test_aprovar_restantes_continua_exigindo_revisor_nomeado(conn, folha):
+    with pytest.raises(store.RevisaoInvalida):
+        lote.aplicar_folha(conn, folha, "", aprovar_restantes=True)
+    assert {l["estado"] for l in store.listar(conn)} == {"Pendente"}

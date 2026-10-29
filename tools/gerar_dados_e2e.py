@@ -2,7 +2,7 @@
 
 ATENÇÃO — isto NÃO é publicação. Usa um banco temporário descartável, aprova todos os casos com o revisor
 fictício "fixture-e2e" e grava os JSON em e2e/.dados/ (ignorado pelo Git). Serve só para os testes de interface
-exercitarem a biblioteca completa (79 casos) e a enquete com votos sintéticos. Nada daqui vai para site/data.
+exercitarem a biblioteca completa (169 casos) e a enquete com votos sintéticos. Nada daqui vai para site/data.
 O banco real (datasets/_local/revisao) nunca é tocado, e a publicação real continua exigindo decisão humana.
 
 Uso: ./.venv/bin/python tools/gerar_dados_e2e.py

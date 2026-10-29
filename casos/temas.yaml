@@ -5,6 +5,8 @@ temas:
   - {id: racismo, nome: "Racismo"}
   - {id: misoginia, nome: "Misoginia"}
   - {id: lgbtfobia, nome: "LGBTfobia"}
+  - {id: intolerancia_religiosa, nome: "Intolerância religiosa"}
+  - {id: capacitismo, nome: "Capacitismo"}
   - {id: estigmatizacao_socioeconomica, nome: "Estigma socioeconômico"}
   - {id: hostilidade_politica, nome: "Hostilidade política"}
   - {id: exclusao_territorial, nome: "Exclusão territorial"}

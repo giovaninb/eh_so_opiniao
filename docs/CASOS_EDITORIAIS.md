@@ -1,6 +1,6 @@
 # Casos editoriais (biblioteca de exemplos)
 
-A biblioteca de `casos/biblioteca_editorial.yaml` tem **68 candidatos fictícios** (`EX-01` a `EX-68`) escritos pela equipe, mais 11 frases do estudo de caso (`FR-01` a `FR-11`, já revisadas e publicadas). Os temas ficam em `casos/temas.yaml` (13 temas; é uma organização editorial para navegar, separada da taxonomia científica).
+A biblioteca tem **158 candidatos fictícios** escritos pela equipe: `casos/biblioteca_editorial.yaml` (`EX-01` a `EX-68`) e `casos/biblioteca_ampliada.yaml` (`EX-69` a `EX-158`, com foco em racismo, LGBTfobia, intolerância religiosa, capacitismo, misoginia e xenofobia, mais os contrapontos sem discriminação e ambíguos). Há ainda 11 frases do estudo de caso (`FR-01` a `FR-11`, já revisadas e publicadas). Os temas ficam em `casos/temas.yaml` (15 temas; é uma organização editorial para navegar, separada da taxonomia científica).
 
 ## Natureza e limites
 
@@ -10,7 +10,7 @@ A biblioteca de `casos/biblioteca_editorial.yaml` tem **68 candidatos fictícios
 
 ## Distribuição
 
-| Tipo | Quantidade (68 candidatos) |
+| Tipo | Quantidade (68 candidatos originais; a ampliação mantém a mesma lógica, com cerca de um terço sem discriminação ou ambíguo) |
 |---|---|
 | Discriminação / exclusão | 44 |
 | Sem discriminação (crítica legítima, humor, citação, denúncia…) | 17 |
@@ -26,12 +26,12 @@ Contagens atuais, separadas (a fila local não é versionada):
 
 | Etapa | Quantidade |
 |---|---|
-| Criados (arquivos YAML) | 79 |
+| Criados (arquivos YAML) | 169 |
 | Revisados por uma pessoa (decididos) | 11 |
 | Publicados em `site/data/` | 11 |
-| Pendentes de revisão | 68 |
+| Pendentes de revisão | 158 |
 
-Os 68 novos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir. Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
+Os 158 candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir. Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
 
 ```bash
 cd eh_so_opiniao
@@ -52,5 +52,18 @@ Regras do lote (reaproveitam as mesmas funções da revisão individual):
 - linhas sem decisão continuam Pendentes;
 - um item já decidido só é decidido de novo com `--reabrir` (o histórico anterior permanece);
 - frases enviadas por visitantes só podem ser rejeitadas em lote; para aprová-las é preciso anonimizá-las antes (`revisao anonimizar`).
+
+### Revisão rápida (para quem tem pouco tempo)
+
+A folha **compacta** traz só id, tema, tipo, texto e rótulos propostos, ordenada por tema, e dá para ler 158 frases curtas de uma vez:
+
+```bash
+.venv/bin/python -m eh_so_opiniao revisao folha --compacta --arquivo revisao_compacta.csv
+# abra no Excel/Numbers, leia e preencha 'decisao' SÓ nas linhas que não devem ser aprovadas (rejeitar/ambiguo/corrigir + nota)
+.venv/bin/python -m eh_so_opiniao revisao lote --arquivo revisao_compacta.csv --revisor "Seu Nome" --aprovar-restantes --simular
+.venv/bin/python -m eh_so_opiniao revisao lote --arquivo revisao_compacta.csv --revisor "Seu Nome" --aprovar-restantes
+```
+
+Com `--aprovar-restantes`, as linhas **sem decisão** são aprovadas **em nome do revisor**, e o histórico de cada uma registra a nota "aprovada em lote… (sem decisão item a item)". Isso é uma decisão sua: só use depois de ler a folha. Sem a flag, linha vazia continua Pendente. Frases enviadas por visitantes nunca entram nessa aprovação em lote. Os exemplos fictícios não trazem nome nem dado pessoal, mas a leitura continua sendo o controle: se uma frase não deveria ir ao ar, marque `rejeitar`.
 
 A publicação **não mudou**: só `Aprovado`/`Corrigido` (e `Ambíguo` quando permitido) saem, e a varredura de vazamento e de dados identificáveis continua abortando a exportação.

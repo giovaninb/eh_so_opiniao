@@ -111,14 +111,15 @@ def cmd_revisao(args: argparse.Namespace) -> int:
             from .review import lote
 
             destino = args.arquivo or str(paths.pasta_revisao() / "folha_de_revisao.csv")
-            n = lote.exportar_folha(conn, destino, args.estado or "Pendente")
+            n = lote.exportar_folha(conn, destino, args.estado or "Pendente", compacta=args.compacta)
             print(f"folha com {n} item(ns) em {destino}. Preencha 'decisao' (aprovar|rejeitar|ambiguo|corrigir) e 'nota'; depois use 'revisao lote'.")
         elif args.acao == "lote":
             from .review import lote
 
             if not args.arquivo:
                 raise store.RevisaoInvalida("informe --arquivo com a folha preenchida")
-            r = lote.aplicar_folha(conn, args.arquivo, args.revisor, simular=args.simular, reabrir=args.reabrir)
+            r = lote.aplicar_folha(conn, args.arquivo, args.revisor, simular=args.simular, reabrir=args.reabrir,
+                                 aprovar_restantes=args.aprovar_restantes)
             if r["erros"]:
                 print("NADA foi aplicado. Corrija e rode de novo:\n  " + "\n  ".join(r["erros"]), file=sys.stderr)
                 return 2
@@ -179,6 +180,9 @@ def registrar(sub: argparse._SubParsersAction) -> None:
     r.add_argument("acao", choices=["listar", "aprovar", "rejeitar", "ambiguo", "corrigir", "anonimizar", "folha", "lote", "interativa", "historico"])
     r.add_argument("--arquivo", help="para folha (saída) e lote (entrada): CSV de revisão em lote")
     r.add_argument("--simular", action="store_true", help="para lote: valida e mostra o que seria feito, sem gravar")
+    r.add_argument("--compacta", action="store_true", help="para folha: só id, tema, tipo, texto e rótulos propostos, ordenada por tema")
+    r.add_argument("--aprovar-restantes", dest="aprovar_restantes", action="store_true",
+                   help="para lote: aprova, em nome do --revisor, as linhas SEM decisão (nota registra 'aprovação em lote'); nunca vale para frases de visitantes")
     r.add_argument("--reabrir", action="store_true", help="para lote: permite decidir itens que já não estão Pendentes")
     r.add_argument("--texto", help="para 'anonimizar': a frase reescrita sem nada que identifique alguém")
     r.add_argument("--tipo", choices=["exclusao", "nao_discriminatoria", "ambigua"], help="para 'anonimizar': tipo editorial")

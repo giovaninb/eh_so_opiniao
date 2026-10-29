@@ -13,7 +13,7 @@ from .classifiers.rules import RegrasBaseline
 from .review import store
 
 ARQUIVO = paths.CASOS / "estudo_de_caso.yaml"
-ARQUIVOS = (ARQUIVO, paths.CASOS / "biblioteca_editorial.yaml")
+ARQUIVOS = (ARQUIVO, paths.CASOS / "biblioteca_editorial.yaml", paths.CASOS / "biblioteca_ampliada.yaml")
 ARQUIVO_TEMAS = paths.CASOS / "temas.yaml"
 NATUREZAS = ("ficticio", "adaptado", "documentado")
 

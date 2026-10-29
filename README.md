@@ -130,6 +130,6 @@ Detalhes, resultados e limites (emulação não é celular real) em [docs/TESTES
 
 - Baseline C (transformer) é só um plano: `torch`/`transformers` não fazem parte do ambiente reprodutível e nada foi treinado.
 - As frases do estudo de caso são **sintéticas e ilustrativas** (cidade não identificada); para usar frases reais, anonimize antes (sem nomes de cidades, eventos, empresas ou pessoas) e edite `casos/estudo_de_caso.yaml`.
-- O site tem 79 frases de exemplo na biblioteca, mas só **11 estão aprovadas e publicadas**: as outras 68 aguardam revisão humana (veja [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md)).
+- O site tem 169 frases de exemplo na biblioteca, mas só **11 estão aprovadas e publicadas**: as outras 158 aguardam revisão humana (veja [docs/CASOS_EDITORIAIS.md](docs/CASOS_EDITORIAIS.md)).
 - O envio de frases pelo formulário está **desligado** até um serviço de recebimento real ser configurado ([docs/PARTICIPACAO.md](docs/PARTICIPACAO.md)).
 - Resultados refletem datasets de outros contextos (rede social, época, tema). Não são desempenho em produção.

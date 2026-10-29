@@ -16,7 +16,7 @@ npm run visual:atualizar                      # só após revisar a mudança vis
 npm run lighthouse                            # Lighthouse mobile, 3 execuções por página
 ```
 
-Para evitar que os testes dependam de revisão humana, a biblioteca de 79 frases usada nos testes vem de `e2e/.dados/` (gerada por `tools/gerar_dados_e2e.py` num banco temporário, com um revisor fictício `fixture-e2e`). **Esses dados nunca são publicados** e não indicam aprovação real: hoje só 11 frases estão aprovadas por uma pessoa. Os testes de conteúdo (`conteudo.spec.mjs`) rodam também sobre os dados reais de `site/data/`.
+Para evitar que os testes dependam de revisão humana, a biblioteca de 169 frases usada nos testes vem de `e2e/.dados/` (gerada por `tools/gerar_dados_e2e.py` num banco temporário, com um revisor fictício `fixture-e2e`). **Esses dados nunca são publicados** e não indicam aprovação real: hoje só 11 frases estão aprovadas por uma pessoa. Os testes de conteúdo (`conteudo.spec.mjs`) rodam também sobre os dados reais de `site/data/`.
 
 ## Matriz
 
@@ -79,7 +79,9 @@ O que os testes encontraram **e foi corrigido** (não passou de primeira):
 | Explorar (dados reais, 11 frases) | 100 | 100 | 100 | 100 | 1,5 s | 0 | 0 ms | 42 KB |
 | Frase | 100 | 100 | 100 | 100 | 1,5 s | 0 | 0 ms | 42 KB |
 | Participar | 100 | 100 | 100 | 100 | 1,5 s | 0 | 0 ms | 42 KB |
-| Explorar (79 frases, pior caso) | 100 | 100 | 100 | 100 | 1,7 s | 0 | 0 ms | 54 KB |
+| Explorar (79 frases, pior caso; medido antes da ampliação) | 100 | 100 | 100 | 100 | 1,7 s | 0 | 0 ms | 54 KB |
+
+**Atenção:** a tabela foi medida com 79 frases. A biblioteca de teste agora tem 169 e o Lighthouse **ainda não foi repetido** com ela; rode `npm run lighthouse` em `e2e/` antes de repetir esses números.
 
 Metas: desempenho ≥ 90, acessibilidade ≥ 95, boas práticas ≥ 90, LCP ≤ 2,5 s, CLS < 0,1. Atingidas em todas as páginas.
 
