@@ -27,11 +27,11 @@ Contagens atuais, separadas (a fila local não é versionada):
 | Etapa | Quantidade |
 |---|---|
 | Criados (arquivos YAML) | 169 |
-| Revisados por uma pessoa (decididos) | 11 |
-| Publicados em `site/data/` | 11 |
-| Pendentes de revisão | 158 |
+| Revisados por uma pessoa (decididos) | 169 (158 aprovados em lote pelo revisor após ler a folha compacta) |
+| Publicados em `site/data/` | 169 |
+| Pendentes de revisão | 0 |
 
-Os 158 candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir. Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
+Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 158 atuais já foram decididos). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
 
 ```bash
 cd eh_so_opiniao

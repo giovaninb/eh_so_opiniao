@@ -90,6 +90,9 @@ test.describe("dados reais no navegador", () => {
   test("a biblioteca mostra exatamente o que está aprovado, com a etiqueta de natureza em cada cartão", async ({ page }) => {
     const { frases } = lerJson("frases.json");
     await abrir(page, "#/explorar");
+    const paginado = frases.length > 12; // a lista mostra 12 por vez
+    await expect(page.locator("#contagem-resultados")).toHaveText(paginado ? `Mostrando 12 de ${frases.length} frases` : `${frases.length} frases`);
+    while (await page.getByRole("button", { name: /Mostrar mais/ }).count()) await page.getByRole("button", { name: /Mostrar mais/ }).click();
     await expect(page.locator("#contagem-resultados")).toHaveText(`${frases.length} frases`);
     for (const natureza of await page.locator("#explorar-lista .natureza").allTextContents()) {
       expect(natureza).toMatch(/Exemplo fictício|Exemplo adaptado|Caso documentado|Contribuição de visitante/);
