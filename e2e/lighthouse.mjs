@@ -16,14 +16,16 @@ const REPETICOES = Number(process.env.LH_REPETICOES || 3);
 
 const servidores = [
   { porta: 4181, args: [], rotulo: "dados reais de site/data" },
-  { porta: 4182, args: ["--fixture"], rotulo: "biblioteca de TESTE (169 frases)" },
+  { porta: 4182, args: ["--fixture"], rotulo: "biblioteca de TESTE (592 frases)" },
 ];
 const ALVOS = [
   { nome: "home", servidor: 4181, hash: "#/" },
   { nome: "explorar (dados reais)", servidor: 4181, hash: "#/explorar" },
   { nome: "frase", servidor: 4181, hash: "#/frase/FR-01" },
   { nome: "participar", servidor: 4181, hash: "#/participar" },
-  { nome: "explorar (169 frases, pior caso)", servidor: 4182, hash: "#/explorar" },
+  { nome: "explorar (592 frases, pior caso)", servidor: 4182, hash: "#/explorar" },
+  { nome: "página estática de caso", servidor: 4181, caminho: "/casos/ex-01/?estatico=1" },
+  { nome: "comparação (dados de teste)", servidor: 4182, hash: "#/comparar/p-03" },
 ];
 
 const procs = servidores.map((s) => spawn("node", [join(AQUI, "servidor.mjs"), String(s.porta), ...s.args], { stdio: "ignore" }));
@@ -37,7 +39,7 @@ try {
     for (let i = 0; i < REPETICOES; i++) {
       const chrome = await launch({ chromePath, chromeFlags: ["--headless=new", "--no-sandbox", "--disable-gpu"] });
       try {
-        const url = `http://127.0.0.1:${alvo.servidor}/?semente=7${alvo.hash}`;
+        const url = alvo.caminho ? `http://127.0.0.1:${alvo.servidor}${alvo.caminho}` : `http://127.0.0.1:${alvo.servidor}/?semente=7${alvo.hash}`;
         const { lhr } = await lighthouse(url, { port: chrome.port, output: "json", logLevel: "error", onlyCategories: ["performance", "accessibility", "best-practices", "seo"] });
         const a = lhr.audits;
         execs.push({

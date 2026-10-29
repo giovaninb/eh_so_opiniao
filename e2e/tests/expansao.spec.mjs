@@ -107,8 +107,7 @@ test("título da página e compartilhamento não repetem o termo pejorativo", as
   const href = await page.locator("section.compartilhar").getByRole("link", { name: /WhatsApp/ }).getAttribute("href");
   const mensagem = decodeURIComponent(href.split("text=")[1]);
   expect(mensagem).not.toMatch(/macumba/i);
-  expect(mensagem).toContain("aviso de conteúdo");
-  expect(mensagem).toMatch(/#\/frase\/NX-326$/);
+  expect(mensagem).toMatch(/\/casos\/nx-326\/$/); // a prévia do link (página estática) é que mostra a frase, e ela omite a frase com aviso
 });
 
 test("o destaque da página inicial nunca é uma frase com aviso de conteúdo, em nenhum dia do ano", async ({ page }) => {

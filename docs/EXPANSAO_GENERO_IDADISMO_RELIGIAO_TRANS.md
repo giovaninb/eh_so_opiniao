@@ -11,7 +11,7 @@ Os 176 exemplos entram na fila de revisão como **Pendente**, com `pode_publicar
 - São frases **escritas para educação**, sem autoria real, sem comentário coletado de pessoa verdadeira e sem nome, lugar ou evento reais. Não vêm de corpus de treino (HateBR, ToLD-Br etc.).
 - Cada registro traz `origem` (como foi escrito), `colecao`, `subtema` e `justificativa_editorial`. Isso fica guardado na fila de revisão. O site **não expõe** autoria, revisor nem coleção.
 - A leitura (`discriminação`, `ambígua`, `sem discriminação`) é uma **proposta editorial provisória**. Não é julgamento jurídico e não declara crime.
-- O arquivo `catalogo_completo_atualizado.csv` (que traz 247 linhas `NX-001` a `NX-247` de origem não documentada) **não foi importado**.
+- As 247 linhas `NX-001` a `NX-247` do `catalogo_completo_atualizado.csv` não tinham metadados nem origem documentada. Foram **importadas como Pendentes** em `casos/catalogo_anterior_nx001_247.jsonl` (gerado por `tools/gerar_metadados_catalogo_anterior.py`), com `origem: catalogo_consolidado_sem_metadados_documentados`. Grupo, mecanismo, gravidade e justificativa são **propostas** deduzidas do tema e da leitura de cada linha, e precisam de revisão humana como todo o resto. Nenhuma foi aprovada.
 
 ## O que entra, e o que não entra
 
@@ -100,4 +100,4 @@ Recomenda-se que a revisão inclua pessoas dos grupos retratados (mulheres, pess
 
 ## Testes
 
-`tests/test_eso_expansao.py` (26 testes): IDs únicos e preservados (345), importação idempotente, nada aprovado nem publicado, entrada aprovada recusada, dimensões válidas, casos de contexto, classes exploratórias e dados ANTRA. `e2e/tests/expansao.spec.mjs`: temas, avisos, contexto, larguras 320/360/390/430/768, fonte a 200%, teclado e axe. Resultados: [TESTES_MOBILE.md](TESTES_MOBILE.md).
+`tests/test_eso_expansao.py` (26 testes): IDs únicos e preservados (592), importação idempotente, nada aprovado nem publicado, entrada aprovada recusada, dimensões válidas, casos de contexto, classes exploratórias e dados ANTRA. `e2e/tests/expansao.spec.mjs`: temas, avisos, contexto, larguras 320/360/390/430/768, fonte a 200%, teclado e axe. Resultados: [TESTES_MOBILE.md](TESTES_MOBILE.md).

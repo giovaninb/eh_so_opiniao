@@ -196,6 +196,8 @@ def test_site_e_estatico_sem_cdn_sem_rastreamento_e_sem_innerhtml():
         sem_namespace_svg = arq.replace("http://www.w3.org/2000/svg", "")  # xmlns de SVG não é requisição de rede
         # único destino externo permitido: o link de compartilhamento do WhatsApp, que só abre quando a pessoa toca no botão
         sem_namespace_svg = sem_namespace_svg.replace("https://wa.me/?text=", "")
+        # endereços absolutos só em metadados de prévia social (canonical, og:url, og:image): não são requisições da página
+        sem_namespace_svg = re.sub(r'<(?:link rel="canonical"|meta property="og:(?:url|image)"|meta name="twitter:image")[^>]*>', "", sem_namespace_svg)
         assert not re.search(r"https?://(?!exemplo)", sem_namespace_svg), "site não deve chamar recursos externos"
     assert js.count("https://wa.me/") == 1 and 'rel: "noopener noreferrer"' in js  # compartilhar: um link de clique, sem carregar nada
     assert "innerHTML" not in js and "eval(" not in js and "document.write" not in js and "outerHTML" not in js

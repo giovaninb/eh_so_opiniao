@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://giovaninb.github.io/eh_so_opiniao/sitemap.xml

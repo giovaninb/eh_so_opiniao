@@ -7,3 +7,6 @@ grupos:
   - {id: religioes, nome: "Religiões"}
   - {id: pessoas_trans, nome: "Pessoas trans"}
   - {id: pessoas_lgbt, nome: "Orientação sexual (LGB+)"}
+  - {id: raca_e_povos_indigenas, nome: "Raça, cor e povos indígenas"}
+  - {id: pessoas_com_deficiencia, nome: "Pessoas com deficiência"}
+  - {id: relacoes_nao_monogamicas, nome: "Relações não monogâmicas"}

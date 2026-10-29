@@ -77,14 +77,15 @@ export function proximaFrase(ids, idAtual) {
   return ids[(i + 1) % ids.length];
 }
 
-/** Texto do convite para compartilhar uma frase. Tom de pergunta, sem apontar ninguém e sem dizer o que a pessoa "é". */
-export function mensagemCompartilhar(frase, url) {
-  // Frase com aviso de conteúdo (termo pejorativo explícito) não é citada na mensagem: vai só o link.
-  if (frase.aviso_conteudo) return `Onde você coloca a linha entre opinião e discriminação? Leia esta frase de exemplo, que tem aviso de conteúdo, e diga como você interpreta: ${url}`;
-  const limite = 200;
-  const t = (frase.texto || "").trim();
-  const citacao = t.length > limite ? `${t.slice(0, limite - 1).trimEnd()}…` : t;
-  return `Onde você coloca a linha entre opinião e discriminação? Fiquei pensando nesta frase de exemplo: “${citacao}” Leia e diga como você interpreta: ${url}`;
+/** Convite para compartilhar um caso. Tom de pergunta, sem apontar ninguém e sem dizer o que a pessoa "é".
+    A frase NÃO vai no texto: a prévia do link (título e descrição da página do caso) é quem a apresenta, e frases com aviso de
+    conteúdo nem ali são citadas. */
+export function mensagemCompartilhar(_frase, url) {
+  return `Essa frase parece comum, mas o contexto pode mudar a interpretação. Onde você coloca a linha? Veja a análise no É Só Opinião?: ${url}`;
+}
+
+export function mensagemComparacao(url) {
+  return `Duas frases parecidas podem pedir leituras diferentes. O que muda de uma para a outra? Veja a comparação no É Só Opinião?: ${url}`;
 }
 
 export function linkWhatsApp(mensagem) {
@@ -94,4 +95,37 @@ export function linkWhatsApp(mensagem) {
 /** Frases de um tema de descoberta (grupo). Grupo vazio = todas. */
 export function frasesDoGrupo(frases, grupo) {
   return grupo ? frases.filter((f) => f.grupo === grupo) : frases;
+}
+
+/** Quebra um texto em linhas que cabem em `largura`, usando `medir(texto)` (ex.: ctx.measureText). Palavras maiores que a linha ficam sozinhas. */
+export function quebrarLinhas(medir, texto, largura) {
+  const linhas = [];
+  let atual = "";
+  for (const palavra of String(texto).split(/\s+/).filter(Boolean)) {
+    const tentativa = atual ? `${atual} ${palavra}` : palavra;
+    if (atual && medir(tentativa) > largura) { linhas.push(atual); atual = palavra; } else atual = tentativa;
+  }
+  if (atual) linhas.push(atual);
+  return linhas;
+}
+
+/** Maior tamanho de fonte (de `maximo` a `minimo`, de 2 em 2) em que o texto cabe em `linhasMax` linhas. */
+export function ajustarTexto(medirComTamanho, texto, largura, { maximo, minimo, linhasMax }) {
+  for (let tamanho = maximo; tamanho >= minimo; tamanho -= 2) {
+    const linhas = quebrarLinhas((t) => medirComTamanho(t, tamanho), texto, largura);
+    if (linhas.length <= linhasMax) return { tamanho, linhas };
+  }
+  const linhas = quebrarLinhas((t) => medirComTamanho(t, minimo), texto, largura).slice(0, linhasMax);
+  linhas[linhas.length - 1] = `${linhas[linhas.length - 1].replace(/[\s.,;:!?]+$/, "")}…`;
+  return { tamanho: minimo, linhas };
+}
+
+/** Nome de arquivo seguro para a imagem de um caso. */
+export function nomeArquivoImagem(id, formato) {
+  return `eh-so-opiniao-${String(id).toLowerCase().replace(/[^a-z0-9-]+/g, "-")}-${formato}.png`;
+}
+
+/** Comparações publicadas em que as duas frases existem (defesa extra no navegador). */
+export function paresValidos(pares, porId) {
+  return (pares || []).filter((p) => porId.has(p.a) && porId.has(p.b));
 }

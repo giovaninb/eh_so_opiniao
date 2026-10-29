@@ -17,18 +17,18 @@ test("link do WhatsApp: mensagem em tom de pergunta, com a frase e o link direto
   const href = await link.getAttribute("href");
   expect(href).toMatch(/^https:\/\/wa\.me\/\?text=/);
   const mensagem = decodeURIComponent(href.split("text=")[1]);
-  expect(mensagem).toContain("Onde você coloca a linha entre opinião e discriminação?");
-  expect(mensagem).toContain("Gente do interior é tudo atrasada");
-  expect(mensagem).toMatch(/#\/frase\/EX-01$/);
+  expect(mensagem).toContain("Onde você coloca a linha?");
+  expect(mensagem).toMatch(/\/casos\/ex-01\/$/); // link estável para a página estática, com prévia própria
+  expect(mensagem).not.toContain("#/");
   expect(mensagem).not.toMatch(/preconceituos|racista|culpad|crime/i);
 });
 
 test("copiar mensagem usa a área de transferência e avisa a pessoa", async ({ page }) => {
   await page.addInitScript(() => { window.__copiado = null; Object.defineProperty(navigator, "clipboard", { value: { writeText: async (t) => { window.__copiado = t; } }, configurable: true }); });
   await abrir(page, "#/frase/EX-01");
-  await secao(page).getByRole("button", { name: "Copiar mensagem" }).click();
-  await expect(secao(page).locator("[role=status]")).toHaveText("Mensagem copiada. Cole onde quiser.");
-  expect(await page.evaluate(() => window.__copiado)).toContain("#/frase/EX-01");
+  await secao(page).getByRole("button", { name: "Copiar link" }).click();
+  await expect(secao(page).locator("[role=status]")).toHaveText("Link copiado.");
+  expect(await page.evaluate(() => window.__copiado)).toMatch(/^http:\/\/[^/]+\/casos\/ex-01\/$/);
 });
 
 test("com Web Share disponível (celulares), o botão Compartilhar abre o menu do sistema", async ({ page }) => {
@@ -37,14 +37,14 @@ test("com Web Share disponível (celulares), o botão Compartilhar abre o menu d
   await secao(page).getByRole("button", { name: "Compartilhar", exact: true }).click();
   const dados = await page.evaluate(() => window.__compartilhado);
   expect(dados.title).toBe("É Só Opinião?");
-  expect(dados.text).toContain("#/frase/EX-01");
+  expect(dados.text).toContain("/casos/ex-01/");
 });
 
 test("sem Web Share (computador), não há botão Compartilhar, só WhatsApp e copiar", async ({ page }) => {
   await page.addInitScript(() => { Object.defineProperty(navigator, "share", { value: undefined, configurable: true }); });
   await abrir(page, "#/frase/EX-01");
   await expect(secao(page).getByRole("button", { name: "Compartilhar", exact: true })).toHaveCount(0);
-  await expect(secao(page).getByRole("button", { name: "Copiar mensagem" })).toBeVisible();
+  await expect(secao(page).getByRole("button", { name: "Copiar link" })).toBeVisible();
 });
 
 test("compartilhar não envia nada a ninguém: nenhuma requisição externa é feita ao abrir a frase", async ({ page }) => {

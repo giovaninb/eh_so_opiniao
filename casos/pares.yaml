@@ -1,0 +1,83 @@
+# "Duas frases, uma diferença": pares de frases já existentes na biblioteca, para mostrar como uma pequena mudança de alvo
+# ou de linguagem muda a leitura. Os textos de `diferenca` e `limite` são EDITORIAIS e só vão ao site depois que uma pessoa
+# revisa o par (`python -m eh_so_opiniao pares aprovar --id P-01 --revisor NOME`) E as duas frases estiverem publicadas.
+# Nenhum título revela a leitura de antemão. Não há simplificação binária: quando o caso é ambíguo, `limite` diz isso.
+pares:
+  - id: P-01
+    titulo: "Mesma frase, lados trocados"
+    a: EX-32
+    b: EX-33
+    diferenca: "As duas frases têm a mesma estrutura e só trocam o grupo político citado. Um critério consistente trata as duas do mesmo modo: ambas dizem que um grupo de pessoas “não presta” e defendem excluí-lo do trabalho. Discordar de ideias é diferente de dizer que quem as defende não tem valor."
+    limite: "A comparação não diz qual lado político está certo. Ela mostra que o critério usado aqui não depende do lado."
+  - id: P-02
+    titulo: "Um atendimento ou uma região inteira?"
+    a: EX-48
+    b: EX-04
+    diferenca: "A primeira critica um atendimento específico e o que uma pessoa fez. A segunda atribui um defeito a todas as pessoas de uma região e usa isso para justificar que elas não sejam contratadas."
+    limite: "Uma crítica dura continua sendo crítica. O que muda é o alvo: uma conduta, no primeiro caso; um grupo inteiro, no segundo."
+  - id: P-03
+    titulo: "Gostar do lugar ou julgar quem vive nele"
+    a: EX-146
+    b: EX-01
+    diferenca: "Dizer que se gosta de morar no interior expressa uma preferência pessoal. Dizer que “gente do interior é tudo atrasada” generaliza um defeito para quem vive lá."
+    limite: "A palavra “interior” aparece nas duas. O que importa é o que se afirma sobre as pessoas."
+  - id: P-04
+    titulo: "Discordar de ideias ou negar voz a pessoas"
+    a: EX-50
+    b: EX-139
+    diferenca: "A primeira discorda de um projeto e indica uma ação possível: falar com o vereador. A segunda diz que eleitores de um partido não deveriam poder opinar, o que retira a voz de pessoas por causa do voto."
+    limite: "Críticas fortes a partidos e governos fazem parte do debate. O que muda aqui é quem fica sem direito de falar."
+  - id: P-05
+    titulo: "Discordar de uma lei ou negar uma família"
+    a: EX-93
+    b: EX-88
+    diferenca: "A primeira discorda de um projeto de lei e, ao mesmo tempo, respeita o direito de casais se casarem. A segunda diz que uma família formada por dois homens “não é família de verdade”."
+    limite: "Há quem discorde de políticas públicas sem desrespeitar pessoas. A diferença está em negar a legitimidade de uma família."
+  - id: P-06
+    titulo: "Doutrina ou fiéis?"
+    a: EX-102
+    b: EX-100
+    diferenca: "Criticar a doutrina de uma igreja é discordar de ideias, e a primeira frase ainda diz respeitar quem a frequenta. A segunda atribui hipocrisia e ignorância a todas as pessoas de uma religião."
+    limite: "Crítica teológica não é, por si só, intolerância. O que muda é o alvo: ideias, ou pessoas por sua fé."
+  - id: P-07
+    titulo: "Adaptação ou limite imposto"
+    a: EX-113
+    b: EX-108
+    diferenca: "A primeira conta uma experiência em que a escola adaptou as provas e a estudante foi bem. A segunda presume, de antemão, que uma pessoa autista não terá “vida normal” e que nem vale tentar a escola comum."
+    limite: "Apoio e adaptações são parte da inclusão. O problema da segunda frase é decidir o futuro da pessoa por ela."
+  - id: P-08
+    titulo: "Quando o contexto decide"
+    a: EX-122
+    b: EX-117
+    diferenca: "“Ela é muito dura nas reuniões” pode ser uma crítica à conduta de uma pessoa, ou carregar um viés sobre como mulheres “deveriam” agir. A segunda atribui emoção excessiva às mulheres em geral e a usa para negar uma chefia."
+    limite: "Este é um caso em que a primeira frase é ambígua: sem saber quem fala, de quem e com que histórico, não dá para afirmar que há preconceito."
+  - id: P-09
+    titulo: "Insulto a uma pessoa ou a um povo"
+    a: EX-45
+    b: EX-43
+    diferenca: "A primeira é um insulto a uma pessoa por uma ação específica no trânsito: é grosseira, mas não atribui defeito a um grupo. A segunda nega a humanidade de um povo inteiro."
+    limite: "Grosseria e discriminação não são a mesma coisa, e nenhuma das duas depende de palavrões. Nesta comparação, o alvo e a desumanização são o que muda."
+  - id: P-10
+    titulo: "Quem relata e quem repete"
+    a: EX-78
+    b: EX-16
+    diferenca: "A primeira é o relato de alguém que foi seguido numa loja e nomeia isso como racismo. A segunda recomenda vigiar uma pessoa “daquele jeito” só pela aparência: é a prática que o primeiro relato denuncia."
+    limite: "Citar um episódio de racismo para denunciá-lo não é o mesmo que reproduzi-lo."
+  - id: P-11
+    titulo: "Dados ou negação"
+    a: EX-79
+    b: EX-73
+    diferenca: "A primeira cita uma pesquisa sobre diferenças de renda e pode ser verificada. A segunda diz que o racismo no Brasil é exagero e que quem o relata quer vantagem, o que descredita pessoas sem examinar o que elas relatam."
+    limite: "Questionar uma pesquisa é legítimo, com argumentos. A segunda frase não faz isso: atribui má-fé a quem relata."
+  - id: P-12
+    titulo: "Preferir um formato ou desqualificar quem vive outro"
+    a: NX-241
+    b: NX-231
+    diferenca: "A primeira expressa uma preferência por relacionamentos monogâmicos e respeita quem faz acordos diferentes. A segunda diz que a não monogamia é “coisa de gente sem princípios” e que essas pessoas não merecem respeito."
+    limite: "Preferir a monogamia, ou criticar a infidelidade, é diferente de julgar o caráter de quem vive uma relação não monogâmica consensual."
+  - id: P-13
+    titulo: "Perguntar à pessoa ou falar por ela"
+    a: NX-154
+    b: NX-118
+    diferenca: "A primeira pergunta diretamente à pessoa com deficiência se ela precisa de alguma adaptação. A segunda dispensa a pergunta e fala só com o acompanhante, como se a pessoa não pudesse responder."
+    limite: "Oferecer ajuda é diferente de decidir por alguém. Perguntar costuma ser o que muda."

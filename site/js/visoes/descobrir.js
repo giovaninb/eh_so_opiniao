@@ -59,11 +59,13 @@ function desenhar(corpo, { focarCartao = false } = {}) {
 export const descobrir = {
   titulo: "Descobrir",
   rotaAtiva: "descobrir",
-  async montar() {
+  async montar({ consulta } = {}) {
     const corpo = document.getElementById("descobrir-corpo");
     corpo.setAttribute("aria-busy", "false");
     if (estado.erro) { limpar(corpo, EstadoErro({ titulo: "Não foi possível carregar as frases", texto: "Tente de novo em instantes.", aoTentarDeNovo: () => location.reload() })); return; }
     if (!estado.frases.length) { limpar(corpo, EstadoVazio({ titulo: "Ainda não há frases revisadas", texto: "Nada é publicado antes da revisão por uma pessoa." })); return; }
+    const pedido = consulta && consulta.get("tema");
+    if (pedido && estado.grupos.some((g) => g.id === pedido) && estado.grupoAtual !== pedido) { estado.grupoAtual = pedido; novaSessao(); }
     if (!estado.sessao || estado.sessao.indice >= estado.sessao.itens.length) novaSessao();
     desenhar(corpo);
   },

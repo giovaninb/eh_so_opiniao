@@ -37,7 +37,7 @@ Como os datasets se comparam e por que NÃO são fundidos. Fontes: `datasets/reg
 | `hostilidade_politica` (supervisionado) | — | — | aproximado (`intolerancia_politica`) | — | — |
 | `incitacao_violencia` (supervisionado) | — | — | aproximado (`violencia_extremismo`) | — | — |
 
-Classes sem rótulo anotado em nenhum dataset (exploratórias ou salvaguardas): `transfobia`, `idadismo`, `estereotipos_masculinidade`, `discriminacao_regional`, `desumanizacao`, `exclusao_social_territorial`, `estigmatizacao_socioeconomica`, `possivel_assedio_eleitoral_contextual`, `critica_politica_legitima`, `ironia_humor`, `ambigua`.
+Classes sem rótulo anotado em nenhum dataset (exploratórias ou salvaguardas): `transfobia`, `idadismo`, `estereotipos_masculinidade`, `estigma_nao_monogamia`, `discriminacao_regional`, `desumanizacao`, `exclusao_social_territorial`, `estigmatizacao_socioeconomica`, `possivel_assedio_eleitoral_contextual`, `critica_politica_legitima`, `ironia_humor`, `ambigua`.
 
 ## Sobreposição de textos
 

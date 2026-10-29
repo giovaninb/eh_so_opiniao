@@ -1,7 +1,7 @@
 {
   "schema": "eso-site-1.0.0",
-  "gerado_em": "2026-10-29T19:03:35+00:00",
-  "taxonomia_versao": "1.2.0",
+  "gerado_em": "2026-10-29T19:27:28+00:00",
+  "taxonomia_versao": "1.3.0",
   "aviso": "Conteúdo educativo e experimental. Uma classificação de IA é uma hipótese, não uma prova: não conclui crime, intenção nem identidade, e só é exibida depois de revisão humana.",
   "temas": [
     {
@@ -77,6 +77,14 @@
     {
       "id": "pessoas_lgbt",
       "nome": "Orientação sexual (LGB+)"
+    },
+    {
+      "id": "raca_e_povos_indigenas",
+      "nome": "Raça, cor e povos indígenas"
+    },
+    {
+      "id": "pessoas_com_deficiencia",
+      "nome": "Pessoas com deficiência"
     }
   ],
   "frases": [
@@ -809,7 +817,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-106",
@@ -856,7 +864,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-107",
@@ -903,7 +911,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-108",
@@ -945,7 +953,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-109",
@@ -997,7 +1005,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-11",
@@ -1086,7 +1094,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-111",
@@ -1133,7 +1141,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "pessoas_com_deficiencia"
     },
     {
       "id": "EX-112",
@@ -1530,7 +1538,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-120",
@@ -2035,7 +2043,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-130",
@@ -2597,7 +2605,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-140",
@@ -3060,7 +3068,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-150",
@@ -3514,7 +3522,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-17",
@@ -5932,7 +5940,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-70",
@@ -5979,7 +5987,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-71",
@@ -6021,7 +6029,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-72",
@@ -6063,7 +6071,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-73",
@@ -6105,7 +6113,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-74",
@@ -6157,7 +6165,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-75",
@@ -6204,7 +6212,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-76",
@@ -6246,7 +6254,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-77",
@@ -6293,7 +6301,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-78",
@@ -6335,7 +6343,7 @@
       "subtema": null,
       "aviso_conteudo": false,
       "dimensoes": null,
-      "grupo": null
+      "grupo": "raca_e_povos_indigenas"
     },
     {
       "id": "EX-79",

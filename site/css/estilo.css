@@ -289,3 +289,20 @@ details.detalhe > :not(summary) { margin-top: var(--esp-2); }
 .contexto-dados dl { margin: 0; }
 .contexto-dados dt { font-weight: 700; margin-top: var(--esp-2); }
 .contexto-dados dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Comparação, assuntos, cartão de imagem e páginas estáticas */
+.comparacao { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--esp-4); margin: var(--esp-4) 0; }
+.carta-par { background: var(--cor-superficie); border-radius: var(--raio-m); box-shadow: var(--sombra-1); padding: var(--esp-5); display: grid; gap: var(--esp-3); align-content: start; }
+.rotulo-par { margin: 0; font-weight: 800; font-size: var(--texto-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--cor-destaque-forte); }
+.comparacao-par .frase, .comparacao .frase { margin: 0; }
+.revelacao-par { margin-top: var(--esp-4); }
+.lista-pares { list-style: none; margin: var(--esp-4) 0 0; padding: 0; display: grid; gap: var(--esp-3); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--esp-2); }
+.chips a.chip { display: inline-flex; align-items: center; min-height: var(--alvo-min); padding: 0 var(--esp-4); border: 2px solid var(--cor-linha); border-radius: var(--raio-pilula); background: var(--cor-superficie); font-weight: 600; text-decoration: none; color: var(--cor-tinta); }
+.chips a.chip:hover { border-color: var(--cor-destaque); color: var(--cor-destaque-forte); }
+.imagem-cartao { margin-top: var(--esp-3); }
+.imagem-resultado { display: grid; gap: var(--esp-3); margin-top: var(--esp-3); justify-items: start; }
+.previa-cartao { display: block; max-width: 100%; height: auto; border: 1px solid var(--cor-linha); border-radius: var(--raio-s, 0.5rem); }
+.previa-stories { max-height: 22rem; width: auto; }
+.pagina-estatica .cartao-frase { margin-block: var(--esp-5); }
+@media (min-width: 720px) { .comparacao { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -1,4 +1,4 @@
-# Taxonomia do observatório "É Só Opinião?" — versão 1.2.0 (ver notas de versão ao final do cabeçalho)
+# Taxonomia do observatório "É Só Opinião?" — versão 1.3.0 (ver notas de versão ao final do cabeçalho)
 #
 # tipo:
 #   supervisionado  -> existe ao menos um rótulo anotado por humanos em dataset acessível
@@ -15,11 +15,14 @@
 # aproximado para elas. "Supervisionado" diz que EXISTE rótulo humano mapeado, não que o modelo seja bom nem neutro:
 # a qualidade por classe é medida nos experimentos (ver docs/RESULTADOS.md), e `aproximado` nunca vira `equivalente`.
 #
+# Nota de versão 1.3.0: entra `estigma_nao_monogamia` (preconceito contra pessoas em relações não monogâmicas CONSENSUAIS), EXPLORATÓRIA:
+# nenhum dataset integrado traz rótulo para ela. Não confunde formato de relação com infidelidade (quebra de acordos).
+#
 # Nota de versão 1.2.0: entram `transfobia`, `idadismo` e `estereotipos_masculinidade`, as três EXPLORATÓRIAS (nenhum dataset
 # integrado traz rótulo anotado para elas; só há exemplos editoriais e revisão humana). `transfobia` é separada de `lgbtfobia`
 # (identidade de gênero x orientação sexual) e `estereotipos_masculinidade` é separada de `misoginia` (sexismo dirigido a homens
 # não é o mesmo que ódio ou desprezo contra mulheres). Nenhuma das três afirma crime.
-versao: "1.2.0"
+versao: "1.3.0"
 rotulos:
   - id: linguagem_ofensiva
     nome: Linguagem ofensiva
@@ -97,6 +100,14 @@ rotulos:
     observacao: >-
       Sexismo dirigido a homens costuma ser estereótipo social, não incitação. A classe é separada de `misoginia` para
       não misturar mecanismos diferentes. Nenhum dataset integrado traz rótulo anotado para esta classe.
+  - id: estigma_nao_monogamia
+    nome: Estigma contra relações não monogâmicas consensuais
+    tipo: exploratorio
+    definicao: Desqualificação moral, exclusão ou invalidação de pessoas por viverem relações não monogâmicas consensuais.
+    nao_e: Preferência pessoal pela monogamia, nem crítica à infidelidade (quebra de acordos), que pode ocorrer em qualquer formato de relação.
+    observacao: >-
+      Monogamia, não monogamia consensual e infidelidade são coisas diferentes. Nenhum dataset integrado traz rótulo
+      anotado para esta classe; só há exemplos editoriais e revisão humana.
   - id: hostilidade_politica
     nome: Hostilidade política
     tipo: supervisionado

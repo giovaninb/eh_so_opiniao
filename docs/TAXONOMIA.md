@@ -1,6 +1,6 @@
 <!-- GERADO AUTOMATICAMENTE por `python -m eh_so_opiniao docs`. Não edite à mão. -->
 
-# Taxonomia (versão 1.2.0)
+# Taxonomia (versão 1.3.0)
 
 - **supervisionado**: há rótulo anotado por humanos em dataset catalogado que se relaciona com a classe.
 - **exploratorio**: não há rótulo anotado; só regras e revisão humana. Resultado é hipótese, não medição.
@@ -21,6 +21,7 @@ Nenhuma classe afirma crime, intenção ou identidade de autor. `possivel_assedi
 | `transfobia` | exploratorio | Hostilidade, desvalorização ou exclusão de pessoas trans (travestis, mulheres e homens trans, pessoas não binárias) por sua identidade de gênero, inclusive negar nome, pronome ou identidade. | Pergunta respeitosa de quem quer aprender, relato de pessoa trans sobre a própria vivência (como "sinto que nasci no corpo errado"), ou denúncia que cita o termo ofensivo para combatê-lo. |
 | `idadismo` | exploratorio | Estereótipo, desvalorização, infantilização ou exclusão de pessoas pela idade, em geral pessoas idosas. | Oferta de ajuda perguntada com respeito, adaptação de interface para quem precisa ou menção neutra à idade. |
 | `estereotipos_masculinidade` | exploratorio | Cobrança de virilidade, repressão emocional ou papéis rígidos impostos a homens e meninos, inclusive usando o feminino como ofensa. | Misoginia (desprezo ou ódio contra mulheres) nem violência jurídica por si só; também não é cuidado ou apoio emocional a homens. |
+| `estigma_nao_monogamia` | exploratorio | Desqualificação moral, exclusão ou invalidação de pessoas por viverem relações não monogâmicas consensuais. | Preferência pessoal pela monogamia, nem crítica à infidelidade (quebra de acordos), que pode ocorrer em qualquer formato de relação. |
 | `hostilidade_politica` | supervisionado | Ofensa dirigida a pessoas por posição política ou ideológica. | Crítica política legítima a ideias, partidos, governos e candidaturas. |
 | `discriminacao_regional` | exploratorio | Generalização depreciativa sobre pessoas de uma região, cidade ou território. | Comparação de indicadores regionais com fonte e sem desqualificar pessoas. |
 | `desumanizacao` | exploratorio | Comparar pessoas ou grupos a animais, pragas, doenças ou objetos. | Metáfora com objeto não humano claramente ficcional. |

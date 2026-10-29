@@ -2,7 +2,7 @@
 
 ATENÇÃO — isto NÃO é publicação. Usa um banco temporário descartável, aprova todos os casos com o revisor
 fictício "fixture-e2e" e grava os JSON em e2e/.dados/ (ignorado pelo Git). Serve só para os testes de interface
-exercitarem a biblioteca completa (345 casos) e a enquete com votos sintéticos. Nada daqui vai para site/data.
+exercitarem a biblioteca completa (592 casos) e a enquete com votos sintéticos. Nada daqui vai para site/data.
 O banco real (datasets/_local/revisao) nunca é tocado, e a publicação real continua exigindo decisão humana.
 
 Uso: ./.venv/bin/python tools/gerar_dados_e2e.py
@@ -18,7 +18,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ.parent))
 
-from eh_so_opiniao import casos, participacao, publicacao  # noqa: E402
+from eh_so_opiniao import casos, pares, participacao, publicacao  # noqa: E402
 from eh_so_opiniao.review import store  # noqa: E402
 
 DESTINO = RAIZ / "e2e" / ".dados"
@@ -38,7 +38,9 @@ def main() -> int:
         participacao.importar(conn, csv)
         if DESTINO.exists():
             shutil.rmtree(DESTINO)
-        r = publicacao.construir_site(conn, destino=DESTINO, verificar_corpora=False)
+        # revisor fictício também para as comparações: só nos dados de TESTE, nunca em casos/pares_revisao.json
+        revisados = {p["id"] for p in pares.carregar()}
+        r = publicacao.construir_site(conn, destino=DESTINO, verificar_corpora=False, pares_revisados=revisados)
         conn.close()
     print(f"dados de teste: {r['frases_publicadas']} frases em {DESTINO}")
     return 0

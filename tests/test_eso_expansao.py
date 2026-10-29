@@ -36,8 +36,8 @@ def _por_id(frases):
 def test_total_ids_unicos_e_ids_antigos_preservados(novos):
     todas = casos.carregar_todos()["frases"]
     ids = [f["id"] for f in todas]
-    assert len(ids) == len(set(ids)) == 345
-    assert len(novos) == 176 and all(f["id"].startswith("NX-") for f in novos)
+    assert len(ids) == len(set(ids)) == 592
+    assert len(novos) == 176 and all(f["id"].startswith("NX-") and int(f["id"][3:]) >= 248 for f in novos)
     antigos = {f"EX-{i:02d}" for i in range(1, 159)} | {f"FR-{i:02d}" for i in range(1, 12)}
     assert antigos <= set(ids)  # nenhum ID anterior sumiu
     assert len(antigos) == 169
@@ -66,13 +66,13 @@ def test_contagem_por_tema_da_expansao(novos):
 # ------------------------------------------------------------------ nada é aprovado ou publicado automaticamente
 def test_importacao_enfileira_tudo_como_pendente_e_e_idempotente(conn):
     r1 = casos.enfileirar(conn)
-    assert r1["total"] == 345 and r1["novos"] == 345
+    assert r1["total"] == 592 and r1["novos"] == 592
     pendentes = {l["id"] for l in store.listar(conn, "Pendente")}
-    assert {f"NX-{i}" for i in range(248, 424)} <= pendentes or len([i for i in pendentes if i.startswith("NX-")]) == 176
+    assert len([i for i in pendentes if i.startswith("NX-")]) == 423  # 247 do catálogo anterior + 176 da expansão
     assert not any(l["estado"] != "Pendente" for l in store.listar(conn) if l["id"].startswith("NX-"))
     r2 = casos.enfileirar(conn)
     assert r2["novos"] == 0  # idempotente
-    assert len(store.listar(conn)) == 345
+    assert len(store.listar(conn)) == 592
 
 
 def test_reimportar_nao_sobrescreve_decisao_nem_correcao(conn):

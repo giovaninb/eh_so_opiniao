@@ -1,4 +1,4 @@
-# Mapeamento de rótulos originais -> taxonomia "É Só Opinião?" — versão 1.2.0
+# Mapeamento de rótulos originais -> taxonomia "É Só Opinião?" — versão 1.3.0
 #
 # relacao:
 #   equivalente  -> definição e escopo da fonte coincidem com a classe da taxonomia.
@@ -11,7 +11,7 @@
 #  - "aproximado" NUNCA é tratado como "equivalente" em experimentos; os experimentos C medem
 #    justamente o custo dessa aproximação.
 #  - A tabela documentada (docs/MAPEAMENTO_ROTULOS.md) é gerada a partir deste arquivo.
-versao: "1.2.0"
+versao: "1.3.0"
 datasets:
   told_br:
     rotulos:

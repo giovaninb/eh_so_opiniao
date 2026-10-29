@@ -1,5 +1,5 @@
 {
-  "versao": "1.2.0",
+  "versao": "1.3.0",
   "rotulos": [
     {
       "id": "linguagem_ofensiva",
@@ -88,6 +88,14 @@
       "definicao": "Cobrança de virilidade, repressão emocional ou papéis rígidos impostos a homens e meninos, inclusive usando o feminino como ofensa.",
       "nao_e": "Misoginia (desprezo ou ódio contra mulheres) nem violência jurídica por si só; também não é cuidado ou apoio emocional a homens.",
       "observacao": "Sexismo dirigido a homens costuma ser estereótipo social, não incitação. A classe é separada de `misoginia` para não misturar mecanismos diferentes. Nenhum dataset integrado traz rótulo anotado para esta classe."
+    },
+    {
+      "id": "estigma_nao_monogamia",
+      "nome": "Estigma contra relações não monogâmicas consensuais",
+      "tipo": "exploratorio",
+      "definicao": "Desqualificação moral, exclusão ou invalidação de pessoas por viverem relações não monogâmicas consensuais.",
+      "nao_e": "Preferência pessoal pela monogamia, nem crítica à infidelidade (quebra de acordos), que pode ocorrer em qualquer formato de relação.",
+      "observacao": "Monogamia, não monogamia consensual e infidelidade são coisas diferentes. Nenhum dataset integrado traz rótulo anotado para esta classe; só há exemplos editoriais e revisão humana."
     },
     {
       "id": "hostilidade_politica",

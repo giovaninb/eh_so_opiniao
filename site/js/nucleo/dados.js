@@ -21,7 +21,8 @@ export async function carregarBase() {
     estado.erro = e;
     return;
   }
-  const [config, part, contexto] = await Promise.allSettled([carregar("config_participacao.json"), carregar("data/participacao.json"), carregar("data/contexto.json")]);
+  const [config, part, contexto, pares] = await Promise.allSettled([carregar("config_participacao.json"), carregar("data/participacao.json"), carregar("data/contexto.json"), carregar("data/pares.json")]);
+  estado.pares = pares.status === "fulfilled" ? pares.value.pares || [] : [];
   estado.contexto = contexto.status === "fulfilled" ? contexto.value.itens || [] : [];
   estado.config = config.status === "fulfilled" ? config.value : null;
   if (part.status === "fulfilled") {

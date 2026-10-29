@@ -55,6 +55,12 @@ mecanismos:
   idade_controle: sem_mecanismo_discriminatorio
   religiao_controle: sem_mecanismo_discriminatorio
   trans_controle: sem_mecanismo_discriminatorio
+# Mecanismos usados só pelo catálogo anterior (NX-001..247), que traz o mecanismo no próprio registro.
+mecanismos_do_catalogo_anterior: [negacao_de_pertencimento, desvalorizacao_de_aparencia, negacao_do_proprio_preconceito,
+  deslegitimacao_da_denuncia, invalidacao_de_deficiencia, desqualificacao_moral, invalidacao_do_vinculo, silenciamento,
+  exclusao_de_espaco_ou_servico, infantilizacao_e_tutela, invasao_de_privacidade, falso_elogio, negacao_de_identidade,
+  policiamento_de_expressao, imposicao_de_papel, patologizacao_emocional, culpabilizacao_da_vitima, desqualificacao_de_merito,
+  estereotipo_de_grupo, depende_de_tom_e_uso, sem_mecanismo_discriminatorio]
 grupo_por_subtema:   # só os subtemas que não dependem do tema; os demais seguem o tema
   mulheres_ambiguidade: mulheres
   mulheres_controle: mulheres
@@ -76,6 +82,9 @@ grupo_por_tema:
   intolerancia_religiosa: religioes
   transfobia: pessoas_trans
   lgbtfobia: pessoas_lgbt
+  racismo: raca_e_povos_indigenas
+  capacitismo: pessoas_com_deficiencia
+  estigma_nao_monogamia: relacoes_nao_monogamicas
 # Gravidade proposta por item (só os de leitura "discriminação"). O que não está listado como ofensa ou exclusão_material é estereótipo.
 gravidade:
   ofensa: [NX-250, NX-261, NX-275, NX-284, NX-318, NX-319, NX-320, NX-324, NX-325, NX-326, NX-344, NX-347, NX-357, NX-358, NX-370]

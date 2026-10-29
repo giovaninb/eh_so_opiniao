@@ -4,6 +4,7 @@ export const estado = {
   porId: new Map(),
   temas: [],
   grupos: [], // temas de descoberta (Mulheres, Pessoas idosas…) com frases publicadas
+  pares: [], // comparações revisadas ("Duas frases, uma diferença")
   contexto: [], // dados de contexto (dado, fonte, ano, metodologia, limitações) por grupo
   grupoAtual: "", // tema escolhido em Descobrir ("" = ao acaso)
   config: null,
@@ -15,6 +16,7 @@ export const estado = {
   respostas: new Map(), // id da frase -> valor escolhido (só nesta visita)
   votosEnviados: new Set(),
   enviosFrases: 0,
+  enviosDiscordancia: 0,
   sessao: null, // modo Descoberta
   ordemBiblioteca: [], // ids na ordem da última lista exibida (para "próxima frase")
 };

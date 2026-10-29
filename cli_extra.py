@@ -149,9 +149,41 @@ def cmd_site(args: argparse.Namespace) -> int:
         destino = Path(args.destino)
     r = publicacao.construir_site(conn, destino=destino, incluir_rascunho=args.rascunho)
     print(f"site: {r['frases_publicadas']} frase(s) revisada(s) publicada(s) em {r['destino']}")
+    if r["paginas"]:
+        pg = r["paginas"]
+        print(f"      páginas estáticas: {pg['casos']} caso(s), {pg['pares']} comparação(ões), {pg['retirados']} retirado(s); sitemap com {pg['urls_no_sitemap']} URL(s)")
     if args.rascunho:
         print(f"      {r['frases_rascunho_local']} frase(s) em rascunho LOCAL (data/_rascunho, não versionado). Abra com ?rascunho=1")
     return 0
+
+
+def cmd_pares(args: argparse.Namespace) -> int:
+    from . import casos, pares, publicacao
+    from .review import store
+
+    todos = {f["id"] for f in casos.carregar_todos()["frases"]}
+    lista = pares.carregar(ids_validos=todos)
+    if args.acao == "listar":
+        conn = store.abrir()
+        publicados = {f["id"] for f in publicacao.exportar_frases(conn)["frases"]}
+        rev = pares.revisoes()
+        for p in lista:
+            ok = [x for x in (p["a"], p["b"]) if x in publicados]
+            estado = "REVISADO" if p["id"] in rev else "pendente"
+            visivel = "no site" if p["id"] in rev and len(ok) == 2 else "fora do site"
+            print(f"{p['id']}  {estado:9}  {visivel:12}  {p['a']} ({'publicada' if p['a'] in publicados else 'não publicada'}) × {p['b']} ({'publicada' if p['b'] in publicados else 'não publicada'})  {p['titulo']}")
+        return 0
+    if args.acao == "aprovar":
+        alvo = [p["id"] for p in lista] if args.todos else [args.id]
+        for i in alvo:
+            pares.aprovar(i, args.revisor, ids_validos=todos)
+            print(f"par {i} revisado por {args.revisor.strip()}")
+        return 0
+    if args.acao == "retirar":
+        pares.retirar(args.id)
+        print(f"par {args.id} voltou a pendente")
+        return 0
+    return 2
 
 
 def cmd_docs(args: argparse.Namespace) -> int:
@@ -196,4 +228,10 @@ def registrar(sub: argparse._SubParsersAction) -> None:
     s.add_argument("--rascunho", action="store_true", help="gera também rascunho LOCAL com itens ainda não revisados")
     s.add_argument("--destino", help="pasta de saída dos JSON (padrão: site/data)")
     s.set_defaults(func=cmd_site)
+    pr = sub.add_parser("pares", help="comparações 'Duas frases, uma diferença': listar, aprovar (revisão humana do par) e retirar")
+    pr.add_argument("acao", choices=["listar", "aprovar", "retirar"])
+    pr.add_argument("--id")
+    pr.add_argument("--revisor", default="")
+    pr.add_argument("--todos", action="store_true", help="para aprovar: todos os pares (depois de lê-los)")
+    pr.set_defaults(func=cmd_pares)
     sub.add_parser("docs", help="regenera tabelas e resultados em docs/").set_defaults(func=cmd_docs)

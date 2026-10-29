@@ -30,7 +30,10 @@ CONTEXTO_DE_USO = {"exclusao": "fala_dirigida_ou_opiniao", "ambigua": "depende_d
                    "nao_discriminatoria": "relato_pergunta_ou_posicao_respeitosa"}
 CERTEZA_POR_TIPO = {"exclusao": "media", "ambigua": "baixa", "nao_discriminatoria": "media"}
 ROTULO_POR_GRUPO = {"mulheres": "misoginia", "homens": "estereotipos_masculinidade", "pessoas_idosas": "idadismo",
-                    "religioes": "intolerancia_religiosa", "pessoas_trans": "transfobia", "pessoas_lgbt": "lgbtfobia"}
+                    "religioes": "intolerancia_religiosa", "pessoas_trans": "transfobia", "pessoas_lgbt": "lgbtfobia",
+                    "raca_e_povos_indigenas": "racismo", "pessoas_com_deficiencia": "capacitismo",
+                    "relacoes_nao_monogamicas": "estigma_nao_monogamia"}
+TEMA_SEM_LEITURA_DE_EXCLUSAO = {"depende_contexto": "ambigua", "ironia": "ambigua", "sem_discriminacao": "nao_discriminatoria"}
 MUDA_SE_AMBIGUA = "Quem fala, para quem, em que tom e em que situação decidiria a leitura. Sem isso, a leitura honesta é “depende”."
 ORIGEM_PUBLICAVEL = "sintetica_ilustrativa"  # exemplo escrito para educação: nunca comentário real verificado
 
@@ -72,6 +75,7 @@ def carregar(caminho: Path | None = None) -> dict[str, Any]:
     sobre = {n: set(ids) for n, ids in dim["gravidade"].items()}
     frases: list[dict[str, Any]] = []
     vistos: set[str] = set()
+    embutidos = False
     for n, linha in enumerate(caminho.read_text(encoding="utf-8").splitlines(), start=1):
         if not linha.strip():
             continue
@@ -87,34 +91,49 @@ def carregar(caminho: Path | None = None) -> dict[str, Any]:
             raise ExpansaoInvalida(f"{onde}: leitura desconhecida {r['leitura']!r}")
         if r["tema"] not in ids_tema:
             raise ExpansaoInvalida(f"{onde}: tema desconhecido {r['tema']!r}")
-        if r["subtema"] not in dim["mecanismos"]:
-            raise ExpansaoInvalida(f"{onde}: subtema sem mecanismo definido {r['subtema']!r}")
+        embutido = "mecanismo" in r  # registros com metadados próprios (catálogo anterior NX-001..247)
+        embutidos = embutidos or embutido
+        mecanismo = r["mecanismo"] if embutido else dim["mecanismos"].get(r["subtema"])
+        if mecanismo not in set(dim["mecanismos"].values()) | set(dim["mecanismos_do_catalogo_anterior"]):
+            raise ExpansaoInvalida(f"{onde}: mecanismo/subtema sem definição {r.get('mecanismo') or r['subtema']!r}")
         tipo = LEITURA_TIPO[r["leitura"]]
-        esperado = {"depende_contexto": "ambigua", "sem_discriminacao": "nao_discriminatoria"}.get(r["tema"], "exclusao")
+        esperado = TEMA_SEM_LEITURA_DE_EXCLUSAO.get(r["tema"], "exclusao")
         if tipo != esperado:
             raise ExpansaoInvalida(f"{onde}: tema {r['tema']} é incompatível com a leitura {r['leitura']}")
-        grupo = dim["grupo_por_subtema"].get(r["subtema"]) or dim["grupo_por_tema"].get(r["tema"])
-        if grupo not in ids_grupo:
-            raise ExpansaoInvalida(f"{onde}: grupo não definido para o subtema {r['subtema']!r}")
+        if embutido:
+            grupo = r.get("grupo")
+        else:
+            grupo = dim["grupo_por_subtema"].get(r["subtema"]) or dim["grupo_por_tema"].get(r["tema"])
+        if grupo is None and tipo == "exclusao":
+            raise ExpansaoInvalida(f"{onde}: discriminação precisa de grupo")
+        if grupo is not None and grupo not in ids_grupo:
+            raise ExpansaoInvalida(f"{onde}: grupo não definido {grupo!r}")
         rotulos: list[str] = []
         if tipo == "ambigua":
             rotulos.append("ambigua")
-        if tipo != "nao_discriminatoria":
+        if r["tema"] == "ironia":
+            rotulos.append("ironia_humor")
+        if tipo != "nao_discriminatoria" and grupo is not None:
             rotulos.append(ROTULO_POR_GRUPO[grupo])
         rotulos = list(dict.fromkeys(rotulos))
         if any(x not in tax for x in rotulos):
             raise ExpansaoInvalida(f"{onde}: rótulo fora da taxonomia em {rotulos}")
-        gravidade = _gravidade(iid, tipo, sobre)
+        gravidade = r["gravidade"] if embutido else _gravidade(iid, tipo, sobre)
+        if gravidade not in GRAVIDADES or gravidade == "incitacao_violencia":
+            raise ExpansaoInvalida(f"{onde}: gravidade inválida ou não permitida na importação ({gravidade!r})")
+        if (tipo == "exclusao") == (gravidade == "nao_se_aplica"):
+            raise ExpansaoInvalida(f"{onde}: gravidade {gravidade!r} incompatível com a leitura {r['leitura']}")
         frases.append({
             "id": iid, "tema": r["tema"], "tipo": tipo, "texto": r["texto"], "origem": ORIGEM_PUBLICAVEL,
             "rotulos_editoriais": rotulos, "mecanismo": r["justificativa_editorial"],
             "muda_se": MUDA_SE_AMBIGUA if tipo == "ambigua" else None, "pode_publicar_ambigua": tipo == "ambigua",
             "subtema": r["subtema"], "origem_original": r["origem"], "colecao": r["colecao"],
             "aviso_conteudo": bool(r.get("alerta_de_contexto")),
-            "dimensoes": {"grupo": grupo, "mecanismo": dim["mecanismos"][r["subtema"]], "gravidade": gravidade,
+            "dimensoes": {"grupo": grupo, "mecanismo": mecanismo, "gravidade": gravidade,
                           "contexto_de_uso": CONTEXTO_DE_USO[tipo], "certeza_rotulo": CERTEZA_POR_TIPO[tipo]},
         })
-    sobrando = {i for ids in sobre.values() for i in ids} - vistos
-    if sobrando:
-        raise ExpansaoInvalida(f"gravidade definida para ids que não existem: {sorted(sobrando)}")
+    if not embutidos:  # a tabela de gravidade vale só para o arquivo sem metadados próprios
+        sobrando = {i for ids in sobre.values() for i in ids} - vistos
+        if sobrando:
+            raise ExpansaoInvalida(f"gravidade definida para ids que não existem: {sorted(sobrando)}")
     return {"frases": frases}

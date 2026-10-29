@@ -241,7 +241,14 @@ def _textos_dos_corpora_locais() -> list[str]:
     return textos
 
 
-def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = False, verificar_corpora: bool = True) -> dict[str, Any]:
+def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = False, verificar_corpora: bool = True,
+                   paginas_estaticas: bool | None = None, pares_revisados: set[str] | None = None) -> dict[str, Any]:
+    """`paginas_estaticas` (None = só quando o destino é o `site/data` real) gera `casos/`, `comparar/`, sitemap e robots."""
+    from . import paginas, pares as mod_pares
+    from .casos import carregar_todos
+
+    destino_real = destino is None  # só o destino real grava o registro versionado de casos já publicados
+    gerar_paginas = destino_real if paginas_estaticas is None else paginas_estaticas
     destino = destino or paths.SITE / "data"
     frases = exportar_frases(conn, incluir_rascunho=False)
     com_dado_pessoal = [f["id"] for f in frases["frases"] if anonimizacao.identificaveis(f["texto"])]
@@ -252,7 +259,11 @@ def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = F
         if achados:
             raise VazamentoDetectado(f"{len(achados)} texto(s) de corpora científicos encontrados no conteúdo público")
     destino.mkdir(parents=True, exist_ok=True)
+    ids_publicados = {f["id"] for f in frases["frases"]}
+    todos_ids = {f["id"] for f in carregar_todos()["frases"]}
+    comparacoes = mod_pares.exportar(ids_publicados, mod_pares.carregar(ids_validos=todos_ids), revisados=pares_revisados)
     arquivos = {
+        "pares.json": comparacoes,
         "frases.json": frases, "taxonomia.json": taxonomia_publica(), "catalogo.json": catalogo_publico(), "referencias.json": referencias_publicas(),
         "contexto.json": contexto_publico(), "achados.json": {"gerado_dos_relatorios": achados_dos_relatorios(), "aviso": AVISO},
         "participacao.json": participacao.resultados_publicos(conn, {f["id"] for f in frases["frases"]}),
@@ -266,4 +277,8 @@ def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = F
         r = exportar_frases(conn, incluir_rascunho=True)
         (pasta / "frases.json").write_text(json.dumps(r, indent=2, ensure_ascii=False), encoding="utf-8")
         rascunho = len(r["frases"])
-    return {"frases_publicadas": len(frases["frases"]), "frases_rascunho_local": rascunho, "destino": str(destino)}
+    resumo_paginas: dict[str, int] = {}
+    if gerar_paginas:
+        resumo_paginas = paginas.gerar(frases["frases"], comparacoes["pares"], destino.parent, registro=paginas.REGISTRO if destino_real else None)
+    return {"frases_publicadas": len(frases["frases"]), "frases_rascunho_local": rascunho, "destino": str(destino),
+            "pares_publicados": len(comparacoes["pares"]), "paginas": resumo_paginas}

@@ -33,7 +33,7 @@ test("menu do celular abre, fecha com Esc, com clique fora e ao escolher um dest
   await botao.click();
   await expect(botao).toHaveAttribute("aria-expanded", "true");
   await expect(painel).toBeVisible();
-  await expect(painel.getByRole("link")).toHaveCount(6);
+  await expect(painel.getByRole("link")).toHaveCount(7); // inclui "Comparar" (os dados de teste têm comparações revisadas)
   await page.keyboard.press("Escape");
   await expect(painel).toBeHidden();
   await expect(botao).toBeFocused(); // fechamento previsível: o foco volta ao botão
@@ -77,7 +77,7 @@ test("os botões principais da home levam a Descobrir e Entender", async ({ page
   await page.getByRole("link", { name: "Entenda o projeto" }).click();
   await expect(page).toHaveURL(/#\/entender$/);
   await page.goBack();
-  await page.getByRole("link", { name: "Explore as frases" }).click();
+  await page.getByRole("link", { name: "Explore uma frase" }).click();
   await expect(page).toHaveURL(/#\/descobrir$/);
 });
 

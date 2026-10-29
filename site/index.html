@@ -6,6 +6,19 @@
   <meta name="theme-color" content="#fbf8f2">
   <title>É Só Opinião? — Onde termina a opinião e começa a discriminação?</title>
   <meta name="description" content="Leia frases, diga como você as interpreta e descubra onde a opinião vira discriminação. Projeto educativo da exposição Quem Pode Pertencer?">
+  <link rel="canonical" href="https://giovaninb.github.io/eh_so_opiniao/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="É Só Opinião?">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="É Só Opinião? — Onde termina a opinião e começa a discriminação?">
+  <meta property="og:description" content="Existem frases que ouvimos a vida inteira sem questionar. Leia, diga como você interpreta e veja o contexto. Projeto educativo da exposição Quem Pode Pertencer?">
+  <meta property="og:url" content="https://giovaninb.github.io/eh_so_opiniao/">
+  <meta property="og:image" content="https://giovaninb.github.io/eh_so_opiniao/og/padrao.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="É Só Opinião? Onde termina a opinião e começa a discriminação?">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://giovaninb.github.io/eh_so_opiniao/og/padrao.png">
   <script>/* Evita que a Início apareça por um instante antes de uma rota interna (ex.: link direto para uma frase): evita "pulo" de layout. */
     document.documentElement.classList.add("js");
     if (/^#\/[^?]/.test(location.hash)) document.documentElement.classList.add("rota-interna");</script>
@@ -14,8 +27,10 @@
   <link rel="stylesheet" href="css/estilo.css">
   <link rel="modulepreload" href="js/app.js">
   <link rel="modulepreload" href="js/componentes/cartaoFrase.js">
+  <link rel="modulepreload" href="js/componentes/comparacao.js">
   <link rel="modulepreload" href="js/componentes/compartilhar.js">
   <link rel="modulepreload" href="js/componentes/enquete.js">
+  <link rel="modulepreload" href="js/componentes/discordancia.js">
   <link rel="modulepreload" href="js/componentes/envio.js">
   <link rel="modulepreload" href="js/componentes/estados.js">
   <link rel="modulepreload" href="js/componentes/filtros.js">
@@ -23,6 +38,7 @@
   <link rel="modulepreload" href="js/componentes/navegacao.js">
   <link rel="modulepreload" href="js/componentes/progresso.js">
   <link rel="modulepreload" href="js/componentes/temasDescoberta.js">
+  <link rel="modulepreload" href="js/nucleo/cartaoCanvas.js">
   <link rel="modulepreload" href="js/nucleo/constantes.js">
   <link rel="modulepreload" href="js/nucleo/dados.js">
   <link rel="modulepreload" href="js/nucleo/dom.js">
@@ -30,6 +46,7 @@
   <link rel="modulepreload" href="js/nucleo/logica.js">
   <link rel="modulepreload" href="js/nucleo/mascara.js">
   <link rel="modulepreload" href="js/nucleo/roteador.js">
+  <link rel="modulepreload" href="js/visoes/comparar.js">
   <link rel="modulepreload" href="js/visoes/descobrir.js">
   <link rel="modulepreload" href="js/visoes/explorar.js">
   <link rel="modulepreload" href="js/visoes/frase.js">
@@ -62,6 +79,7 @@
       <ul class="pagina">
         <li><a href="#/" data-rota="inicio">Início</a></li>
         <li><a href="#/descobrir" data-rota="descobrir">Descobrir: uma frase de cada vez</a></li>
+        <li id="item-comparar-menu" hidden><a href="#/comparar" data-rota="comparar">Comparar: duas frases, uma diferença</a></li>
         <li><a href="#/explorar" data-rota="explorar">Explorar: biblioteca de frases</a></li>
         <li><a href="#/participar" data-rota="participar">Participar com uma frase</a></li>
         <li><a href="#/entender" data-rota="entender">Entender o mecanismo</a></li>
@@ -84,9 +102,9 @@
           <span class="eyebrow">Exposição · Quem Pode Pertencer?</span>
           <h1 id="t-inicio" tabindex="-1">É Só Opinião?</h1>
           <p class="sub">Onde termina a opinião e começa a discriminação?</p>
-          <p class="lead">Discordar faz parte da democracia. Dizer que alguém não pertence à cidade, ao trabalho ou à conversa por causa de onde veio, de quem é ou de como vota é outra coisa. Leia algumas frases e descubra onde você coloca essa linha.</p>
+          <p class="lead">Existem frases que ouvimos a vida inteira sem questionar. Algumas criticam ideias. Outras podem reforçar estereótipos ou excluir pessoas. O contexto faz diferença.</p>
           <div class="acoes">
-            <a class="botao" href="#/descobrir">Explore as frases</a>
+            <a class="botao" href="#/descobrir">Explore uma frase</a>
             <a class="botao botao-claro" href="#/entender">Entenda o projeto</a>
           </div>
         </div>
@@ -98,10 +116,17 @@
           <p class="nota" style="margin-top: var(--esp-4)">As frases são fictícias, adaptadas ou anonimizadas: não identificam ninguém. Nada aqui afirma que houve crime, e a classificação automática, quando aparece, é só uma hipótese.</p>
         </section>
 
+        <section class="secao" id="secao-assuntos" aria-labelledby="t-assuntos" hidden>
+          <h2 id="t-assuntos">Escolha um assunto</h2>
+          <p class="suave">Situações que muita gente já ouviu. Cada atalho abre cinco frases desse assunto.</p>
+          <div class="chips" id="chips-assuntos"></div>
+        </section>
+
         <section class="secao" aria-labelledby="t-continue">
           <h2 id="t-continue">O que você quer fazer?</h2>
           <div class="atalhos">
             <a class="atalho" href="#/descobrir"><span class="t"><strong>Descobrir</strong><span>Cinco frases, uma de cada vez, com a leitura da revisão.</span></span></a>
+            <a class="atalho" id="atalho-comparar" href="#/comparar" hidden><span class="t"><strong>Duas frases, uma diferença</strong><span>Compare duas frases e veja o que muda de uma para a outra.</span></span></a>
             <a class="atalho" href="#/explorar"><span class="t"><strong>Explorar</strong><span id="texto-explorar">Busque e filtre a biblioteca de frases.</span></span></a>
             <a class="atalho" href="#/entender"><span class="t"><strong>Entender</strong><span>Cinco perguntas para separar opinião de discriminação.</span></span></a>
             <a class="atalho" href="#/participar"><span class="t"><strong>Participar</strong><span>Uma frase já fez você pensar? Conte, sem se identificar.</span></span></a>
@@ -118,6 +143,16 @@
         <h1 id="t-descobrir" class="titulo-vista" tabindex="-1">Uma frase de cada vez</h1>
         <p class="suave">Leia, diga como interpreta e veja a leitura da revisão. Você pode pular qualquer frase ou ver a análise sem responder. Não há pontos nem certo e errado.</p>
         <div id="descobrir-corpo" aria-busy="true"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ COMPARAR -->
+    <section class="vista" id="v-comparar" data-vista="comparar" aria-labelledby="t-comparar" hidden>
+      <div class="pagina coluna-central">
+        <span class="eyebrow">Comparar</span>
+        <h1 id="t-comparar" class="titulo-vista" tabindex="-1">Duas frases, uma diferença</h1>
+        <p class="suave">Uma pequena mudança de alvo ou de linguagem pode mudar a interpretação. Compare, abra a leitura de cada frase e veja o que muda. Ninguém precisa responder.</p>
+        <div id="comparar-corpo" aria-busy="true"></div>
       </div>
     </section>
 

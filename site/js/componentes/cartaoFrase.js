@@ -5,6 +5,7 @@ import { estado } from "../nucleo/estado.js";
 import { AVALIACOES, NOME_AVALIACAO, LEITURA_HUMANA, NATUREZA } from "../nucleo/constantes.js";
 import { Enquete } from "./enquete.js";
 import { Compartilhar } from "./compartilhar.js";
+import { Discordancia } from "./discordancia.js";
 
 function nomeTema(f) {
   const t = estado.temas.find((x) => x.id === f.tema);
@@ -63,6 +64,7 @@ export function Revelacao(f, valor, { rotuloProxima, aoProxima } = {}) {
     el("p", { class: "aviso-natureza", text: rascunho ? "Rascunho local: ainda não foi revisado por uma pessoa." : nat.aviso }),
     SugestaoAutomatica(f),
     Enquete(f.id, valor && valor !== "pulou" ? valor : null),
+    Discordancia(f),
     acoes,
   ]);
   return { elemento: caixa, titulo };

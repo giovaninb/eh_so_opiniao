@@ -70,6 +70,20 @@ for (const v of LARGURAS) {
       await foto(page, `analise-${v.nome}`);
     });
 
+    test("duas frases, uma diferença (revelada)", async ({ page }) => {
+      await abrir(page, "#/comparar/p-03");
+      await page.getByRole("button", { name: "Ver o que muda" }).click();
+      await foto(page, `comparacao-${v.nome}`);
+    });
+
+    test("cartão de imagem gerado", async ({ page }) => {
+      await abrir(page, "#/frase/EX-01");
+      await page.locator("details.imagem-cartao summary").click();
+      await page.getByRole("button", { name: /Stories e Status/ }).click();
+      await page.locator("img.previa-stories").waitFor();
+      await foto(page, `imagem-stories-${v.nome}`);
+    });
+
     test("formulário de participação (envio indisponível, estado padrão)", async ({ page }) => {
       await abrir(page, "#/participar");
       await foto(page, `formulario-indisponivel-${v.nome}`);

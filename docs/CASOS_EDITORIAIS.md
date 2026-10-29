@@ -26,12 +26,14 @@ Contagens atuais, separadas (a fila local não é versionada):
 
 | Etapa | Quantidade |
 |---|---|
-| Criados (arquivos YAML e JSONL) | 345 (169 anteriores + 176 da [expansão 2026-10](EXPANSAO_GENERO_IDADISMO_RELIGIAO_TRANS.md)) |
+| Criados (arquivos YAML e JSONL) | 592 (169 anteriores + 247 do catálogo consolidado NX-001..247 + 176 da [expansão 2026-10](EXPANSAO_GENERO_IDADISMO_RELIGIAO_TRANS.md)) |
 | Revisados por uma pessoa (decididos) | 169 (158 aprovados em lote pelo revisor após ler a folha compacta) |
 | Publicados em `site/data/` | 169 |
-| Pendentes de revisão | 176 (todos da expansão 2026-10; nenhum aprovado ou publicado) |
+| Pendentes de revisão | 423 (NX-001 a NX-423; nenhum aprovado ou publicado) |
+| Páginas estáticas de caso | 169 (uma por caso publicado, em `site/casos/<id>/`) |
+| Comparações ("Duas frases, uma diferença") | 13 propostas em `casos/pares.yaml`; 0 revisadas, 0 publicadas |
 
-Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 169 anteriores já foram decididos; os 176 NX-248 a NX-423 aguardam revisão). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
+Novos candidatos entram como **Pendente** e **não aparecem no site** até uma pessoa decidir (os 169 anteriores já foram decididos; os 423 NX-001 a NX-423 aguardam revisão). Os testes de interface usam uma cópia de teste (revisor fictício `fixture-e2e`), nunca publicada.
 
 ```bash
 cd eh_so_opiniao
