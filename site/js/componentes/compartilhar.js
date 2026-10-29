@@ -43,34 +43,56 @@ function BotoesDeLink({ url, mensagem, retorno, titulo }) {
 /** Imagem para Status e Stories (9:16) e prévia 1200×630, gerada no navegador quando a pessoa pede. */
 function ImagemDoCartao(f, url, retorno) {
   const area = el("div", { class: "imagem-resultado", "aria-live": "polite" });
-  let anterior = null;
+  let urls = [];
+  function soltar() { urls.forEach((u) => URL.revokeObjectURL(u)); urls = []; }
+  async function copiarPng(blob) {
+    if (!navigator.clipboard || typeof ClipboardItem !== "function") throw new Error("clipboard");
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": Promise.resolve(blob) })]);
+  }
   async function gerar(formato) {
     retorno.textContent = "Gerando a imagem…";
     try {
-      const blob = await gerarImagem({ formato, frase: f, url });
-      if (anterior) URL.revokeObjectURL(anterior);
-      anterior = URL.createObjectURL(blob);
+      const gerada = await gerarImagem({ formato, frase: f, url });
+      soltar();
+      const hrefArquivo = URL.createObjectURL(gerada.arquivo);
+      const hrefPrevia = URL.createObjectURL(gerada.previa);
+      urls = [hrefArquivo, hrefPrevia];
       const nome = nomeArquivoImagem(f.id, formato.sufixo);
-      const arquivo = typeof File === "function" ? new File([blob], nome, { type: "image/png" }) : null;
-      const acoes = [el("a", { class: "botao", href: anterior, download: nome, text: "Salvar imagem" })];
+      const arquivo = typeof File === "function" ? new File([gerada.arquivo], nome, { type: "image/png" }) : null;
+      const acoes = [
+        el("a", { class: "botao", href: hrefArquivo, download: nome, text: "Salvar imagem" }),
+        el("button", {
+          type: "button", class: "botao botao-claro", text: "Copiar imagem",
+          onclick: async () => {
+            try { await copiarPng(gerada.arquivo); retorno.textContent = "Imagem copiada. Cole no Status ou no Stories."; }
+            catch { retorno.textContent = "Neste aparelho a cópia manda duas imagens. Use “Salvar imagem” e anexe o arquivo."; }
+          },
+        }),
+      ];
       if (arquivo && navigator.canShare && navigator.canShare({ files: [arquivo] })) {
         acoes.push(el("button", {
           type: "button", class: "botao botao-claro", text: "Compartilhar imagem",
-          onclick: async () => { try { await navigator.share({ files: [arquivo], title: "É Só Opinião?" }); } catch (e) { if (!e || e.name !== "AbortError") retorno.textContent = "Não foi possível compartilhar a imagem. Use “Salvar imagem”."; } },
+          onclick: async () => {
+            try { await navigator.share({ files: [arquivo] }); } // só o arquivo: título/texto fariam o WhatsApp anexar também a prévia do link
+            catch (e) { if (!e || e.name !== "AbortError") retorno.textContent = "Não foi possível compartilhar a imagem. Use “Salvar imagem”."; }
+          },
         }));
       }
       area.replaceChildren(
-        el("img", { class: `previa-cartao previa-${formato.id}`, src: anterior, alt: textoAlternativo(f, formato), width: String(formato.largura), height: String(formato.altura) }),
+        el("img", {
+          class: `previa-cartao previa-${formato.id}`, src: hrefPrevia, alt: textoAlternativo(f, formato),
+          draggable: "false",
+        }),
         el("div", { class: "compartilhar-botoes" }, acoes),
       );
-      retorno.textContent = `Imagem ${formato.largura}×${formato.altura} pronta.`;
+      retorno.textContent = `Imagem ${gerada.largura}×${gerada.altura} pronta. A miniatura é só para conferir.`;
     } catch {
       retorno.textContent = "Não foi possível gerar a imagem neste navegador. Use “Copiar link”.";
     }
   }
   return el("details", { class: "detalhe imagem-cartao" }, [
     el("summary", { text: "Imagem para Status ou Stories" }),
-    el("p", { class: "pequeno suave", text: "A imagem é criada no seu aparelho. Frases com aviso de conteúdo não aparecem nela." }),
+    el("p", { class: "pequeno suave", text: "A imagem é criada no seu aparelho. Frases com aviso de conteúdo não aparecem nela. Para Status ou Stories, use Salvar, Copiar imagem ou Compartilhar imagem — copiar a miniatura da página manda duas imagens." }),
     el("div", { class: "compartilhar-botoes" }, Object.values(FORMATOS).map((fm) => el("button", { type: "button", class: "botao botao-claro", "data-formato": fm.id, text: fm.rotulo, onclick: () => gerar(fm) }))),
     area,
   ]);

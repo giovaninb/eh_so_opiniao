@@ -81,6 +81,25 @@ test("os botões principais da home levam a Descobrir e Entender", async ({ page
   await expect(page).toHaveURL(/#\/descobrir$/);
 });
 
+test("depois de abrir uma frase pelo link, a Início volta a aparecer (não fica em branco)", async ({ page }) => {
+  await abrir(page, "#/frase/EX-01");
+  await expect(page.locator("#v-inicio")).toBeHidden();
+  await page.locator(".nav-desktop, .barra-inferior").getByRole("link", { name: "Início" }).first().click();
+  await expect(page).toHaveURL(/#\/?$/);
+  await expect(page.getByRole("heading", { level: 1, name: "É Só Opinião?" })).toBeVisible();
+  await expect(page.locator("#v-inicio .lead")).toBeVisible();
+  await expect(page.locator("#primeira-interacao .frase")).toBeVisible();
+});
+
+test("página estática de caso leva à frase e de lá a Início continua visível", async ({ page }) => {
+  await page.goto("/casos/ex-01/");
+  await page.waitForURL(/#\/frase\/EX-01$/);
+  await page.waitForFunction(() => document.documentElement.dataset.pronto === "true");
+  await page.locator(".marca").click();
+  await expect(page.getByRole("heading", { level: 1, name: "É Só Opinião?" })).toBeVisible();
+  await expect(page.locator("#v-inicio .hero")).toBeVisible();
+});
+
 test("teclado: pular para o conteúdo, ordem de tabulação e foco visível", async ({ page }) => {
   await abrir(page);
   await page.keyboard.press(teclaTab(page));

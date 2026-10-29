@@ -117,7 +117,10 @@ test.describe("imagem para Status e Stories", () => {
   test("Stories 1080×1920 e prévia 1200×630, com alternativa textual, salvas no aparelho", async ({ page }) => {
     const dim = (img) => img.evaluate((i) => i.complete ? [i.naturalWidth, i.naturalHeight] : new Promise((ok) => { i.onload = () => ok([i.naturalWidth, i.naturalHeight]); }));
     let img = await gerar(page, "EX-01", /Stories e Status/);
-    expect(await dim(img)).toEqual([1080, 1920]);
+    const mini = await dim(img);
+    expect(mini[0]).toBeLessThan(1080); // miniatura na tela, para o Safari não copiar o arquivo cheio e o recorte
+    expect(mini[1] / mini[0]).toBeCloseTo(1920 / 1080, 1);
+    await expect(page.locator(".imagem-resultado img")).toHaveCount(1);
     await expect(img).toHaveAttribute("alt", /Gente do interior é tudo atrasada/);
     const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("link", { name: "Salvar imagem" }).click()]);
     expect(download.suggestedFilename()).toBe("eh-so-opiniao-ex-01-stories.png");
@@ -126,7 +129,28 @@ test.describe("imagem para Status e Stories", () => {
     expect(bytes.readUInt32BE(16)).toBe(1080);
     expect(bytes.readUInt32BE(20)).toBe(1920);
     img = await gerar(page, "EX-01", /Prévia para redes/);
-    expect(await dim(img)).toEqual([1200, 630]);
+    const miniP = await dim(img);
+    expect(miniP[0]).toBeLessThanOrEqual(1200);
+    expect(miniP[1] / miniP[0]).toBeCloseTo(630 / 1200, 1);
+    const [downloadP] = await Promise.all([page.waitForEvent("download"), page.getByRole("link", { name: "Salvar imagem" }).click()]);
+    const bytesP = readFileSync(await downloadP.path());
+    expect([bytesP.readUInt32BE(16), bytesP.readUInt32BE(20)]).toEqual([1200, 630]);
+  });
+
+  test("Copiar imagem manda um único PNG no tamanho de Status, não a miniatura", async ({ page }) => {
+    await page.addInitScript(() => {
+      window.__clip = null;
+      navigator.clipboard.write = async (items) => {
+        const blob = await items[0].getType("image/png");
+        const buf = new Uint8Array(await blob.arrayBuffer());
+        const view = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
+        window.__clip = { n: items.length, tipo: blob.type, w: view.getUint32(16), h: view.getUint32(20) };
+      };
+    });
+    await gerar(page, "EX-01", /Stories e Status/);
+    await page.getByRole("button", { name: "Copiar imagem" }).click();
+    await expect(page.locator("section.compartilhar .retorno-compartilhar")).toContainText("Imagem copiada");
+    expect(await page.evaluate(() => window.__clip)).toEqual({ n: 1, tipo: "image/png", w: 1080, h: 1920 });
   });
 
   test("frase com aviso de conteúdo não é desenhada na imagem", async ({ page }) => {
@@ -137,10 +161,10 @@ test.describe("imagem para Status e Stories", () => {
   });
 
   test("com compartilhamento de arquivos disponível, oferece Compartilhar imagem; sem ele, só salvar", async ({ page }) => {
-    await page.addInitScript(() => { window.__arq = null; navigator.canShare = (d) => !!(d && d.files && d.files.length); navigator.share = async (d) => { window.__arq = d.files[0].name; }; });
+    await page.addInitScript(() => { window.__arq = null; navigator.canShare = (d) => !!(d && d.files && d.files.length); navigator.share = async (d) => { window.__arq = { nome: d.files[0].name, n: d.files.length, text: d.text, url: d.url }; }; });
     await gerar(page, "EX-01", /Stories e Status/);
     await page.getByRole("button", { name: "Compartilhar imagem" }).click();
-    expect(await page.evaluate(() => window.__arq)).toBe("eh-so-opiniao-ex-01-stories.png");
+    expect(await page.evaluate(() => window.__arq)).toEqual({ nome: "eh-so-opiniao-ex-01-stories.png", n: 1, text: undefined, url: undefined });
   });
 
   test("sem canShare só aparece Salvar imagem", async ({ page }) => {
@@ -148,6 +172,7 @@ test.describe("imagem para Status e Stories", () => {
     await gerar(page, "EX-01", /Stories e Status/);
     await expect(page.getByRole("button", { name: "Compartilhar imagem" })).toHaveCount(0);
     await expect(page.getByRole("link", { name: "Salvar imagem" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Copiar imagem" })).toBeVisible();
   });
 
   test("a geração da imagem não faz nenhuma requisição externa", async ({ page }) => {

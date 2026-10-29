@@ -21,6 +21,7 @@ export function iniciarRoteador(visoes, aoMudar) {
     const alvo = analisarHash();
     const visao = visoes[alvo.rota] || visoes.inicio;
     const rota = visoes[alvo.rota] ? alvo.rota : "inicio";
+    document.documentElement.classList.toggle("rota-interna", rota !== "inicio"); // a classe só existe para o 1º paint; sem isto, voltar à Início deixava a home em branco
     document.querySelectorAll("[data-vista]").forEach((s) => { s.hidden = s.dataset.vista !== rota; });
     document.title = `${visao.titulo} — É Só Opinião?`;
     aoMudar(visao.rotaAtiva || rota);

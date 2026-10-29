@@ -302,7 +302,7 @@ details.detalhe > :not(summary) { margin-top: var(--esp-2); }
 .chips a.chip:hover { border-color: var(--cor-destaque); color: var(--cor-destaque-forte); }
 .imagem-cartao { margin-top: var(--esp-3); }
 .imagem-resultado { display: grid; gap: var(--esp-3); margin-top: var(--esp-3); justify-items: start; }
-.previa-cartao { display: block; max-width: 100%; height: auto; border: 1px solid var(--cor-linha); border-radius: var(--raio-s, 0.5rem); }
+.previa-cartao { display: block; max-width: 100%; height: auto; border: 1px solid var(--cor-linha); border-radius: var(--raio-s, 0.5rem); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-user-drag: none; }
 .previa-stories { max-height: 22rem; width: auto; }
 .pagina-estatica .cartao-frase { margin-block: var(--esp-5); }
 @media (min-width: 720px) { .comparacao { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

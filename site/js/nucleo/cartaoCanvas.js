@@ -72,8 +72,27 @@ export function desenharCartao(canvas, { formato, frase, url }) {
   return canvas;
 }
 
-export function gerarImagem({ formato, frase, url }) {
+function blobDoCanvas(canvas) {
+  return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("não foi possível gerar a imagem"))), "image/png"));
+}
+
+/** Miniatura para a tela (bem menor que 1080×1920). No celular, copiar a imagem da página pega o arquivo
+    interno E o recorte visual se os dois tamanhos forem diferentes — por isso a miniatura não é o arquivo de Status. */
+function canvasMiniatura(origem, maxLarguraCss) {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const alvo = Math.round(maxLarguraCss * dpr);
+  const escala = Math.min(1, alvo / origem.width);
+  const mini = document.createElement("canvas");
+  mini.width = Math.max(1, Math.round(origem.width * escala));
+  mini.height = Math.max(1, Math.round(origem.height * escala));
+  mini.getContext("2d").drawImage(origem, 0, 0, mini.width, mini.height);
+  return mini;
+}
+
+export async function gerarImagem({ formato, frase, url }) {
   const canvas = document.createElement("canvas");
   desenharCartao(canvas, { formato, frase, url });
-  return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("não foi possível gerar a imagem"))), "image/png"));
+  const mini = canvasMiniatura(canvas, formato.id === "stories" ? 280 : 540);
+  const [arquivo, previa] = await Promise.all([blobDoCanvas(canvas), blobDoCanvas(mini)]);
+  return { arquivo, previa, largura: canvas.width, altura: canvas.height };
 }
