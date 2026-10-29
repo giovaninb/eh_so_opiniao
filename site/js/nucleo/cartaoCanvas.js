@@ -17,6 +17,11 @@ export function textoAlternativo(f, formato) {
   return `${base} Formato ${formato.rotulo}.`;
 }
 
+export function textoAlternativoPar(par, a, b, formato) {
+  const cit = (f) => (f.aviso_conteudo ? "uma frase com aviso de conteúdo" : `“${f.texto}”`);
+  return `Cartão do É Só Opinião? comparando ${cit(a)} e ${cit(b)}. Pergunta: o que muda de uma para a outra? Formato ${formato.rotulo}.`;
+}
+
 function enderecoCurto(url) {
   try { const u = new URL(url); return `${u.host}${u.pathname}`.replace(/\/$/, ""); } catch { return url; }
 }
@@ -72,6 +77,81 @@ export function desenharCartao(canvas, { formato, frase, url }) {
   return canvas;
 }
 
+function textoDaFrase(f) {
+  return f.aviso_conteudo
+    ? "Esta frase tem aviso de conteúdo e não aparece aqui. Abra o link."
+    : `“${f.texto}”`;
+}
+
+function desenharBloco(ctx, { x, y, w, h, letra, frase, vertical }) {
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = COR.linha;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(x, y, w, h);
+  const pad = vertical ? 28 : 20;
+  ctx.fillStyle = COR.destaque;
+  ctx.font = `800 ${vertical ? 26 : 18}px ${SANS}`;
+  ctx.fillText(`FRASE ${letra}`, x + pad, y + pad + (vertical ? 22 : 16));
+  const util = w - 2 * pad;
+  const topo = y + pad + (vertical ? 48 : 36);
+  const area = h - (topo - y) - pad;
+  const maximo = vertical ? 42 : 26;
+  const minimo = vertical ? 24 : 16;
+  const lh = 1.25;
+  const linhasMax = Math.max(2, Math.floor(area / (minimo * lh)));
+  const ajuste = ajustarTexto((t, tam) => { ctx.font = `700 ${tam}px ${SERIF}`; return ctx.measureText(t).width; }, textoDaFrase(frase), util, { maximo, minimo, linhasMax });
+  ctx.fillStyle = COR.tinta;
+  ctx.font = `700 ${ajuste.tamanho}px ${SERIF}`;
+  let yy = topo + ajuste.tamanho;
+  for (const l of ajuste.linhas) { ctx.fillText(l, x + pad, yy, util); yy += ajuste.tamanho * lh; }
+}
+
+export function desenharComparacao(canvas, { formato, par, a, b, url }) {
+  const { largura: W, altura: H } = formato;
+  const vertical = H > W;
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext("2d");
+  const m = vertical ? 80 : 48;
+  const util = W - 2 * m;
+  ctx.fillStyle = COR.fundo; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = COR.destaque; ctx.fillRect(0, 0, W, vertical ? 24 : 16);
+  ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
+
+  let y = m + (vertical ? 56 : 28);
+  ctx.fillStyle = COR.tinta; ctx.font = `700 ${vertical ? 56 : 36}px ${SERIF}`;
+  ctx.fillText("É Só Opinião?", m, y);
+  y += vertical ? 44 : 28;
+  ctx.fillStyle = COR.destaque; ctx.font = `800 ${vertical ? 28 : 18}px ${SANS}`;
+  ctx.fillText("DUAS FRASES, UMA DIFERENÇA", m, y, util);
+  y += vertical ? 52 : 32;
+  ctx.fillStyle = COR.tinta; ctx.font = `700 ${vertical ? 40 : 24}px ${SERIF}`;
+  ctx.fillText(par.titulo, m, y, util);
+
+  const rodape = vertical ? 280 : 120;
+  const gap = vertical ? 28 : 20;
+  const blocoY = y + (vertical ? 36 : 20);
+  const blocoH = H - blocoY - rodape;
+  if (vertical) {
+    const h = (blocoH - gap) / 2;
+    desenharBloco(ctx, { x: m, y: blocoY, w: util, h, letra: "A", frase: a, vertical });
+    desenharBloco(ctx, { x: m, y: blocoY + h + gap, w: util, h, letra: "B", frase: b, vertical });
+  } else {
+    const w = (util - gap) / 2;
+    desenharBloco(ctx, { x: m, y: blocoY, w, h: blocoH, letra: "A", frase: a, vertical: false });
+    desenharBloco(ctx, { x: m + w + gap, y: blocoY, w, h: blocoH, letra: "B", frase: b, vertical: false });
+  }
+
+  const base = H - (vertical ? 88 : 36);
+  ctx.fillStyle = COR.tinta; ctx.font = `700 ${vertical ? 36 : 22}px ${SANS}`;
+  ctx.fillText("O que muda de uma para a outra?", m, base - (vertical ? 88 : 40), util);
+  ctx.fillStyle = COR.suave; ctx.font = `400 ${vertical ? 28 : 18}px ${SANS}`;
+  ctx.fillText("Exemplo fictício · conteúdo educativo", m, base - (vertical ? 44 : 18), util);
+  ctx.fillStyle = COR.destaque; ctx.font = `800 ${vertical ? 32 : 20}px ${SANS}`;
+  ctx.fillText(enderecoCurto(url), m, base, util);
+  return canvas;
+}
+
 function blobDoCanvas(canvas) {
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("não foi possível gerar a imagem"))), "image/png"));
 }
@@ -89,9 +169,10 @@ function canvasMiniatura(origem, maxLarguraCss) {
   return mini;
 }
 
-export async function gerarImagem({ formato, frase, url }) {
+export async function gerarImagem({ formato, frase, par, a, b, url }) {
   const canvas = document.createElement("canvas");
-  desenharCartao(canvas, { formato, frase, url });
+  if (par) desenharComparacao(canvas, { formato, par, a, b, url });
+  else desenharCartao(canvas, { formato, frase, url });
   const mini = canvasMiniatura(canvas, formato.id === "stories" ? 280 : 540);
   const [arquivo, previa] = await Promise.all([blobDoCanvas(canvas), blobDoCanvas(mini)]);
   return { arquivo, previa, largura: canvas.width, altura: canvas.height };

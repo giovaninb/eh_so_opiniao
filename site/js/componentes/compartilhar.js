@@ -3,7 +3,7 @@
    O link aponta para a página estática do caso (casos/<id>/), que tem prévia própria em redes sociais e leva à experiência interativa. */
 import { el } from "../nucleo/dom.js";
 import { mensagemCompartilhar, mensagemComparacao, linkWhatsApp, nomeArquivoImagem } from "../nucleo/logica.js";
-import { FORMATOS, gerarImagem, textoAlternativo } from "../nucleo/cartaoCanvas.js";
+import { FORMATOS, gerarImagem, textoAlternativo, textoAlternativoPar } from "../nucleo/cartaoCanvas.js";
 
 /** Raiz do site (onde está o index.html), a partir deste módulo: funciona em qualquer subcaminho, inclusive no GitHub Pages. */
 export function raizDoSite() {
@@ -41,7 +41,7 @@ function BotoesDeLink({ url, mensagem, retorno, titulo }) {
 }
 
 /** Imagem para Status e Stories (9:16) e prévia 1200×630, gerada no navegador quando a pessoa pede. */
-function ImagemDoCartao(f, url, retorno) {
+function ImagemDoCartao({ id, url, retorno, pedido, alt }) {
   const area = el("div", { class: "imagem-resultado", "aria-live": "polite" });
   let urls = [];
   function soltar() { urls.forEach((u) => URL.revokeObjectURL(u)); urls = []; }
@@ -52,12 +52,12 @@ function ImagemDoCartao(f, url, retorno) {
   async function gerar(formato) {
     retorno.textContent = "Gerando a imagem…";
     try {
-      const gerada = await gerarImagem({ formato, frase: f, url });
+      const gerada = await gerarImagem({ formato, url, ...pedido });
       soltar();
       const hrefArquivo = URL.createObjectURL(gerada.arquivo);
       const hrefPrevia = URL.createObjectURL(gerada.previa);
       urls = [hrefArquivo, hrefPrevia];
-      const nome = nomeArquivoImagem(f.id, formato.sufixo);
+      const nome = nomeArquivoImagem(id, formato.sufixo);
       const arquivo = typeof File === "function" ? new File([gerada.arquivo], nome, { type: "image/png" }) : null;
       const acoes = [
         el("a", { class: "botao", href: hrefArquivo, download: nome, text: "Salvar imagem" }),
@@ -80,7 +80,7 @@ function ImagemDoCartao(f, url, retorno) {
       }
       area.replaceChildren(
         el("img", {
-          class: `previa-cartao previa-${formato.id}`, src: hrefPrevia, alt: textoAlternativo(f, formato),
+          class: `previa-cartao previa-${formato.id}`, src: hrefPrevia, alt: alt(formato),
           draggable: "false",
         }),
         el("div", { class: "compartilhar-botoes" }, acoes),
@@ -106,18 +106,22 @@ export function Compartilhar(f) {
   return el("section", { class: "compartilhar", "aria-label": "Compartilhar esta frase" }, [
     el("p", { class: "compartilhar-titulo", text: "Quer ouvir outra pessoa sobre esta frase?" }),
     el("div", { class: "compartilhar-botoes" }, BotoesDeLink({ url, mensagem, retorno, titulo: f.id })),
-    ImagemDoCartao(f, url, retorno),
+    ImagemDoCartao({ id: f.id, url, retorno, pedido: { frase: f }, alt: (fm) => textoAlternativo(f, fm) }),
     retorno,
   ]);
 }
 
-export function CompartilharComparacao(par) {
+export function CompartilharComparacao(par, a, b) {
   const url = urlDaComparacao(par.slug);
   const mensagem = mensagemComparacao(url);
   const retorno = el("p", { class: "pequeno suave retorno-compartilhar", role: "status" });
   return el("section", { class: "compartilhar", "aria-label": "Compartilhar esta comparação" }, [
     el("p", { class: "compartilhar-titulo", text: "Quer comparar com outra pessoa?" }),
     el("div", { class: "compartilhar-botoes" }, BotoesDeLink({ url, mensagem, retorno, titulo: par.titulo })),
+    ImagemDoCartao({
+      id: par.slug, url, retorno, pedido: { par, a, b },
+      alt: (fm) => textoAlternativoPar(par, a, b, fm),
+    }),
     retorno,
   ]);
 }

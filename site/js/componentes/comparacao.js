@@ -46,7 +46,7 @@ export function Comparacao(par, a, b, { aoProxima } = {}) {
     el("div", { class: "comparacao" }, [CartaFrase(a, "A"), CartaFrase(b, "B")]),
     el("div", { class: "acoes-cartao" }, [botao]),
     revelacao,
-    CompartilharComparacao(par),
+    CompartilharComparacao(par, a, b),
   ]);
   return { elemento, titulo };
 }

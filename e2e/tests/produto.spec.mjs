@@ -84,6 +84,28 @@ test.describe("duas frases, uma diferença", () => {
     expect(m).toMatch(/\/comparar\/p-03\/$/);
   });
 
+  test("a comparação gera Stories 1080×1920 e prévia 1200×630, com as duas frases e sem a leitura editorial", async ({ page }) => {
+    await abrir(page, "#/comparar/p-01");
+    const secao = page.locator("#v-comparar section.compartilhar");
+    await secao.locator("details.imagem-cartao summary").click();
+    await secao.getByRole("button", { name: /Stories e Status/ }).click();
+    const img = secao.locator(".imagem-resultado img.previa-stories");
+    await expect(img).toBeVisible();
+    const alt = await img.getAttribute("alt");
+    expect(alt).toMatch(/esquerda/i);
+    expect(alt).toMatch(/direita/i);
+    expect(alt).not.toMatch(/critério de leitura|não demonstra/i);
+    const [download] = await Promise.all([page.waitForEvent("download"), secao.getByRole("link", { name: "Salvar imagem" }).click()]);
+    expect(download.suggestedFilename()).toBe("eh-so-opiniao-p-01-stories.png");
+    const bytes = readFileSync(await download.path());
+    expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([1080, 1920]);
+    await secao.getByRole("button", { name: /Prévia para redes/ }).click();
+    await expect(secao.locator(".imagem-resultado img.previa-previa")).toBeVisible();
+    const [downloadP] = await Promise.all([page.waitForEvent("download"), secao.getByRole("link", { name: "Salvar imagem" }).click()]);
+    const bytesP = readFileSync(await downloadP.path());
+    expect([bytesP.readUInt32BE(16), bytesP.readUInt32BE(20)]).toEqual([1200, 630]);
+  });
+
   test("comparação inexistente mostra estado de erro útil, sem quebrar", async ({ page }) => {
     await abrir(page, "#/comparar/nao-existe");
     await expect(page.getByText("Não encontramos essa comparação")).toBeVisible();
