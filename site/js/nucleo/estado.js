@@ -16,9 +16,12 @@ export const estado = {
   semente: Number(new URLSearchParams(location.search).get("semente")) || null,
   erro: null,
   respostas: new Map(), // id da frase -> valor escolhido (só nesta visita)
-  votosEnviados: new Set(),
+  avaliacoesVisita: new Map(), // detalhes para lote voluntário (só nesta visita)
+  lotesEnviados: new Set(),
   enviosFrases: 0,
   enviosDiscordancia: 0,
+  enviosLote: 0,
+  corposEnviados: new Set(),
   sessao: null, // modo Descoberta
   ordemBiblioteca: [], // ids na ordem da última lista exibida (para "próxima frase")
 };

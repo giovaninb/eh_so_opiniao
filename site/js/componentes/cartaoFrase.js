@@ -6,6 +6,7 @@ import { AVALIACOES, NOME_AVALIACAO, LEITURA_HUMANA, NATUREZA } from "../nucleo/
 import { Enquete } from "./enquete.js";
 import { Compartilhar } from "./compartilhar.js?v=7";
 import { Discordancia } from "./discordancia.js";
+import { registrarAvaliacao } from "../nucleo/sessaoContribuicao.js";
 
 function nomeTema(f) {
   const t = estado.temas.find((x) => x.id === f.tema);
@@ -95,7 +96,13 @@ export function CartaoFrase(f, opcoes = {}) {
     return r;
   }
   function responder(valor) {
+    const jaRevelou = slot.childElementCount > 0;
     estado.respostas.set(f.id, valor);
+    registrarAvaliacao({
+      frase: f, valor, modo: opcoes.modo,
+      contextoExibido: !!(opcoes.contextoExibido || jaRevelou),
+      analiseRevelada: jaRevelou,
+    });
     botoes.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.valor === valor)));
     const r = mostrarRevelacao(valor);
     focar(r.titulo);

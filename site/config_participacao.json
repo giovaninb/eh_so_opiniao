@@ -1,6 +1,9 @@
 {
   "ativo": true,
-  "endpoint": "https://formspree.io/f/mdeedbjv",
+  "contribuicoes_abertas": true,
+  "provedor": "cloudflare",
+  "endpoint": "https://eh-so-opiniao-api.bettoni-gn.workers.dev/api/v1/participacoes",
+  "turnstile_sitekey": "0x4AAAAAAFs35eoOZCM90BMD",
   "modo_resposta": "cors",
   "campos": {
     "tipo": "tipo",
@@ -10,5 +13,6 @@
     "consentimento": "consentimento",
     "armadilha": "site"
   },
-  "_como_ativar": "Crie um formulário privado que aceite POST com CORS e responda JSON (ex.: Formspree), cole a URL https em 'endpoint', ajuste 'campos' e mude 'ativo' para true. Com serviços sem CORS (ex.: Google Forms) use \"modo_resposta\": \"opaca\": o site NÃO consegue confirmar o recebimento e avisa isso. Veja docs/PARTICIPACAO.md."
+  "_rollback_formspree": "https://formspree.io/f/mdeedbjv",
+  "_como_ativar": "Etapa E: provedor=cloudflare. Rollback: provedor=formspree e endpoint=_rollback_formspree. Nunca coloque a secret no site. Para suspender contribuições use contribuicoes_abertas=false. Veja docs/MIGRACAO_FORMSPREE.md."
 }

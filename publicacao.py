@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from . import SCHEMA_VERSION, anonimizacao, participacao, paths, registry
+from . import SCHEMA_VERSION, anonimizacao, participacao, participacao_esquema, paths, registry
 from .review import store
 from .textnorm import hash_chave
 
@@ -79,6 +79,7 @@ def exportar_frases(conn, incluir_rascunho: bool = False) -> dict[str, Any]:
             "dimensoes": editorial.get("dimensoes"),
             "grupo": expansao.grupo_de(_tema(editorial, finais, linha["tipo"]), (editorial.get("dimensoes") or {}).get("grupo")),
         })
+        itens[-1]["conteudo_versao"] = participacao_esquema.versao_editorial(itens[-1])
     usados = {i["tema"] for i in itens}
     grupos_usados = {i["grupo"] for i in itens if i["grupo"]}
     from . import casos

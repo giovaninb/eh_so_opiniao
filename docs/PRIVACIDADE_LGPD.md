@@ -34,19 +34,19 @@ Não é parecer jurídico. Registra as decisões de projeto.
 
 ## Participação de visitantes
 
-Detalhes em [PARTICIPACAO.md](PARTICIPACAO.md).
+Detalhes em [PARTICIPACAO.md](PARTICIPACAO.md), [PRIVACIDADE_PARTICIPACAO.md](PRIVACIDADE_PARTICIPACAO.md), [FORMSPREE_FREE.md](FORMSPREE_FREE.md), [MIGRACAO_FORMSPREE.md](MIGRACAO_FORMSPREE.md) e [CLOUDFLARE_SETUP.md](CLOUDFLARE_SETUP.md).
 
-- Envio voluntário, por ação explícita, sem pedir nome nem e-mail e com consentimento marcado.
+- Envio voluntário, por ação explícita, sem pedir nome nem e-mail e com consentimento marcado (nunca presumido).
 - Frase de visitante entra na fila como Pendente, mascarada, e **nunca** é publicável até uma pessoa anonimizá-la e aprová-la.
-- O texto original não é guardado no banco local; o CSV exportado deve ser apagado após a importação.
-- Votos viram só contagem por frase, exibida com no mínimo 10 votos.
-- O serviço externo de formulário pode registrar dados técnicos (como IP). O site avisa; escolha o serviço com isso em mente.
-- Pedido de remoção: rejeitar o item na fila e regenerar o site.
+- O texto original não é o arquivo permanente: importe, revise e apague a exportação. Relatórios agregados podem permanecer sem os textos.
+- Avaliações voluntárias em lote (até cinco por submissão) e votos importados viram contagem por frase e por versão editorial, exibida com no mínimo 10.
+- A aplicação não coleta IP, geolocalização, fingerprint nem identificadores persistentes. Hospedagem e serviço de recebimento podem processar dados técnicos (como IP). Com o Worker, o D1 não guarda IP/UA; o Turnstile e a rede Cloudflare podem processar metadados na verificação. O site avisa; não há anonimato absoluto.
+- Pedido de remoção: rejeitar o item na fila, apagar a submissão no D1 se já estiver lá, e regenerar o site. Textos: retenção limitada (`analytics retencao` e `sql/exclusao.sql`).
 
 ## Site
 
-- Sem cookies, sem analytics, sem recursos externos (fontes/CDN), sem `localStorage`. A única chamada externa é o envio do formulário, só quando o visitante clica em enviar e o envio está ativado.
-- As escolhas do visitante ("é só opinião / é discriminação / depende") ficam só na página aberta; só são enviadas se o visitante clicar em "Contar minha leitura na enquete".
+- Sem cookies, sem medição de audiência, sem fontes/CDN, sem `localStorage`. Chamadas externas só no envio: o serviço de recebimento e, se `provedor=cloudflare`, o script do Turnstile (`challenges.cloudflare.com`), carregado na hora de participar — não na mera navegação.
+- As escolhas do visitante ficam só na memória da página; um lote só sai se a pessoa confirmar no fim da sequência. Navegação não é enviada.
 - Todo texto é inserido por `textContent`; nada de HTML vindo de dados.
 
 ## Base legal e minimização (LGPD)

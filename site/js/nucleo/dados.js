@@ -1,4 +1,5 @@
 import { estado } from "./estado.js";
+import { garantirVersoes } from "./versaoEditorial.js";
 
 async function carregar(caminho) {
   const r = await fetch(caminho, { credentials: "same-origin" });
@@ -17,6 +18,7 @@ export async function carregarBase() {
     estado.grupos = dados.grupos || [];
     estado.meta = { gerado_em: dados.gerado_em, taxonomia_versao: dados.taxonomia_versao };
     estado.porId = new Map(estado.frases.map((f) => [f.id, f]));
+    await garantirVersoes(estado.frases);
   } catch (e) {
     estado.erro = e;
     return;

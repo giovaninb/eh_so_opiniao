@@ -1,0 +1,23 @@
+{
+  "name": "eh-so-opiniao-api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "API de participação (Cloudflare Workers + D1 + Turnstile). Plano Free.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "node --experimental-strip-types --import ./tests/register.mjs --test tests/*.test.ts",
+    "test:vitest": "vitest run",
+    "types": "tsc --noEmit",
+    "deploy": "echo 'Não publique daqui sem autorização. Veja docs/CLOUDFLARE_SETUP.md.' && exit 1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20251011.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.9",
+    "wrangler": "^4.40.0"
+  },
+  "overrides": {
+    "@cloudflare/workers-types": "4.20251011.0"
+  }
+}

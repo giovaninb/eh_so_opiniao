@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import json
 import re
 
@@ -14,7 +15,8 @@ CABECALHO = "tipo,frase,avaliacao,frase_id,consentimento,site\n"
 
 
 @pytest.fixture
-def conn(tmp_path):
+def conn(tmp_path, monkeypatch):
+    monkeypatch.setattr(importlib.import_module("eh_so_opiniao.analytics.importar"), "dados_locais", lambda: tmp_path)
     c = store.abrir(tmp_path / "rev.sqlite3")
     yield c
     c.close()
@@ -184,6 +186,15 @@ def test_config_do_site_so_ativa_com_endpoint_https_e_campos_completos():
     assert {"tipo", "frase", "avaliacao", "frase_id", "consentimento", "armadilha"} <= set(cfg["campos"])
     if cfg["ativo"]:
         assert re.match(r"^https://\S+$", cfg["endpoint"])
+    assert cfg["turnstile_sitekey"].startswith("0x4")
+    assert "turnstile_secret" not in {k.lower() for k in cfg}
+    html = (paths.SITE / "index.html").read_text(encoding="utf-8")
+    assert f'data-sitekey="{cfg["turnstile_sitekey"]}"' in html
+    if cfg.get("provedor") == "cloudflare":
+        assert cfg["endpoint"].startswith("https://eh-so-opiniao-api.") and cfg["endpoint"].endswith("/api/v1/participacoes")
+        assert cfg["endpoint"].endswith("workers.dev/api/v1/participacoes")
+        assert "formspree.io" not in cfg["endpoint"]
+        assert str(cfg.get("_rollback_formspree") or "").startswith("https://formspree.io/")
 
 
 def test_dados_publicados_nao_trazem_texto_de_visitante_nao_anonimizado():

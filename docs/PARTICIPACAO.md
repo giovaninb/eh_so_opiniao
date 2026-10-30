@@ -1,53 +1,55 @@
 # Participação de visitantes
 
-Objetivo: levar mais gente a discutir discurso de ódio sem amplificá-lo. O visitante pode (1) enviar uma frase e dizer como a lê e (2) registrar sua leitura das frases publicadas.
+Objetivo: levar mais gente a discutir discurso de ódio sem amplificá-lo. O visitante pode (1) enviar uma frase com contexto, (2) contestar uma análise e (3) **optar** por enviar, em lote, as leituras de uma sequência.
 
 **Regra central:** nada enviado por visitante é publicado automaticamente. Só entra no site o que foi anonimizado por uma pessoa e aprovado.
+
+Detalhes do plano gratuito: [FORMSPREE_FREE.md](FORMSPREE_FREE.md). Relatórios locais: [ANALYTICS.md](ANALYTICS.md). Privacidade: [PRIVACIDADE_PARTICIPACAO.md](PRIVACIDADE_PARTICIPACAO.md).
 
 ## Como funciona
 
 ```
-Site (formulário) ──> serviço externo PRIVADO ──> CSV exportado por você ──> participacao ──> revisão ──> site
+Site (ação explícita) ──> Worker + D1 + Turnstile (Etapa E, destino principal)
+                       └── Formspree (rollback: provedor=formspree)
+                       └── analytics importar ──> revisão humana ──> site
 ```
 
-1. O formulário do site envia (`tipo=frase` ou `tipo=voto`) a um serviço de formulário externo. Nada vai a repositório público.
-2. Você exporta o CSV e roda `python -m eh_so_opiniao participacao envios.csv`.
-3. **Frases** entram como `Pendente`, origem `enviada_por_visitante`, já mascaradas (link, e-mail, @usuário, telefone, documento). O texto original **não** é guardado no banco. Origem `enviada_por_visitante` **nunca** é publicável.
-4. Você lê cada uma (`revisao listar --estado Pendente` mostra também possíveis nomes próprios) e reescreve sem nada identificável:
+Migração: [MIGRACAO_FORMSPREE.md](MIGRACAO_FORMSPREE.md). API: [API_PARTICIPACAO.md](API_PARTICIPACAO.md). O `provedor` em `config_participacao.json` escolhe o caminho; ausente = Formspree.
+
+1. O site só envia quando a pessoa confirma. Tipos: `sugestao_frase`, `contestacao`, `avaliacoes_voluntarias` (`schema_version=2`). Nada vai a repositório público.
+2. Você importa um CSV/JSON/.eml legitimamente acessível: `python -m eh_so_opiniao analytics importar --arquivo arquivo`.
+3. **Frases** entram como `Pendente`, origem `enviada_por_visitante`, já mascaradas. Origem `enviada_por_visitante` **nunca** é publicável.
+4. Você lê cada uma (`revisao listar --estado Pendente`) e reescreve sem nada identificável:
    `revisao anonimizar --id VS-... --revisor "Nome" --texto "frase reescrita" --tipo exclusao --rotulos exclusao_social_territorial`
    Isso muda a origem para `visitante_anonimizada`, mas **não aprova**. Depois use `aprovar`, `corrigir` ou `rejeitar`.
-5. **Votos** viram só contagem por frase. `site` publica a contagem apenas de frases já publicadas e só com no mínimo 10 votos (`data/participacao.json`).
-6. Depois de importar, **apague o CSV**: ele pode ter dado pessoal que o visitante digitou.
+5. **Avaliações** viram contagem por frase **e** por `conteudo_versao`. `site` publica a contagem apenas de frases já publicadas e só com no mínimo 10 (`data/participacao.json`).
+6. Depois de importar, **apague o arquivo original**: ele pode ter dado pessoal.
+
+Registros antigos `tipo=voto|frase|discordancia` continuam sendo importados.
 
 ## Travas
 
 - `aprovar`/`corrigir`/`ambiguo` recusam frase de visitante ainda não anonimizada.
 - `anonimizar` recusa texto com link, @, e-mail, telefone ou documento e exige revisor.
 - `site` aborta se qualquer frase publicada tiver dado identificável ou texto de corpus científico.
-- Importação descarta: sem consentimento, campo-armadilha preenchido, tamanho fora de 10–280, avaliação ou `frase_id` inválidos.
-- Reimportar o mesmo CSV não duplica frases nem votos.
-- O site limita 3 frases por visita e envia sem credenciais nem referência de origem. Nada fica no navegador.
+- Importação descarta: sem consentimento, campo-armadilha preenchido, tamanho inválido, avaliação ou `frase_id` inválidos, lote com mais de cinco avaliações, campos identificáveis.
+- Reimportar o mesmo arquivo não duplica. Duas avaliações iguais no mesmo arquivo **contam as duas** (não são a mesma pessoa por serem iguais).
+- O site limita 3 envios de cada tipo por visita (6 no total), desliga o botão durante o POST, recusa preenchimento só por script e não reenvia sozinho. Nada fica no aparelho. Um ataque de robô **não derruba** o GitHub Pages: suspenda as contribuições (`contribuicoes_abertas: false`). Detalhes em [CLOUDFLARE_SETUP.md](CLOUDFLARE_SETUP.md) e [FORMSPREE_FREE.md](FORMSPREE_FREE.md) (rollback).
 
-## Ativar o envio
+## Ativar, suspender e confirmar
 
-O envio está **ligado** e aponta para um formulário privado no Formspree (`site/config_participacao.json`: `"ativo": true`, `modo_resposta: "cors"`). Para desligar, mude `ativo` para `false`: o formulário fica desabilitado e nada é enviado. Os passos abaixo valem para trocar de serviço.
+O envio está **ligado** (`ativo: true`, `provedor: cloudflare`) para o Worker. `contribuicoes_abertas: false` suspende contribuições e **mantém** o site educativo.
 
-1. Crie um formulário privado que aceite **POST com CORS** e responda JSON, como o **Formspree** (campos `tipo`, `frase`, `avaliacao`, `frase_id`, `consentimento`, `site`). Alternativa sem CORS: **Google Forms** (veja "modo opaco" abaixo).
-2. Em `config_participacao.json` coloque a URL de envio (precisa começar com `https:`), ajuste `campos` aos nomes que o serviço exige (no Google Forms são `entry.NNN`) e mude `ativo` para `true`.
-3. Envie um teste, exporte o CSV e rode a importação para conferir.
+- `"cors"`: só mostra sucesso com HTTP 2xx legível.
+- `"opaca"`: avisa que não consegue confirmar (caminho Formspree).
+- Testes usam serviço **simulado** e **bloqueiam** POST remoto.
 
-### Confirmação de envio (`modo_resposta`)
+Depois de publicar, valide **uma** contribuição real pelo site, confira a resposta do Worker e o registro no D1. Não use os testes E2E para isso.
 
-- `"cors"` (padrão): o site lê a resposta do serviço. **Só mostra "Recebido" quando o serviço devolve sucesso** (HTTP 2xx e, se houver JSON, sem `ok: false`/`error`). Erro HTTP, recusa ou falha de rede mostram um erro claro, mantêm o texto escrito e permitem tentar de novo.
-- `"opaca"` (serviços sem CORS, como o Google Forms): o navegador não consegue ler a resposta. O site envia, **avisa que não consegue confirmar o recebimento** e não diz "Recebido". Confira no serviço.
-- Com `ativo: false`: o formulário fica desabilitado, explica que o envio não está disponível e **nada é simulado nem enviado**.
+## Limites
 
-Os testes automatizados usam um serviço **simulado** (`page.route` do Playwright) para cada um desses cenários; isso valida o comportamento do site, não um serviço real. Os testes **nunca** contatam o Formspree (requisições a ele são bloqueadas). **O serviço real ainda não foi validado por mim**: depois de publicar, envie uma frase de verdade pelo site, confirme que chegou no painel do Formspree e rode `participacao envios.csv` para conferir a importação.
-
-## Limites que você deve conhecer
-
-- **Mascarar não é anonimizar.** A máquina pega padrões; nomes, apelidos, cidades, empresas e eventos só uma pessoa vê. Por isso a revisão é obrigatória.
-- O serviço de formulário pode registrar dados técnicos (como IP) pelas regras dele. O site informa isso ao visitante. Escolha um serviço e uma configuração compatíveis com a LGPD e leia os termos.
-- A enquete é voluntária e pode ser inflada por quem votar várias vezes (não há identificação de propósito). Os números são informais e o site diz isso.
-- Frases novas passam pela sugestão dos baselines só para ajudar a revisão; isso não é decisão nem prova.
-- Não implementa ranking de pessoas, denúncia automatizada nem busca de autores. Se uma frase apontar para alguém real, rejeite-a.
+- Mascarar não é anonimizar.
+- Formspree e a hospedagem podem registrar IP. O site informa; não prometemos anonimato absoluto.
+- A participação é voluntária. Números não representam a população.
+- Sem identificação persistente, não dá para garantir um voto por pessoa.
+- Não implementa ranking de pessoas, denúncia automatizada nem busca de autores.

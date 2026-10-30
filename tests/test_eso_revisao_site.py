@@ -184,6 +184,9 @@ def test_site_tem_as_vistas_e_a_navegacao_adaptativa():
     assert barra.count("<a ") <= 4
     assert 'id="botao-menu"' in html and 'aria-expanded="false"' in html and 'aria-controls="painel-menu"' in html
     assert "Quem Pode Pertencer?" in html and "Onde termina a opinião e começa a discriminação?" in html
+    assert "Por que este projeto existe" in html and "Quem publica" in html
+    assert 'class="rodape-titulo"' in html and "Licença e responsabilidade" in html
+    assert "linkedin.com/in/giovani-bettoni</a>" not in html  # crédito pelo nome, não pela URL crua
     assert '<html lang="pt-BR">' in html and "Pular para o conteúdo" in html
     assert "O que você acha desta frase?" in (paths.SITE / "js" / "componentes" / "cartaoFrase.js").read_text(encoding="utf-8")
 
@@ -197,6 +200,9 @@ def test_site_e_estatico_sem_cdn_sem_rastreamento_e_sem_innerhtml():
         # destinos externos só em clique: WhatsApp (compartilhar) e LinkedIn (crédito da autoria)
         sem_namespace_svg = sem_namespace_svg.replace("https://wa.me/?text=", "")
         sem_namespace_svg = sem_namespace_svg.replace("https://www.linkedin.com/in/giovani-bettoni/", "")
+        # Turnstile só é carregado no envio (desafio.js), nunca na navegação
+        sem_namespace_svg = sem_namespace_svg.replace("https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit", "")
+        sem_namespace_svg = sem_namespace_svg.replace("https://challenges.cloudflare.com/turnstile/v0/api.js", "")
         # endereços absolutos só em metadados de prévia social (canonical, og:url, og:image): não são requisições da página
         sem_namespace_svg = re.sub(r'<(?:link rel="canonical"|meta property="og:(?:url|image)"|meta name="twitter:image")[^>]*>', "", sem_namespace_svg)
         assert not re.search(r"https?://(?!exemplo)", sem_namespace_svg), "site não deve chamar recursos externos"

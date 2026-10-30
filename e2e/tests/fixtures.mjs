@@ -30,6 +30,8 @@ export const test = base.extend({
       body: JSON.stringify({ ativo: false, endpoint: "", modo_resposta: "cors", campos: {} }),
     }));
     await page.route(/^https:\/\/([^/]+\.)?formspree\.io\//, (r) => r.abort("blockedbyclient"));
+    await page.route(/^https:\/\/[^/]+\.workers\.dev\//, (r) => r.abort("blockedbyclient"));
+    await page.route(/^https:\/\/challenges\.cloudflare\.com\//, (r) => r.abort("blockedbyclient"));
     await use(page);
   },
 });
@@ -45,11 +47,16 @@ export async function irPara(page, hash) {
   await page.waitForFunction((h) => location.hash.startsWith(h.split("?")[0]), hash);
 }
 
-/** Liga o envio com um serviço simulado. comportamento: ok | erro500 | recusa | rede | opaca. Devolve a lista de requisições. */
+/** Liga o envio com um serviço simulado. comportamento: ok | erro500 | recusa | rede | opaca | cota | suspenso. Devolve a lista de requisições. */
 export async function configurarEnvio(page, comportamento = "ok") {
   const enviados = [];
-  const cfg = { ativo: true, endpoint: ENDPOINT_TESTE, modo_resposta: comportamento === "opaca" ? "opaca" : "cors",
-    campos: { tipo: "tipo", frase: "frase", avaliacao: "avaliacao", frase_id: "frase_id", consentimento: "consentimento", armadilha: "site" } };
+  const cfg = {
+    ativo: true,
+    contribuicoes_abertas: comportamento !== "suspenso",
+    endpoint: ENDPOINT_TESTE,
+    modo_resposta: comportamento === "opaca" ? "opaca" : "cors",
+    campos: { tipo: "tipo", frase: "frase", avaliacao: "avaliacao", frase_id: "frase_id", consentimento: "consentimento", armadilha: "site" },
+  };
   await page.route("**/config_participacao.json", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(cfg) }));
   await page.route(ENDPOINT_TESTE, async (route) => {
     enviados.push({ metodo: route.request().method(), corpo: route.request().postData(), cabecalhos: route.request().headers() });
@@ -57,7 +64,50 @@ export async function configurarEnvio(page, comportamento = "ok") {
     if (comportamento === "rede") return route.abort("failed");
     if (comportamento === "erro500") return route.fulfill({ status: 500, headers: cors, contentType: "application/json", body: '{"error":"falha interna"}' });
     if (comportamento === "recusa") return route.fulfill({ status: 422, headers: cors, contentType: "application/json", body: '{"ok":false,"error":"campo invalido"}' });
+    if (comportamento === "cota") return route.fulfill({ status: 402, headers: cors, contentType: "application/json", body: '{"error":"form over quota"}' });
     return route.fulfill({ status: 200, headers: cors, contentType: "application/json", body: '{"ok":true}' });
+  });
+  return enviados;
+}
+
+const ENDPOINT_CF = "https://api.exemplo.test/api/v1/participacoes";
+const SCRIPT_TURNSTILE = `
+window.turnstile = {
+  render(el, opts) {
+    queueMicrotask(function () { if (opts && opts.callback) opts.callback("XXXX.DUMMY.TOKEN.XXXX"); });
+    return 1;
+  },
+  reset: function () {},
+  remove: function () {},
+  getResponse: function () { return "XXXX.DUMMY.TOKEN.XXXX"; },
+  ready: function (cb) { cb(); }
+};
+`;
+
+/** Liga o envio Cloudflare com Turnstile simulado. Não fala com workers.dev nem com o Siteverify real. */
+export async function configurarEnvioCloudflare(page, comportamento = "ok") {
+  const enviados = [];
+  const cfg = {
+    ativo: true,
+    contribuicoes_abertas: comportamento !== "suspenso",
+    provedor: "cloudflare",
+    endpoint: ENDPOINT_CF,
+    turnstile_sitekey: "1x00000000000000000000AA",
+    modo_resposta: "cors",
+    campos: { tipo: "tipo", frase: "frase", avaliacao: "avaliacao", frase_id: "frase_id", consentimento: "consentimento", armadilha: "site" },
+  };
+  await page.route("**/config_participacao.json", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(cfg) }));
+  await page.route(/^https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js.*/, (route) =>
+    route.fulfill({ status: 200, contentType: "application/javascript", body: SCRIPT_TURNSTILE }));
+  await page.route(ENDPOINT_CF, async (route) => {
+    enviados.push({ metodo: route.request().method(), corpo: route.request().postData(), cabecalhos: route.request().headers() });
+    const cors = { "access-control-allow-origin": "http://127.0.0.1:4173", "access-control-allow-headers": "Content-Type" };
+    if (route.request().method() === "OPTIONS") return route.fulfill({ status: 204, headers: cors });
+    if (comportamento === "rede") return route.abort("failed");
+    if (comportamento === "erro500") return route.fulfill({ status: 500, headers: cors, contentType: "application/json", body: '{"ok":false,"erro":"indisponivel"}' });
+    if (comportamento === "recusa") return route.fulfill({ status: 422, headers: cors, contentType: "application/json", body: '{"ok":false,"erro":"validacao"}' });
+    if (comportamento === "turnstile") return route.fulfill({ status: 403, headers: cors, contentType: "application/json", body: '{"ok":false,"erro":"turnstile"}' });
+    return route.fulfill({ status: 200, headers: cors, contentType: "application/json", body: '{"ok":true,"submission_id":"550e8400-e29b-41d4-a716-446655440000"}' });
   });
   return enviados;
 }

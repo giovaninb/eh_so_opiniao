@@ -49,6 +49,32 @@ test.describe("home", () => {
     await expect(page.getByRole("button", { name: /Pular/ })).toBeVisible();
   });
 
+  test("Entender explica origem, limite e quem publica, sem virar perfil pessoal", async ({ page }) => {
+    await abrir(page, "#/entender");
+    await expect(page.getByRole("heading", { level: 1, name: "Opinião ou discriminação?" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Por que este projeto existe" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "O que ele não é" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Quem publica" })).toBeVisible();
+    await expect(page.locator("#v-entender")).toContainText("Quem Pode Pertencer?");
+    await expect(page.locator("#v-entender")).toContainText("Giovani Bettoni");
+    await expect(page.locator("#v-entender")).toContainText("CC BY 4.0");
+    await expect(page.locator("#v-entender")).not.toContainText("linkedin.com/in/");
+    await expect(page.getByRole("heading", { name: "Cinco perguntas para ler uma frase" })).toBeVisible();
+  });
+
+  test("rodapé separa o que é, licença e privacidade", async ({ page }) => {
+    await abrir(page, "#/");
+    const rodape = page.locator("footer.rodape");
+    await expect(rodape.getByRole("heading", { name: "O que é" })).toBeVisible();
+    await expect(rodape.getByRole("heading", { name: "Licença e responsabilidade" })).toBeVisible();
+    await expect(rodape.getByRole("heading", { name: "Privacidade" })).toBeVisible();
+    await expect(rodape.getByRole("link", { name: "Giovani Bettoni" })).toHaveAttribute("href", "https://www.linkedin.com/in/giovani-bettoni/");
+    await expect(rodape.getByRole("link", { name: "Por que o nome aparece" })).toHaveAttribute("href", "#/entender");
+    await expect(rodape.locator("#rodape-meta")).toContainText(/Taxonomia v\d/);
+    await expect(rodape.locator("#rodape-meta")).toContainText(/Atualizado em /);
+    await expect(rodape).not.toContainText("linkedin.com/in/");
+  });
+
   test("URL antiga de tema de descoberta continua válida", async ({ page }) => {
     await abrir(page, "#/descobrir?tema=mulheres");
     await expect(page.locator(".progresso")).toContainText("1 de 5 situações");
@@ -367,11 +393,12 @@ test.describe("Discordo da interpretação (canal privado e real)", () => {
     expect(enviados).toHaveLength(0);
     await page.getByLabel(/Entendo que o texto vai para um formulário privado/).check();
     await page.getByRole("button", { name: "Enviar para revisão" }).click();
-    await expect(page.getByText(/Recebido\. Uma pessoa vai ler/)).toBeVisible();
+    await expect(page.getByText("Contribuição recebida. Obrigado por ajudar a revisar o projeto.")).toBeVisible();
     expect(enviados).toHaveLength(1);
     const corpo = new URLSearchParams(enviados[0].corpo);
-    expect(corpo.get("tipo")).toBe("discordancia");
+    expect(corpo.get("tipo")).toBe("contestacao");
     expect(corpo.get("frase_id")).toBe("EX-01");
+    expect(corpo.get("schema_version")).toBe("2");
     expect(corpo.get("frase")).toContain("[telefone]");
     expect(corpo.get("frase")).toContain("[e-mail]");
     expect(corpo.get("frase")).not.toMatch(/98765|maria@/);
@@ -391,6 +418,7 @@ test.describe("Discordo da interpretação (canal privado e real)", () => {
 
   test("modo sem confirmação (resposta opaca) avisa que não dá para garantir o recebimento", async ({ page }) => {
     await aberto(page, "opaca");
+    await page.getByLabel("O que você leria diferente?").fill("Eu leria de outro modo.");
     await page.getByLabel(/Entendo que o texto/).check();
     await page.getByRole("button", { name: "Enviar para revisão" }).click();
     await expect(page.getByText(/não permite confirmar o recebimento/)).toBeVisible();
@@ -400,9 +428,10 @@ test.describe("Discordo da interpretação (canal privado e real)", () => {
     const externas = [];
     page.on("request", (r) => { const u = new URL(r.url()); if (u.protocol.startsWith("http") && !["localhost", "127.0.0.1"].includes(u.hostname)) externas.push(r.url()); });
     await aberto(page);
+    await page.getByLabel("O que você leria diferente?").fill("Eu leria de outro modo.");
     await page.getByLabel(/Entendo que o texto/).check();
     await page.getByRole("button", { name: "Enviar para revisão" }).click();
-    await expect(page.getByText(/Recebido/)).toBeVisible();
+    await expect(page.getByText("Contribuição recebida. Obrigado por ajudar a revisar o projeto.")).toBeVisible();
     expect(externas).toEqual([ENDPOINT_TESTE]);
   });
 

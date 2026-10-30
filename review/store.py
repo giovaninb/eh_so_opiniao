@@ -60,7 +60,7 @@ def abrir(caminho: Path | None = None) -> sqlite3.Connection:
         -- Participação: só contagem por frase publicada; nada identifica quem votou.
         CREATE TABLE IF NOT EXISTS votos (
             id INTEGER PRIMARY KEY AUTOINCREMENT, frase_id TEXT NOT NULL, avaliacao TEXT NOT NULL,
-            chave TEXT NOT NULL UNIQUE
+            chave TEXT NOT NULL UNIQUE, conteudo_versao TEXT
         );
         -- Linhas já importadas (hash + ordem), para reimportar o mesmo arquivo sem duplicar.
         CREATE TABLE IF NOT EXISTS importadas (chave TEXT PRIMARY KEY, tipo TEXT NOT NULL, descartada TEXT, quando TEXT NOT NULL);
@@ -69,6 +69,9 @@ def abrir(caminho: Path | None = None) -> sqlite3.Connection:
     # Migração leve: metadados editoriais (tema, contexto, razões, o que mudaria a leitura), em JSON.
     if "editorial" not in {c["name"] for c in conn.execute("PRAGMA table_info(itens)")}:
         conn.execute("ALTER TABLE itens ADD COLUMN editorial TEXT")
+        conn.commit()
+    if "conteudo_versao" not in {c["name"] for c in conn.execute("PRAGMA table_info(votos)")}:
+        conn.execute("ALTER TABLE votos ADD COLUMN conteudo_versao TEXT")
         conn.commit()
     return conn
 

@@ -66,6 +66,40 @@ def cmd_casos(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_analytics(args: argparse.Namespace) -> int:
+    from . import analytics
+    from .review import store
+
+    acao = args.analytics_cmd
+    if acao == "importar":
+        from pathlib import Path
+        conn = store.abrir()
+        r = analytics.importar(conn, Path(args.arquivo))
+        print(f"participações: {r['resumo']}")
+        if r.get("detalhe"):
+            print(r["detalhe"], file=sys.stderr)
+            return 2
+        if r["dados_mascarados"]:
+            print(f"dados identificáveis mascarados: {r['dados_mascarados']}")
+        print("Arquivo local em datasets/_local/participacoes/ (ignorado pelo Git). Apague o original se tiver dado pessoal.")
+        return 0
+    if acao == "relatorio":
+        saidas = analytics.gerar_relatorios(args.destino)
+        for k, p in saidas.items():
+            print(f"{k}: {p}")
+        return 0
+    if acao == "atencao":
+        from json import dumps
+        print(dumps(analytics.frases_em_atencao(), indent=2, ensure_ascii=False))
+        return 0
+    if acao == "retencao":
+        r = analytics.aplicar_retencao(args.dias)
+        print(r)
+        return 0
+    print("use: analytics importar|relatorio|atencao|retencao", file=sys.stderr)
+    return 2
+
+
 def cmd_participacao(args: argparse.Namespace) -> int:
     from . import participacao
     from .review import store
@@ -205,9 +239,22 @@ def registrar(sub: argparse._SubParsersAction) -> None:
     c = sub.add_parser("casos", help="enfileira o estudo de caso como Pendente")
     c.add_argument("--com-modelo", action="store_true", help="inclui a sugestão do baseline B (requer corpora normalizados)")
     c.set_defaults(func=cmd_casos)
-    p = sub.add_parser("participacao", help="importa o CSV exportado do formulário do site (frases e votos de visitantes)")
+    p = sub.add_parser("participacao", help="importa o CSV/JSON/.eml de participações (mesmo pipeline de analytics importar)")
     p.add_argument("arquivo")
     p.set_defaults(func=cmd_participacao)
+    an = sub.add_parser("analytics", help="importa participações e gera relatórios locais (nunca publicados)")
+    an_sub = an.add_subparsers(dest="analytics_cmd", required=True)
+    ani = an_sub.add_parser("importar", help="CSV, JSON, JSONL, .eml ou dump D1 legitimamente acessível")
+    ani.add_argument("--arquivo", required=True)
+    ani.set_defaults(func=cmd_analytics)
+    anr = an_sub.add_parser("relatorio", help="gera JSON, Markdown e HTML locais")
+    anr.add_argument("--destino", help="pasta de saída (padrão: datasets/_local/participacoes/relatorios)")
+    anr.set_defaults(func=cmd_analytics)
+    ana = an_sub.add_parser("atencao", help="frases que merecem revisão editorial (amostra voluntária)")
+    ana.set_defaults(func=cmd_analytics)
+    ant = an_sub.add_parser("retencao", help="expurga textos originais antigos; mantém agregados")
+    ant.add_argument("--dias", type=int, default=90)
+    ant.set_defaults(func=cmd_analytics)
     r = sub.add_parser("revisao", help="revisão humana: listar, aprovar, rejeitar, ambiguo, corrigir, anonimizar, folha, lote, interativa, historico")
     r.add_argument("acao", choices=["listar", "aprovar", "rejeitar", "ambiguo", "corrigir", "anonimizar", "folha", "lote", "interativa", "historico"])
     r.add_argument("--arquivo", help="para folha (saída) e lote (entrada): CSV de revisão em lote")

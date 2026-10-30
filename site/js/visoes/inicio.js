@@ -1,7 +1,7 @@
 import { el, limpar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { fraseDeAbertura, paresValidos, assuntosVisiveis } from "../nucleo/logica.js";
-import { CartaoFrase } from "../componentes/cartaoFrase.js?v=9";
+import { CartaoFrase } from "../componentes/cartaoFrase.js?v=12";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 import { ExploradorHome } from "./assuntos.js";
 
@@ -37,6 +37,15 @@ export const inicio = {
     const cartao = CartaoFrase(f, { rotuloProxima: "Descobrir mais frases", aoProxima: () => { location.hash = "#/descobrir"; } });
     limpar(alvo, cartao.elemento);
     alvo.setAttribute("aria-busy", "false");
-    if (estado.meta) document.getElementById("rodape-meta").textContent = `Taxonomia v${estado.meta.taxonomia_versao} · dados gerados em ${estado.meta.gerado_em}`;
+    if (estado.meta) {
+      const meta = document.getElementById("rodape-meta");
+      const iso = estado.meta.gerado_em || "";
+      const data = iso ? new Date(iso) : null;
+      const quando = data && !Number.isNaN(data.getTime())
+        ? new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(data)
+        : iso;
+      meta.textContent = `Taxonomia v${estado.meta.taxonomia_versao}. Atualizado em ${quando}.`;
+      if (iso) meta.title = iso;
+    }
   },
 };

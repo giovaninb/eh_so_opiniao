@@ -2,10 +2,11 @@ import { el, limpar, focar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { NOME_AVALIACAO, TAMANHO_SESSAO } from "../nucleo/constantes.js";
 import { criarAleatorio, sortearSessao, frasesDoGrupo, frasesDoAssunto, assuntoPorId } from "../nucleo/logica.js";
-import { CartaoFrase } from "../componentes/cartaoFrase.js?v=9";
+import { CartaoFrase } from "../componentes/cartaoFrase.js?v=12";
 import { Progresso } from "../componentes/progresso.js";
 import { TemasDescoberta, ContextoDoGrupo } from "../componentes/temasDescoberta.js";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
+import { ContribuicaoLote } from "../componentes/contribuicaoLote.js";
 
 function baseDaSessao() {
   const assunto = assuntoPorId(estado.camadaAssuntos, estado.assuntoAtual);
@@ -43,10 +44,12 @@ function fim(corpo, s) {
   const titulo = el("h2", { text: "Você chegou ao fim desta sequência", tabindex: "-1" });
   const assunto = assuntoPorId(estado.camadaAssuntos, s.assunto);
   const relacionados = ((assunto && assunto.relacionados) || []).map((id) => assuntoPorId(estado.camadaAssuntos, id)).filter((a) => a && a.visivel);
+  const idsRespondidos = s.itens.filter((_, i) => s.historico[i] && s.historico[i] !== "pulou").map((f) => f.id);
   limpar(corpo, ...cabecalho(corpo), el("section", { class: "fim-sessao", "aria-labelledby": "titulo-fim" }, [
     Object.assign(titulo, { id: "titulo-fim" }),
     el("p", { text: `Você leu ${s.itens.length} frase${s.itens.length > 1 ? "s" : ""}${linhas.length ? ": " + linhas.join(", ") : ""}. Isso não é uma nota: é só o seu percurso.` }),
     el("p", { class: "suave", text: "Se alguma frase te fez pensar, conte como você a lê, sem identificar ninguém." }),
+    ContribuicaoLote(idsRespondidos),
     relacionados.length ? el("p", {}, ["Assuntos relacionados: ", ...relacionados.flatMap((a, i) => [i ? ", " : "", el("a", { href: a.url, text: a.nome })])]) : null,
     el("div", { class: "passo-seguinte" }, [
       el("button", { type: "button", class: "botao", text: (estado.assuntoAtual || estado.grupoAtual) ? "Mais frases deste tema" : "Mais cinco frases", onclick: () => { novaSessao(); desenhar(corpo); } }),
@@ -70,6 +73,7 @@ function desenhar(corpo, { focarCartao = false } = {}) {
   const cartao = CartaoFrase(f, {
     permitirPular: true, aoPular: () => avancar("pulou"),
     rotuloProxima: ultima ? "Concluir" : "Próxima frase", aoProxima: () => avancar(),
+    modo: "descobrir", contextoExibido: !!(estado.grupoAtual || estado.assuntoAtual),
   });
   limpar(corpo, ...cabecalho(corpo), Progresso(s.indice + 1, s.itens.length), cartao.elemento);
   if (focarCartao) cartao.focar();

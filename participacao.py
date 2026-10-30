@@ -47,8 +47,17 @@ def _linhas(caminho: Path) -> list[dict[str, str]]:
         return [{_chave_coluna(k): (v or "").strip() for k, v in linha.items() if k} for linha in leitor]
 
 
+_AVALIACAO_NOVA = {
+    "nao_vejo_problema": "opiniao",
+    "possivel_discriminacao": "discriminacao",
+    "preciso_contexto": "contexto",
+}
+
+
 def _avaliacao(valor: str) -> str | None:
     v = _chave_coluna(valor)
+    if v in _AVALIACAO_NOVA:
+        return _AVALIACAO_NOVA[v]
     for a, trecho in (("discriminacao", "discrimina"), ("opiniao", "opiniao"), ("contexto", "contexto"), ("contexto", "depende")):
         if trecho in v:
             return a
@@ -64,57 +73,9 @@ def _registrar(conn, chave: str, tipo: str, descartada: str | None = None) -> bo
 
 
 def importar(conn, caminho: Path, modelo_ofensivo=None) -> dict[str, Any]:
-    """Importa um CSV de envios. Colunas: tipo (frase|voto), frase, avaliacao, frase_id, consentimento, site (armadilha)."""
-    resumo: Counter[str] = Counter()
-    mascarados: Counter[str] = Counter()
-    vistas: Counter[str] = Counter()
-    for linha in _linhas(caminho):
-        base = hashlib.sha256("|".join(f"{k}={v}" for k, v in sorted(linha.items())).encode("utf-8")).hexdigest()
-        vistas[base] += 1
-        chave = f"{base}#{vistas[base]}"  # linhas iguais e legítimas (dois votos iguais) não se fundem
-        tipo = _chave_coluna(linha.get("tipo", ""))
-        if conn.execute("SELECT 1 FROM importadas WHERE chave = ?", (chave,)).fetchone():
-            resumo["ja_importadas"] += 1
-            continue
-        motivo = None
-        if linha.get("site"):
-            motivo = "armadilha_preenchida"
-        elif _chave_coluna(linha.get("consentimento", "")) not in _CONSENTIU:
-            motivo = "sem_consentimento"
-        elif tipo not in ("frase", "voto"):
-            motivo = "tipo_desconhecido"
-        elif _avaliacao(linha.get("avaliacao", "")) is None:
-            motivo = "avaliacao_invalida"
-        if motivo is None and tipo == "frase":
-            texto, achados = anonimizacao.mascarar(linha.get("frase", ""))
-            if not anonimizacao.tamanho_valido(texto):
-                motivo = "tamanho_invalido"
-        elif motivo is None and tipo == "voto" and not _ID_FRASE.match(linha.get("frase_id", "")):
-            motivo = "frase_id_invalido"
-        if motivo:
-            _registrar(conn, chave, tipo or "?", motivo)
-            resumo[f"descartada_{motivo}"] += 1
-            continue
-        avaliacao = _avaliacao(linha["avaliacao"])
-        if tipo == "voto":
-            conn.execute("INSERT INTO votos (frase_id, avaliacao, chave) VALUES (?,?,?)", (linha["frase_id"], avaliacao, chave))
-            _registrar(conn, chave, "voto")
-            resumo["votos"] += 1
-            continue
-        item_id = "VS-" + hash_chave(texto)[:10]
-        rotulos, metodo = casos.sugestao_ia(texto, modelo_ofensivo)
-        novo = store.adicionar(conn, {
-            "id": item_id, "origem": store.ORIGEM_VISITANTE, "tipo": TIPO_SUGERIDO[avaliacao], "texto": texto,
-            "mecanismo": None, "ia_rotulos": rotulos, "ia_metodo": metodo, "ia_versao": casos.RegrasBaseline.versao,
-            "rotulos_propostos": [],
-        })
-        _registrar(conn, chave, "frase")
-        conn.commit()
-        resumo["frases_novas" if novo else "frases_repetidas"] += 1
-        for a in achados:
-            mascarados[a] += 1
-    conn.commit()
-    return {"resumo": dict(resumo), "dados_mascarados": dict(mascarados)}
+    """Importa envios (CSV legado ou schema v2). Ver analytics.importar."""
+    from .analytics.importar import importar as _imp
+    return _imp(conn, caminho, modelo_ofensivo)
 
 
 def resultados_publicos(conn, ids_publicados: set[str], minimo: int = MINIMO_PARA_EXIBIR) -> dict[str, Any]:

@@ -1,0 +1,37 @@
+/**
+ * Worker Free + D1 Free + Turnstile Free.
+ * Worker: eh-so-opiniao-api → https://eh-so-opiniao-api.bettoni-gn.workers.dev
+ * D1: eh-so-opiniao-db (binding DB, id 4e8735b1-6aa8-4fb9-b5e1-b939b24d4e7b).
+ * Não criar outros Workers, bancos ou bindings. Não habilite faturamento.
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eh-so-opiniao-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "secrets": {
+    "required": ["TURNSTILE_SECRET_KEY"]
+  },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://giovaninb.github.io",
+    "ALLOWED_HOSTNAMES": "giovaninb.github.io",
+    "TURNSTILE_ACTION": "participacao"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "eh-so-opiniao-db",
+      "database_id": "4e8735b1-6aa8-4fb9-b5e1-b939b24d4e7b",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "LIMITE",
+      "namespace_id": "1001",
+      "simple": { "limit": 8, "period": 60 }
+    }
+  ]
+}

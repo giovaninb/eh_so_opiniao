@@ -8,5 +8,9 @@ __pycache__/
 *.pyc
 .venv/
 .DS_Store
+cloudflare/node_modules/
+cloudflare/.wrangler/
+cloudflare/.dev.vars
+cloudflare/coverage/
 *.egg-info/
 build/

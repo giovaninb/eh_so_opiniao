@@ -29,9 +29,9 @@ function Grupos({ grupoAberto } = {}) {
         el("span", { class: "grupo-resumo" }, [
           el("strong", { text: g.nome }),
           el("span", { class: "suave pequeno", text: `${g.n_assuntos} assunto${g.n_assuntos === 1 ? "" : "s"}` }),
+          g.descricao ? el("span", { class: "grupo-desc pequeno suave", text: g.descricao }) : null,
         ]),
       ]),
-      el("p", { class: "pequeno suave", text: g.descricao }),
       el("div", { class: "lista-assuntos" }, itens.map(ItemAssunto)),
     ]);
   });

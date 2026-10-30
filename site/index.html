@@ -30,9 +30,9 @@
     })();</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b53a1c'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='21' font-weight='700' text-anchor='middle' fill='%23fff'%3E?%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/tokens.css?v=10">
-  <link rel="stylesheet" href="css/estilo.css?v=10">
-  <link rel="modulepreload" href="js/app.js?v=10">
-  <link rel="modulepreload" href="js/componentes/cartaoFrase.js?v=9">
+  <link rel="stylesheet" href="css/estilo.css?v=12">
+  <link rel="modulepreload" href="js/app.js?v=12">
+  <link rel="modulepreload" href="js/componentes/cartaoFrase.js?v=12">
   <link rel="modulepreload" href="js/componentes/comparacao.js?v=9">
   <link rel="modulepreload" href="js/componentes/compartilhar.js?v=8">
   <link rel="modulepreload" href="js/componentes/enquete.js">
@@ -54,10 +54,10 @@
   <link rel="modulepreload" href="js/nucleo/mascara.js">
   <link rel="modulepreload" href="js/nucleo/roteador.js">
   <link rel="modulepreload" href="js/visoes/comparar.js?v=9">
-  <link rel="modulepreload" href="js/visoes/descobrir.js">
-  <link rel="modulepreload" href="js/visoes/explorar.js">
-  <link rel="modulepreload" href="js/visoes/frase.js">
-  <link rel="modulepreload" href="js/visoes/inicio.js">
+  <link rel="modulepreload" href="js/visoes/descobrir.js?v=12">
+  <link rel="modulepreload" href="js/visoes/explorar.js?v=12">
+  <link rel="modulepreload" href="js/visoes/frase.js?v=12">
+  <link rel="modulepreload" href="js/visoes/inicio.js?v=12">
   <link rel="modulepreload" href="js/visoes/participar.js">
   <link rel="preload" as="fetch" href="data/frases.json" crossorigin="anonymous">
   <link rel="preload" as="fetch" href="data/assuntos.json" crossorigin="anonymous">
@@ -142,7 +142,7 @@
           <h3 class="subsecao">Outras formas de participar</h3>
           <div class="atalhos atalhos-complementares">
             <a class="atalho" href="#/participar"><span class="t"><strong>Participar</strong><span>Uma frase já fez você pensar? Conte, sem se identificar.</span></span></a>
-            <a class="atalho" href="#/entender"><span class="t"><strong>Entender</strong><span>Cinco perguntas para separar opinião de discriminação.</span></span></a>
+            <a class="atalho" href="#/entender"><span class="t"><strong>Entender</strong><span>Por que o projeto existe e como ler uma frase.</span></span></a>
             <a class="atalho" href="#/pesquisa"><span class="t"><strong>Pesquisa</strong><span>Bases científicas, limites da IA e referências.</span></span></a>
           </div>
         </section>
@@ -244,11 +244,11 @@
         <form id="form-participar" class="formulario" novalidate aria-describedby="privacidade-resumo">
           <div id="aviso-indisponivel" class="indisponivel" role="status" hidden>
             <strong>O envio ainda não está disponível.</strong>
-            Este site ainda não tem um serviço de recebimento configurado, então nada é enviado nem guardado. Você pode ler como o tratamento funcionará abaixo e voltar mais tarde.
+            <span data-aviso-corpo>Este site ainda não tem um serviço de recebimento configurado, então nada é enviado nem guardado. Você pode ler como o tratamento funcionará abaixo e voltar mais tarde.</span>
           </div>
           <div class="campo">
             <label for="campo-frase">Escreva a frase</label>
-            <p class="dica" id="dica-frase">Reescreva com as suas palavras, de 10 a 280 caracteres. Por exemplo: “Quem veio de fora devia ficar quieto sobre o que acontece aqui.”</p>
+            <p class="dica" id="dica-frase">Reescreva com as suas palavras, de 10 a 280 caracteres. Por exemplo: “Quem veio de fora devia ficar quieto sobre o que acontece aqui.” Não envie nomes, endereços, perfis ou dados pessoais de terceiros.</p>
             <textarea id="campo-frase" name="frase" rows="5" maxlength="400" aria-describedby="dica-frase contador-frase erro-frase" autocomplete="off" autocapitalize="sentences" enterkeyhint="done"></textarea>
             <div class="contador">
               <span id="contador-frase">0 de 280 caracteres</span>
@@ -263,17 +263,23 @@
             <label class="escolha"><input type="radio" name="avaliacao" value="contexto"> Preciso de mais contexto</label>
             <p class="erro-campo" id="erro-avaliacao" hidden></p>
           </fieldset>
+          <div class="campo">
+            <label for="campo-contexto">Contexto (opcional)</label>
+            <p class="dica" id="dica-contexto">Uma frase como “Qual nome você prefere que eu use?” não é automaticamente discriminatória: o contexto muda a leitura. Descreva a situação, sem nomes nem dados de ninguém.</p>
+            <textarea id="campo-contexto" name="contexto" rows="3" maxlength="400" aria-describedby="dica-contexto" autocomplete="off"></textarea>
+          </div>
+          <aside id="previsualizacao-envio" class="previsualizacao" hidden></aside>
 
           <div class="privacidade" id="privacidade-resumo">
-            <p><strong>Antes de enviar:</strong> sua frase vai para um formulário privado, é mascarada (links, @, telefones), lida por uma pessoa e só aparece no site se estiver anonimizada e aprovada. Não pedimos nome nem e-mail. O serviço do formulário pode registrar dados técnicos, como o endereço de IP.</p>
+            <p><strong>Antes de enviar:</strong> sua frase vai para o serviço de recebimento privado configurado, é mascarada (links, @, telefones), lida por uma pessoa e só aparece no site se estiver anonimizada e aprovada. Não pedimos nome nem e-mail. A aplicação não coleta IP, geolocalização nem identificadores persistentes. A hospedagem e o serviço de recebimento podem processar dados técnicos, como o endereço de IP — não prometemos anonimato absoluto. A proteção contra envio automático, quando ativa, só aparece na hora de enviar.</p>
           </div>
           <details class="detalhe">
             <summary>Como tratamos a sua contribuição</summary>
             <ul>
               <li>Nada é publicado automaticamente e nenhuma frase aparece com o texto original.</li>
-              <li>Uma pessoa reescreve o que for necessário para que ninguém possa ser reconhecido. Se for impossível, a frase é descartada.</li>
+              <li>Uma pessoa reescreve o que for necessário para que ninguém possa ser reconhecido. Se for impossível, a frase é descartada. Sugestões não viram dado de treinamento automático.</li>
               <li>Não guardamos quem enviou e não tentamos descobrir. Pedidos de remoção são atendidos rejeitando o item.</li>
-              <li>Se for uma enquete de leitura, os votos viram só contagens por frase, exibidas quando há pelo menos 10.</li>
+              <li>Leituras das frases publicadas só são enviadas se você confirmar um lote voluntário no fim de uma sequência. Contagens públicas, quando houver, exigem pelo menos 10 avaliações importadas.</li>
               <li>Frases que apontem para uma pessoa real são rejeitadas. Este site não faz denúncias nem monta lista de autores.</li>
             </ul>
           </details>
@@ -281,6 +287,10 @@
           <label class="escolha"><input type="checkbox" id="campo-consentimento" name="consentimento" aria-describedby="erro-consentimento"> Entendo como a minha frase será tratada e não estou enviando dados pessoais de terceiros.</label>
           <p class="erro-campo" id="erro-consentimento" hidden></p>
           <div class="armadilha" aria-hidden="true"><label>Deixe em branco <input type="text" id="campo-armadilha" name="site" tabindex="-1" autocomplete="off"></label></div>
+          <div id="campo-desafio" class="campo" hidden>
+            <p class="pequeno suave" id="dica-desafio">Confirme que o envio não é automático. Isto só aparece na hora de participar.</p>
+            <div id="desafio-envio" class="desafio-humano" role="group" aria-describedby="dica-desafio" data-sitekey="0x4AAAAAAFs35eoOZCM90BMD"></div>
+          </div>
 
           <p style="margin-top: var(--esp-4)"><button type="submit" class="botao botao-largo" id="botao-enviar">Enviar frase</button></p>
           <div id="mensagem-envio" role="status" aria-live="polite"></div>
@@ -300,9 +310,27 @@
     <!-- ============================================================ ENTENDER -->
     <section class="vista" id="v-entender" data-vista="entender" aria-labelledby="t-entender" hidden>
       <div class="pagina coluna-central">
-        <span class="eyebrow">Entender</span>
+        <span class="eyebrow">Sobre o projeto</span>
         <h1 id="t-entender" class="titulo-vista" tabindex="-1">Opinião ou discriminação?</h1>
-        <p class="lead">Cinco perguntas ajudam a separar uma da outra. Nenhuma sozinha decide; juntas orientam a leitura.</p>
+        <p class="lead">Material educativo da exposição Quem Pode Pertencer? Treina o olhar sobre frases do cotidiano — sem concluir crime, intenção ou identidade.</p>
+
+        <section class="bloco-sobre" aria-labelledby="t-por-que">
+          <h2 id="t-por-que" class="subsecao">Por que este projeto existe</h2>
+          <p>Há frases que ouvimos a vida inteira sem parar para pensar. Algumas criticam uma ideia, uma decisão ou um ato. Outras apontam para pessoas — por origem, fé, corpo, voto, renda — e empurram alguém para fora.</p>
+          <p>Este material nasceu da exposição <strong>Quem Pode Pertencer?</strong> para treinar esse olhar no cotidiano, com exemplos revisados por uma pessoa. Não é um recorte de notícia nem um ranking de quem “erra” mais.</p>
+        </section>
+        <section class="bloco-sobre" aria-labelledby="t-o-que-nao-e">
+          <h2 id="t-o-que-nao-e" class="subsecao">O que ele não é</h2>
+          <p>Não é denúncia, tribunal, pesquisa eleitoral nem um perfil de quem lê. Não aponta autores e não conclui crime, intenção ou identidade. Nada é publicado antes da revisão humana.</p>
+        </section>
+        <section class="bloco-sobre" aria-labelledby="t-quem-publica">
+          <h2 id="t-quem-publica" class="subsecao">Quem publica</h2>
+          <p>É um projeto independente. A publicação e a revisão são de responsabilidade de Giovani Bettoni. O nome aparece porque a licença CC BY 4.0 exige atribuição e porque um material sobre discriminação não deve circular como se ninguém respondesse por ele.</p>
+          <p>Não é um perfil pessoal nem um canal de contato não solicitado. O crédito existe para transparência e para a licença, não para promover uma biografia.</p>
+        </section>
+
+        <h2 class="secao">Cinco perguntas para ler uma frase</h2>
+        <p>Nenhuma pergunta sozinha decide. Juntas, ajudam a separar crítica de exclusão.</p>
         <ol class="cinco-perguntas">
           <li><strong>Quem é o alvo?</strong><p>Uma <em>ideia, decisão ou ato</em> (“essa política da saúde é ruim”) ou <em>pessoas</em> por quem são (“esse povo não presta”)?</p></li>
           <li><strong>Generaliza?</strong><p>Um defeito atribuído a <em>todos</em> de um grupo (região, voto, renda) é estereótipo, mesmo dito com educação.</p></li>
@@ -360,14 +388,25 @@
   </nav>
 
   <footer class="rodape">
-    <p>É Só Opinião? · Conteúdo educativo e experimental · Não conclui crime, intenção ou identidade.</p>
-    <p>CC BY 4.0 · Giovani Bettoni · <a href="https://www.linkedin.com/in/giovani-bettoni/" rel="noopener noreferrer">linkedin.com/in/giovani-bettoni</a></p>
-    <p>Sem rastreadores. Só recebemos o que você escolher enviar em “Participar”, sem identificar quem enviou.</p>
-    <p id="rodape-meta"></p>
+    <div class="rodape-interno">
+      <section class="rodape-bloco" aria-labelledby="rodape-o-que-e">
+        <h2 id="rodape-o-que-e" class="rodape-titulo">O que é</h2>
+        <p>É Só Opinião? é um material educativo e experimental. Não conclui crime, intenção ou identidade.</p>
+      </section>
+      <section class="rodape-bloco" aria-labelledby="rodape-responsavel">
+        <h2 id="rodape-responsavel" class="rodape-titulo">Licença e responsabilidade</h2>
+        <p>Conteúdo sob CC BY 4.0. Quem publica e revisa: <a href="https://www.linkedin.com/in/giovani-bettoni/" rel="noopener noreferrer">Giovani Bettoni</a>. <a href="#/entender">Por que o nome aparece</a>.</p>
+      </section>
+      <section class="rodape-bloco" aria-labelledby="rodape-privacidade">
+        <h2 id="rodape-privacidade" class="rodape-titulo">Privacidade</h2>
+        <p>Sem rastreadores. Só recebemos o que você escolher enviar — frase, contestação ou lote de avaliações — sem identificar quem enviou.</p>
+      </section>
+      <p id="rodape-meta" class="rodape-meta"></p>
+    </div>
   </footer>
 
   <script type="module">
-    import("./js/app.js?v=10").catch(function () {
+    import("./js/app.js?v=12").catch(function () {
       var p = document.createElement("p");
       p.className = "pagina";
       p.setAttribute("role", "alert");

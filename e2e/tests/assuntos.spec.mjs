@@ -48,6 +48,20 @@ test("busca encontra sinônimos sem perfilar", async ({ page }) => {
   }
 });
 
+test("abrir um grupo não estica os vizinhos como painéis vazios", async ({ page }) => {
+  await page.setViewportSize({ width: 1100, height: 900 });
+  await abrir(page, "#/");
+  const grupos = page.locator("#explorador-assuntos .grupo-tematico");
+  expect(await grupos.count()).toBeGreaterThanOrEqual(3);
+  await grupos.nth(0).locator("summary").click();
+  await expect(grupos.nth(0).locator(".item-assunto").first()).toBeVisible();
+  const aberto = await grupos.nth(0).boundingBox();
+  const vizinho = await grupos.nth(1).boundingBox();
+  const resumoVizinho = await grupos.nth(1).locator("summary").boundingBox();
+  expect(aberto.height).toBeGreaterThan(resumoVizinho.height);
+  expect(vizinho.height).toBeLessThan(resumoVizinho.height + 40);
+});
+
 test("grupo abre assuntos e o link direto salta as camadas", async ({ page }) => {
   await abrir(page, "#/assuntos/racismo");
   await expect(page.getByRole("heading", { level: 1, name: "Racismo" })).toBeVisible();

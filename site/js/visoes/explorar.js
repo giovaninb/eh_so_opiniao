@@ -3,7 +3,7 @@ import { estado } from "../nucleo/estado.js";
 import { PAGINA } from "../nucleo/constantes.js";
 import { filtrarFrases, assuntoPorId } from "../nucleo/logica.js";
 import { LerControles, EscreverControles, PreencherTemas, ResumoFiltros } from "../componentes/filtros.js";
-import { MetaFrase } from "../componentes/cartaoFrase.js?v=9";
+import { MetaFrase } from "../componentes/cartaoFrase.js?v=12";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 
 let ligado = false;

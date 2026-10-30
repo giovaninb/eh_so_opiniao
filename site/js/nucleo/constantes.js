@@ -30,4 +30,5 @@ export const LIMITE_MAX = 280;
 export const TAMANHO_SESSAO = 5;
 export const PAGINA = 12;
 export const MAX_ENVIOS_POR_VISITA = 3;
+export const MAX_ENVIOS_TOTAIS_VISITA = 6;
 export const TEMPO_ENVIO_MS = 15000;

@@ -1,0 +1,17 @@
+{
+  "schema_version": "2",
+  "tipo": "avaliacoes_voluntarias",
+  "consentimento": "sim",
+  "aviso_versao": "participacao-2",
+  "avaliacoes": [
+    {
+      "frase_id": "EX-01",
+      "conteudo_versao": "sintetico0001",
+      "tema_id": "racismo",
+      "modo": "descobrir",
+      "avaliacao": "contexto",
+      "contexto_exibido": "sim",
+      "analise_revelada": "nao"
+    }
+  ]
+}

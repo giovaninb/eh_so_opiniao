@@ -99,9 +99,19 @@ def _topo(profundidade: int) -> str:
 
 def _rodape(profundidade: int, script: str = "") -> str:
     raiz = "../" * profundidade
-    return f"""  <footer class="rodape"><div class="pagina"><p>{_e(NOME)} · Conteúdo educativo e experimental · Não conclui crime, intenção ou identidade.</p>
-    <p>CC BY 4.0 · Giovani Bettoni · <a href="https://www.linkedin.com/in/giovani-bettoni/" rel="noopener noreferrer">linkedin.com/in/giovani-bettoni</a></p>
-    <p><a href="{raiz}#/entender">Entender o projeto</a> · <a href="{raiz}#/explorar">Explorar outras frases</a></p></div></footer>
+    return f"""  <footer class="rodape">
+    <div class="rodape-interno">
+      <section class="rodape-bloco" aria-labelledby="rodape-o-que-e">
+        <h2 id="rodape-o-que-e" class="rodape-titulo">O que é</h2>
+        <p>{_e(NOME)} é um material educativo e experimental. Não conclui crime, intenção ou identidade.</p>
+      </section>
+      <section class="rodape-bloco" aria-labelledby="rodape-responsavel">
+        <h2 id="rodape-responsavel" class="rodape-titulo">Licença e responsabilidade</h2>
+        <p>Conteúdo sob CC BY 4.0. Quem publica e revisa: <a href="https://www.linkedin.com/in/giovani-bettoni/" rel="noopener noreferrer">Giovani Bettoni</a>.</p>
+      </section>
+      <p class="rodape-meta"><a href="{raiz}#/entender">Por que este projeto existe</a> · <a href="{raiz}#/explorar">Explorar outras frases</a></p>
+    </div>
+  </footer>
   {script}
 </body>
 </html>
