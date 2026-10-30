@@ -199,7 +199,7 @@ details.detalhe { margin: 0 0 var(--esp-4); }
 details.detalhe > summary { min-height: var(--alvo-min); display: flex; align-items: center; cursor: pointer; font-weight: 700; color: var(--cor-destaque-forte); }
 details.detalhe > :not(summary) { margin-top: var(--esp-2); }
 .armadilha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.desafio-humano { margin: var(--esp-3) 0; max-width: 100%; min-height: 4rem; overflow: hidden; }
+.desafio-humano { margin: var(--esp-3) 0; width: 100%; max-width: 100%; min-height: 65px; overflow: visible; }
 .mensagem { padding: var(--esp-3) var(--esp-4); border-radius: var(--raio-m); margin-top: var(--esp-4); font-weight: 600; }
 .mensagem.ok { background: var(--cor-ok-suave); color: var(--cor-ok); }
 .mensagem.erro { background: var(--cor-erro-suave); color: var(--cor-erro); }

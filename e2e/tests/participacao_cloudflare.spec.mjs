@@ -23,6 +23,7 @@ test("sugestão via Cloudflare envia JSON com token e preserva o texto em erro d
   expect(corpo.turnstile_token).toBe("XXXX.DUMMY.TOKEN.XXXX");
   expect(corpo.consentimento).toBe("sim");
   expect(corpo.submission_id).toMatch(/^[0-9a-f-]{36}$/i);
+  expect(await page.evaluate(() => window.__turnstileResets || 0)).toBe(1);
 });
 
 test("falha temporária do Worker mantém o texto e permite nova tentativa", async ({ page }) => {
@@ -33,6 +34,18 @@ test("falha temporária do Worker mantém o texto e permite nova tentativa", asy
   await expect(page.locator("#mensagem-envio .mensagem.erro")).toContainText("conexão");
   await expect(page.getByLabel("Escreva a frase")).toHaveValue(FRASE);
   await expect(page.getByRole("button", { name: "Enviar frase" })).toBeEnabled();
+});
+
+test("se o visto já existe, enviar não apaga o desafio antes do POST", async ({ page }) => {
+  const enviados = await configurarEnvioCloudflare(page);
+  await abrir(page, "#/participar");
+  await preencher(page);
+  const resetsAntes = await page.evaluate(() => window.__turnstileResets || 0);
+  expect(resetsAntes).toBe(0);
+  await page.getByRole("button", { name: "Enviar frase" }).click();
+  await expect(page.locator("#mensagem-envio .mensagem.ok")).toBeVisible();
+  expect(enviados.length).toBe(1);
+  expect(await page.evaluate(() => window.__turnstileResets || 0)).toBe(1);
 });
 
 test("serviço indisponível não afirma sucesso", async ({ page }) => {

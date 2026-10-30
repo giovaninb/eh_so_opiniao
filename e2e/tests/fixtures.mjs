@@ -72,12 +72,13 @@ export async function configurarEnvio(page, comportamento = "ok") {
 
 const ENDPOINT_CF = "https://api.exemplo.test/api/v1/participacoes";
 const SCRIPT_TURNSTILE = `
+window.__turnstileResets = 0;
 window.turnstile = {
   render(el, opts) {
     queueMicrotask(function () { if (opts && opts.callback) opts.callback("XXXX.DUMMY.TOKEN.XXXX"); });
     return 1;
   },
-  reset: function () {},
+  reset: function () { window.__turnstileResets += 1; },
   remove: function () {},
   getResponse: function () { return "XXXX.DUMMY.TOKEN.XXXX"; },
   ready: function (cb) { cb(); }

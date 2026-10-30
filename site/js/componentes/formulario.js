@@ -6,7 +6,7 @@ import { LIMITE_MIN, LIMITE_MAX, MAX_ENVIOS_POR_VISITA } from "../nucleo/constan
 import { SCHEMA_PARTICIPACAO, AVISO_VERSAO } from "../nucleo/sessaoContribuicao.js";
 import { guardaInteracao } from "../nucleo/protecao.js";
 import { envioAtivo, enviar, ErroEnvio, contribuicoesSuspensas, provedorCloudflare } from "./envio.js";
-import { prepararDesafio } from "./desafio.js";
+import { prepararDesafio, rotuloEnvio } from "./desafio.js";
 
 const MENSAGEM_ERRO = {
   rede: "Não foi possível falar com o serviço de envio. Verifique a conexão e tente de novo. Seu texto continua aqui.",
@@ -16,7 +16,7 @@ const MENSAGEM_ERRO = {
   payload: "O texto ficou grande demais para enviar. Encurte e tente de novo.",
   limite_visita: "Você já enviou o máximo nesta visita. O site continua funcionando; obrigado.",
   indisponivel: "O serviço está temporariamente indisponível. Seu texto continua aqui; você pode tentar de novo.",
-  turnstile: "Não foi possível confirmar a proteção. Tente de novo. Seu texto continua aqui.",
+  turnstile: "Marque “Confirme que é humano” e envie de novo. Seu texto continua aqui.",
   validacao: "Há um campo que precisa ser ajustado. Seu texto continua aqui.",
 };
 const NOME_LEITURA = {
@@ -131,9 +131,7 @@ export function iniciarFormulario() {
       if (ctx) payload.contexto = ctx.slice(0, LIMITE_MAX);
       const resp = await enviar(payload, {
         interacao: guarda.ok(),
-        onEstado(s) {
-          botao.textContent = s === "verificando" ? "Verificando proteção…" : s === "validando" ? "Validando…" : "Enviando…";
-        },
+        onEstado(s) { botao.textContent = rotuloEnvio(s); },
       });
       if (resp.descartado) { nota("ok", "Obrigado."); return; }
       estado.enviosFrases += 1;

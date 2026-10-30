@@ -5,7 +5,7 @@ import { NOME_AVALIACAO, MAX_ENVIOS_POR_VISITA } from "../nucleo/constantes.js";
 import { avaliacoesDoLote, marcarLoteEnviado, SCHEMA_PARTICIPACAO, AVISO_VERSAO } from "../nucleo/sessaoContribuicao.js";
 import { guardaInteracao } from "../nucleo/protecao.js";
 import { enviar, envioAtivo, ErroEnvio, provedorCloudflare } from "./envio.js";
-import { prepararDesafio } from "./desafio.js";
+import { prepararDesafio, rotuloEnvio } from "./desafio.js";
 
 const ERROS = {
   rede: "Não foi possível falar com o serviço. Nada foi registrado. Você pode tentar de novo enquanto esta página estiver aberta.",
@@ -15,7 +15,7 @@ const ERROS = {
   indisponivel: "O serviço está temporariamente indisponível. Nada foi registrado. Você pode tentar de novo enquanto esta página estiver aberta.",
   payload: "Este lote ficou grande demais para enviar. Nada foi registrado.",
   limite_visita: "Você já enviou o máximo nesta visita. O site continua funcionando.",
-  turnstile: "Não foi possível confirmar a proteção. Nada foi registrado. Tente de novo.",
+  turnstile: "Marque “Confirme que é humano” e tente de novo. Nada foi registrado.",
   validacao: "Há um campo que precisa ser ajustado. Nada foi registrado.",
 };
 
@@ -59,9 +59,7 @@ export function ContribuicaoLote(ids) {
       }, {
         interacao: guarda.ok(),
         caixaDesafio: desafio,
-        onEstado(s) {
-          botao.textContent = s === "verificando" ? "Verificando proteção…" : s === "validando" ? "Validando…" : "Enviando…";
-        },
+        onEstado(s) { botao.textContent = rotuloEnvio(s); },
       });
       if (resp.descartado) { retorno.append(el("p", { class: "mensagem ok", text: "Obrigado." })); botao.disabled = false; botao.textContent = "Enviar minhas avaliações"; return; }
       estado.enviosLote = (estado.enviosLote || 0) + 1;

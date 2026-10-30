@@ -7,7 +7,7 @@ import { MAX_ENVIOS_POR_VISITA } from "../nucleo/constantes.js";
 import { SCHEMA_PARTICIPACAO, AVISO_VERSAO } from "../nucleo/sessaoContribuicao.js";
 import { guardaInteracao } from "../nucleo/protecao.js";
 import { enviar, envioAtivo, ErroEnvio, provedorCloudflare } from "./envio.js";
-import { prepararDesafio } from "./desafio.js";
+import { prepararDesafio, rotuloEnvio } from "./desafio.js";
 
 const MAX = 280;
 const MOTIVOS = [
@@ -26,7 +26,7 @@ const ERROS = {
   payload: "O texto ficou grande demais para enviar. Encurte e tente de novo.",
   limite_visita: "Você já enviou o máximo nesta visita. O site continua funcionando; obrigado.",
   indisponivel: "O serviço está temporariamente indisponível. Seu texto continua aqui; você pode tentar de novo.",
-  turnstile: "Não foi possível confirmar a proteção. Tente de novo. Seu texto continua aqui.",
+  turnstile: "Marque “Confirme que é humano” e envie de novo. Seu texto continua aqui.",
   validacao: "Há um campo que precisa ser ajustado. Seu texto continua aqui.",
 };
 
@@ -100,9 +100,7 @@ export function Discordancia(f) {
       const resp = await enviar(payload, {
         interacao: guarda.ok(),
         caixaDesafio: desafio,
-        onEstado(s) {
-          botao.textContent = s === "verificando" ? "Verificando proteção…" : s === "validando" ? "Validando…" : "Enviando…";
-        },
+        onEstado(s) { botao.textContent = rotuloEnvio(s); },
       });
       if (resp.descartado) { retorno.append(el("p", { class: "mensagem ok", text: "Obrigado." })); return; }
       estado.enviosDiscordancia += 1;

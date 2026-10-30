@@ -91,11 +91,13 @@ export async function enviar(campos, { interacao = true, onEstado, caixaDesafio 
 
   let corpo;
   let headers = { Accept: "application/json" };
+  let caixa = caixaDesafio || (cf ? document.getElementById("desafio-envio") : null);
   if (cf) {
     if (onEstado) onEstado("verificando");
-    const caixa = caixaDesafio || document.getElementById("desafio-envio");
-    const token = await tokenDesafio(caixa, c.turnstile_sitekey).catch((e) => {
-      throw new ErroEnvio(e && e.message === "turnstile_expirado" ? "turnstile" : "turnstile");
+    const token = await tokenDesafio(caixa, c.turnstile_sitekey, {
+      onEspera() { if (onEstado) onEstado("aguardando"); },
+    }).catch(() => {
+      throw new ErroEnvio("turnstile");
     });
     const json = payloadCloudflare(campos);
     json.turnstile_token = token;
@@ -131,8 +133,6 @@ export async function enviar(campos, { interacao = true, onEstado, caixaDesafio 
     const motivo = motivoDaResposta(r, json);
     if (motivo) throw new ErroEnvio(motivo, r.status);
     estado.corposEnviados.add(chave);
-    if (cf && caixaDesafio) resetarDesafio(caixaDesafio);
-    else if (cf) resetarDesafio(document.getElementById("desafio-envio"));
     return { confirmado: true };
   } catch (e) {
     if (e instanceof ErroEnvio) throw e;
@@ -140,5 +140,6 @@ export async function enviar(campos, { interacao = true, onEstado, caixaDesafio 
   } finally {
     emVoo = false;
     clearTimeout(tempo);
+    if (cf && caixa && corpo) resetarDesafio(caixa);
   }
 }
