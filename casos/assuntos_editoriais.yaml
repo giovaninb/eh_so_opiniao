@@ -1,0 +1,643 @@
+# Assuntos editoriais — camada de navegação para visitantes.
+# A taxonomia científica (datasets/taxonomy.yaml) e os temas de exibição (casos/temas.yaml) continuam intactos.
+# Para acrescentar um assunto: copie um bloco, dê um id estável (slug), associe temas/rótulos/grupos/subtemas
+# e rode a publicação. Assuntos sem frases aprovadas ficam ocultos. Não edite nomes na interface.
+
+versao: "1.0.0"
+minimo_para_exibir: 1
+
+grupos:
+  - id: genero
+    nome: Gênero, sexualidade e relacionamentos
+    descricao: Machismo, masculinidade, identidade de gênero, orientação sexual e formatos de relação.
+    ordem: 1
+  - id: raca_origem
+    nome: Raça, origem e pertencimento
+    descricao: Racismo, povos indígenas, nacionalidade, região e o lugar onde a pessoa vive.
+    ordem: 2
+  - id: deficiencia_idade
+    nome: Deficiência, acessibilidade e idade
+    descricao: Capacitismo, deficiências não aparentes, barreiras e etarismo.
+    ordem: 3
+  - id: religiao
+    nome: Religião e liberdade de crença
+    descricao: Intolerância, religiões específicas e críticas a instituições sem atacar fiéis.
+    ordem: 4
+  - id: sociedade
+    nome: Sociedade, classe e política
+    descricao: Renda, moradia, benefícios, voto e participação democrática.
+    ordem: 5
+  - id: linguagem
+    nome: Linguagem e interpretação
+    descricao: Elogio enviesado, ironia, contexto ausente, críticas legítimas e frases sem discriminação.
+    ordem: 6
+
+situacoes:
+  - id: trabalho
+    nome: No trabalho
+    descricao: Contratação, chefia, salário e convívio profissional.
+    assuntos: [mulheres, homens, racismo, pessoas_com_deficiencia, deficiencias_nao_aparentes, neurodivergencia, pobreza, intolerancia_politica]
+  - id: escola
+    nome: Na escola
+    descricao: Sala de aula, matrícula, bullying e o que se ensina sobre diferenças.
+    assuntos: [orientacao_sexual, bissexualidade, pessoas_trans, racismo, pessoas_com_deficiencia, pessoas_idosas]
+  - id: familia
+    nome: Na família
+    descricao: Parentesco, cuidado, nomes, pronomes e formatos de casa.
+    assuntos: [mulheres, homens, pessoas_trans, nao_monogamia, familias, pessoas_idosas, autonomia_e_infantilizacao]
+  - id: relacionamentos
+    nome: Nos relacionamentos
+    descricao: Namoro, casamento, não monogamia consensual e expectativas afetivas.
+    assuntos: [mulheres, homens, orientacao_sexual, bissexualidade, nao_monogamia, familias]
+  - id: redes
+    nome: Nas redes sociais
+    descricao: Comentários, piadas, generalizações e o que circula como “só uma opinião”.
+    assuntos: [racismo_velado, xenofobia, elogio_preconceituoso, estereotipos, ironia, depende_contexto]
+  - id: servicos
+    nome: Em atendimentos e serviços
+    descricao: Loja, banco, transporte, órgão público e quem é tratado como cliente.
+    assuntos: [racismo, pessoas_com_deficiencia, barreiras_de_acessibilidade, visao_e_condicoes_visuais, xenofobia, periferias]
+  - id: saude
+    nome: Na saúde
+    descricao: Consulta, diagnóstico, saúde mental e condições que não se vêem.
+    assuntos: [deficiencias_nao_aparentes, neurodivergencia, pessoas_com_deficiencia, pessoas_trans, pessoas_idosas]
+  - id: espaco_publico
+    nome: No espaço público
+    descricao: Rua, bairro, moradia, religião visível e quem “pode” estar ali.
+    assuntos: [exclusao_territorial, moradia, religioes_matriz_africana, povos_indigenas, periferias, xenofobia]
+
+assuntos:
+  # ----- Grupo A
+  - id: mulheres
+    nome: Mulheres e machismo
+    descricao: Frases que limitam, desqualificam ou culpam mulheres por serem mulheres.
+    grupo: genero
+    ordem: 1
+    temas: [misoginia]
+    rotulos: [misoginia]
+    grupos_legado: [mulheres]
+    subtemas: [lugar_da_mulher, merito_e_lideranca, emocao_e_ciclo, assedio_culpabilizacao, papeis_e_dupla_moral, area_e_espaco, merito_desqualificado, maternidade_e_trabalho, emocionalidade_e_infantilizacao, culpabilizacao_vitima, papeis_relacionais]
+    palavras: [mulher, mulheres, machismo, misoginia, feminina, menstruação, gravidez, maternidade]
+    relacionados: [homens, racismo, racismo_velado]
+    grupos_legado_contexto: [mulheres]
+
+  - id: homens
+    nome: Homens e expectativas de masculinidade
+    descricao: Cobranças de virilidade, silêncio emocional e o que “um homem de verdade” deveria ser.
+    grupo: genero
+    ordem: 2
+    temas: [estereotipos_masculinidade]
+    rotulos: [estereotipos_masculinidade]
+    grupos_legado: [homens]
+    subtemas: [repressao_emocional, responsabilizacao_precoce, expressao_de_genero, virilidade_e_provimento, heteronormatividade_masculina, masculinidade_como_elogio, masculinidade_ambiguidade]
+    palavras: [homem, homens, macho, masculinidade, viril, menino]
+    relacionados: [mulheres, orientacao_sexual, pessoas_trans]
+
+  - id: pessoas_trans
+    nome: Pessoas trans e identidade de gênero
+    descricao: Nome, pronome, reconhecimento e exclusão de pessoas trans e travestis.
+    grupo: genero
+    ordem: 3
+    temas: [transfobia]
+    rotulos: [transfobia]
+    grupos_legado: [pessoas_trans]
+    subtemas: [negacao_identidade, pronome_e_nome, curiosidade_invasiva, elogio_condicional, tratamento_travesti, discriminacao_institucional, trans_ambiguidade]
+    palavras: [trans, travesti, pronome, nome social, identidade de gênero, cis]
+    relacionados: [orientacao_sexual, mulheres, homens]
+    contexto_legado: pessoas_trans
+
+  - id: orientacao_sexual
+    nome: Orientação sexual
+    descricao: "Lésbicas, gays e outras orientações: convívio, trabalho, família e estereótipo."
+    grupo: genero
+    ordem: 4
+    temas: [lgbtfobia]
+    rotulos: [lgbtfobia]
+    grupos_legado: [pessoas_lgbt]
+    subtemas: [homofobia_cotidiana, estereotipo_orientacao_identidade, lgbt_controle]
+    palavras: [lésbica, gay, homossexual, LGBT, LGB, orientação sexual, homofobia]
+    relacionados: [bissexualidade, pessoas_trans, nao_monogamia]
+
+  - id: bissexualidade
+    nome: Bissexualidade e bifobia
+    descricao: Invalidação (“é fase”), estereótipo de infidelidade e exclusão específica da bissexualidade.
+    grupo: genero
+    ordem: 5
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [bissexualidade_invalidada, bifobia_estereotipo, bifobia_exclusao, bissexualidade_ambiguidade, bissexualidade_controle]
+    palavras: [bissexual, bissexualidade, bi, bifobia]
+    relacionados: [orientacao_sexual, nao_monogamia]
+    pai: orientacao_sexual
+
+  - id: nao_monogamia
+    nome: Relações não monogâmicas consensuais
+    descricao: Poliamor, relacionamento aberto e outros acordos. Não é o mesmo que infidelidade.
+    grupo: genero
+    ordem: 6
+    temas: [estigma_nao_monogamia]
+    rotulos: [estigma_nao_monogamia]
+    grupos_legado: [relacoes_nao_monogamicas]
+    subtemas: [desqualificacao_moral, vinculo_invalidado, exclusao_social_e_trabalho, sexualizacao_e_curiosidade, nao_monogamia_ambiguidade, nao_monogamia_controle]
+    palavras: [não monogamia, poliamor, relacionamento aberto, amizade colorida, acordo]
+    relacionados: [orientacao_sexual, familias, estereotipos]
+
+  - id: familias
+    nome: Famílias e configurações afetivas
+    descricao: Quem conta como família, quem cria filhos e o que se espera de uma casa.
+    grupo: genero
+    ordem: 7
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [vinculo_invalidado, papeis_relacionais, papeis_e_dupla_moral, exclusao_social_e_trabalho]
+    palavras: [família, filhos, casamento, pais, mães]
+    relacionados: [nao_monogamia, mulheres, orientacao_sexual]
+
+  # ----- Grupo B
+  - id: racismo
+    nome: Racismo
+    descricao: Cor, cabelo, suspeita, emprego e o direito de existir sem ser reduzido à raça.
+    grupo: raca_origem
+    ordem: 1
+    temas: [racismo]
+    rotulos: [racismo]
+    grupos_legado: [raca_e_povos_indigenas]
+    subtemas: [cabelo_e_aparencia, falso_elogio_racial, nega_o_proprio_preconceito, vigilancia_e_exclusao, raca_ambiguidade, raca_controle]
+    palavras: [racismo, negro, negra, preto, preta, cabelo crespo, trança, pardo]
+    relacionados: [racismo_velado, povos_indigenas, xenofobia]
+
+  - id: racismo_velado
+    nome: Racismo velado e estereótipos raciais
+    descricao: Falso elogio, “não sou racista, mas” e padrões de aparência apresentados como gosto.
+    grupo: raca_origem
+    ordem: 2
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [falso_elogio_racial, cabelo_e_aparencia, nega_o_proprio_preconceito]
+    palavras: [cabelo crespo, trança, tenho amigos, elogi]
+    relacionados: [racismo, elogio_preconceituoso]
+    pai: racismo
+
+  - id: povos_indigenas
+    nome: Povos indígenas
+    descricao: Identidade, contemporaneidade e o lugar de povos indígenas na sociedade.
+    grupo: raca_origem
+    ordem: 3
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [autenticidade_indigena_negada]
+    palavras: [indígena, índio, aldeia, povo originário]
+    relacionados: [racismo, exclusao_territorial]
+
+  - id: xenofobia
+    nome: Xenofobia
+    descricao: Nacionalidade, imigração e o hábito de culpar “quem veio de fora”.
+    grupo: raca_origem
+    ordem: 4
+    temas: [xenofobia]
+    rotulos: [xenofobia]
+    grupos_legado: []
+    subtemas: []
+    palavras: [xenofobia, estrangeiro, imigrante, nacionalidade, venezuelano, haitiano]
+    relacionados: [nordestinos, discriminacao_regional, imigracao]
+
+  - id: nordestinos
+    nome: Preconceito contra nordestinos
+    descricao: Sotaque, origem e o estereótipo de que “esse povo só dá problema”.
+    grupo: raca_origem
+    ordem: 5
+    temas: [discriminacao_regional]
+    rotulos: [discriminacao_regional]
+    grupos_legado: []
+    subtemas: []
+    palavras: [nordeste, nordestino, paraíba, bahia, pernambuco, sotaque]
+    relacionados: [discriminacao_regional, xenofobia, racismo]
+    pai: discriminacao_regional
+
+  - id: discriminacao_regional
+    nome: Discriminação regional
+    descricao: "Origem dentro do país. Não é automaticamente xenofobia: o alvo é a região, não a nacionalidade."
+    grupo: raca_origem
+    ordem: 6
+    temas: [discriminacao_regional]
+    rotulos: [discriminacao_regional]
+    grupos_legado: []
+    subtemas: []
+    palavras: [região, interior, sotaque, origem, sul, norte, nordeste]
+    relacionados: [nordestinos, xenofobia, exclusao_territorial]
+
+  - id: imigracao
+    nome: Imigração e nacionalidade
+    descricao: Quem chega de outro país, quem “pode” falar e o que se exige para pertencer.
+    grupo: raca_origem
+    ordem: 7
+    temas: [xenofobia]
+    rotulos: [xenofobia]
+    grupos_legado: []
+    subtemas: [pertencimento_negado]
+    palavras: [imigração, imigrante, passaporte, visto, estrangeiro]
+    relacionados: [xenofobia, exclusao_territorial]
+    pai: xenofobia
+
+  - id: exclusao_territorial
+    nome: Exclusão territorial
+    descricao: Bairro, tempo de residência e quem “é daqui”. Lugar de morar, não raça nem nacionalidade.
+    grupo: raca_origem
+    ordem: 8
+    temas: [exclusao_territorial]
+    rotulos: [exclusao_social_territorial]
+    grupos_legado: []
+    subtemas: [pertencimento_negado]
+    palavras: [bairro, daqui, moradia, território, recém-chegado]
+    relacionados: [moradia, periferias, xenofobia]
+
+  # ----- Grupo C
+  - id: pessoas_com_deficiencia
+    nome: Pessoas com deficiência
+    descricao: Capacitismo no trabalho, na escola, no atendimento e no convívio.
+    grupo: deficiencia_idade
+    ordem: 1
+    temas: [capacitismo]
+    rotulos: [capacitismo]
+    grupos_legado: [pessoas_com_deficiencia]
+    subtemas: [tutela_e_infantilizacao, voz_e_trabalho, deficiencia_ambiguidade, deficiencia_controle]
+    palavras: [deficiência, capacitismo, cadeirante, surdo, cego, inclusão]
+    relacionados: [deficiencias_nao_aparentes, barreiras_de_acessibilidade, neurodivergencia]
+
+  - id: deficiencias_nao_aparentes
+    nome: Deficiências não aparentes
+    descricao: "O que não se vê: dor crônica, cordão de girassol e a exigência de provar a condição."
+    grupo: deficiencia_idade
+    ordem: 2
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [deficiencia_nao_aparente_invalidada, cordao_de_girassol, condicao_nao_visivel_invalidada, saude_mental_epilepsia_e_trabalho, exigencia_de_diagnostico]
+    palavras: [girassol, cordão, invisível, não aparente, dor crônica, diagnóstico]
+    relacionados: [pessoas_com_deficiencia, neurodivergencia, visao_e_condicoes_visuais]
+    pai: pessoas_com_deficiencia
+
+  - id: visao_e_condicoes_visuais
+    nome: Visão monocular e outras condições visuais
+    descricao: Duvidar da deficiência visual porque a pessoa “parece normal”.
+    grupo: deficiencia_idade
+    ordem: 3
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [deficiencia_visual_invalidada]
+    palavras: [visão, monocular, cego, cegueira, visual]
+    relacionados: [pessoas_com_deficiencia, deficiencias_nao_aparentes]
+    pai: pessoas_com_deficiencia
+
+  - id: neurodivergencia
+    nome: Neurodivergência
+    descricao: Autismo, deficiência intelectual e a desconfiança em seleção e liderança.
+    grupo: deficiencia_idade
+    ordem: 4
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [neurodivergencia_e_deficiencia_intelectual]
+    palavras: [autismo, autista, neurodivergente, TDAH, deficiência intelectual]
+    relacionados: [pessoas_com_deficiencia, deficiencias_nao_aparentes]
+    pai: pessoas_com_deficiencia
+
+  - id: barreiras_de_acessibilidade
+    nome: Barreiras de acessibilidade
+    descricao: Rampa, intérprete, legenda e a ideia de que adaptar é “exagero”.
+    grupo: deficiencia_idade
+    ordem: 5
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [acessibilidade_negada, surdez_e_acessibilidade, autonomia_e_acessibilidade]
+    palavras: [acessibilidade, rampa, intérprete, libras, legenda, adaptação]
+    relacionados: [pessoas_com_deficiencia, autonomia_e_infantilizacao]
+    pai: pessoas_com_deficiencia
+
+  - id: pessoas_idosas
+    nome: Pessoas idosas e etarismo
+    descricao: Idade como defeito, descarte ou piada. Adultos tratados como problema.
+    grupo: deficiencia_idade
+    ordem: 6
+    temas: [idadismo]
+    rotulos: [idadismo]
+    grupos_legado: [pessoas_idosas]
+    subtemas: [falso_elogio, policiamento_de_aparencia, desqualificacao_intelectual, descartabilidade, objetificacao, idade_ambiguidade, idade_controle]
+    palavras: [idoso, idosa, velho, velha, etarismo, terceira idade]
+    relacionados: [autonomia_e_infantilizacao, pessoas_com_deficiencia]
+
+  - id: autonomia_e_infantilizacao
+    nome: Autonomia e infantilização
+    descricao: Falar no lugar da pessoa, decidir por ela ou tratá-la como criança.
+    grupo: deficiencia_idade
+    ordem: 7
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [tutela_e_infantilizacao, infantilizacao]
+    palavras: [infantilização, tutela, autonomia, “coitadinho”]
+    relacionados: [pessoas_idosas, pessoas_com_deficiencia]
+
+  # ----- Grupo D
+  - id: intolerancia_religiosa
+    nome: Intolerância religiosa
+    descricao: Hostilidade a quem crê — ou a quem não crê — e o direito de existir com a própria fé.
+    grupo: religiao
+    ordem: 1
+    temas: [intolerancia_religiosa]
+    rotulos: [intolerancia_religiosa]
+    grupos_legado: [religioes]
+    subtemas: [religiao_ambiguidade, religiao_controle]
+    palavras: [religião, fé, intolerância religiosa, crente, terreiro]
+    relacionados: [religioes_matriz_africana, liberdade_religiosa, ateismo]
+
+  - id: religioes_matriz_africana
+    nome: Religiões de matriz africana
+    descricao: Umbanda, candomblé e o hábito de tratar culto afro-brasileiro como ameaça.
+    grupo: religiao
+    ordem: 2
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [matriz_africana_demonizacao, matriz_africana_espaco_publico]
+    palavras: [umbanda, candomblé, terreiro, orixá, macumba, matriz africana]
+    relacionados: [intolerancia_religiosa, racismo]
+    pai: intolerancia_religiosa
+
+  - id: cristianismo
+    nome: Cristianismo
+    descricao: Estereótipos sobre cristãos e também críticas a práticas e instituições.
+    grupo: religiao
+    ordem: 3
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [cristianismo_estereotipos]
+    palavras: [cristão, igreja, evangélico, católico, pastor]
+    relacionados: [intolerancia_religiosa, liberdade_religiosa]
+    pai: intolerancia_religiosa
+
+  - id: judaismo
+    nome: Judaísmo e antissemitismo
+    descricao: Estereótipos históricos, conspiração e hostilidade a pessoas judias.
+    grupo: religiao
+    ordem: 4
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [antisemitismo]
+    palavras: [judeu, judaísmo, antissemitismo, sinagoga]
+    relacionados: [intolerancia_religiosa]
+    pai: intolerancia_religiosa
+
+  - id: islamismo
+    nome: Islamismo e islamofobia
+    descricao: Generalizar violência ou suspeita a pessoas muçulmanas.
+    grupo: religiao
+    ordem: 5
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [islamofobia]
+    palavras: [islã, islâmico, muçulmano, islamofobia, mesquita, hijab]
+    relacionados: [intolerancia_religiosa, xenofobia]
+    pai: intolerancia_religiosa
+
+  - id: ateismo
+    nome: Ateísmo e ausência de religião
+    descricao: Desqualificar honestidade ou caráter de quem não adota uma crença.
+    grupo: religiao
+    ordem: 6
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [antiateismo]
+    palavras: [ateu, ateísmo, agnóstico, sem religião]
+    relacionados: [intolerancia_religiosa, liberdade_religiosa]
+    pai: intolerancia_religiosa
+
+  - id: liberdade_religiosa
+    nome: Liberdade religiosa
+    descricao: Crítica a doutrina ou instituição sem atacar fiéis — e o limite em que a crítica vira hostilidade.
+    grupo: religiao
+    ordem: 7
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [religiao_ambiguidade, religiao_controle]
+    palavras: [liberdade religiosa, laicidade, doutrina, instituição]
+    relacionados: [intolerancia_religiosa, critica_legitima]
+
+  # ----- Grupo E
+  - id: pobreza
+    nome: Pobreza e condição socioeconômica
+    descricao: Renda, “pobre de direito” e o hábito de transformar falta de dinheiro em defeito moral.
+    grupo: sociedade
+    ordem: 1
+    temas: [estigmatizacao_socioeconomica]
+    rotulos: [estigmatizacao_socioeconomica]
+    grupos_legado: []
+    subtemas: []
+    palavras: [pobre, pobreza, renda, classe, benefício, bolsa]
+    relacionados: [beneficios_sociais, periferias, moradia]
+
+  - id: beneficios_sociais
+    nome: Benefícios sociais e estigmatização
+    descricao: Tratar quem usa política pública como alguém que não merece ou não pertence.
+    grupo: sociedade
+    ordem: 2
+    temas: [estigmatizacao_socioeconomica]
+    rotulos: [estigmatizacao_socioeconomica]
+    grupos_legado: []
+    subtemas: []
+    palavras: [bolsa, benefício, auxílio, cadastro, programa social]
+    relacionados: [pobreza, critica_legitima]
+    pai: pobreza
+
+  - id: periferias
+    nome: Preconceito contra moradores de periferias
+    descricao: Endereço, transporte e a ideia de que quem mora longe do centro “não se educa”.
+    grupo: sociedade
+    ordem: 3
+    temas: [exclusao_territorial, estigmatizacao_socioeconomica]
+    rotulos: [exclusao_social_territorial, estigmatizacao_socioeconomica]
+    grupos_legado: []
+    subtemas: []
+    palavras: [periferia, favela, ônibus, quebrada, subúrbio]
+    relacionados: [moradia, exclusao_territorial, pobreza]
+
+  - id: moradia
+    nome: Moradia e pertencimento
+    descricao: Casa, aluguel, condomínio e quem é aceito no prédio ou no bairro.
+    grupo: sociedade
+    ordem: 4
+    temas: [exclusao_territorial]
+    rotulos: [exclusao_social_territorial]
+    grupos_legado: []
+    subtemas: [pertencimento_negado]
+    palavras: [aluguel, condomínio, moradia, casa, vizinho]
+    relacionados: [periferias, exclusao_territorial, racismo]
+
+  - id: intolerancia_politica
+    nome: Intolerância política
+    descricao: Tratar o outro lado como gente que não merece convívio, emprego ou voto. Sem apontar partido.
+    grupo: sociedade
+    ordem: 5
+    temas: [hostilidade_politica]
+    rotulos: [hostilidade_politica]
+    grupos_legado: []
+    subtemas: []
+    palavras: [eleitor, voto, partido, política, ideologia]
+    relacionados: [exclusao_por_posicionamento, participacao_democratica, critica_legitima]
+
+  - id: exclusao_por_posicionamento
+    nome: Exclusão por posicionamento político
+    descricao: Barrar emprego, amizade ou direito porque a pessoa votou de um jeito.
+    grupo: sociedade
+    ordem: 6
+    temas: [hostilidade_politica]
+    rotulos: [hostilidade_politica]
+    grupos_legado: []
+    subtemas: []
+    palavras: [voto, eleitor, demissão, convívio]
+    relacionados: [intolerancia_politica, participacao_democratica]
+    pai: intolerancia_politica
+
+  - id: assedio_eleitoral
+    nome: Assédio eleitoral
+    descricao: Pressão no trabalho ligada a voto. Só entra quando o contexto de relação de poder está no exemplo.
+    grupo: sociedade
+    ordem: 7
+    temas: []
+    rotulos: [possivel_assedio_eleitoral_contextual]
+    grupos_legado: []
+    subtemas: []
+    palavras: [assédio eleitoral, emprego, voto, chefia]
+    relacionados: [intolerancia_politica, participacao_democratica]
+
+  - id: participacao_democratica
+    nome: Participação democrática
+    descricao: Cobrar governo, discordar de proposta e votar sem atacar pessoas por quem elas são.
+    grupo: sociedade
+    ordem: 8
+    temas: [critica_legitima]
+    rotulos: [critica_politica_legitima]
+    grupos_legado: []
+    subtemas: []
+    palavras: [democracia, voto, crítica política, prestação de contas]
+    relacionados: [critica_legitima, intolerancia_politica]
+
+  # ----- Grupo F
+  - id: elogio_preconceituoso
+    nome: Preconceito disfarçado de elogio
+    descricao: Elogio que pressupõe incapacidade, exceção ou um padrão alheio ao grupo.
+    grupo: linguagem
+    ordem: 1
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [falso_elogio, falso_elogio_racial, elogio_condicional, masculinidade_como_elogio]
+    palavras: [elogio, até que, para uma, surpreendente]
+    relacionados: [racismo_velado, estereotipos, mulheres]
+
+  - id: estereotipos
+    nome: Estereótipos cotidianos
+    descricao: "Generalização dita com educação: todo mundo desse grupo é assim."
+    grupo: linguagem
+    ordem: 2
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [lugar_da_mulher, cabelo_e_aparencia, cristianismo_estereotipos, estereotipo_orientacao_identidade, bifobia_estereotipo]
+    palavras: [estereótipo, todo, todas, sempre, esse povo]
+    relacionados: [elogio_preconceituoso, insultos, racismo]
+
+  - id: insultos
+    nome: Insultos e linguagem ofensiva
+    descricao: Xingamento, pejorativo e linguagem que agride sem disfarce.
+    grupo: linguagem
+    ordem: 3
+    temas: []
+    rotulos: [linguagem_ofensiva, insulto_hostilidade]
+    grupos_legado: []
+    subtemas: []
+    palavras: [insulto, xingamento, ofensa, pejorativo]
+    relacionados: [desumanizacao, estereotipos]
+
+  - id: desumanizacao
+    nome: Desumanização
+    descricao: Comparar pessoas a lixo, praga ou doença e negar dignidade.
+    grupo: linguagem
+    ordem: 4
+    temas: [desumanizacao]
+    rotulos: [desumanizacao]
+    grupos_legado: []
+    subtemas: []
+    palavras: [desumanização, praga, lixo, doença, animal]
+    relacionados: [insultos, exclusao_territorial]
+
+  - id: ironia
+    nome: Ironia e sarcasmo
+    descricao: Tom que pode criticar um preconceito — ou reproduzi-lo. O escrito quase nunca resolve sozinho.
+    grupo: linguagem
+    ordem: 5
+    temas: [ironia]
+    rotulos: [ironia_humor]
+    grupos_legado: []
+    subtemas: [ironia_ambiguidade]
+    palavras: [ironia, sarcasmo, piada, humor]
+    relacionados: [depende_contexto, critica_legitima]
+
+  - id: depende_contexto
+    nome: Frases que dependem do contexto
+    descricao: Sem situação, tom ou relação entre quem fala, a revisão não decide. Ambiguidade de verdade, não rótulo fácil.
+    grupo: linguagem
+    ordem: 6
+    temas: [depende_contexto]
+    rotulos: [ambigua]
+    grupos_legado: []
+    subtemas: []
+    palavras: [contexto, ambígua, depende]
+    relacionados: [ironia, sem_discriminacao, critica_legitima]
+
+  - id: critica_legitima
+    nome: Críticas legítimas
+    descricao: Discordar de ideia, ato ou instituição sem atingir pessoas por quem elas são.
+    grupo: linguagem
+    ordem: 7
+    temas: [critica_legitima]
+    rotulos: [critica_politica_legitima]
+    grupos_legado: []
+    subtemas: []
+    palavras: [crítica, discordar, política pública, instituição]
+    relacionados: [participacao_democratica, sem_discriminacao, liberdade_religiosa]
+
+  - id: sem_discriminacao
+    nome: Exemplos sem discriminação
+    descricao: Frases cotidianas, de respeito ou de crítica sem alvo discriminatório. O catálogo não é só ofensa.
+    grupo: linguagem
+    ordem: 8
+    temas: [sem_discriminacao]
+    rotulos: []
+    grupos_legado: []
+    subtemas: []
+    palavras: [respeito, sem discriminação, cotidiano, neutra]
+    relacionados: [critica_legitima, depende_contexto]
+
+  - id: intencao_e_efeito
+    nome: Diferenças entre intenção e efeito
+    descricao: O que a pessoa “quis dizer” e o que a frase faz com quem ouve. A revisão descreve o efeito, não o caráter.
+    grupo: linguagem
+    ordem: 9
+    temas: []
+    rotulos: []
+    grupos_legado: []
+    subtemas: [avaliacao_pessoal_ambigua]
+    palavras: [intenção, efeito, quis dizer, mal-entendido]
+    relacionados: [depende_contexto, elogio_preconceituoso]

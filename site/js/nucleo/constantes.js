@@ -1,14 +1,14 @@
 export const AVALIACOES = [
-  { valor: "opiniao", rotulo: "É só opinião", curto: "é só opinião" },
-  { valor: "discriminacao", rotulo: "Pode ser discriminação", curto: "pode ser discriminação" },
-  { valor: "contexto", rotulo: "Depende do contexto", curto: "depende do contexto" },
+  { valor: "opiniao", rotulo: "Não vejo problema", curto: "não vê problema" },
+  { valor: "discriminacao", rotulo: "Pode ser desrespeitosa ou discriminatória", curto: "pode ser desrespeitosa" },
+  { valor: "contexto", rotulo: "Preciso de mais contexto", curto: "precisa de mais contexto" },
 ];
 export const NOME_AVALIACAO = Object.fromEntries(AVALIACOES.map((a) => [a.valor, a.curto]));
 
 export const LEITURA_HUMANA = {
-  exclusao: "Atinge pessoas, não só ideias.",
-  nao_discriminatoria: "Crítica ou comentário sem alvo discriminatório.",
-  ambigua: "Depende do contexto: com o que temos, não dá para decidir.",
+  exclusao: "Frase discriminatória explícita: atinge pessoas, não só ideias.",
+  nao_discriminatoria: "Sem discriminação identificável.",
+  ambigua: "A leitura depende de um contexto que esta frase, sozinha, não traz.",
 };
 
 export const NATUREZA = {

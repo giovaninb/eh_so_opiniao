@@ -30,16 +30,29 @@ test.describe("home", () => {
     await expect(page.locator("#v-inicio")).not.toContainText(/pontos|ranking|acertou|errou/i);
   });
 
-  test("assuntos levam a cinco frases do assunto, com progresso \"1 de 5 situações\"", async ({ page }) => {
+  test("assuntos abrem o explorador e um assunto leva à página com descobrir", async ({ page }) => {
     await abrir(page, "#/");
-    const chip = page.locator("#chips-assuntos a").first();
-    const nome = await chip.textContent();
-    expect(await page.locator("#chips-assuntos a").count()).toBeGreaterThanOrEqual(6);
-    await chip.click();
-    await expect(page).toHaveURL(/#\/descobrir\?tema=/);
-    await expect(page.locator(".progresso")).toContainText("1 de 5 situações");
-    await expect(page.locator("#v-descobrir")).toContainText(nome.trim());
+    await expect(page.getByRole("heading", { name: "Sobre o que você quer refletir?" })).toBeVisible();
+    await expect(page.getByLabel("Qual assunto você procura?")).toBeVisible();
+    const grupos = page.locator("#explorador-assuntos .grupo-tematico");
+    expect(await grupos.count()).toBeGreaterThanOrEqual(4);
+    expect(await grupos.count()).toBeLessThanOrEqual(8);
+    await grupos.first().locator("summary").click();
+    const assunto = grupos.first().locator(".item-assunto").first();
+    await expect(assunto).toBeVisible();
+    await assunto.click();
+    await expect(page).toHaveURL(/#\/assuntos\//);
+    await expect(page.locator("#v-assuntos").getByRole("link", { name: /Descobrir \d/ })).toBeVisible();
+    await page.locator("#v-assuntos").getByRole("link", { name: /Descobrir \d/ }).click();
+    await expect(page).toHaveURL(/#\/descobrir\?assunto=/);
+    await expect(page.locator(".progresso")).toContainText(/1 de \d+ situações/);
     await expect(page.getByRole("button", { name: /Pular/ })).toBeVisible();
+  });
+
+  test("URL antiga de tema de descoberta continua válida", async ({ page }) => {
+    await abrir(page, "#/descobrir?tema=mulheres");
+    await expect(page.locator(".progresso")).toContainText("1 de 5 situações");
+    await expect(page.locator("details.temas-descoberta")).toContainText("Mulheres");
   });
 });
 
@@ -263,10 +276,12 @@ test.describe("páginas estáticas de caso (dados reais publicados)", () => {
     const ids = (await (await request.get("/data/frases.json")).json()).frases.map((f) => f.id.toLowerCase());
     const urls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
     const pares = (await (await request.get("/data/pares.json")).json()).pares.map((p) => p.slug);
-    expect(urls.length).toBe(ids.length + 1 + pares.length);
+    const assuntos = ((await (await request.get("/data/assuntos.json")).json()).assuntos || []).filter((a) => a.visivel).map((a) => a.id);
+    expect(urls.length).toBe(ids.length + 1 + pares.length + assuntos.length);
     for (const u of urls.slice(1)) {
       const [pasta, slug] = u.replace(/\/$/, "").split("/").slice(-2);
-      expect(pasta === "comparar" ? pares : ids).toContain(slug);
+      if (pasta === "assuntos") expect(assuntos).toContain(slug);
+      else expect(pasta === "comparar" ? pares : ids).toContain(slug);
     }
     expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
   });

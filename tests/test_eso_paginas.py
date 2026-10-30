@@ -79,7 +79,7 @@ def test_pagina_retirada_tem_noindex_e_nao_mostra_conteudo():
 # ------------------------------------------------------------------ geração, sitemap, robots e retirados
 def test_gerar_escreve_so_o_que_foi_publicado_sitemap_e_robots(tmp_path):
     r = paginas.gerar([_frase("EX-01"), _frase("EX-02")], [], tmp_path, registro=None)
-    assert r == {"casos": 2, "pares": 0, "retirados": 0, "urls_no_sitemap": 3}
+    assert r == {"casos": 2, "pares": 0, "assuntos": 0, "retirados": 0, "urls_no_sitemap": 3}
     assert sorted(p.parent.name for p in (tmp_path / "casos").glob("*/index.html")) == ["ex-01", "ex-02"]
     sm = (tmp_path / "sitemap.xml").read_text(encoding="utf-8")
     assert sm.count("<loc>") == 3 and "casos/ex-01/" in sm and "NX-" not in sm
@@ -134,7 +134,8 @@ def test_paginas_do_site_real_batem_com_o_que_esta_publicado():
     assert {i.lower() for i in publicadas} <= pastas and pastas == historico
     sm = (paths.SITE / "sitemap.xml").read_text(encoding="utf-8")
     n_pares = len(json.loads((paths.SITE / "data" / "pares.json").read_text(encoding="utf-8"))["pares"])
-    assert sm.count("<loc>") == len(publicadas) + 1 + n_pares
+    n_assuntos = sum(1 for a in json.loads((paths.SITE / "data" / "assuntos.json").read_text(encoding="utf-8"))["assuntos"] if a.get("visivel"))
+    assert sm.count("<loc>") == len(publicadas) + 1 + n_pares + n_assuntos
     for i in publicadas:
         h = (paths.SITE / "casos" / i.lower() / "index.html").read_text(encoding="utf-8")
         assert "noindex" not in h and f"/casos/{i.lower()}/" in sm

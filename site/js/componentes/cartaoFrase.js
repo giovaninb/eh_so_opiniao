@@ -48,12 +48,15 @@ export function Revelacao(f, valor, { rotuloProxima, aoProxima } = {}) {
     : valor ? `Você marcou: ${NOME_AVALIACAO[valor]}. A leitura da revisão pode ser diferente, e isso faz parte da discussão.`
       : "Você viu a análise sem responder.";
   const detalhes = el("dl");
-  const item = (rotulo, conteudo) => { if (conteudo) detalhes.append(el("div", {}, [el("dt", { text: rotulo }), el("dd", {}, [conteudo])])); };
-  item("Contexto", f.contexto ? el("span", { text: f.contexto }) : null);
-  item("O que a frase faz", f.mecanismo ? el("span", { text: f.mecanismo }) : null);
-  item("Por que essa leitura", f.razoes && f.razoes.length ? el("ul", {}, f.razoes.map((r) => el("li", { text: r }))) : null);
-  item("O que poderia mudar a leitura", f.muda_se ? el("span", { text: f.muda_se }) : null);
-  item("Rótulos da revisão", f.rotulos && f.rotulos.length ? el("span", { text: f.rotulos.map((r) => r.nome).join(" · ") }) : null);
+  const item = (classe, rotulo, conteudo) => {
+    if (!conteudo) return;
+    detalhes.append(el("div", { class: `bloco-leitura ${classe}` }, [el("dt", { text: rotulo }), el("dd", {}, [conteudo])]));
+  };
+  item("bloco-contexto", "Contexto", f.contexto ? el("span", { text: f.contexto }) : null);
+  item("bloco-mecanismo", "O que a frase faz", f.mecanismo ? el("span", { text: f.mecanismo }) : null);
+  item("bloco-razoes", "Por que essa leitura", f.razoes && f.razoes.length ? el("ul", {}, f.razoes.map((r) => el("li", { text: r }))) : null);
+  item("bloco-muda", "O que poderia mudar a leitura", f.muda_se ? el("span", { text: f.muda_se }) : null);
+  item("bloco-rotulos", "Rótulos da revisão", f.rotulos && f.rotulos.length ? el("span", { text: f.rotulos.map((r) => r.nome).join(" · ") }) : null);
   const acoes = el("div", { class: "passo-seguinte" });
   if (aoProxima) acoes.append(el("button", { type: "button", class: "botao", text: rotuloProxima || "Próxima frase", onclick: aoProxima }));
   const caixa = el("div", { class: "revelacao" }, [
@@ -80,9 +83,9 @@ export function CartaoFrase(f, opcoes = {}) {
   const slot = el("div", { "aria-live": "polite" });
   const respostaAtual = () => estado.respostas.get(f.id);
   const botoes = AVALIACOES.map((a) => el("button", {
-    type: "button", class: "opcao-resposta", "data-valor": a.valor, "aria-pressed": String(respostaAtual() === a.valor), text: a.rotulo,
+    type: "button", class: "opcao-resposta", "data-valor": a.valor, "aria-pressed": String(respostaAtual() === a.valor),
     onclick: () => responder(a.valor),
-  }));
+  }, [el("span", { text: a.rotulo })]));
   const acoes = el("div", { class: "acoes-cartao" });
 
   function mostrarRevelacao(valor) {

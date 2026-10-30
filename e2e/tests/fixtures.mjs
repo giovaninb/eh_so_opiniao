@@ -77,7 +77,7 @@ export const PAISAGEM = [
   { nome: "390-paisagem", largura: 844, altura: 390 },
   { nome: "430-paisagem", largura: 932, altura: 430 },
 ];
-export const ROTAS = ["#/", "#/descobrir", "#/explorar", "#/frase/EX-61", "#/participar", "#/entender", "#/pesquisa"];
+export const ROTAS = ["#/", "#/descobrir", "#/explorar", "#/frase/EX-61", "#/participar", "#/entender", "#/pesquisa", "#/assuntos", "#/assuntos/racismo"];
 
 /** Tecla para andar entre controles. No Safari/WebKit do macOS, Tab pula links por padrão (só Option+Tab os alcança): é
     comportamento do navegador, não do site, então o teste usa a tecla equivalente. */

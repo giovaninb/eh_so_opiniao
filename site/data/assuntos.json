@@ -1,0 +1,2116 @@
+{
+  "versao": "1.0.0",
+  "aviso": "Camada editorial de navegação. Os rótulos científicos de cada frase continuam em frases.json.",
+  "grupos": [
+    {
+      "id": "genero",
+      "nome": "Gênero, sexualidade e relacionamentos",
+      "descricao": "Machismo, masculinidade, identidade de gênero, orientação sexual e formatos de relação.",
+      "ordem": 1,
+      "url": "#/assuntos?grupo=genero",
+      "assuntos": [
+        "mulheres",
+        "homens",
+        "pessoas_trans",
+        "orientacao_sexual",
+        "bissexualidade",
+        "nao_monogamia",
+        "familias"
+      ],
+      "n_assuntos": 7,
+      "n": 307,
+      "visivel": true
+    },
+    {
+      "id": "raca_origem",
+      "nome": "Raça, origem e pertencimento",
+      "descricao": "Racismo, povos indígenas, nacionalidade, região e o lugar onde a pessoa vive.",
+      "ordem": 2,
+      "url": "#/assuntos?grupo=raca_origem",
+      "assuntos": [
+        "racismo",
+        "racismo_velado",
+        "povos_indigenas",
+        "xenofobia",
+        "nordestinos",
+        "discriminacao_regional",
+        "imigracao",
+        "exclusao_territorial"
+      ],
+      "n_assuntos": 8,
+      "n": 135,
+      "visivel": true
+    },
+    {
+      "id": "deficiencia_idade",
+      "nome": "Deficiência, acessibilidade e idade",
+      "descricao": "Capacitismo, deficiências não aparentes, barreiras e etarismo.",
+      "ordem": 3,
+      "url": "#/assuntos?grupo=deficiencia_idade",
+      "assuntos": [
+        "pessoas_com_deficiencia",
+        "deficiencias_nao_aparentes",
+        "visao_e_condicoes_visuais",
+        "neurodivergencia",
+        "barreiras_de_acessibilidade",
+        "pessoas_idosas",
+        "autonomia_e_infantilizacao"
+      ],
+      "n_assuntos": 7,
+      "n": 200,
+      "visivel": true
+    },
+    {
+      "id": "religiao",
+      "nome": "Religião e liberdade de crença",
+      "descricao": "Intolerância, religiões específicas e críticas a instituições sem atacar fiéis.",
+      "ordem": 4,
+      "url": "#/assuntos?grupo=religiao",
+      "assuntos": [
+        "intolerancia_religiosa",
+        "religioes_matriz_africana",
+        "cristianismo",
+        "judaismo",
+        "islamismo",
+        "ateismo",
+        "liberdade_religiosa"
+      ],
+      "n_assuntos": 7,
+      "n": 78,
+      "visivel": true
+    },
+    {
+      "id": "sociedade",
+      "nome": "Sociedade, classe e política",
+      "descricao": "Renda, moradia, benefícios, voto e participação democrática.",
+      "ordem": 5,
+      "url": "#/assuntos?grupo=sociedade",
+      "assuntos": [
+        "pobreza",
+        "beneficios_sociais",
+        "periferias",
+        "moradia",
+        "intolerancia_politica",
+        "exclusao_por_posicionamento",
+        "participacao_democratica"
+      ],
+      "n_assuntos": 7,
+      "n": 137,
+      "visivel": true
+    },
+    {
+      "id": "linguagem",
+      "nome": "Linguagem e interpretação",
+      "descricao": "Elogio enviesado, ironia, contexto ausente, críticas legítimas e frases sem discriminação.",
+      "ordem": 6,
+      "url": "#/assuntos?grupo=linguagem",
+      "assuntos": [
+        "elogio_preconceituoso",
+        "estereotipos",
+        "insultos",
+        "desumanizacao",
+        "ironia",
+        "depende_contexto",
+        "critica_legitima",
+        "sem_discriminacao",
+        "intencao_e_efeito"
+      ],
+      "n_assuntos": 9,
+      "n": 239,
+      "visivel": true
+    }
+  ],
+  "assuntos": [
+    {
+      "id": "elogio_preconceituoso",
+      "nome": "Preconceito disfarçado de elogio",
+      "descricao": "Elogio que pressupõe incapacidade, exceção ou um padrão alheio ao grupo.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 1,
+      "url": "#/assuntos/elogio_preconceituoso",
+      "descobrir": "#/descobrir?assunto=elogio_preconceituoso",
+      "explorar": "#/explorar?assunto=elogio_preconceituoso",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "falso_elogio",
+        "falso_elogio_racial",
+        "elogio_condicional",
+        "masculinidade_como_elogio"
+      ],
+      "palavras": [
+        "elogio",
+        "até que",
+        "para uma",
+        "surpreendente"
+      ],
+      "relacionados": [
+        "racismo_velado",
+        "estereotipos",
+        "mulheres"
+      ],
+      "pai": null,
+      "n": 16,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 12,
+        "ambigua": 4
+      },
+      "visivel": true,
+      "busca": "preconceito disfarcado de elogio elogio que pressupoe incapacidade, excecao ou um padrao alheio ao grupo. linguagem e interpretacao elogio ate que para uma surpreendente falso_elogio falso_elogio_racial elogio_condicional masculinidade_como_elogio"
+    },
+    {
+      "id": "intolerancia_religiosa",
+      "nome": "Intolerância religiosa",
+      "descricao": "Hostilidade a quem crê — ou a quem não crê — e o direito de existir com a própria fé.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 1,
+      "url": "#/assuntos/intolerancia_religiosa",
+      "descobrir": "#/descobrir?assunto=intolerancia_religiosa",
+      "explorar": "#/explorar?assunto=intolerancia_religiosa",
+      "temas": [
+        "intolerancia_religiosa"
+      ],
+      "rotulos": [
+        "intolerancia_religiosa"
+      ],
+      "grupos_legado": [
+        "religioes"
+      ],
+      "subtemas": [
+        "religiao_ambiguidade",
+        "religiao_controle"
+      ],
+      "palavras": [
+        "religião",
+        "fé",
+        "intolerância religiosa",
+        "crente",
+        "terreiro"
+      ],
+      "relacionados": [
+        "religioes_matriz_africana",
+        "liberdade_religiosa",
+        "ateismo"
+      ],
+      "pai": null,
+      "n": 43,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 32,
+        "ambigua": 4,
+        "nao_discriminatoria": 7
+      },
+      "visivel": true,
+      "busca": "intolerancia religiosa hostilidade a quem cre — ou a quem nao cre — e o direito de existir com a propria fe. religiao e liberdade de crenca religiao fe intolerancia religiosa crente terreiro religiao_ambiguidade religiao_controle intolerancia_religiosa intolerancia_religiosa"
+    },
+    {
+      "id": "mulheres",
+      "nome": "Mulheres e machismo",
+      "descricao": "Frases que limitam, desqualificam ou culpam mulheres por serem mulheres.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 1,
+      "url": "#/assuntos/mulheres",
+      "descobrir": "#/descobrir?assunto=mulheres",
+      "explorar": "#/explorar?assunto=mulheres",
+      "temas": [
+        "misoginia"
+      ],
+      "rotulos": [
+        "misoginia"
+      ],
+      "grupos_legado": [
+        "mulheres"
+      ],
+      "subtemas": [
+        "lugar_da_mulher",
+        "merito_e_lideranca",
+        "emocao_e_ciclo",
+        "assedio_culpabilizacao",
+        "papeis_e_dupla_moral",
+        "area_e_espaco",
+        "merito_desqualificado",
+        "maternidade_e_trabalho",
+        "emocionalidade_e_infantilizacao",
+        "culpabilizacao_vitima",
+        "papeis_relacionais"
+      ],
+      "palavras": [
+        "mulher",
+        "mulheres",
+        "machismo",
+        "misoginia",
+        "feminina",
+        "menstruação",
+        "gravidez",
+        "maternidade"
+      ],
+      "relacionados": [
+        "homens",
+        "racismo",
+        "racismo_velado"
+      ],
+      "pai": null,
+      "n": 81,
+      "n_pares": 1,
+      "tipos": {
+        "exclusao": 64,
+        "ambigua": 7,
+        "nao_discriminatoria": 10
+      },
+      "visivel": true,
+      "busca": "mulheres e machismo frases que limitam, desqualificam ou culpam mulheres por serem mulheres. genero, sexualidade e relacionamentos mulher mulheres machismo misoginia feminina menstruacao gravidez maternidade lugar_da_mulher merito_e_lideranca emocao_e_ciclo assedio_culpabilizacao papeis_e_dupla_moral area_e_espaco merito_desqualificado maternidade_e_trabalho emocionalidade_e_infantilizacao culpabilizacao_vitima papeis_relacionais misoginia misoginia"
+    },
+    {
+      "id": "pessoas_com_deficiencia",
+      "nome": "Pessoas com deficiência",
+      "descricao": "Capacitismo no trabalho, na escola, no atendimento e no convívio.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 1,
+      "url": "#/assuntos/pessoas_com_deficiencia",
+      "descobrir": "#/descobrir?assunto=pessoas_com_deficiencia",
+      "explorar": "#/explorar?assunto=pessoas_com_deficiencia",
+      "temas": [
+        "capacitismo"
+      ],
+      "rotulos": [
+        "capacitismo"
+      ],
+      "grupos_legado": [
+        "pessoas_com_deficiencia"
+      ],
+      "subtemas": [
+        "tutela_e_infantilizacao",
+        "voz_e_trabalho",
+        "deficiencia_ambiguidade",
+        "deficiencia_controle"
+      ],
+      "palavras": [
+        "deficiência",
+        "capacitismo",
+        "cadeirante",
+        "surdo",
+        "cego",
+        "inclusão"
+      ],
+      "relacionados": [
+        "deficiencias_nao_aparentes",
+        "barreiras_de_acessibilidade",
+        "neurodivergencia"
+      ],
+      "pai": null,
+      "n": 98,
+      "n_pares": 1,
+      "tipos": {
+        "exclusao": 76,
+        "ambigua": 5,
+        "nao_discriminatoria": 17
+      },
+      "visivel": true,
+      "busca": "pessoas com deficiencia capacitismo no trabalho, na escola, no atendimento e no convivio. deficiencia, acessibilidade e idade deficiencia capacitismo cadeirante surdo cego inclusao tutela_e_infantilizacao voz_e_trabalho deficiencia_ambiguidade deficiencia_controle capacitismo capacitismo"
+    },
+    {
+      "id": "pobreza",
+      "nome": "Pobreza e condição socioeconômica",
+      "descricao": "Renda, “pobre de direito” e o hábito de transformar falta de dinheiro em defeito moral.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 1,
+      "url": "#/assuntos/pobreza",
+      "descobrir": "#/descobrir?assunto=pobreza",
+      "explorar": "#/explorar?assunto=pobreza",
+      "temas": [
+        "estigmatizacao_socioeconomica"
+      ],
+      "rotulos": [
+        "estigmatizacao_socioeconomica"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "pobre",
+        "pobreza",
+        "renda",
+        "classe",
+        "benefício",
+        "bolsa"
+      ],
+      "relacionados": [
+        "beneficios_sociais",
+        "periferias",
+        "moradia"
+      ],
+      "pai": null,
+      "n": 12,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 12
+      },
+      "visivel": true,
+      "busca": "pobreza e condicao socioeconomica renda, “pobre de direito” e o habito de transformar falta de dinheiro em defeito moral. sociedade, classe e politica pobre pobreza renda classe beneficio bolsa estigmatizacao_socioeconomica estigmatizacao_socioeconomica"
+    },
+    {
+      "id": "racismo",
+      "nome": "Racismo",
+      "descricao": "Cor, cabelo, suspeita, emprego e o direito de existir sem ser reduzido à raça.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 1,
+      "url": "#/assuntos/racismo",
+      "descobrir": "#/descobrir?assunto=racismo",
+      "explorar": "#/explorar?assunto=racismo",
+      "temas": [
+        "racismo"
+      ],
+      "rotulos": [
+        "racismo"
+      ],
+      "grupos_legado": [
+        "raca_e_povos_indigenas"
+      ],
+      "subtemas": [
+        "cabelo_e_aparencia",
+        "falso_elogio_racial",
+        "nega_o_proprio_preconceito",
+        "vigilancia_e_exclusao",
+        "raca_ambiguidade",
+        "raca_controle"
+      ],
+      "palavras": [
+        "racismo",
+        "negro",
+        "negra",
+        "preto",
+        "preta",
+        "cabelo crespo",
+        "trança",
+        "pardo"
+      ],
+      "relacionados": [
+        "racismo_velado",
+        "povos_indigenas",
+        "xenofobia"
+      ],
+      "pai": null,
+      "n": 48,
+      "n_pares": 1,
+      "tipos": {
+        "exclusao": 37,
+        "nao_discriminatoria": 8,
+        "ambigua": 3
+      },
+      "visivel": true,
+      "busca": "racismo cor, cabelo, suspeita, emprego e o direito de existir sem ser reduzido a raca. raca, origem e pertencimento racismo negro negra preto preta cabelo crespo tranca pardo cabelo_e_aparencia falso_elogio_racial nega_o_proprio_preconceito vigilancia_e_exclusao raca_ambiguidade raca_controle racismo racismo"
+    },
+    {
+      "id": "beneficios_sociais",
+      "nome": "Benefícios sociais e estigmatização",
+      "descricao": "Tratar quem usa política pública como alguém que não merece ou não pertence.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 2,
+      "url": "#/assuntos/beneficios_sociais",
+      "descobrir": "#/descobrir?assunto=beneficios_sociais",
+      "explorar": "#/explorar?assunto=beneficios_sociais",
+      "temas": [
+        "estigmatizacao_socioeconomica"
+      ],
+      "rotulos": [
+        "estigmatizacao_socioeconomica"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "bolsa",
+        "benefício",
+        "auxílio",
+        "cadastro",
+        "programa social"
+      ],
+      "relacionados": [
+        "pobreza",
+        "critica_legitima"
+      ],
+      "pai": "pobreza",
+      "n": 12,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 12
+      },
+      "visivel": true,
+      "busca": "beneficios sociais e estigmatizacao tratar quem usa politica publica como alguem que nao merece ou nao pertence. sociedade, classe e politica bolsa beneficio auxilio cadastro programa social estigmatizacao_socioeconomica estigmatizacao_socioeconomica"
+    },
+    {
+      "id": "deficiencias_nao_aparentes",
+      "nome": "Deficiências não aparentes",
+      "descricao": "O que não se vê: dor crônica, cordão de girassol e a exigência de provar a condição.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 2,
+      "url": "#/assuntos/deficiencias_nao_aparentes",
+      "descobrir": "#/descobrir?assunto=deficiencias_nao_aparentes",
+      "explorar": "#/explorar?assunto=deficiencias_nao_aparentes",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "deficiencia_nao_aparente_invalidada",
+        "cordao_de_girassol",
+        "condicao_nao_visivel_invalidada",
+        "saude_mental_epilepsia_e_trabalho",
+        "exigencia_de_diagnostico"
+      ],
+      "palavras": [
+        "girassol",
+        "cordão",
+        "invisível",
+        "não aparente",
+        "dor crônica",
+        "diagnóstico"
+      ],
+      "relacionados": [
+        "pessoas_com_deficiencia",
+        "neurodivergencia",
+        "visao_e_condicoes_visuais"
+      ],
+      "pai": "pessoas_com_deficiencia",
+      "n": 27,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 27
+      },
+      "visivel": true,
+      "busca": "deficiencias nao aparentes o que nao se ve: dor cronica, cordao de girassol e a exigencia de provar a condicao. deficiencia, acessibilidade e idade girassol cordao invisivel nao aparente dor cronica diagnostico deficiencia_nao_aparente_invalidada cordao_de_girassol condicao_nao_visivel_invalidada saude_mental_epilepsia_e_trabalho exigencia_de_diagnostico"
+    },
+    {
+      "id": "estereotipos",
+      "nome": "Estereótipos cotidianos",
+      "descricao": "Generalização dita com educação: todo mundo desse grupo é assim.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 2,
+      "url": "#/assuntos/estereotipos",
+      "descobrir": "#/descobrir?assunto=estereotipos",
+      "explorar": "#/explorar?assunto=estereotipos",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "lugar_da_mulher",
+        "cabelo_e_aparencia",
+        "cristianismo_estereotipos",
+        "estereotipo_orientacao_identidade",
+        "bifobia_estereotipo"
+      ],
+      "palavras": [
+        "estereótipo",
+        "todo",
+        "todas",
+        "sempre",
+        "esse povo"
+      ],
+      "relacionados": [
+        "elogio_preconceituoso",
+        "insultos",
+        "racismo"
+      ],
+      "pai": null,
+      "n": 22,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 22
+      },
+      "visivel": true,
+      "busca": "estereotipos cotidianos generalizacao dita com educacao: todo mundo desse grupo e assim. linguagem e interpretacao estereotipo todo todas sempre esse povo lugar_da_mulher cabelo_e_aparencia cristianismo_estereotipos estereotipo_orientacao_identidade bifobia_estereotipo"
+    },
+    {
+      "id": "homens",
+      "nome": "Homens e expectativas de masculinidade",
+      "descricao": "Cobranças de virilidade, silêncio emocional e o que “um homem de verdade” deveria ser.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 2,
+      "url": "#/assuntos/homens",
+      "descobrir": "#/descobrir?assunto=homens",
+      "explorar": "#/explorar?assunto=homens",
+      "temas": [
+        "estereotipos_masculinidade"
+      ],
+      "rotulos": [
+        "estereotipos_masculinidade"
+      ],
+      "grupos_legado": [
+        "homens"
+      ],
+      "subtemas": [
+        "repressao_emocional",
+        "responsabilizacao_precoce",
+        "expressao_de_genero",
+        "virilidade_e_provimento",
+        "heteronormatividade_masculina",
+        "masculinidade_como_elogio",
+        "masculinidade_ambiguidade"
+      ],
+      "palavras": [
+        "homem",
+        "homens",
+        "macho",
+        "masculinidade",
+        "viril",
+        "menino"
+      ],
+      "relacionados": [
+        "mulheres",
+        "orientacao_sexual",
+        "pessoas_trans"
+      ],
+      "pai": null,
+      "n": 34,
+      "n_pares": 0,
+      "tipos": {
+        "ambigua": 2,
+        "exclusao": 27,
+        "nao_discriminatoria": 5
+      },
+      "visivel": true,
+      "busca": "homens e expectativas de masculinidade cobrancas de virilidade, silencio emocional e o que “um homem de verdade” deveria ser. genero, sexualidade e relacionamentos homem homens macho masculinidade viril menino repressao_emocional responsabilizacao_precoce expressao_de_genero virilidade_e_provimento heteronormatividade_masculina masculinidade_como_elogio masculinidade_ambiguidade estereotipos_masculinidade estereotipos_masculinidade"
+    },
+    {
+      "id": "racismo_velado",
+      "nome": "Racismo velado e estereótipos raciais",
+      "descricao": "Falso elogio, “não sou racista, mas” e padrões de aparência apresentados como gosto.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 2,
+      "url": "#/assuntos/racismo_velado",
+      "descobrir": "#/descobrir?assunto=racismo_velado",
+      "explorar": "#/explorar?assunto=racismo_velado",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "falso_elogio_racial",
+        "cabelo_e_aparencia",
+        "nega_o_proprio_preconceito"
+      ],
+      "palavras": [
+        "cabelo crespo",
+        "trança",
+        "tenho amigos",
+        "elogi"
+      ],
+      "relacionados": [
+        "racismo",
+        "elogio_preconceituoso"
+      ],
+      "pai": "racismo",
+      "n": 10,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 10
+      },
+      "visivel": true,
+      "busca": "racismo velado e estereotipos raciais falso elogio, “nao sou racista, mas” e padroes de aparencia apresentados como gosto. raca, origem e pertencimento cabelo crespo tranca tenho amigos elogi falso_elogio_racial cabelo_e_aparencia nega_o_proprio_preconceito"
+    },
+    {
+      "id": "religioes_matriz_africana",
+      "nome": "Religiões de matriz africana",
+      "descricao": "Umbanda, candomblé e o hábito de tratar culto afro-brasileiro como ameaça.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 2,
+      "url": "#/assuntos/religioes_matriz_africana",
+      "descobrir": "#/descobrir?assunto=religioes_matriz_africana",
+      "explorar": "#/explorar?assunto=religioes_matriz_africana",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "matriz_africana_demonizacao",
+        "matriz_africana_espaco_publico"
+      ],
+      "palavras": [
+        "umbanda",
+        "candomblé",
+        "terreiro",
+        "orixá",
+        "macumba",
+        "matriz africana"
+      ],
+      "relacionados": [
+        "intolerancia_religiosa",
+        "racismo"
+      ],
+      "pai": "intolerancia_religiosa",
+      "n": 10,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 10
+      },
+      "visivel": true,
+      "busca": "religioes de matriz africana umbanda, candomble e o habito de tratar culto afro-brasileiro como ameaca. religiao e liberdade de crenca umbanda candomble terreiro orixa macumba matriz africana matriz_africana_demonizacao matriz_africana_espaco_publico"
+    },
+    {
+      "id": "cristianismo",
+      "nome": "Cristianismo",
+      "descricao": "Estereótipos sobre cristãos e também críticas a práticas e instituições.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 3,
+      "url": "#/assuntos/cristianismo",
+      "descobrir": "#/descobrir?assunto=cristianismo",
+      "explorar": "#/explorar?assunto=cristianismo",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "cristianismo_estereotipos"
+      ],
+      "palavras": [
+        "cristão",
+        "igreja",
+        "evangélico",
+        "católico",
+        "pastor"
+      ],
+      "relacionados": [
+        "intolerancia_religiosa",
+        "liberdade_religiosa"
+      ],
+      "pai": "intolerancia_religiosa",
+      "n": 4,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 4
+      },
+      "visivel": true,
+      "busca": "cristianismo estereotipos sobre cristaos e tambem criticas a praticas e instituicoes. religiao e liberdade de crenca cristao igreja evangelico catolico pastor cristianismo_estereotipos"
+    },
+    {
+      "id": "insultos",
+      "nome": "Insultos e linguagem ofensiva",
+      "descricao": "Xingamento, pejorativo e linguagem que agride sem disfarce.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 3,
+      "url": "#/assuntos/insultos",
+      "descobrir": "#/descobrir?assunto=insultos",
+      "explorar": "#/explorar?assunto=insultos",
+      "temas": [],
+      "rotulos": [
+        "linguagem_ofensiva",
+        "insulto_hostilidade"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "insulto",
+        "xingamento",
+        "ofensa",
+        "pejorativo"
+      ],
+      "relacionados": [
+        "desumanizacao",
+        "estereotipos"
+      ],
+      "pai": null,
+      "n": 3,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 3
+      },
+      "visivel": true,
+      "busca": "insultos e linguagem ofensiva xingamento, pejorativo e linguagem que agride sem disfarce. linguagem e interpretacao insulto xingamento ofensa pejorativo linguagem_ofensiva insulto_hostilidade"
+    },
+    {
+      "id": "periferias",
+      "nome": "Preconceito contra moradores de periferias",
+      "descricao": "Endereço, transporte e a ideia de que quem mora longe do centro “não se educa”.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 3,
+      "url": "#/assuntos/periferias",
+      "descobrir": "#/descobrir?assunto=periferias",
+      "explorar": "#/explorar?assunto=periferias",
+      "temas": [
+        "exclusao_territorial",
+        "estigmatizacao_socioeconomica"
+      ],
+      "rotulos": [
+        "exclusao_social_territorial",
+        "estigmatizacao_socioeconomica"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "periferia",
+        "favela",
+        "ônibus",
+        "quebrada",
+        "subúrbio"
+      ],
+      "relacionados": [
+        "moradia",
+        "exclusao_territorial",
+        "pobreza"
+      ],
+      "pai": null,
+      "n": 30,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 30
+      },
+      "visivel": true,
+      "busca": "preconceito contra moradores de periferias endereco, transporte e a ideia de que quem mora longe do centro “nao se educa”. sociedade, classe e politica periferia favela onibus quebrada suburbio exclusao_territorial estigmatizacao_socioeconomica exclusao_social_territorial estigmatizacao_socioeconomica"
+    },
+    {
+      "id": "pessoas_trans",
+      "nome": "Pessoas trans e identidade de gênero",
+      "descricao": "Nome, pronome, reconhecimento e exclusão de pessoas trans e travestis.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 3,
+      "url": "#/assuntos/pessoas_trans",
+      "descobrir": "#/descobrir?assunto=pessoas_trans",
+      "explorar": "#/explorar?assunto=pessoas_trans",
+      "temas": [
+        "transfobia"
+      ],
+      "rotulos": [
+        "transfobia"
+      ],
+      "grupos_legado": [
+        "pessoas_trans"
+      ],
+      "subtemas": [
+        "negacao_identidade",
+        "pronome_e_nome",
+        "curiosidade_invasiva",
+        "elogio_condicional",
+        "tratamento_travesti",
+        "discriminacao_institucional",
+        "trans_ambiguidade"
+      ],
+      "palavras": [
+        "trans",
+        "travesti",
+        "pronome",
+        "nome social",
+        "identidade de gênero",
+        "cis"
+      ],
+      "relacionados": [
+        "orientacao_sexual",
+        "mulheres",
+        "homens"
+      ],
+      "pai": null,
+      "n": 46,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 35,
+        "nao_discriminatoria": 10,
+        "ambigua": 1
+      },
+      "visivel": true,
+      "busca": "pessoas trans e identidade de genero nome, pronome, reconhecimento e exclusao de pessoas trans e travestis. genero, sexualidade e relacionamentos trans travesti pronome nome social identidade de genero cis negacao_identidade pronome_e_nome curiosidade_invasiva elogio_condicional tratamento_travesti discriminacao_institucional trans_ambiguidade transfobia transfobia"
+    },
+    {
+      "id": "povos_indigenas",
+      "nome": "Povos indígenas",
+      "descricao": "Identidade, contemporaneidade e o lugar de povos indígenas na sociedade.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 3,
+      "url": "#/assuntos/povos_indigenas",
+      "descobrir": "#/descobrir?assunto=povos_indigenas",
+      "explorar": "#/explorar?assunto=povos_indigenas",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "autenticidade_indigena_negada"
+      ],
+      "palavras": [
+        "indígena",
+        "índio",
+        "aldeia",
+        "povo originário"
+      ],
+      "relacionados": [
+        "racismo",
+        "exclusao_territorial"
+      ],
+      "pai": null,
+      "n": 4,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 4
+      },
+      "visivel": true,
+      "busca": "povos indigenas identidade, contemporaneidade e o lugar de povos indigenas na sociedade. raca, origem e pertencimento indigena indio aldeia povo originario autenticidade_indigena_negada"
+    },
+    {
+      "id": "visao_e_condicoes_visuais",
+      "nome": "Visão monocular e outras condições visuais",
+      "descricao": "Duvidar da deficiência visual porque a pessoa “parece normal”.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 3,
+      "url": "#/assuntos/visao_e_condicoes_visuais",
+      "descobrir": "#/descobrir?assunto=visao_e_condicoes_visuais",
+      "explorar": "#/explorar?assunto=visao_e_condicoes_visuais",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "deficiencia_visual_invalidada"
+      ],
+      "palavras": [
+        "visão",
+        "monocular",
+        "cego",
+        "cegueira",
+        "visual"
+      ],
+      "relacionados": [
+        "pessoas_com_deficiencia",
+        "deficiencias_nao_aparentes"
+      ],
+      "pai": "pessoas_com_deficiencia",
+      "n": 11,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 11
+      },
+      "visivel": true,
+      "busca": "visao monocular e outras condicoes visuais duvidar da deficiencia visual porque a pessoa “parece normal”. deficiencia, acessibilidade e idade visao monocular cego cegueira visual deficiencia_visual_invalidada"
+    },
+    {
+      "id": "desumanizacao",
+      "nome": "Desumanização",
+      "descricao": "Comparar pessoas a lixo, praga ou doença e negar dignidade.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 4,
+      "url": "#/assuntos/desumanizacao",
+      "descobrir": "#/descobrir?assunto=desumanizacao",
+      "explorar": "#/explorar?assunto=desumanizacao",
+      "temas": [
+        "desumanizacao"
+      ],
+      "rotulos": [
+        "desumanizacao"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "desumanização",
+        "praga",
+        "lixo",
+        "doença",
+        "animal"
+      ],
+      "relacionados": [
+        "insultos",
+        "exclusao_territorial"
+      ],
+      "pai": null,
+      "n": 8,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 8
+      },
+      "visivel": true,
+      "busca": "desumanizacao comparar pessoas a lixo, praga ou doenca e negar dignidade. linguagem e interpretacao desumanizacao praga lixo doenca animal desumanizacao desumanizacao"
+    },
+    {
+      "id": "judaismo",
+      "nome": "Judaísmo e antissemitismo",
+      "descricao": "Estereótipos históricos, conspiração e hostilidade a pessoas judias.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 4,
+      "url": "#/assuntos/judaismo",
+      "descobrir": "#/descobrir?assunto=judaismo",
+      "explorar": "#/explorar?assunto=judaismo",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "antisemitismo"
+      ],
+      "palavras": [
+        "judeu",
+        "judaísmo",
+        "antissemitismo",
+        "sinagoga"
+      ],
+      "relacionados": [
+        "intolerancia_religiosa"
+      ],
+      "pai": "intolerancia_religiosa",
+      "n": 4,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 4
+      },
+      "visivel": true,
+      "busca": "judaismo e antissemitismo estereotipos historicos, conspiracao e hostilidade a pessoas judias. religiao e liberdade de crenca judeu judaismo antissemitismo sinagoga antisemitismo"
+    },
+    {
+      "id": "moradia",
+      "nome": "Moradia e pertencimento",
+      "descricao": "Casa, aluguel, condomínio e quem é aceito no prédio ou no bairro.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 4,
+      "url": "#/assuntos/moradia",
+      "descobrir": "#/descobrir?assunto=moradia",
+      "explorar": "#/explorar?assunto=moradia",
+      "temas": [
+        "exclusao_territorial"
+      ],
+      "rotulos": [
+        "exclusao_social_territorial"
+      ],
+      "grupos_legado": [],
+      "subtemas": [
+        "pertencimento_negado"
+      ],
+      "palavras": [
+        "aluguel",
+        "condomínio",
+        "moradia",
+        "casa",
+        "vizinho"
+      ],
+      "relacionados": [
+        "periferias",
+        "exclusao_territorial",
+        "racismo"
+      ],
+      "pai": null,
+      "n": 28,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 28
+      },
+      "visivel": true,
+      "busca": "moradia e pertencimento casa, aluguel, condominio e quem e aceito no predio ou no bairro. sociedade, classe e politica aluguel condominio moradia casa vizinho pertencimento_negado exclusao_territorial exclusao_social_territorial"
+    },
+    {
+      "id": "neurodivergencia",
+      "nome": "Neurodivergência",
+      "descricao": "Autismo, deficiência intelectual e a desconfiança em seleção e liderança.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 4,
+      "url": "#/assuntos/neurodivergencia",
+      "descobrir": "#/descobrir?assunto=neurodivergencia",
+      "explorar": "#/explorar?assunto=neurodivergencia",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "neurodivergencia_e_deficiencia_intelectual"
+      ],
+      "palavras": [
+        "autismo",
+        "autista",
+        "neurodivergente",
+        "TDAH",
+        "deficiência intelectual"
+      ],
+      "relacionados": [
+        "pessoas_com_deficiencia",
+        "deficiencias_nao_aparentes"
+      ],
+      "pai": "pessoas_com_deficiencia",
+      "n": 9,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 9
+      },
+      "visivel": true,
+      "busca": "neurodivergencia autismo, deficiencia intelectual e a desconfianca em selecao e lideranca. deficiencia, acessibilidade e idade autismo autista neurodivergente tdah deficiencia intelectual neurodivergencia_e_deficiencia_intelectual"
+    },
+    {
+      "id": "orientacao_sexual",
+      "nome": "Orientação sexual",
+      "descricao": "Lésbicas, gays e outras orientações: convívio, trabalho, família e estereótipo.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 4,
+      "url": "#/assuntos/orientacao_sexual",
+      "descobrir": "#/descobrir?assunto=orientacao_sexual",
+      "explorar": "#/explorar?assunto=orientacao_sexual",
+      "temas": [
+        "lgbtfobia"
+      ],
+      "rotulos": [
+        "lgbtfobia"
+      ],
+      "grupos_legado": [
+        "pessoas_lgbt"
+      ],
+      "subtemas": [
+        "homofobia_cotidiana",
+        "estereotipo_orientacao_identidade",
+        "lgbt_controle"
+      ],
+      "palavras": [
+        "lésbica",
+        "gay",
+        "homossexual",
+        "LGBT",
+        "LGB",
+        "orientação sexual",
+        "homofobia"
+      ],
+      "relacionados": [
+        "bissexualidade",
+        "pessoas_trans",
+        "nao_monogamia"
+      ],
+      "pai": null,
+      "n": 56,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 50,
+        "nao_discriminatoria": 5,
+        "ambigua": 1
+      },
+      "visivel": true,
+      "busca": "orientacao sexual lesbicas, gays e outras orientacoes: convivio, trabalho, familia e estereotipo. genero, sexualidade e relacionamentos lesbica gay homossexual lgbt lgb orientacao sexual homofobia homofobia_cotidiana estereotipo_orientacao_identidade lgbt_controle lgbtfobia lgbtfobia"
+    },
+    {
+      "id": "xenofobia",
+      "nome": "Xenofobia",
+      "descricao": "Nacionalidade, imigração e o hábito de culpar “quem veio de fora”.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 4,
+      "url": "#/assuntos/xenofobia",
+      "descobrir": "#/descobrir?assunto=xenofobia",
+      "explorar": "#/explorar?assunto=xenofobia",
+      "temas": [
+        "xenofobia"
+      ],
+      "rotulos": [
+        "xenofobia"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "xenofobia",
+        "estrangeiro",
+        "imigrante",
+        "nacionalidade",
+        "venezuelano",
+        "haitiano"
+      ],
+      "relacionados": [
+        "nordestinos",
+        "discriminacao_regional",
+        "imigracao"
+      ],
+      "pai": null,
+      "n": 12,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 11,
+        "ambigua": 1
+      },
+      "visivel": true,
+      "busca": "xenofobia nacionalidade, imigracao e o habito de culpar “quem veio de fora”. raca, origem e pertencimento xenofobia estrangeiro imigrante nacionalidade venezuelano haitiano xenofobia xenofobia"
+    },
+    {
+      "id": "barreiras_de_acessibilidade",
+      "nome": "Barreiras de acessibilidade",
+      "descricao": "Rampa, intérprete, legenda e a ideia de que adaptar é “exagero”.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 5,
+      "url": "#/assuntos/barreiras_de_acessibilidade",
+      "descobrir": "#/descobrir?assunto=barreiras_de_acessibilidade",
+      "explorar": "#/explorar?assunto=barreiras_de_acessibilidade",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "acessibilidade_negada",
+        "surdez_e_acessibilidade",
+        "autonomia_e_acessibilidade"
+      ],
+      "palavras": [
+        "acessibilidade",
+        "rampa",
+        "intérprete",
+        "libras",
+        "legenda",
+        "adaptação"
+      ],
+      "relacionados": [
+        "pessoas_com_deficiencia",
+        "autonomia_e_infantilizacao"
+      ],
+      "pai": "pessoas_com_deficiencia",
+      "n": 15,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 15
+      },
+      "visivel": true,
+      "busca": "barreiras de acessibilidade rampa, interprete, legenda e a ideia de que adaptar e “exagero”. deficiencia, acessibilidade e idade acessibilidade rampa interprete libras legenda adaptacao acessibilidade_negada surdez_e_acessibilidade autonomia_e_acessibilidade"
+    },
+    {
+      "id": "bissexualidade",
+      "nome": "Bissexualidade e bifobia",
+      "descricao": "Invalidação (“é fase”), estereótipo de infidelidade e exclusão específica da bissexualidade.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 5,
+      "url": "#/assuntos/bissexualidade",
+      "descobrir": "#/descobrir?assunto=bissexualidade",
+      "explorar": "#/explorar?assunto=bissexualidade",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "bissexualidade_invalidada",
+        "bifobia_estereotipo",
+        "bifobia_exclusao",
+        "bissexualidade_ambiguidade",
+        "bissexualidade_controle"
+      ],
+      "palavras": [
+        "bissexual",
+        "bissexualidade",
+        "bi",
+        "bifobia"
+      ],
+      "relacionados": [
+        "orientacao_sexual",
+        "nao_monogamia"
+      ],
+      "pai": "orientacao_sexual",
+      "n": 22,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 18,
+        "ambigua": 1,
+        "nao_discriminatoria": 3
+      },
+      "visivel": true,
+      "busca": "bissexualidade e bifobia invalidacao (“e fase”), estereotipo de infidelidade e exclusao especifica da bissexualidade. genero, sexualidade e relacionamentos bissexual bissexualidade bi bifobia bissexualidade_invalidada bifobia_estereotipo bifobia_exclusao bissexualidade_ambiguidade bissexualidade_controle"
+    },
+    {
+      "id": "intolerancia_politica",
+      "nome": "Intolerância política",
+      "descricao": "Tratar o outro lado como gente que não merece convívio, emprego ou voto. Sem apontar partido.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 5,
+      "url": "#/assuntos/intolerancia_politica",
+      "descobrir": "#/descobrir?assunto=intolerancia_politica",
+      "explorar": "#/explorar?assunto=intolerancia_politica",
+      "temas": [
+        "hostilidade_politica"
+      ],
+      "rotulos": [
+        "hostilidade_politica"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "eleitor",
+        "voto",
+        "partido",
+        "política",
+        "ideologia"
+      ],
+      "relacionados": [
+        "exclusao_por_posicionamento",
+        "participacao_democratica",
+        "critica_legitima"
+      ],
+      "pai": null,
+      "n": 16,
+      "n_pares": 1,
+      "tipos": {
+        "exclusao": 14,
+        "ambigua": 2
+      },
+      "visivel": true,
+      "busca": "intolerancia politica tratar o outro lado como gente que nao merece convivio, emprego ou voto. sem apontar partido. sociedade, classe e politica eleitor voto partido politica ideologia hostilidade_politica hostilidade_politica"
+    },
+    {
+      "id": "ironia",
+      "nome": "Ironia e sarcasmo",
+      "descricao": "Tom que pode criticar um preconceito — ou reproduzi-lo. O escrito quase nunca resolve sozinho.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 5,
+      "url": "#/assuntos/ironia",
+      "descobrir": "#/descobrir?assunto=ironia",
+      "explorar": "#/explorar?assunto=ironia",
+      "temas": [
+        "ironia"
+      ],
+      "rotulos": [
+        "ironia_humor"
+      ],
+      "grupos_legado": [],
+      "subtemas": [
+        "ironia_ambiguidade"
+      ],
+      "palavras": [
+        "ironia",
+        "sarcasmo",
+        "piada",
+        "humor"
+      ],
+      "relacionados": [
+        "depende_contexto",
+        "critica_legitima"
+      ],
+      "pai": null,
+      "n": 12,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 8,
+        "ambigua": 4
+      },
+      "visivel": true,
+      "busca": "ironia e sarcasmo tom que pode criticar um preconceito — ou reproduzi-lo. o escrito quase nunca resolve sozinho. linguagem e interpretacao ironia sarcasmo piada humor ironia_ambiguidade ironia ironia_humor"
+    },
+    {
+      "id": "islamismo",
+      "nome": "Islamismo e islamofobia",
+      "descricao": "Generalizar violência ou suspeita a pessoas muçulmanas.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 5,
+      "url": "#/assuntos/islamismo",
+      "descobrir": "#/descobrir?assunto=islamismo",
+      "explorar": "#/explorar?assunto=islamismo",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "islamofobia"
+      ],
+      "palavras": [
+        "islã",
+        "islâmico",
+        "muçulmano",
+        "islamofobia",
+        "mesquita",
+        "hijab"
+      ],
+      "relacionados": [
+        "intolerancia_religiosa",
+        "xenofobia"
+      ],
+      "pai": "intolerancia_religiosa",
+      "n": 5,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 5
+      },
+      "visivel": true,
+      "busca": "islamismo e islamofobia generalizar violencia ou suspeita a pessoas muculmanas. religiao e liberdade de crenca isla islamico muculmano islamofobia mesquita hijab islamofobia"
+    },
+    {
+      "id": "nordestinos",
+      "nome": "Preconceito contra nordestinos",
+      "descricao": "Sotaque, origem e o estereótipo de que “esse povo só dá problema”.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 5,
+      "url": "#/assuntos/nordestinos",
+      "descobrir": "#/descobrir?assunto=nordestinos",
+      "explorar": "#/explorar?assunto=nordestinos",
+      "temas": [
+        "discriminacao_regional"
+      ],
+      "rotulos": [
+        "discriminacao_regional"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "nordeste",
+        "nordestino",
+        "paraíba",
+        "bahia",
+        "pernambuco",
+        "sotaque"
+      ],
+      "relacionados": [
+        "discriminacao_regional",
+        "xenofobia",
+        "racismo"
+      ],
+      "pai": "discriminacao_regional",
+      "n": 8,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 8
+      },
+      "visivel": true,
+      "busca": "preconceito contra nordestinos sotaque, origem e o estereotipo de que “esse povo so da problema”. raca, origem e pertencimento nordeste nordestino paraiba bahia pernambuco sotaque discriminacao_regional discriminacao_regional"
+    },
+    {
+      "id": "ateismo",
+      "nome": "Ateísmo e ausência de religião",
+      "descricao": "Desqualificar honestidade ou caráter de quem não adota uma crença.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 6,
+      "url": "#/assuntos/ateismo",
+      "descobrir": "#/descobrir?assunto=ateismo",
+      "explorar": "#/explorar?assunto=ateismo",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "antiateismo"
+      ],
+      "palavras": [
+        "ateu",
+        "ateísmo",
+        "agnóstico",
+        "sem religião"
+      ],
+      "relacionados": [
+        "intolerancia_religiosa",
+        "liberdade_religiosa"
+      ],
+      "pai": "intolerancia_religiosa",
+      "n": 2,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 2
+      },
+      "visivel": true,
+      "busca": "ateismo e ausencia de religiao desqualificar honestidade ou carater de quem nao adota uma crenca. religiao e liberdade de crenca ateu ateismo agnostico sem religiao antiateismo"
+    },
+    {
+      "id": "depende_contexto",
+      "nome": "Frases que dependem do contexto",
+      "descricao": "Sem situação, tom ou relação entre quem fala, a revisão não decide. Ambiguidade de verdade, não rótulo fácil.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 6,
+      "url": "#/assuntos/depende_contexto",
+      "descobrir": "#/descobrir?assunto=depende_contexto",
+      "explorar": "#/explorar?assunto=depende_contexto",
+      "temas": [
+        "depende_contexto"
+      ],
+      "rotulos": [
+        "ambigua"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "contexto",
+        "ambígua",
+        "depende"
+      ],
+      "relacionados": [
+        "ironia",
+        "sem_discriminacao",
+        "critica_legitima"
+      ],
+      "pai": null,
+      "n": 74,
+      "n_pares": 0,
+      "tipos": {
+        "ambigua": 50,
+        "nao_discriminatoria": 23,
+        "exclusao": 1
+      },
+      "visivel": true,
+      "busca": "frases que dependem do contexto sem situacao, tom ou relacao entre quem fala, a revisao nao decide. ambiguidade de verdade, nao rotulo facil. linguagem e interpretacao contexto ambigua depende depende_contexto ambigua"
+    },
+    {
+      "id": "discriminacao_regional",
+      "nome": "Discriminação regional",
+      "descricao": "Origem dentro do país. Não é automaticamente xenofobia: o alvo é a região, não a nacionalidade.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 6,
+      "url": "#/assuntos/discriminacao_regional",
+      "descobrir": "#/descobrir?assunto=discriminacao_regional",
+      "explorar": "#/explorar?assunto=discriminacao_regional",
+      "temas": [
+        "discriminacao_regional"
+      ],
+      "rotulos": [
+        "discriminacao_regional"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "região",
+        "interior",
+        "sotaque",
+        "origem",
+        "sul",
+        "norte",
+        "nordeste"
+      ],
+      "relacionados": [
+        "nordestinos",
+        "xenofobia",
+        "exclusao_territorial"
+      ],
+      "pai": null,
+      "n": 8,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 8
+      },
+      "visivel": true,
+      "busca": "discriminacao regional origem dentro do pais. nao e automaticamente xenofobia: o alvo e a regiao, nao a nacionalidade. raca, origem e pertencimento regiao interior sotaque origem sul norte nordeste discriminacao_regional discriminacao_regional"
+    },
+    {
+      "id": "exclusao_por_posicionamento",
+      "nome": "Exclusão por posicionamento político",
+      "descricao": "Barrar emprego, amizade ou direito porque a pessoa votou de um jeito.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 6,
+      "url": "#/assuntos/exclusao_por_posicionamento",
+      "descobrir": "#/descobrir?assunto=exclusao_por_posicionamento",
+      "explorar": "#/explorar?assunto=exclusao_por_posicionamento",
+      "temas": [
+        "hostilidade_politica"
+      ],
+      "rotulos": [
+        "hostilidade_politica"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "voto",
+        "eleitor",
+        "demissão",
+        "convívio"
+      ],
+      "relacionados": [
+        "intolerancia_politica",
+        "participacao_democratica"
+      ],
+      "pai": "intolerancia_politica",
+      "n": 16,
+      "n_pares": 1,
+      "tipos": {
+        "exclusao": 14,
+        "ambigua": 2
+      },
+      "visivel": true,
+      "busca": "exclusao por posicionamento politico barrar emprego, amizade ou direito porque a pessoa votou de um jeito. sociedade, classe e politica voto eleitor demissao convivio hostilidade_politica hostilidade_politica"
+    },
+    {
+      "id": "nao_monogamia",
+      "nome": "Relações não monogâmicas consensuais",
+      "descricao": "Poliamor, relacionamento aberto e outros acordos. Não é o mesmo que infidelidade.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 6,
+      "url": "#/assuntos/nao_monogamia",
+      "descobrir": "#/descobrir?assunto=nao_monogamia",
+      "explorar": "#/explorar?assunto=nao_monogamia",
+      "temas": [
+        "estigma_nao_monogamia"
+      ],
+      "rotulos": [
+        "estigma_nao_monogamia"
+      ],
+      "grupos_legado": [
+        "relacoes_nao_monogamicas"
+      ],
+      "subtemas": [
+        "desqualificacao_moral",
+        "vinculo_invalidado",
+        "exclusao_social_e_trabalho",
+        "sexualizacao_e_curiosidade",
+        "nao_monogamia_ambiguidade",
+        "nao_monogamia_controle"
+      ],
+      "palavras": [
+        "não monogamia",
+        "poliamor",
+        "relacionamento aberto",
+        "amizade colorida",
+        "acordo"
+      ],
+      "relacionados": [
+        "orientacao_sexual",
+        "familias",
+        "estereotipos"
+      ],
+      "pai": null,
+      "n": 40,
+      "n_pares": 1,
+      "tipos": {
+        "exclusao": 27,
+        "ambigua": 2,
+        "nao_discriminatoria": 11
+      },
+      "visivel": true,
+      "busca": "relacoes nao monogamicas consensuais poliamor, relacionamento aberto e outros acordos. nao e o mesmo que infidelidade. genero, sexualidade e relacionamentos nao monogamia poliamor relacionamento aberto amizade colorida acordo desqualificacao_moral vinculo_invalidado exclusao_social_e_trabalho sexualizacao_e_curiosidade nao_monogamia_ambiguidade nao_monogamia_controle estigma_nao_monogamia estigma_nao_monogamia"
+    },
+    {
+      "id": "pessoas_idosas",
+      "nome": "Pessoas idosas e etarismo",
+      "descricao": "Idade como defeito, descarte ou piada. Adultos tratados como problema.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 6,
+      "url": "#/assuntos/pessoas_idosas",
+      "descobrir": "#/descobrir?assunto=pessoas_idosas",
+      "explorar": "#/explorar?assunto=pessoas_idosas",
+      "temas": [
+        "idadismo"
+      ],
+      "rotulos": [
+        "idadismo"
+      ],
+      "grupos_legado": [
+        "pessoas_idosas"
+      ],
+      "subtemas": [
+        "falso_elogio",
+        "policiamento_de_aparencia",
+        "desqualificacao_intelectual",
+        "descartabilidade",
+        "objetificacao",
+        "idade_ambiguidade",
+        "idade_controle"
+      ],
+      "palavras": [
+        "idoso",
+        "idosa",
+        "velho",
+        "velha",
+        "etarismo",
+        "terceira idade"
+      ],
+      "relacionados": [
+        "autonomia_e_infantilizacao",
+        "pessoas_com_deficiencia"
+      ],
+      "pai": null,
+      "n": 34,
+      "n_pares": 0,
+      "tipos": {
+        "ambigua": 6,
+        "exclusao": 21,
+        "nao_discriminatoria": 7
+      },
+      "visivel": true,
+      "busca": "pessoas idosas e etarismo idade como defeito, descarte ou piada. adultos tratados como problema. deficiencia, acessibilidade e idade idoso idosa velho velha etarismo terceira idade falso_elogio policiamento_de_aparencia desqualificacao_intelectual descartabilidade objetificacao idade_ambiguidade idade_controle idadismo idadismo"
+    },
+    {
+      "id": "assedio_eleitoral",
+      "nome": "Assédio eleitoral",
+      "descricao": "Pressão no trabalho ligada a voto. Só entra quando o contexto de relação de poder está no exemplo.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 7,
+      "url": "#/assuntos/assedio_eleitoral",
+      "descobrir": "#/descobrir?assunto=assedio_eleitoral",
+      "explorar": "#/explorar?assunto=assedio_eleitoral",
+      "temas": [],
+      "rotulos": [
+        "possivel_assedio_eleitoral_contextual"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "assédio eleitoral",
+        "emprego",
+        "voto",
+        "chefia"
+      ],
+      "relacionados": [
+        "intolerancia_politica",
+        "participacao_democratica"
+      ],
+      "pai": null,
+      "n": 0,
+      "n_pares": 0,
+      "tipos": {},
+      "visivel": false,
+      "busca": "assedio eleitoral pressao no trabalho ligada a voto. so entra quando o contexto de relacao de poder esta no exemplo. sociedade, classe e politica assedio eleitoral emprego voto chefia possivel_assedio_eleitoral_contextual"
+    },
+    {
+      "id": "autonomia_e_infantilizacao",
+      "nome": "Autonomia e infantilização",
+      "descricao": "Falar no lugar da pessoa, decidir por ela ou tratá-la como criança.",
+      "grupo": "deficiencia_idade",
+      "grupo_nome": "Deficiência, acessibilidade e idade",
+      "ordem": 7,
+      "url": "#/assuntos/autonomia_e_infantilizacao",
+      "descobrir": "#/descobrir?assunto=autonomia_e_infantilizacao",
+      "explorar": "#/explorar?assunto=autonomia_e_infantilizacao",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "tutela_e_infantilizacao",
+        "infantilizacao"
+      ],
+      "palavras": [
+        "infantilização",
+        "tutela",
+        "autonomia",
+        "“coitadinho”"
+      ],
+      "relacionados": [
+        "pessoas_idosas",
+        "pessoas_com_deficiencia"
+      ],
+      "pai": null,
+      "n": 6,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 6
+      },
+      "visivel": true,
+      "busca": "autonomia e infantilizacao falar no lugar da pessoa, decidir por ela ou trata-la como crianca. deficiencia, acessibilidade e idade infantilizacao tutela autonomia “coitadinho” tutela_e_infantilizacao infantilizacao"
+    },
+    {
+      "id": "critica_legitima",
+      "nome": "Críticas legítimas",
+      "descricao": "Discordar de ideia, ato ou instituição sem atingir pessoas por quem elas são.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 7,
+      "url": "#/assuntos/critica_legitima",
+      "descobrir": "#/descobrir?assunto=critica_legitima",
+      "explorar": "#/explorar?assunto=critica_legitima",
+      "temas": [
+        "critica_legitima"
+      ],
+      "rotulos": [
+        "critica_politica_legitima"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "crítica",
+        "discordar",
+        "política pública",
+        "instituição"
+      ],
+      "relacionados": [
+        "participacao_democratica",
+        "sem_discriminacao",
+        "liberdade_religiosa"
+      ],
+      "pai": null,
+      "n": 23,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 23
+      },
+      "visivel": true,
+      "busca": "criticas legitimas discordar de ideia, ato ou instituicao sem atingir pessoas por quem elas sao. linguagem e interpretacao critica discordar politica publica instituicao critica_legitima critica_politica_legitima"
+    },
+    {
+      "id": "familias",
+      "nome": "Famílias e configurações afetivas",
+      "descricao": "Quem conta como família, quem cria filhos e o que se espera de uma casa.",
+      "grupo": "genero",
+      "grupo_nome": "Gênero, sexualidade e relacionamentos",
+      "ordem": 7,
+      "url": "#/assuntos/familias",
+      "descobrir": "#/descobrir?assunto=familias",
+      "explorar": "#/explorar?assunto=familias",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "vinculo_invalidado",
+        "papeis_relacionais",
+        "papeis_e_dupla_moral",
+        "exclusao_social_e_trabalho"
+      ],
+      "palavras": [
+        "família",
+        "filhos",
+        "casamento",
+        "pais",
+        "mães"
+      ],
+      "relacionados": [
+        "nao_monogamia",
+        "mulheres",
+        "orientacao_sexual"
+      ],
+      "pai": null,
+      "n": 28,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 28
+      },
+      "visivel": true,
+      "busca": "familias e configuracoes afetivas quem conta como familia, quem cria filhos e o que se espera de uma casa. genero, sexualidade e relacionamentos familia filhos casamento pais maes vinculo_invalidado papeis_relacionais papeis_e_dupla_moral exclusao_social_e_trabalho"
+    },
+    {
+      "id": "imigracao",
+      "nome": "Imigração e nacionalidade",
+      "descricao": "Quem chega de outro país, quem “pode” falar e o que se exige para pertencer.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 7,
+      "url": "#/assuntos/imigracao",
+      "descobrir": "#/descobrir?assunto=imigracao",
+      "explorar": "#/explorar?assunto=imigracao",
+      "temas": [
+        "xenofobia"
+      ],
+      "rotulos": [
+        "xenofobia"
+      ],
+      "grupos_legado": [],
+      "subtemas": [
+        "pertencimento_negado"
+      ],
+      "palavras": [
+        "imigração",
+        "imigrante",
+        "passaporte",
+        "visto",
+        "estrangeiro"
+      ],
+      "relacionados": [
+        "xenofobia",
+        "exclusao_territorial"
+      ],
+      "pai": "xenofobia",
+      "n": 17,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 16,
+        "ambigua": 1
+      },
+      "visivel": true,
+      "busca": "imigracao e nacionalidade quem chega de outro pais, quem “pode” falar e o que se exige para pertencer. raca, origem e pertencimento imigracao imigrante passaporte visto estrangeiro pertencimento_negado xenofobia xenofobia"
+    },
+    {
+      "id": "liberdade_religiosa",
+      "nome": "Liberdade religiosa",
+      "descricao": "Crítica a doutrina ou instituição sem atacar fiéis — e o limite em que a crítica vira hostilidade.",
+      "grupo": "religiao",
+      "grupo_nome": "Religião e liberdade de crença",
+      "ordem": 7,
+      "url": "#/assuntos/liberdade_religiosa",
+      "descobrir": "#/descobrir?assunto=liberdade_religiosa",
+      "explorar": "#/explorar?assunto=liberdade_religiosa",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "religiao_ambiguidade",
+        "religiao_controle"
+      ],
+      "palavras": [
+        "liberdade religiosa",
+        "laicidade",
+        "doutrina",
+        "instituição"
+      ],
+      "relacionados": [
+        "intolerancia_religiosa",
+        "critica_legitima"
+      ],
+      "pai": null,
+      "n": 10,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 7,
+        "ambigua": 3
+      },
+      "visivel": true,
+      "busca": "liberdade religiosa critica a doutrina ou instituicao sem atacar fieis — e o limite em que a critica vira hostilidade. religiao e liberdade de crenca liberdade religiosa laicidade doutrina instituicao religiao_ambiguidade religiao_controle"
+    },
+    {
+      "id": "exclusao_territorial",
+      "nome": "Exclusão territorial",
+      "descricao": "Bairro, tempo de residência e quem “é daqui”. Lugar de morar, não raça nem nacionalidade.",
+      "grupo": "raca_origem",
+      "grupo_nome": "Raça, origem e pertencimento",
+      "ordem": 8,
+      "url": "#/assuntos/exclusao_territorial",
+      "descobrir": "#/descobrir?assunto=exclusao_territorial",
+      "explorar": "#/explorar?assunto=exclusao_territorial",
+      "temas": [
+        "exclusao_territorial"
+      ],
+      "rotulos": [
+        "exclusao_social_territorial"
+      ],
+      "grupos_legado": [],
+      "subtemas": [
+        "pertencimento_negado"
+      ],
+      "palavras": [
+        "bairro",
+        "daqui",
+        "moradia",
+        "território",
+        "recém-chegado"
+      ],
+      "relacionados": [
+        "moradia",
+        "periferias",
+        "xenofobia"
+      ],
+      "pai": null,
+      "n": 28,
+      "n_pares": 0,
+      "tipos": {
+        "exclusao": 28
+      },
+      "visivel": true,
+      "busca": "exclusao territorial bairro, tempo de residencia e quem “e daqui”. lugar de morar, nao raca nem nacionalidade. raca, origem e pertencimento bairro daqui moradia territorio recem-chegado pertencimento_negado exclusao_territorial exclusao_social_territorial"
+    },
+    {
+      "id": "participacao_democratica",
+      "nome": "Participação democrática",
+      "descricao": "Cobrar governo, discordar de proposta e votar sem atacar pessoas por quem elas são.",
+      "grupo": "sociedade",
+      "grupo_nome": "Sociedade, classe e política",
+      "ordem": 8,
+      "url": "#/assuntos/participacao_democratica",
+      "descobrir": "#/descobrir?assunto=participacao_democratica",
+      "explorar": "#/explorar?assunto=participacao_democratica",
+      "temas": [
+        "critica_legitima"
+      ],
+      "rotulos": [
+        "critica_politica_legitima"
+      ],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "democracia",
+        "voto",
+        "crítica política",
+        "prestação de contas"
+      ],
+      "relacionados": [
+        "critica_legitima",
+        "intolerancia_politica"
+      ],
+      "pai": null,
+      "n": 23,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 23
+      },
+      "visivel": true,
+      "busca": "participacao democratica cobrar governo, discordar de proposta e votar sem atacar pessoas por quem elas sao. sociedade, classe e politica democracia voto critica politica prestacao de contas critica_legitima critica_politica_legitima"
+    },
+    {
+      "id": "sem_discriminacao",
+      "nome": "Exemplos sem discriminação",
+      "descricao": "Frases cotidianas, de respeito ou de crítica sem alvo discriminatório. O catálogo não é só ofensa.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 8,
+      "url": "#/assuntos/sem_discriminacao",
+      "descobrir": "#/descobrir?assunto=sem_discriminacao",
+      "explorar": "#/explorar?assunto=sem_discriminacao",
+      "temas": [
+        "sem_discriminacao"
+      ],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [],
+      "palavras": [
+        "respeito",
+        "sem discriminação",
+        "cotidiano",
+        "neutra"
+      ],
+      "relacionados": [
+        "critica_legitima",
+        "depende_contexto"
+      ],
+      "pai": null,
+      "n": 79,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 79
+      },
+      "visivel": true,
+      "busca": "exemplos sem discriminacao frases cotidianas, de respeito ou de critica sem alvo discriminatorio. o catalogo nao e so ofensa. linguagem e interpretacao respeito sem discriminacao cotidiano neutra sem_discriminacao"
+    },
+    {
+      "id": "intencao_e_efeito",
+      "nome": "Diferenças entre intenção e efeito",
+      "descricao": "O que a pessoa “quis dizer” e o que a frase faz com quem ouve. A revisão descreve o efeito, não o caráter.",
+      "grupo": "linguagem",
+      "grupo_nome": "Linguagem e interpretação",
+      "ordem": 9,
+      "url": "#/assuntos/intencao_e_efeito",
+      "descobrir": "#/descobrir?assunto=intencao_e_efeito",
+      "explorar": "#/explorar?assunto=intencao_e_efeito",
+      "temas": [],
+      "rotulos": [],
+      "grupos_legado": [],
+      "subtemas": [
+        "avaliacao_pessoal_ambigua"
+      ],
+      "palavras": [
+        "intenção",
+        "efeito",
+        "quis dizer",
+        "mal-entendido"
+      ],
+      "relacionados": [
+        "depende_contexto",
+        "elogio_preconceituoso"
+      ],
+      "pai": null,
+      "n": 2,
+      "n_pares": 0,
+      "tipos": {
+        "nao_discriminatoria": 2
+      },
+      "visivel": true,
+      "busca": "diferencas entre intencao e efeito o que a pessoa “quis dizer” e o que a frase faz com quem ouve. a revisao descreve o efeito, nao o carater. linguagem e interpretacao intencao efeito quis dizer mal-entendido avaliacao_pessoal_ambigua"
+    }
+  ],
+  "situacoes": [
+    {
+      "id": "trabalho",
+      "nome": "No trabalho",
+      "descricao": "Contratação, chefia, salário e convívio profissional.",
+      "assuntos": [
+        "mulheres",
+        "homens",
+        "racismo",
+        "pessoas_com_deficiencia",
+        "deficiencias_nao_aparentes",
+        "neurodivergencia",
+        "pobreza",
+        "intolerancia_politica"
+      ],
+      "url": "#/assuntos?situacao=trabalho"
+    },
+    {
+      "id": "escola",
+      "nome": "Na escola",
+      "descricao": "Sala de aula, matrícula, bullying e o que se ensina sobre diferenças.",
+      "assuntos": [
+        "orientacao_sexual",
+        "bissexualidade",
+        "pessoas_trans",
+        "racismo",
+        "pessoas_com_deficiencia",
+        "pessoas_idosas"
+      ],
+      "url": "#/assuntos?situacao=escola"
+    },
+    {
+      "id": "familia",
+      "nome": "Na família",
+      "descricao": "Parentesco, cuidado, nomes, pronomes e formatos de casa.",
+      "assuntos": [
+        "mulheres",
+        "homens",
+        "pessoas_trans",
+        "nao_monogamia",
+        "familias",
+        "pessoas_idosas",
+        "autonomia_e_infantilizacao"
+      ],
+      "url": "#/assuntos?situacao=familia"
+    },
+    {
+      "id": "relacionamentos",
+      "nome": "Nos relacionamentos",
+      "descricao": "Namoro, casamento, não monogamia consensual e expectativas afetivas.",
+      "assuntos": [
+        "mulheres",
+        "homens",
+        "orientacao_sexual",
+        "bissexualidade",
+        "nao_monogamia",
+        "familias"
+      ],
+      "url": "#/assuntos?situacao=relacionamentos"
+    },
+    {
+      "id": "redes",
+      "nome": "Nas redes sociais",
+      "descricao": "Comentários, piadas, generalizações e o que circula como “só uma opinião”.",
+      "assuntos": [
+        "racismo_velado",
+        "xenofobia",
+        "elogio_preconceituoso",
+        "estereotipos",
+        "ironia",
+        "depende_contexto"
+      ],
+      "url": "#/assuntos?situacao=redes"
+    },
+    {
+      "id": "servicos",
+      "nome": "Em atendimentos e serviços",
+      "descricao": "Loja, banco, transporte, órgão público e quem é tratado como cliente.",
+      "assuntos": [
+        "racismo",
+        "pessoas_com_deficiencia",
+        "barreiras_de_acessibilidade",
+        "visao_e_condicoes_visuais",
+        "xenofobia",
+        "periferias"
+      ],
+      "url": "#/assuntos?situacao=servicos"
+    },
+    {
+      "id": "saude",
+      "nome": "Na saúde",
+      "descricao": "Consulta, diagnóstico, saúde mental e condições que não se vêem.",
+      "assuntos": [
+        "deficiencias_nao_aparentes",
+        "neurodivergencia",
+        "pessoas_com_deficiencia",
+        "pessoas_trans",
+        "pessoas_idosas"
+      ],
+      "url": "#/assuntos?situacao=saude"
+    },
+    {
+      "id": "espaco_publico",
+      "nome": "No espaço público",
+      "descricao": "Rua, bairro, moradia, religião visível e quem “pode” estar ali.",
+      "assuntos": [
+        "exclusao_territorial",
+        "moradia",
+        "religioes_matriz_africana",
+        "povos_indigenas",
+        "periferias",
+        "xenofobia"
+      ],
+      "url": "#/assuntos?situacao=espaco_publico"
+    }
+  ],
+  "n_visiveis": 45,
+  "n_ocultos": 1
+}

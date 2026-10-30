@@ -8,19 +8,21 @@ function nomeDoGrupo(id) {
   return g ? g.nome : "Ao acaso";
 }
 
-export function TemasDescoberta({ aoEscolher }) {
-  if (!estado.grupos.length) return null;
+export function TemasDescoberta({ aoEscolher, assunto } = {}) {
+  if (!estado.grupos.length && !assunto) return null;
   const contagem = {};
   estado.frases.forEach((f) => { if (f.grupo) contagem[f.grupo] = (contagem[f.grupo] || 0) + 1; });
   const opcoes = [{ id: "", nome: "Ao acaso" }, ...estado.grupos.filter((g) => contagem[g.id])];
   const chips = opcoes.map((o) => el("button", {
-    type: "button", class: "chip", "data-grupo": o.id, "aria-pressed": String((estado.grupoAtual || "") === o.id),
+    type: "button", class: "chip", "data-grupo": o.id, "aria-pressed": String(!assunto && (estado.grupoAtual || "") === o.id),
     text: o.id ? `${o.nome} (${contagem[o.id]})` : o.nome,
     onclick: () => aoEscolher(o.id),
   }));
-  return el("details", { class: "detalhe temas-descoberta", open: estado.grupoAtual ? "" : null }, [
-    el("summary", { text: `Tema: ${nomeDoGrupo(estado.grupoAtual)}. Escolher outro` }),
+  const rotulo = assunto ? assunto.nome : nomeDoGrupo(estado.grupoAtual);
+  return el("details", { class: "detalhe temas-descoberta", open: (estado.grupoAtual || assunto) ? "" : null }, [
+    el("summary", { text: `Tema: ${rotulo}. Escolher outro` }),
     el("div", { class: "chips", role: "group", "aria-label": "Temas para descobrir" }, chips),
+    el("p", { class: "pequeno link-mais" }, [el("a", { href: "#/assuntos", text: "Mais assuntos" })]),
   ]);
 }
 

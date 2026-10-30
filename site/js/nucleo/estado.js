@@ -3,10 +3,12 @@ export const estado = {
   frases: [],
   porId: new Map(),
   temas: [],
-  grupos: [], // temas de descoberta (Mulheres, Pessoas idosas…) com frases publicadas
+  grupos: [], // temas de descoberta legado (Mulheres, Pessoas idosas…) com frases publicadas
+  camadaAssuntos: { grupos: [], assuntos: [], situacoes: [] },
   pares: [], // comparações revisadas ("Duas frases, uma diferença")
   contexto: [], // dados de contexto (dado, fonte, ano, metodologia, limitações) por grupo
-  grupoAtual: "", // tema escolhido em Descobrir ("" = ao acaso)
+  grupoAtual: "", // tema legado escolhido em Descobrir ("" = ao acaso)
+  assuntoAtual: "", // assunto editorial escolhido em Descobrir
   config: null,
   resultados: {},
   minimoVotos: 10,

@@ -7,12 +7,13 @@ import { iniciarNavegacao, marcarRotaAtiva } from "./componentes/navegacao.js";
 import { inicio, mostrarAtalhosComparar } from "./visoes/inicio.js";
 import { descobrir } from "./visoes/descobrir.js";
 import { explorar } from "./visoes/explorar.js";
+import { assuntos } from "./visoes/assuntos.js";
 import { frase } from "./visoes/frase.js";
-import { comparar } from "./visoes/comparar.js?v=7";
+import { comparar } from "./visoes/comparar.js?v=9";
 import { participar } from "./visoes/participar.js";
 import { entender, pesquisa } from "./visoes/saibaMais.js";
 
-const visoes = { inicio, descobrir, explorar, frase, comparar, participar, entender, pesquisa };
+const visoes = { inicio, descobrir, explorar, frase, comparar, participar, entender, pesquisa, assuntos };
 
 function revelar(rotaPedida, fecharMenu) {
   const rota = visoes[rotaPedida] ? rotaPedida : "inicio";

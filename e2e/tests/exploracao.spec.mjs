@@ -102,13 +102,13 @@ test("avaliar uma frase, revelar a leitura e avançar para a próxima", async ({
   await expect(cartao.locator(".frase")).toHaveText(/Gente do interior/);
   await expect(cartao.locator(".revelacao")).toHaveCount(0); // análise só depois da escolha
   await expect(cartao.getByText("O que você acha desta frase?")).toBeVisible();
-  const opcao = cartao.getByRole("button", { name: "Pode ser discriminação" });
+  const opcao = cartao.getByRole("button", { name: "Pode ser desrespeitosa ou discriminatória" });
   await opcao.click();
   await expect(opcao).toHaveAttribute("aria-pressed", "true");
   const revelacao = cartao.locator(".revelacao");
   await expect(revelacao).toBeVisible();
   await expect(revelacao.getByRole("heading", { name: "A leitura da revisão" })).toBeFocused();
-  await expect(revelacao).toContainText("Você marcou: pode ser discriminação");
+  await expect(revelacao).toContainText("Você marcou: pode ser desrespeitosa");
   await expect(revelacao).toContainText("Por que essa leitura");
   await expect(revelacao).toContainText("O que poderia mudar a leitura");
   await expect(revelacao).toContainText("Esta frase foi escrita pela equipe");
@@ -122,7 +122,7 @@ test("a análise pode ser lida sem responder", async ({ page }) => {
   await abrir(page, "#/frase/EX-61");
   await page.getByRole("button", { name: "Ver análise sem responder" }).click();
   await expect(page.locator(".revelacao")).toContainText("Você viu a análise sem responder.");
-  await expect(page.locator(".revelacao")).toContainText("Depende do contexto");
+  await expect(page.locator(".revelacao")).toContainText("A leitura depende de um contexto");
 });
 
 test("acesso direto por URL a uma frase e a uma frase inexistente", async ({ page }) => {

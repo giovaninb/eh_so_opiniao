@@ -1,7 +1,7 @@
 import { el, limpar, focar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { paresValidos } from "../nucleo/logica.js";
-import { Comparacao } from "../componentes/comparacao.js?v=7";
+import { Comparacao } from "../componentes/comparacao.js?v=9";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 
 function lista(corpo, pares) {

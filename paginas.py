@@ -45,6 +45,10 @@ def url_par(slug: str) -> str:
     return f"{URL_BASE}comparar/{slug}/"
 
 
+def url_assunto(assunto_id: str) -> str:
+    return f"{URL_BASE}assuntos/{assunto_id}/"
+
+
 def _e(texto: Any) -> str:
     return html.escape(str(texto), quote=True)
 
@@ -106,11 +110,15 @@ def _rodape(profundidade: int, script: str = "") -> str:
 
 def _lista_analise(f: dict[str, Any]) -> str:
     itens = []
-    for rotulo, valor in (("Contexto", f.get("contexto")), ("O que a frase faz", f.get("mecanismo")), ("O que poderia mudar a leitura", f.get("muda_se"))):
+    for classe, rotulo, valor in (
+        ("bloco-contexto", "Contexto", f.get("contexto")),
+        ("bloco-mecanismo", "O que a frase faz", f.get("mecanismo")),
+        ("bloco-muda", "O que poderia mudar a leitura", f.get("muda_se")),
+    ):
         if valor:
-            itens.append(f"<div><dt>{_e(rotulo)}</dt><dd>{_e(valor)}</dd></div>")
+            itens.append(f'<div class="bloco-leitura {classe}"><dt>{_e(rotulo)}</dt><dd>{_e(valor)}</dd></div>')
     if f.get("razoes"):
-        itens.append("<div><dt>Por que essa leitura</dt><dd><ul>" + "".join(f"<li>{_e(r)}</li>" for r in f["razoes"]) + "</ul></dd></div>")
+        itens.append('<div class="bloco-leitura bloco-razoes"><dt>Por que essa leitura</dt><dd><ul>' + "".join(f"<li>{_e(r)}</li>" for r in f["razoes"]) + "</ul></dd></div>")
     return "<dl>" + "".join(itens) + "</dl>"
 
 
@@ -163,6 +171,25 @@ def pagina_retirada(tipo: str, ident: str, profundidade: int = 2) -> str:
 {_rodape(profundidade)}"""
 
 
+def pagina_assunto(assunto: dict[str, Any]) -> str:
+    titulo = f"{assunto['nome']} — {NOME}"
+    descricao = _curto(assunto.get("descricao") or "Explore frases revisadas deste assunto.")
+    destino = f"../../#/assuntos/{assunto['id']}"
+    script = f'<script>if(!/[?&]estatico=1/.test(location.search))location.replace("{_e(destino)}");</script>'
+    n = int(assunto.get("n") or 0)
+    return f"""{_cabecalho(titulo, descricao, url_assunto(assunto['id']), 2)}
+{_topo(2)}
+  <main id="conteudo" class="pagina">
+    <p class="eyebrow">{_e(assunto.get("grupo_nome") or "Assunto")}</p>
+    <h1>{_e(assunto['nome'])}</h1>
+    <p>{_e(assunto.get("descricao") or "")}</p>
+    <p class="suave">{n} exemplo{"s" if n != 1 else ""} revisado{"s" if n != 1 else ""}.</p>
+    <p><a class="botao" href="{_e(destino)}">Abrir este assunto</a></p>
+    <p><a href="../../#/descobrir?assunto={_e(assunto['id'])}">Descobrir frases</a> · <a href="../../#/explorar?assunto={_e(assunto['id'])}">Explorar todas</a></p>
+  </main>
+{_rodape(2, script)}"""
+
+
 def pagina_par(par: dict[str, Any], a: dict[str, Any], b: dict[str, Any]) -> str:
     aviso = bool(a.get("aviso_conteudo") or b.get("aviso_conteudo"))
     titulo = f"Duas frases, uma diferença: {par['titulo']} — {NOME}"
@@ -205,13 +232,14 @@ def _ler_registro(caminho: Path | None) -> dict[str, list[str]]:
     return {"casos": [], "pares": []}
 
 
-def gerar(frases: list[dict[str, Any]], pares: list[dict[str, Any]], raiz_site: Path, registro: Path | None = REGISTRO) -> dict[str, int]:
-    """Escreve `casos/`, `comparar/`, `sitemap.xml` e `robots.txt` em `raiz_site`. Recria as pastas a cada execução."""
+def gerar(frases: list[dict[str, Any]], pares: list[dict[str, Any]], raiz_site: Path, registro: Path | None = REGISTRO,
+          assuntos: list[dict[str, Any]] | None = None) -> dict[str, int]:
+    """Escreve `casos/`, `comparar/`, `assuntos/`, `sitemap.xml` e `robots.txt` em `raiz_site`. Recria as pastas a cada execução."""
     por_id = {f["id"]: f for f in frases}
     historico = _ler_registro(registro)
     casos_hist = sorted(set(historico["casos"]) | set(por_id))
     pares_hist = sorted(set(historico["pares"]) | {p["slug"] for p in pares})
-    for pasta in ("casos", "comparar"):
+    for pasta in ("casos", "comparar", "assuntos"):
         alvo = raiz_site / pasta
         if alvo.exists():
             shutil.rmtree(alvo)
@@ -234,9 +262,14 @@ def gerar(frases: list[dict[str, Any]], pares: list[dict[str, Any]], raiz_site: 
         else:
             conteudo, n_retirados = pagina_retirada("comparacao", slug.upper()), n_retirados + 1
         (pasta / "index.html").write_text(conteudo, encoding="utf-8")
-    urls = [URL_BASE] + [url_caso(i) for i in sorted(por_id)] + [url_par(s) for s in sorted(atuais)]
+    visiveis = [a for a in (assuntos or []) if a.get("visivel") and a.get("n")]
+    for a in visiveis:
+        pasta = raiz_site / "assuntos" / a["id"]
+        pasta.mkdir(parents=True, exist_ok=True)
+        (pasta / "index.html").write_text(pagina_assunto(a), encoding="utf-8")
+    urls = [URL_BASE] + [url_caso(i) for i in sorted(por_id)] + [url_par(s) for s in sorted(atuais)] + [url_assunto(a["id"]) for a in visiveis]
     (raiz_site / "sitemap.xml").write_text(_sitemap(urls), encoding="utf-8")
     (raiz_site / "robots.txt").write_text(_robots(), encoding="utf-8")
     if registro is not None:
         Path(registro).write_text(json.dumps({"casos": casos_hist, "pares": pares_hist}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    return {"casos": len(por_id), "pares": len(atuais), "retirados": n_retirados, "urls_no_sitemap": len(urls)}
+    return {"casos": len(por_id), "pares": len(atuais), "assuntos": len(visiveis), "retirados": n_retirados, "urls_no_sitemap": len(urls)}

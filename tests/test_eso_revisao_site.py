@@ -174,7 +174,7 @@ def _js_do_site() -> str:
 def test_site_tem_as_vistas_e_a_navegacao_adaptativa():
     html = (paths.SITE / "index.html").read_text(encoding="utf-8")
     vistas = {"inicio": "Início", "descobrir": "Descobrir", "explorar": "Explorar", "frase": "frase", "participar": "Participar",
-              "entender": "Entender", "pesquisa": "Pesquisa"}
+              "entender": "Entender", "pesquisa": "Pesquisa", "assuntos": "Assuntos"}
     for vista in vistas:
         assert f'data-vista="{vista}"' in html, vista
     for rota in ("#/", "#/descobrir", "#/explorar", "#/participar", "#/entender", "#/pesquisa"):

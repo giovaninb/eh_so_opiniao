@@ -1,21 +1,24 @@
 import { el, limpar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { PAGINA } from "../nucleo/constantes.js";
-import { filtrarFrases } from "../nucleo/logica.js";
+import { filtrarFrases, assuntoPorId } from "../nucleo/logica.js";
 import { LerControles, EscreverControles, PreencherTemas, ResumoFiltros } from "../componentes/filtros.js";
-import { MetaFrase } from "../componentes/cartaoFrase.js";
+import { MetaFrase } from "../componentes/cartaoFrase.js?v=9";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 
 let ligado = false;
 let visiveis = PAGINA;
+let assuntoAtivo = null;
 
 function filtrosDaUrl(consulta) {
   const tipo = consulta.get("tipo") || "";
-  return { q: consulta.get("q") || "", tipo: ["exclusao", "nao_discriminatoria", "ambigua"].includes(tipo) ? tipo : "", tema: consulta.get("tema") || "", ord: consulta.get("ord") || "" };
+  const assunto = assuntoPorId(estado.camadaAssuntos, consulta.get("assunto"));
+  return { q: consulta.get("q") || "", tipo: ["exclusao", "nao_discriminatoria", "ambigua"].includes(tipo) ? tipo : "", tema: consulta.get("tema") || "", ord: consulta.get("ord") || "", assunto: assunto && assunto.visivel ? assunto : null };
 }
 
 function sincronizarUrl(f) {
-  const q = new URLSearchParams(Object.entries(f).filter(([, v]) => v)).toString();
+  const params = { q: f.q, tipo: f.tipo, tema: f.tema, ord: f.ord, assunto: f.assunto && f.assunto.id };
+  const q = new URLSearchParams(Object.entries(params).filter(([, v]) => v)).toString();
   history.replaceState(null, "", `${location.pathname}${location.search}#/explorar${q ? "?" + q : ""}`);
 }
 
@@ -31,12 +34,19 @@ function ItemFrase(f) {
 }
 
 function desenhar() {
-  const filtros = LerControles();
-  const ativos = ResumoFiltros(filtros);
+  const filtros = { ...LerControles(), assunto: assuntoAtivo };
+  const ativos = ResumoFiltros(filtros) + (assuntoAtivo ? 1 : 0);
   const resultado = filtrarFrases(estado.frases, filtros);
   estado.ordemBiblioteca = resultado.map((f) => f.id);
   sincronizarUrl(filtros);
   document.getElementById("limpar-filtros").hidden = ativos === 0;
+  const faixa = document.getElementById("faixa-assunto");
+  if (faixa) {
+    if (assuntoAtivo) {
+      faixa.hidden = false;
+      faixa.replaceChildren(el("p", { class: "nota", text: `Assunto: ${assuntoAtivo.nome}.` }), el("button", { type: "button", class: "botao-texto", text: "Ver todas as frases", onclick: () => { assuntoAtivo = null; visiveis = PAGINA; desenhar(); } }));
+    } else faixa.hidden = true;
+  }
   const lista = document.getElementById("explorar-lista");
   const contagem = document.getElementById("contagem-resultados");
   if (!resultado.length) {
@@ -53,6 +63,7 @@ function desenhar() {
 
 function limparFiltros() {
   EscreverControles({});
+  assuntoAtivo = null;
   visiveis = PAGINA;
   desenhar();
   document.getElementById("campo-busca").focus();
@@ -86,8 +97,9 @@ export const explorar = {
     ligarControles();
     PreencherTemas(estado.temas, estado.frases);
     const f = filtrosDaUrl(consulta);
+    assuntoAtivo = f.assunto || null;
     EscreverControles(f);
-    if (f.tipo || f.tema || f.ord) document.getElementById("filtros").open = true;
+    if (f.tipo || f.tema || f.ord || f.assunto) document.getElementById("filtros").open = true;
     visiveis = PAGINA;
     desenhar();
   },

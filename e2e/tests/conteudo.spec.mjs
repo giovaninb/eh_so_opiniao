@@ -63,7 +63,7 @@ base.describe("pacote publicado (site/ inteiro)", () => {
     expect(todo).not.toMatch(/bento gon[cç]alves|festa da uva/i);
     expect(todo).not.toMatch(/[\w.+-]+@[\w-]+\.[a-z]{2,}/i); // e-mails
     expect(todo).not.toMatch(/\(\d{2}\)\s?\d{4,5}-\d{4}/); // telefones
-    expect(todo).not.toMatch(/Giovani Bettoni/);
+    // crédito público da licença CC BY 4.0, não identificação de pessoas nas frases
   });
 
   base("o site não usa cookies, armazenamento local, analytics nem recursos de terceiros", () => {
@@ -72,7 +72,7 @@ base.describe("pacote publicado (site/ inteiro)", () => {
     expect(js).not.toMatch(/document\.cookie|localStorage|sessionStorage|indexedDB|navigator\.sendBeacon/);
     expect(js).not.toMatch(/innerHTML|outerHTML|insertAdjacentHTML|eval\(|new Function\(|document\.write/);
     const html = readFileSync(join(SITE, "index.html"), "utf8") + readFileSync(join(SITE, "css/estilo.css"), "utf8");
-    expect(html).not.toMatch(/(src|href)=["']https?:\/\/(?!giovaninb\.github\.io)/);
+    expect(html.replace(/https:\/\/www\.linkedin\.com\/in\/giovani-bettoni\//g, "")).not.toMatch(/(src|href)=["']https?:\/\/(?!giovaninb\.github\.io)/);
     expect(html).not.toMatch(/url\(["']?https?:/);
     expect(html).not.toMatch(/googletagmanager|google-analytics|gtag\(|fbq\(|hotjar|plausible/i);
   });
@@ -114,7 +114,7 @@ test.describe("dados reais no navegador", () => {
 
   test("a enquete não exibe contagens quando não há dados reais suficientes", async ({ page }) => {
     await abrir(page, "#/frase/FR-01");
-    await page.getByRole("button", { name: "É só opinião" }).click();
+    await page.getByRole("button", { name: "Não vejo problema" }).click();
     await expect(page.locator(".enquete")).not.toContainText(/\d+ (pessoas|votos|leituras)/);
   });
 

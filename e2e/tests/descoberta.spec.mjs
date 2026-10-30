@@ -7,7 +7,7 @@ test("sessão de cinco frases com progresso discreto e sem pontuação", async (
   const cartao = page.locator("#descobrir-corpo .cartao-frase");
   await expect(cartao.getByText("O que você acha desta frase?")).toBeVisible();
   await expect(cartao.locator(".revelacao")).toHaveCount(0);
-  await cartao.getByRole("button", { name: "É só opinião" }).click();
+  await cartao.getByRole("button", { name: "Não vejo problema" }).click();
   await expect(cartao.locator(".revelacao")).toBeVisible();
   await expect(page.locator("#descobrir-corpo")).not.toContainText(/pontos|ranking|acertou|errou|nota:/i);
   await cartao.getByRole("button", { name: "Próxima frase" }).click();
@@ -25,7 +25,7 @@ test("é possível pular, e ninguém é obrigado a votar para ler a análise", a
 
 test("fim da sequência: resumo neutro e caminhos para continuar", async ({ page }) => {
   await abrir(page, "#/descobrir");
-  const respostas = ["É só opinião", "Pode ser discriminação", "Depende do contexto"];
+  const respostas = ["Não vejo problema", "Pode ser desrespeitosa ou discriminatória", "Preciso de mais contexto"];
   for (let i = 0; i < 5; i++) {
     if (i < 3) {
       await page.locator("#descobrir-corpo .cartao-frase").getByRole("button", { name: respostas[i] }).click();
@@ -62,10 +62,10 @@ test("a primeira interação da home convida à reflexão, sem dizer quem acerto
   await abrir(page, "#/");
   const cartao = page.locator("#primeira-interacao .cartao-frase");
   await expect(cartao.getByText("O que você acha desta frase?")).toBeVisible();
-  await expect(cartao.getByRole("button", { name: "É só opinião" })).toBeVisible();
-  await expect(cartao.getByRole("button", { name: "Pode ser discriminação" })).toBeVisible();
-  await expect(cartao.getByRole("button", { name: "Depende do contexto" })).toBeVisible();
-  await cartao.getByRole("button", { name: "Depende do contexto" }).click();
+  await expect(cartao.getByRole("button", { name: "Não vejo problema" })).toBeVisible();
+  await expect(cartao.getByRole("button", { name: "Pode ser desrespeitosa ou discriminatória" })).toBeVisible();
+  await expect(cartao.getByRole("button", { name: "Preciso de mais contexto" })).toBeVisible();
+  await cartao.getByRole("button", { name: "Preciso de mais contexto" }).click();
   await expect(cartao.locator(".revelacao")).toContainText("A leitura da revisão pode ser diferente, e isso faz parte da discussão");
   await expect(cartao.locator(".revelacao")).not.toContainText(/acertou|errou/i);
 });

@@ -29,12 +29,12 @@
       if (v) v.hidden = false;
     })();</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b53a1c'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='21' font-weight='700' text-anchor='middle' fill='%23fff'%3E?%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/estilo.css">
-  <link rel="modulepreload" href="js/app.js?v=7">
-  <link rel="modulepreload" href="js/componentes/cartaoFrase.js">
-  <link rel="modulepreload" href="js/componentes/comparacao.js?v=7">
-  <link rel="modulepreload" href="js/componentes/compartilhar.js?v=7">
+  <link rel="stylesheet" href="css/tokens.css?v=10">
+  <link rel="stylesheet" href="css/estilo.css?v=10">
+  <link rel="modulepreload" href="js/app.js?v=10">
+  <link rel="modulepreload" href="js/componentes/cartaoFrase.js?v=9">
+  <link rel="modulepreload" href="js/componentes/comparacao.js?v=9">
+  <link rel="modulepreload" href="js/componentes/compartilhar.js?v=8">
   <link rel="modulepreload" href="js/componentes/enquete.js">
   <link rel="modulepreload" href="js/componentes/discordancia.js">
   <link rel="modulepreload" href="js/componentes/envio.js">
@@ -44,21 +44,23 @@
   <link rel="modulepreload" href="js/componentes/navegacao.js">
   <link rel="modulepreload" href="js/componentes/progresso.js">
   <link rel="modulepreload" href="js/componentes/temasDescoberta.js">
-  <link rel="modulepreload" href="js/nucleo/cartaoCanvas.js?v=7">
-  <link rel="modulepreload" href="js/nucleo/constantes.js?v=7">
+  <link rel="modulepreload" href="js/nucleo/cartaoCanvas.js?v=8">
+  <link rel="modulepreload" href="js/nucleo/constantes.js?v=8">
+  <link rel="modulepreload" href="js/visoes/assuntos.js">
   <link rel="modulepreload" href="js/nucleo/dados.js">
   <link rel="modulepreload" href="js/nucleo/dom.js">
   <link rel="modulepreload" href="js/nucleo/estado.js">
   <link rel="modulepreload" href="js/nucleo/logica.js">
   <link rel="modulepreload" href="js/nucleo/mascara.js">
   <link rel="modulepreload" href="js/nucleo/roteador.js">
-  <link rel="modulepreload" href="js/visoes/comparar.js?v=7">
+  <link rel="modulepreload" href="js/visoes/comparar.js?v=9">
   <link rel="modulepreload" href="js/visoes/descobrir.js">
   <link rel="modulepreload" href="js/visoes/explorar.js">
   <link rel="modulepreload" href="js/visoes/frase.js">
   <link rel="modulepreload" href="js/visoes/inicio.js">
   <link rel="modulepreload" href="js/visoes/participar.js">
   <link rel="preload" as="fetch" href="data/frases.json" crossorigin="anonymous">
+  <link rel="preload" as="fetch" href="data/assuntos.json" crossorigin="anonymous">
 </head>
 <body>
   <a class="pular" href="#conteudo" data-pular>Pular para o conteúdo</a>
@@ -88,6 +90,7 @@
         <li><a href="#/descobrir" data-rota="descobrir">Descobrir: uma frase de cada vez</a></li>
         <li id="item-comparar-menu"><a href="#/comparar" data-rota="comparar">Comparar: duas frases, uma diferença</a></li>
         <li><a href="#/explorar" data-rota="explorar">Explorar: biblioteca de frases</a></li>
+        <li><a href="#/assuntos" data-rota="assuntos">Assuntos</a></li>
         <li><a href="#/participar" data-rota="participar">Participar com uma frase</a></li>
         <li><a href="#/entender" data-rota="entender">Entender o mecanismo</a></li>
         <li><a href="#/pesquisa" data-rota="pesquisa">Pesquisa, bases e referências</a></li>
@@ -124,22 +127,34 @@
         </section>
 
         <section class="secao" id="secao-assuntos" aria-labelledby="t-assuntos" hidden>
-          <h2 id="t-assuntos">Escolha um assunto</h2>
-          <p class="suave">Situações que muita gente já ouviu. Cada atalho abre cinco frases desse assunto.</p>
-          <div class="chips" id="chips-assuntos"></div>
+          <h2 id="t-assuntos">Sobre o que você quer refletir?</h2>
+          <p class="suave">Explore frases do cotidiano sobre convivência, diferenças e respeito. Escolha um assunto ou descubra algo novo.</p>
+          <div id="explorador-assuntos"></div>
         </section>
 
         <section class="secao" aria-labelledby="t-continue">
           <h2 id="t-continue">O que você quer fazer?</h2>
-          <div class="atalhos">
-            <a class="atalho" href="#/descobrir"><span class="t"><strong>Descobrir</strong><span>Cinco frases, uma de cada vez, com a leitura da revisão.</span></span></a>
-            <a class="atalho" id="atalho-comparar" href="#/comparar"><span class="t"><strong>Comparar</strong><span>Duas frases, uma diferença: o que muda de uma para a outra.</span></span></a>
+          <div class="atalhos atalhos-principais">
+            <a class="atalho" href="#/descobrir"><span class="t"><strong>Descobrir</strong><span>Cinco frases, uma de cada vez. Você lê e depois vê a leitura da revisão.</span></span></a>
             <a class="atalho" href="#/explorar"><span class="t"><strong>Explorar</strong><span id="texto-explorar">Busque e filtre a biblioteca de frases.</span></span></a>
-            <a class="atalho" href="#/entender"><span class="t"><strong>Entender</strong><span>Cinco perguntas para separar opinião de discriminação.</span></span></a>
+            <a class="atalho" id="atalho-comparar" href="#/comparar"><span class="t"><strong>Comparar</strong><span>Duas frases, uma diferença: o que muda de uma para a outra.</span></span></a>
+          </div>
+          <h3 class="subsecao">Outras formas de participar</h3>
+          <div class="atalhos atalhos-complementares">
             <a class="atalho" href="#/participar"><span class="t"><strong>Participar</strong><span>Uma frase já fez você pensar? Conte, sem se identificar.</span></span></a>
+            <a class="atalho" href="#/entender"><span class="t"><strong>Entender</strong><span>Cinco perguntas para separar opinião de discriminação.</span></span></a>
             <a class="atalho" href="#/pesquisa"><span class="t"><strong>Pesquisa</strong><span>Bases científicas, limites da IA e referências.</span></span></a>
           </div>
         </section>
+      </div>
+    </section>
+
+    <!-- ============================================================ ASSUNTOS -->
+    <section class="vista" id="v-assuntos" data-vista="assuntos" aria-labelledby="t-assuntos-vista" hidden>
+      <div class="pagina coluna-central">
+        <span class="eyebrow">Assuntos</span>
+        <h1 id="t-assuntos-vista" class="titulo-vista" tabindex="-1">Assuntos</h1>
+        <div id="assuntos-corpo" aria-busy="true"></div>
       </div>
     </section>
 
@@ -201,6 +216,7 @@
             </div>
           </details>
         </form>
+        <div id="faixa-assunto" hidden></div>
         <div class="resultado-info">
           <p id="contagem-resultados" role="status" aria-live="polite" style="margin:0"></p>
           <button type="button" class="botao-texto" id="limpar-filtros" hidden>Limpar filtros</button>
@@ -242,9 +258,9 @@
           </div>
           <fieldset class="campo" aria-describedby="erro-avaliacao">
             <legend>Como você lê essa frase?</legend>
-            <label class="escolha"><input type="radio" name="avaliacao" value="opiniao"> É só opinião</label>
-            <label class="escolha"><input type="radio" name="avaliacao" value="discriminacao"> Pode ser discriminação</label>
-            <label class="escolha"><input type="radio" name="avaliacao" value="contexto"> Depende do contexto</label>
+            <label class="escolha"><input type="radio" name="avaliacao" value="opiniao"> Não vejo problema</label>
+            <label class="escolha"><input type="radio" name="avaliacao" value="discriminacao"> Pode ser desrespeitosa ou discriminatória</label>
+            <label class="escolha"><input type="radio" name="avaliacao" value="contexto"> Preciso de mais contexto</label>
             <p class="erro-campo" id="erro-avaliacao" hidden></p>
           </fieldset>
 
@@ -351,7 +367,7 @@
   </footer>
 
   <script type="module">
-    import("./js/app.js?v=7").catch(function () {
+    import("./js/app.js?v=10").catch(function () {
       var p = document.createElement("p");
       p.className = "pagina";
       p.setAttribute("role", "alert");

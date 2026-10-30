@@ -38,7 +38,7 @@ test("menu do celular abre, fecha com Esc, com clique fora e ao escolher um dest
   await botao.click();
   await expect(botao).toHaveAttribute("aria-expanded", "true");
   await expect(painel).toBeVisible();
-  await expect(painel.getByRole("link")).toHaveCount(7); // inclui "Comparar" (os dados de teste têm comparações revisadas)
+  await expect(painel.getByRole("link")).toHaveCount(8); // inclui "Comparar" e "Assuntos"
   await page.keyboard.press("Escape");
   await expect(painel).toBeHidden();
   await expect(botao).toBeFocused(); // fechamento previsível: o foco volta ao botão
@@ -155,10 +155,10 @@ test("o menu abre pelo teclado (Enter) e navega sem mouse", async ({ page }) => 
   await expect(page.locator("#painel-menu")).toBeHidden();
 });
 
-test("desktop: navegação horizontal com seis destinos e sem barra inferior", async ({ page }) => {
+test("desktop: navegação horizontal com os destinos principais e sem barra inferior", async ({ page }) => {
   test.skip(!ehDesktop(page), "regra do desktop");
   await abrir(page);
-  await expect(page.locator(".nav-desktop a")).toHaveCount(6);
+  await expect(page.locator(".nav-desktop a")).toHaveCount(7);
   await expect(page.locator(".barra-inferior")).toBeHidden();
   await expect(page.getByRole("button", { name: "Menu" })).toBeHidden();
 });

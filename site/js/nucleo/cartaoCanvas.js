@@ -34,21 +34,25 @@ function wrap(ctx, texto, largura, { peso, familia, maximo, minimo, linhasMax })
   return ajustarTexto((t, tam) => { ctx.font = `${peso} ${tam}px ${familia}`; return ctx.measureText(t).width; }, texto, largura, { maximo, minimo, linhasMax });
 }
 
-function metricasBloco(ctx, { w, frase, vertical }) {
-  const pad = vertical ? 28 : 16;
-  const rotulo = vertical ? 24 : 15;
+function metricasBloco(ctx, { w, frase, vertical, maximo, minimo, linhasMax }) {
+  const pad = vertical ? 36 : 16;
+  const rotulo = vertical ? 26 : 15;
   const util = w - 2 * pad;
   const ajuste = wrap(ctx, textoDaFrase(frase), util, {
-    peso: "700", familia: SERIF, maximo: vertical ? 36 : 22, minimo: vertical ? 22 : 15, linhasMax: vertical ? 7 : 5,
+    peso: "700",
+    familia: SERIF,
+    maximo: maximo ?? (vertical ? 44 : 22),
+    minimo: minimo ?? (vertical ? 26 : 15),
+    linhasMax: linhasMax ?? (vertical ? 6 : 5),
   });
   const lh = 1.28;
-  const primeira = pad + rotulo + (vertical ? 16 : 10) + ajuste.tamanho;
+  const primeira = pad + rotulo + (vertical ? 18 : 10) + ajuste.tamanho;
   const ultima = primeira + (ajuste.linhas.length - 1) * ajuste.tamanho * lh;
   return { pad, rotulo, ajuste, lh, h: ultima + pad + ajuste.tamanho * 0.35 };
 }
 
-function desenharBloco(ctx, { x, y, w, h, letra, frase, vertical }) {
-  const m = metricasBloco(ctx, { w, frase, vertical });
+function desenharBloco(ctx, { x, y, w, h, letra, frase, vertical, met }) {
+  const m = met || metricasBloco(ctx, { w, frase, vertical });
   const altura = h || m.h;
   ctx.fillStyle = "#fff";
   ctx.fillRect(x, y, w, altura);
@@ -60,7 +64,7 @@ function desenharBloco(ctx, { x, y, w, h, letra, frase, vertical }) {
   ctx.fillText(`FRASE ${letra}`, x + m.pad, y + m.pad + m.rotulo);
   ctx.fillStyle = COR.tinta;
   ctx.font = `700 ${m.ajuste.tamanho}px ${SERIF}`;
-  let yy = y + m.pad + m.rotulo + (vertical ? 14 : 10) + m.ajuste.tamanho;
+  let yy = y + m.pad + m.rotulo + (vertical ? 16 : 10) + m.ajuste.tamanho;
   for (const l of m.ajuste.linhas) {
     ctx.fillText(l, x + m.pad, yy, w - 2 * m.pad);
     yy += m.ajuste.tamanho * m.lh;
@@ -68,35 +72,63 @@ function desenharBloco(ctx, { x, y, w, h, letra, frase, vertical }) {
   return altura;
 }
 
-function alturaDiferenca(ctx, { w, hMax, texto, vertical }) {
-  const titulo = vertical ? 24 : 15;
-  const minFont = vertical ? 20 : 13;
-  const maxFont = vertical ? 28 : 17;
-  const lh = 1.28;
-  const pad = vertical ? 20 : 12;
-  const resto = Math.max(24, hMax - titulo - pad * 2);
-  const linhasMax = Math.max(2, Math.floor(resto / (minFont * lh)));
-  const ajuste = wrap(ctx, texto || "", w - 2 * (vertical ? 8 : 4), { peso: "400", familia: SANS, maximo: maxFont, minimo: minFont, linhasMax });
+function alturaDiferenca(ctx, { w, texto, vertical, maximo, minimo, linhasMax }) {
+  const titulo = vertical ? 30 : 15;
+  const minFont = minimo ?? (vertical ? 26 : 13);
+  const maxFont = maximo ?? (vertical ? 38 : 17);
+  const lh = 1.35;
+  const pad = vertical ? 32 : 14;
+  const padX = vertical ? 40 : 16;
+  const gapTitulo = vertical ? 18 : 8;
+  const ajuste = wrap(ctx, texto || "", w - 2 * padX, {
+    peso: "400",
+    familia: SANS,
+    maximo: maxFont,
+    minimo: minFont,
+    linhasMax: linhasMax ?? (vertical ? 12 : 6),
+  });
   const corpo = ajuste.linhas.length * ajuste.tamanho * lh;
-  return { titulo, pad, ajuste, lh, h: Math.min(hMax, pad + titulo + (vertical ? 12 : 8) + corpo + pad) };
+  return { titulo, pad, padX, gapTitulo, ajuste, lh, h: pad + titulo + gapTitulo + corpo + pad };
 }
 
-function desenharDiferenca(ctx, { x, y, w, h, texto, vertical }) {
-  const met = alturaDiferenca(ctx, { w, hMax: h, texto, vertical });
+function desenharDiferenca(ctx, { x, y, w, texto, vertical, met }) {
+  const m = met || alturaDiferenca(ctx, { w, texto, vertical });
   ctx.fillStyle = "#f3eee4";
-  ctx.fillRect(x, y, w, h);
-  const y0 = y + Math.max(0, Math.min(met.pad, (h - met.h) / 2));
+  ctx.fillRect(x, y, w, m.h);
   ctx.fillStyle = COR.destaque;
-  ctx.font = `800 ${met.titulo}px ${SANS}`;
-  ctx.fillText("O QUE MUDA", x + (vertical ? 8 : 4), y0 + met.pad + met.titulo);
+  ctx.fillRect(x, y, vertical ? 10 : 5, m.h);
+  ctx.font = `800 ${m.titulo}px ${SANS}`;
+  ctx.fillText("O QUE MUDA", x + m.padX, y + m.pad + m.titulo);
   ctx.fillStyle = COR.tinta;
-  ctx.font = `400 ${met.ajuste.tamanho}px ${SANS}`;
-  let yy = y0 + met.pad + met.titulo + (vertical ? 12 : 8) + met.ajuste.tamanho;
-  for (const l of met.ajuste.linhas) {
-    ctx.fillText(l, x + (vertical ? 8 : 4), yy, w - 2 * (vertical ? 8 : 4));
-    yy += met.ajuste.tamanho * met.lh;
+  ctx.font = `400 ${m.ajuste.tamanho}px ${SANS}`;
+  let yy = y + m.pad + m.titulo + m.gapTitulo + m.ajuste.tamanho;
+  for (const l of m.ajuste.linhas) {
+    ctx.fillText(l, x + m.padX, yy, w - 2 * m.padX);
+    yy += m.ajuste.tamanho * m.lh;
   }
-  return h;
+  return m.h;
+}
+
+function encaixarVertical(ctx, { util, a, b, diferenca, disponivel }) {
+  const tentativas = [
+    { fraseMax: 44, fraseMin: 28, fraseLinhas: 5, difMax: 38, difMin: 28, difLinhas: 10, gap: 28 },
+    { fraseMax: 40, fraseMin: 26, fraseLinhas: 6, difMax: 34, difMin: 26, difLinhas: 11, gap: 22 },
+    { fraseMax: 36, fraseMin: 24, fraseLinhas: 6, difMax: 30, difMin: 24, difLinhas: 12, gap: 18 },
+    { fraseMax: 32, fraseMin: 22, fraseLinhas: 7, difMax: 26, difMin: 20, difLinhas: 12, gap: 16 },
+  ];
+  let escolhido;
+  for (const t of tentativas) {
+    const metA = metricasBloco(ctx, { w: util, frase: a, vertical: true, maximo: t.fraseMax, minimo: t.fraseMin, linhasMax: t.fraseLinhas });
+    const metB = metricasBloco(ctx, { w: util, frase: b, vertical: true, maximo: t.fraseMax, minimo: t.fraseMin, linhasMax: t.fraseLinhas });
+    const metD = alturaDiferenca(ctx, { w: util, texto: diferenca, vertical: true, maximo: t.difMax, minimo: t.difMin, linhasMax: t.difLinhas });
+    const h = metA.h + metB.h + metD.h + 2 * t.gap;
+    escolhido = { metA, metB, metD, gap: t.gap, h };
+    if (h <= disponivel) break;
+  }
+  const extra = Math.max(0, disponivel - escolhido.h);
+  const gap = escolhido.gap + Math.min(20, extra / 4);
+  const usado = escolhido.metA.h + escolhido.metB.h + escolhido.metD.h + 2 * gap;
+  return { ...escolhido, gap, folgaTopo: Math.max(0, (disponivel - usado) / 2) };
 }
 
 function alturaCredito(vertical) {
@@ -191,25 +223,30 @@ export function desenharComparacao(canvas, { formato, par, a, b }) {
   const diferenca = par.diferenca || "";
 
   if (vertical) {
-    const metA = metricasBloco(ctx, { w: util, frase: a, vertical: true });
-    const metB = metricasBloco(ctx, { w: util, frase: b, vertical: true });
-    const yA = y;
-    const yB = yCredito - 24 - metB.h;
-    const yDif = yA + metA.h + gap;
-    const hDif = Math.max(80, yB - gap - yDif);
-    desenharBloco(ctx, { x: m, y: yA, w: util, letra: "A", frase: a, vertical: true });
-    desenharDiferenca(ctx, { x: m, y: yDif, w: util, h: hDif, texto: diferenca, vertical: true });
-    desenharBloco(ctx, { x: m, y: yB, w: util, letra: "B", frase: b, vertical: true });
+    const disponivel = yCredito - 28 - y;
+    const lote = encaixarVertical(ctx, { util, a, b, diferenca, disponivel });
+    const yA = y + lote.folgaTopo;
+    const yDif = yA + lote.metA.h + lote.gap;
+    const yB = yDif + lote.metD.h + lote.gap;
+    desenharBloco(ctx, { x: m, y: yA, w: util, letra: "A", frase: a, vertical: true, met: lote.metA });
+    desenharDiferenca(ctx, { x: m, y: yDif, w: util, texto: diferenca, vertical: true, met: lote.metD });
+    desenharBloco(ctx, { x: m, y: yB, w: util, letra: "B", frase: b, vertical: true, met: lote.metB });
   } else {
     const wBox = (util - gap) / 2;
     const metA = metricasBloco(ctx, { w: wBox, frase: a, vertical: false });
     const metB = metricasBloco(ctx, { w: wBox, frase: b, vertical: false });
     const hBox = Math.max(metA.h, metB.h);
-    desenharBloco(ctx, { x: m, y, w: wBox, h: hBox, letra: "A", frase: a, vertical: false });
-    desenharBloco(ctx, { x: m + wBox + gap, y, w: wBox, h: hBox, letra: "B", frase: b, vertical: false });
+    desenharBloco(ctx, { x: m, y, w: wBox, h: hBox, letra: "A", frase: a, vertical: false, met: metA });
+    desenharBloco(ctx, { x: m + wBox + gap, y, w: wBox, h: hBox, letra: "B", frase: b, vertical: false, met: metB });
     const yDif = y + hBox + gap;
     const hDifMax = Math.max(48, yCredito - 16 - yDif);
-    desenharDiferenca(ctx, { x: m, y: yDif, w: util, h: hDifMax, texto: diferenca, vertical: false });
+    const metD = alturaDiferenca(ctx, { w: util, texto: diferenca, vertical: false });
+    const linhasMax = metD.h > hDifMax
+      ? Math.max(2, Math.floor((hDifMax - 36) / (13 * 1.35)))
+      : undefined;
+    const metFit = linhasMax ? alturaDiferenca(ctx, { w: util, texto: diferenca, vertical: false, linhasMax }) : metD;
+    const yDifDesenho = yDif + Math.max(0, (hDifMax - metFit.h) / 2);
+    desenharDiferenca(ctx, { x: m, y: yDifDesenho, w: util, texto: diferenca, vertical: false, met: metFit });
   }
 
   ctx.strokeStyle = COR.linha; ctx.lineWidth = 2;

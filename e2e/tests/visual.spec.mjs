@@ -34,6 +34,17 @@ for (const v of LARGURAS) {
       await foto(page, `home-${v.nome}`);
     });
 
+    test("explorador de assuntos", async ({ page }) => {
+      await abrir(page, "#/");
+      await page.locator("#secao-assuntos .grupo-tematico").first().locator("summary").click();
+      await foto(page, `assuntos-home-${v.nome}`);
+    });
+
+    test("página de um assunto", async ({ page }) => {
+      await abrir(page, "#/assuntos/racismo");
+      await foto(page, `assunto-racismo-${v.nome}`);
+    });
+
     test("menu aberto (celular e tablet)", async ({ page }) => {
       test.skip(!v.movel || v.largura >= 1024, "o menu em painel só existe abaixo de 960 px");
       await abrir(page, "#/");
@@ -57,7 +68,7 @@ for (const v of LARGURAS) {
 
     test("cartão depois de responder", async ({ page }) => {
       await abrir(page, "#/frase/EX-61");
-      await page.getByRole("button", { name: "Depende do contexto" }).click();
+      await page.getByRole("button", { name: "Preciso de mais contexto" }).click();
       await page.locator(".revelacao").waitFor();
       await dobra(page, `cartao-depois-dobra-${v.nome}`);
       await foto(page, `cartao-depois-${v.nome}`);
@@ -113,7 +124,7 @@ for (const v of LARGURAS) {
       await configurarEnvio(page, "erro500");
       await abrir(page, "#/participar");
       await page.getByLabel("Escreva a frase").fill("Quem veio de fora devia ficar quieto sobre isso.");
-      await page.getByLabel("Pode ser discriminação").check();
+      await page.getByLabel("Pode ser desrespeitosa ou discriminatória").check();
       await page.getByLabel(/Entendo como a minha frase/).check();
       await page.getByRole("button", { name: "Enviar frase" }).click();
       await expect(page.locator("#mensagem-envio .mensagem.erro")).toBeVisible();

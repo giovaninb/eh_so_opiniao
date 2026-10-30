@@ -4,11 +4,12 @@ export function normalizar(texto) {
   return (texto || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 }
 
-export function filtrarFrases(frases, { q = "", tipo = "", tema = "", ord = "" } = {}) {
+export function filtrarFrases(frases, { q = "", tipo = "", tema = "", assunto = null, ord = "" } = {}) {
   const termo = normalizar(q);
   let r = frases.filter((f) => {
     if (tipo && f.tipo !== tipo) return false;
     if (tema && f.tema !== tema) return false;
+    if (assunto && !fraseNoAssunto(f, assunto)) return false;
     if (termo && !normalizar(f.texto).includes(termo)) return false;
     return true;
   });
@@ -30,43 +31,61 @@ export function criarAleatorio(semente) {
   };
 }
 
-/** Escolhe n frases variadas: no máximo 2 por tema e, havendo, ao menos uma que não seja de exclusão. */
-export function sortearSessao(frases, n, aleatorio = Math.random) {
-  const embaralhadas = [...frases];
-  for (let i = embaralhadas.length - 1; i > 0; i--) {
+function embaralhar(lista, aleatorio) {
+  const itens = [...lista];
+  for (let i = itens.length - 1; i > 0; i--) {
     const j = Math.floor(aleatorio() * (i + 1));
-    [embaralhadas[i], embaralhadas[j]] = [embaralhadas[j], embaralhadas[i]];
+    [itens[i], itens[j]] = [itens[j], itens[i]];
   }
+  return itens;
+}
+
+/** Escolhe até n frases variadas. Não completa com pendentes; se houver menos, devolve a quantidade real. */
+export function sortearSessao(frases, n, aleatorio = Math.random) {
+  if (!frases.length || n <= 0) return [];
+  n = Math.min(n, frases.length);
+  const embaralhadas = embaralhar(frases, aleatorio);
   const escolhidas = [];
   const porTema = {};
-  const aceita = (f) => (porTema[f.tema] || 0) < 2;
-  const pegar = (f) => { escolhidas.push(f); porTema[f.tema] = (porTema[f.tema] || 0) + 1; };
-  const primeiraNaoExclusao = embaralhadas.find((f) => f.tipo !== "exclusao");
-  if (n >= 3 && primeiraNaoExclusao) pegar(primeiraNaoExclusao);
+  const porSub = {};
+  const aceita = (f) => (porTema[f.tema] || 0) < 2 && (porSub[f.subtema || "_"] || 0) < 2;
+  const pegar = (f) => {
+    escolhidas.push(f);
+    porTema[f.tema] = (porTema[f.tema] || 0) + 1;
+    porSub[f.subtema || "_"] = (porSub[f.subtema || "_"] || 0) + 1;
+  };
+  if (n >= 3) {
+    for (const tipo of ["nao_discriminatoria", "ambigua", "exclusao"]) {
+      const f = embaralhadas.find((x) => x.tipo === tipo && aceita(x) && !escolhidas.includes(x));
+      if (f && escolhidas.length < n) pegar(f);
+    }
+  }
   for (const f of embaralhadas) {
     if (escolhidas.length >= n) break;
     if (!escolhidas.includes(f) && aceita(f)) pegar(f);
   }
-  for (const f of embaralhadas) { // completa se a regra por tema deixou faltando
+  for (const f of embaralhadas) {
     if (escolhidas.length >= n) break;
     if (!escolhidas.includes(f)) pegar(f);
   }
-  // embaralha de novo para a frase "mais leve" não ser sempre a primeira
-  for (let i = escolhidas.length - 1; i > 0; i--) {
-    const j = Math.floor(aleatorio() * (i + 1));
-    [escolhidas[i], escolhidas[j]] = [escolhidas[j], escolhidas[i]];
-  }
-  return escolhidas;
+  return embaralhar(escolhidas, aleatorio);
 }
 
-/** Frase de abertura estável por dia: prefere casos ambíguos, que convidam à reflexão. */
+function ambiguaComContextoAusente(f) {
+  if (f.tipo !== "ambigua") return false;
+  const sub = f.subtema || "";
+  if (sub.endsWith("_controle")) return false;
+  const m = (f.mecanismo || "").toLowerCase();
+  if (/respeita (pronomes|a pessoa)|pergunta e respeita|sem desqualificar/.test(m)) return false;
+  return true;
+}
+
+/** Frase de abertura estável por dia: prefere ambíguas com contexto realmente ausente, nunca aviso de conteúdo. */
 export function fraseDeAbertura(frases, data = new Date()) {
-  // frases com aviso de conteúdo (termos pejorativos) nunca são o destaque da página inicial
   const seguras = frases.filter((f) => !f.aviso_conteudo);
   if (!seguras.length) return null;
-  frases = seguras;
-  const ambiguas = frases.filter((f) => f.tipo === "ambigua");
-  const base = ambiguas.length ? ambiguas : frases;
+  const ambiguas = seguras.filter(ambiguaComContextoAusente);
+  const base = ambiguas.length ? ambiguas : seguras.filter((f) => f.tipo === "ambigua").length ? seguras.filter((f) => f.tipo === "ambigua") : seguras;
   const dia = Math.floor(Date.UTC(data.getFullYear(), data.getMonth(), data.getDate()) / 86400000);
   return base[dia % base.length];
 }
@@ -92,9 +111,38 @@ export function linkWhatsApp(mensagem) {
   return `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
 }
 
-/** Frases de um tema de descoberta (grupo). Grupo vazio = todas. */
+/** Frases de um tema de descoberta (grupo legado). Grupo vazio = todas. */
 export function frasesDoGrupo(frases, grupo) {
   return grupo ? frases.filter((f) => f.grupo === grupo) : frases;
+}
+
+export function fraseNoAssunto(f, a) {
+  if (!a) return true;
+  if ((a.grupos_legado || []).includes(f.grupo)) return true;
+  if ((a.temas || []).includes(f.tema)) return true;
+  const rot = new Set((f.rotulos || []).map((r) => r.id));
+  if ((a.rotulos || []).some((id) => rot.has(id))) return true;
+  if (f.subtema && (a.subtemas || []).includes(f.subtema)) return true;
+  return false;
+}
+
+export function frasesDoAssunto(frases, assunto) {
+  return assunto ? frases.filter((f) => fraseNoAssunto(f, assunto)) : frases;
+}
+
+export function assuntosVisiveis(catalogo) {
+  return ((catalogo && catalogo.assuntos) || []).filter((a) => a.visivel && a.n > 0);
+}
+
+export function assuntoPorId(catalogo, id) {
+  return ((catalogo && catalogo.assuntos) || []).find((a) => a.id === id) || null;
+}
+
+/** Busca de navegação: não classifica a pessoa que pesquisa. */
+export function buscarAssuntos(assuntos, termo) {
+  const q = normalizar(termo);
+  if (q.length < 2) return [];
+  return assuntos.filter((a) => a.visivel && a.n > 0 && (a.busca || normalizar(`${a.nome} ${a.descricao}`)).includes(q));
 }
 
 /** Quebra um texto em linhas que cabem em `largura`, usando `medir(texto)` (ex.: ctx.measureText). Palavras maiores que a linha ficam sozinhas. */

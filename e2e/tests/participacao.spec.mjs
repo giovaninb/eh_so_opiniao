@@ -3,9 +3,9 @@ import { test, expect, abrir, configurarEnvio } from "./fixtures.mjs";
 const FRASE = "Quem veio de fora devia ficar quieto sobre o que acontece aqui.";
 const campo = (page) => page.getByLabel("Escreva a frase");
 
-async function preencher(page, { texto = FRASE, leitura = "Pode ser discriminação", consentir = true } = {}) {
+async function preencher(page, { texto = FRASE, leitura = "Pode ser desrespeitosa ou discriminatória", consentir = true } = {}) {
   if (texto !== null) await campo(page).fill(texto);
-  if (leitura) await page.getByLabel(leitura).check();
+  if (leitura) await page.locator("#form-participar label.escolha").filter({ hasText: leitura }).click();
   if (consentir) await page.getByLabel(/Entendo como a minha frase será tratada/).check();
 }
 
@@ -104,7 +104,7 @@ test("indisponibilidade do serviço: erro claro, texto preservado e nova tentati
     await expect(page.locator("#mensagem-envio .mensagem.erro")).toBeVisible();
     await expect(page.locator("#mensagem-envio")).not.toContainText("Recebido");
     await expect(campo(page)).toHaveValue(FRASE); // erro recuperável não apaga o texto
-    await expect(page.getByLabel("Pode ser discriminação")).toBeChecked();
+    await expect(page.getByLabel("Pode ser desrespeitosa ou discriminatória")).toBeChecked();
     await expect(page.getByRole("button", { name: "Enviar frase" })).toBeEnabled();
     await page.unroute("**/config_participacao.json");
     await page.unroute("https://formulario.exemplo.test/enviar");
@@ -147,10 +147,10 @@ test("limite de envios por visita", async ({ page }) => {
 test("voto na enquete só é enviado por ação explícita e com confirmação", async ({ page }) => {
   const enviados = await configurarEnvio(page);
   await abrir(page, "#/frase/EX-01");
-  await page.getByRole("button", { name: "É só opinião" }).click();
+  await page.getByRole("button", { name: "Não vejo problema" }).click();
   expect(enviados).toHaveLength(0); // responder não envia nada
   await page.getByRole("button", { name: /Contar minha leitura na enquete/ }).click();
-  await expect(page.locator(".enquete")).toContainText("Leitura enviada (é só opinião)");
+  await expect(page.locator(".enquete")).toContainText("Leitura enviada (não vê problema)");
   const corpo = new URLSearchParams(enviados[0].corpo);
   expect(Object.fromEntries(corpo)).toEqual({ tipo: "voto", frase_id: "EX-01", avaliacao: "opiniao", consentimento: "sim" });
 });

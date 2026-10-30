@@ -1,7 +1,7 @@
 import { limpar, focar } from "../nucleo/dom.js";
 import { estado } from "../nucleo/estado.js";
 import { proximaFrase } from "../nucleo/logica.js";
-import { CartaoFrase } from "../componentes/cartaoFrase.js";
+import { CartaoFrase } from "../componentes/cartaoFrase.js?v=9";
 import { EstadoErro, EstadoVazio } from "../componentes/estados.js";
 
 export const frase = {

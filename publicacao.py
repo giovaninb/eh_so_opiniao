@@ -244,7 +244,7 @@ def _textos_dos_corpora_locais() -> list[str]:
 def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = False, verificar_corpora: bool = True,
                    paginas_estaticas: bool | None = None, pares_revisados: set[str] | None = None) -> dict[str, Any]:
     """`paginas_estaticas` (None = só quando o destino é o `site/data` real) gera `casos/`, `comparar/`, sitemap e robots."""
-    from . import paginas, pares as mod_pares
+    from . import assuntos as assuntos_editoriais, paginas, pares as mod_pares
     from .casos import carregar_todos
 
     destino_real = destino is None  # só o destino real grava o registro versionado de casos já publicados
@@ -262,8 +262,10 @@ def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = F
     ids_publicados = {f["id"] for f in frases["frases"]}
     todos_ids = {f["id"] for f in carregar_todos()["frases"]}
     comparacoes = mod_pares.exportar(ids_publicados, mod_pares.carregar(ids_validos=todos_ids), revisados=pares_revisados)
+    camada_assuntos = assuntos_editoriais.exportar(frases["frases"], comparacoes.get("pares") or [])
     arquivos = {
         "pares.json": comparacoes,
+        "assuntos.json": camada_assuntos,
         "frases.json": frases, "taxonomia.json": taxonomia_publica(), "catalogo.json": catalogo_publico(), "referencias.json": referencias_publicas(),
         "contexto.json": contexto_publico(), "achados.json": {"gerado_dos_relatorios": achados_dos_relatorios(), "aviso": AVISO},
         "participacao.json": participacao.resultados_publicos(conn, {f["id"] for f in frases["frases"]}),
@@ -279,6 +281,8 @@ def construir_site(conn, destino: Path | None = None, incluir_rascunho: bool = F
         rascunho = len(r["frases"])
     resumo_paginas: dict[str, int] = {}
     if gerar_paginas:
-        resumo_paginas = paginas.gerar(frases["frases"], comparacoes["pares"], destino.parent, registro=paginas.REGISTRO if destino_real else None)
+        resumo_paginas = paginas.gerar(frases["frases"], comparacoes["pares"], destino.parent,
+                                      registro=paginas.REGISTRO if destino_real else None,
+                                      assuntos=camada_assuntos.get("assuntos") or [])
     return {"frases_publicadas": len(frases["frases"]), "frases_rascunho_local": rascunho, "destino": str(destino),
             "pares_publicados": len(comparacoes["pares"]), "paginas": resumo_paginas}

@@ -33,7 +33,7 @@ for (const largura of [390, 1440]) {
       const menu = page.getByRole("button", { name: /Menu/ });
       if (await menu.isVisible()) { await menu.click(); await varrer("menu aberto"); await page.keyboard.press("Escape"); }
       await abrir(page, "#/frase/EX-61");
-      await page.getByRole("button", { name: "Depende do contexto" }).click();
+      await page.getByRole("button", { name: "Preciso de mais contexto" }).click();
       await page.locator("details.ia summary").click().catch(() => {});
       await varrer("análise revelada");
       await abrir(page, "#/frase/NAO-EXISTE");
@@ -65,7 +65,7 @@ test("teclado: foco sempre visível com contraste, sem armadilha, e o formulári
   await abrir(page, "#/participar");
   await page.getByLabel("Escreva a frase").focus();
   await page.keyboard.type("Quem veio de fora devia ficar quieto sobre isso aqui.");
-  await page.getByLabel("Pode ser discriminação").focus();
+  await page.getByLabel("Pode ser desrespeitosa ou discriminatória").focus();
   await page.keyboard.press("Space"); // seleciona a opção focada
   await page.getByLabel(/Entendo como a minha frase/).focus();
   await page.keyboard.press("Space");

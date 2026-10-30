@@ -7,7 +7,7 @@ process.env.PLAYWRIGHT_BROWSERS_PATH = process.env.ESO_BROWSERS_PATH || join(fil
 
 const PORTA = 4173;
 const base = `http://127.0.0.1:${PORTA}`;
-const funcionais = /(navegacao|exploracao|descoberta|expansao|participacao|compartilhar|conteudo|layout|acessibilidade|produto)\.spec\.mjs/;
+const funcionais = /(navegacao|exploracao|descoberta|expansao|participacao|compartilhar|conteudo|layout|acessibilidade|produto|assuntos)\.spec\.mjs/;
 
 /* EMULAÇÃO NÃO É DISPOSITIVO FÍSICO: estes projetos simulam tela, toque e user agent. Não reproduzem teclado virtual real,
    rolagem com inércia, barras dinâmicas do navegador, fontes do sistema nem leitores de tela. Veja docs/TESTES_MOBILE.md. */
