@@ -4,7 +4,7 @@
 import { estado } from "../nucleo/estado.js";
 import { TEMPO_ENVIO_MS, MAX_ENVIOS_TOTAIS_VISITA } from "../nucleo/constantes.js";
 import { hashCorpo } from "../nucleo/protecao.js";
-import { resetarDesafio, tokenDesafio, usaCloudflare } from "./desafio.js";
+import { resetarDesafio, tokenDesafio, usaCloudflare } from "./desafio.js?v=13";
 
 const MAX_PAYLOAD = 8000;
 let emVoo = false;
@@ -93,7 +93,7 @@ export async function enviar(campos, { interacao = true, onEstado, caixaDesafio 
   let headers = { Accept: "application/json" };
   let caixa = caixaDesafio || (cf ? document.getElementById("desafio-envio") : null);
   if (cf) {
-    if (onEstado) onEstado("verificando");
+    if (onEstado) onEstado("aguardando");
     const token = await tokenDesafio(caixa, c.turnstile_sitekey, {
       onEspera() { if (onEstado) onEstado("aguardando"); },
     }).catch(() => {

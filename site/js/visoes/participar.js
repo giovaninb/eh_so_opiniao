@@ -1,4 +1,4 @@
-import { iniciarFormulario } from "../componentes/formulario.js";
+import { iniciarFormulario } from "../componentes/formulario.js?v=13";
 
 let formulario = null;
 

@@ -20,17 +20,18 @@ export function rotuloEnvio(s) {
 function carregarScript() {
   if (typeof window !== "undefined" && window.turnstile) return Promise.resolve();
   if (carregando) return carregando;
-  carregando = new Promise((ok, falha) => {
+  const p = new Promise((ok, falha) => {
+    const t = setTimeout(() => falha(new Error("turnstile")), 12000);
     const pronto = () => {
-      if (!window.turnstile) { falha(new Error("turnstile")); return; }
-      if (typeof window.turnstile.ready === "function") window.turnstile.ready(ok);
-      else ok();
+      clearTimeout(t);
+      if (window.turnstile) ok();
+      else falha(new Error("turnstile"));
     };
     const ja = document.querySelector('script[data-desafio="1"]');
     if (ja) {
       if (window.turnstile) return pronto();
       ja.addEventListener("load", pronto);
-      ja.addEventListener("error", () => falha(new Error("turnstile")));
+      ja.addEventListener("error", () => { clearTimeout(t); falha(new Error("turnstile")); });
       return;
     }
     const s = document.createElement("script");
@@ -39,10 +40,12 @@ function carregarScript() {
     s.defer = true;
     s.dataset.desafio = "1";
     s.onload = pronto;
-    s.onerror = () => falha(new Error("turnstile"));
+    s.onerror = () => { clearTimeout(t); falha(new Error("turnstile")); };
     document.head.append(s);
   });
-  return carregando;
+  carregando = p;
+  p.catch(() => { if (carregando === p) carregando = null; });
+  return p;
 }
 
 function chavePublica(caixa, sitekey) {
