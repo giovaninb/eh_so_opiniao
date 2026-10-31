@@ -1,10 +1,8 @@
-/* Envio ao serviço configurado em config_participacao.json.
-   provedor ausente ou "formspree": POST urlencoded (caminho atual).
-   provedor "cloudflare": JSON + desafio humano. Formspree permanece até a Etapa F. */
+/* Envio ao Worker (JSON + desafio humano). Sem Formspree. */
 import { estado } from "../nucleo/estado.js";
 import { TEMPO_ENVIO_MS, MAX_ENVIOS_TOTAIS_VISITA } from "../nucleo/constantes.js";
 import { hashCorpo } from "../nucleo/protecao.js";
-import { resetarDesafio, tokenDesafio, usaCloudflare } from "./desafio.js?v=13";
+import { resetarDesafio, tokenDesafio, usaCloudflare } from "./desafio.js?v=14";
 
 const MAX_PAYLOAD = 8000;
 let emVoo = false;
@@ -15,7 +13,9 @@ export class ErroEnvio extends Error {
 
 export function envioAtivo() {
   const c = estado.config;
-  return !!(c && c.ativo === true && c.contribuicoes_abertas !== false && typeof c.endpoint === "string" && c.endpoint.startsWith("https:"));
+  return !!(c && c.ativo === true && c.contribuicoes_abertas !== false
+    && typeof c.endpoint === "string" && c.endpoint.startsWith("https:")
+    && c.turnstile_sitekey && usaCloudflare(c));
 }
 
 export function contribuicoesSuspensas() {
@@ -86,51 +86,42 @@ export async function enviar(campos, { interacao = true, onEstado, caixaDesafio 
   if (emVoo) throw new ErroEnvio("servico_recusou");
   if (totalEnvios() >= MAX_ENVIOS_TOTAIS_VISITA) throw new ErroEnvio("limite_visita");
   const c = estado.config;
-  const cf = usaCloudflare(c);
   if (onEstado) onEstado("validando");
 
-  let corpo;
-  let headers = { Accept: "application/json" };
-  let caixa = caixaDesafio || (cf ? document.getElementById("desafio-envio") : null);
-  if (cf) {
-    if (onEstado) onEstado("aguardando");
-    const token = await tokenDesafio(caixa, c.turnstile_sitekey, {
-      onEspera() { if (onEstado) onEstado("aguardando"); },
-    }).catch(() => {
-      throw new ErroEnvio("turnstile");
-    });
-    const json = payloadCloudflare(campos);
-    json.turnstile_token = token;
-    corpo = JSON.stringify(json);
-    headers["Content-Type"] = "application/json";
-  } else {
-    const params = new URLSearchParams();
-    for (const [k, v] of Object.entries(campos)) params.append((c.campos && c.campos[k]) || k, v == null ? "" : String(v));
-    if (!params.has("_gotcha")) params.append("_gotcha", "");
-    corpo = params;
-  }
+  const caixa = caixaDesafio || document.getElementById("desafio-envio");
+  if (onEstado) onEstado("aguardando");
+  const token = await tokenDesafio(caixa, c.turnstile_sitekey, {
+    onEspera() { if (onEstado) onEstado("aguardando"); },
+  }).catch(() => {
+    throw new ErroEnvio("turnstile");
+  });
+  const json = payloadCloudflare(campos);
+  json.turnstile_token = token;
+  const corpo = JSON.stringify(json);
+  const headers = { Accept: "application/json", "Content-Type": "application/json" };
 
-  const serial = typeof corpo === "string" ? corpo : corpo.toString();
-  if (serial.length > MAX_PAYLOAD) throw new ErroEnvio("payload");
-  const chave = hashCorpo(serial);
+  if (corpo.length > MAX_PAYLOAD) throw new ErroEnvio("payload");
+  const chave = hashCorpo(corpo);
   if (!estado.corposEnviados) estado.corposEnviados = new Set();
   if (estado.corposEnviados.has(chave)) return { confirmado: false, descartado: true };
 
   const controle = new AbortController();
   const tempo = setTimeout(() => controle.abort(), TEMPO_ENVIO_MS);
-  const base = { method: "POST", body: corpo, credentials: "omit", referrerPolicy: "no-referrer", signal: controle.signal };
   emVoo = true;
   if (onEstado) onEstado("enviando");
   try {
-    if (!cf && c.modo_resposta === "opaca") {
-      await fetch(c.endpoint, { ...base, mode: "no-cors" });
-      estado.corposEnviados.add(chave);
-      return { confirmado: false };
-    }
-    const r = await fetch(c.endpoint, { ...base, mode: "cors", headers });
-    let json = null;
-    try { json = await r.json(); } catch { /* resposta sem JSON: vale o status HTTP */ }
-    const motivo = motivoDaResposta(r, json);
+    const r = await fetch(c.endpoint, {
+      method: "POST",
+      body: corpo,
+      credentials: "omit",
+      referrerPolicy: "no-referrer",
+      signal: controle.signal,
+      mode: "cors",
+      headers,
+    });
+    let resposta = null;
+    try { resposta = await r.json(); } catch { /* resposta sem JSON: vale o status HTTP */ }
+    const motivo = motivoDaResposta(r, resposta);
     if (motivo) throw new ErroEnvio(motivo, r.status);
     estado.corposEnviados.add(chave);
     return { confirmado: true };
@@ -140,6 +131,6 @@ export async function enviar(campos, { interacao = true, onEstado, caixaDesafio 
   } finally {
     emVoo = false;
     clearTimeout(tempo);
-    if (cf && caixa && corpo) resetarDesafio(caixa);
+    if (caixa && corpo) resetarDesafio(caixa);
   }
 }

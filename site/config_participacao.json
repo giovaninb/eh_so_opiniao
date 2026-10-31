@@ -13,6 +13,5 @@
     "consentimento": "consentimento",
     "armadilha": "site"
   },
-  "_rollback_formspree": "https://formspree.io/f/mdeedbjv",
-  "_como_ativar": "Etapa E: provedor=cloudflare. Rollback: provedor=formspree e endpoint=_rollback_formspree. Nunca coloque a secret no site. Para suspender contribuições use contribuicoes_abertas=false. Veja docs/MIGRACAO_FORMSPREE.md."
+  "_como_ativar": "Destino: Worker. Nunca coloque a secret no site. Para suspender contribuições use contribuicoes_abertas=false. Veja docs/CLOUDFLARE_SETUP.md."
 }

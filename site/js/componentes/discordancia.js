@@ -6,8 +6,8 @@ import { mascarar } from "../nucleo/mascara.js";
 import { MAX_ENVIOS_POR_VISITA } from "../nucleo/constantes.js";
 import { SCHEMA_PARTICIPACAO, AVISO_VERSAO } from "../nucleo/sessaoContribuicao.js";
 import { guardaInteracao } from "../nucleo/protecao.js";
-import { enviar, envioAtivo, ErroEnvio, provedorCloudflare } from "./envio.js";
-import { prepararDesafio, rotuloEnvio } from "./desafio.js";
+import { enviar, envioAtivo, ErroEnvio, provedorCloudflare } from "./envio.js?v=14";
+import { prepararDesafio, rotuloEnvio } from "./desafio.js?v=14";
 
 const MAX = 280;
 const MOTIVOS = [

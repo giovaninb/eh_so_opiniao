@@ -186,7 +186,8 @@ def test_site_js_nao_tem_identificadores_proibidos():
         assert termo not in js
     assert "avaliacoes_voluntarias" in js
     assert "contribuicoes_abertas" in js
-    assert "_gotcha" in js and "guardaInteracao" in js
+    assert "guardaInteracao" in js
+    assert "_gotcha" not in js
     assert "formspree.io" not in js
     assert "analytics" not in js.lower()
     assert "challenges.cloudflare.com/turnstile/v0/api.js" in js

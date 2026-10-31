@@ -4,8 +4,8 @@ import { estado } from "../nucleo/estado.js";
 import { NOME_AVALIACAO, MAX_ENVIOS_POR_VISITA } from "../nucleo/constantes.js";
 import { avaliacoesDoLote, marcarLoteEnviado, SCHEMA_PARTICIPACAO, AVISO_VERSAO } from "../nucleo/sessaoContribuicao.js";
 import { guardaInteracao } from "../nucleo/protecao.js";
-import { enviar, envioAtivo, ErroEnvio, provedorCloudflare } from "./envio.js";
-import { prepararDesafio, rotuloEnvio } from "./desafio.js";
+import { enviar, envioAtivo, ErroEnvio, provedorCloudflare } from "./envio.js?v=14";
+import { prepararDesafio, rotuloEnvio } from "./desafio.js?v=14";
 
 const ERROS = {
   rede: "Não foi possível falar com o serviço. Nada foi registrado. Você pode tentar de novo enquanto esta página estiver aberta.",

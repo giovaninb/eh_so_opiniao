@@ -1,5 +1,5 @@
 // Home, comparações, cartões de imagem, páginas estáticas de caso e matriz de larguras das novas telas.
-import { test, expect, abrir, VIEWPORTS, configurarEnvio, ENDPOINT_TESTE } from "./fixtures.mjs";
+import { test, expect, abrir, VIEWPORTS, configurarEnvio, ENDPOINT_CF } from "./fixtures.mjs";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
 
@@ -395,14 +395,14 @@ test.describe("Discordo da interpretação (canal privado e real)", () => {
     await page.getByRole("button", { name: "Enviar para revisão" }).click();
     await expect(page.getByText("Contribuição recebida. Obrigado por ajudar a revisar o projeto.")).toBeVisible();
     expect(enviados).toHaveLength(1);
-    const corpo = new URLSearchParams(enviados[0].corpo);
-    expect(corpo.get("tipo")).toBe("contestacao");
-    expect(corpo.get("frase_id")).toBe("EX-01");
-    expect(corpo.get("schema_version")).toBe("2");
-    expect(corpo.get("frase")).toContain("[telefone]");
-    expect(corpo.get("frase")).toContain("[e-mail]");
-    expect(corpo.get("frase")).not.toMatch(/98765|maria@/);
-    expect(corpo.get("consentimento")).toBe("sim");
+    const corpo = JSON.parse(enviados[0].corpo);
+    expect(corpo.tipo).toBe("contestacao");
+    expect(corpo.frase_id).toBe("EX-01");
+    expect(corpo.schema_version).toBe("3");
+    expect(corpo.comentario).toContain("[telefone]");
+    expect(corpo.comentario).toContain("[e-mail]");
+    expect(corpo.comentario).not.toMatch(/98765|maria@/);
+    expect(corpo.consentimento).toBe("sim");
   });
 
   test("erro do serviço mantém o texto e não diz que enviou", async ({ page }) => {
@@ -410,21 +410,13 @@ test.describe("Discordo da interpretação (canal privado e real)", () => {
     await page.getByLabel("O que você leria diferente?").fill("Eu leria de outro modo.");
     await page.getByLabel(/Entendo que o texto/).check();
     await page.getByRole("button", { name: "Enviar para revisão" }).click();
-    await expect(page.getByText(/O serviço recusou o envio/)).toBeVisible();
+    await expect(page.getByText(/indisponível|recusou o envio/)).toBeVisible();
     await expect(page.getByLabel("O que você leria diferente?")).toHaveValue("Eu leria de outro modo.");
     await expect(page.getByText(/Recebido/)).toHaveCount(0);
     expect(enviados).toHaveLength(1);
   });
 
-  test("modo sem confirmação (resposta opaca) avisa que não dá para garantir o recebimento", async ({ page }) => {
-    await aberto(page, "opaca");
-    await page.getByLabel("O que você leria diferente?").fill("Eu leria de outro modo.");
-    await page.getByLabel(/Entendo que o texto/).check();
-    await page.getByRole("button", { name: "Enviar para revisão" }).click();
-    await expect(page.getByText(/não permite confirmar o recebimento/)).toBeVisible();
-  });
-
-  test("a única requisição externa é ao serviço configurado (nunca issue pública do GitHub)", async ({ page }) => {
+  test("a única requisição externa de envio é ao Worker simulado (nunca issue pública do GitHub)", async ({ page }) => {
     const externas = [];
     page.on("request", (r) => { const u = new URL(r.url()); if (u.protocol.startsWith("http") && !["localhost", "127.0.0.1"].includes(u.hostname)) externas.push(r.url()); });
     await aberto(page);
@@ -432,7 +424,9 @@ test.describe("Discordo da interpretação (canal privado e real)", () => {
     await page.getByLabel(/Entendo que o texto/).check();
     await page.getByRole("button", { name: "Enviar para revisão" }).click();
     await expect(page.getByText("Contribuição recebida. Obrigado por ajudar a revisar o projeto.")).toBeVisible();
-    expect(externas).toEqual([ENDPOINT_TESTE]);
+    expect(externas.some((u) => u.startsWith(ENDPOINT_CF))).toBeTruthy();
+    expect(externas.every((u) => /exemplo\.test|challenges\.cloudflare\.com/.test(u))).toBeTruthy();
+    expect(externas.some((u) => /github\.com\/.*issues/.test(u))).toBeFalsy();
   });
 
   test("a armadilha preenchida não gera envio", async ({ page }) => {

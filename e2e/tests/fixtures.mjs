@@ -22,9 +22,9 @@ export const test = base.extend({
         return route.fulfill({ status: 200, contentType: "application/json", body: readFileSync(arquivo) });
       });
     }
-    /* Os testes NUNCA falam com o serviço real de recebimento: por padrão o envio aparece como não
-       configurado e qualquer requisição ao Formspree é bloqueada. `configurarEnvio` sobrepõe isto
-       com um serviço simulado (rotas registradas depois têm prioridade). */
+    /* Os testes NUNCA falam com o Worker real: por padrão o envio aparece como não
+       configurado. `formspree.io` e `workers.dev` ficam bloqueados. `configurarEnvio` sobrepõe
+       isto com um Worker simulado (rotas registradas depois têm prioridade). */
     await page.route("**/config_participacao.json", (r) => r.fulfill({
       status: 200, contentType: "application/json",
       body: JSON.stringify({ ativo: false, endpoint: "", modo_resposta: "cors", campos: {} }),
@@ -47,30 +47,12 @@ export async function irPara(page, hash) {
   await page.waitForFunction((h) => location.hash.startsWith(h.split("?")[0]), hash);
 }
 
-/** Liga o envio com um serviço simulado. comportamento: ok | erro500 | recusa | rede | opaca | cota | suspenso. Devolve a lista de requisições. */
+/** Liga o envio com o Worker simulado (Turnstile dummy). Formspree não é mais caminho do site. */
 export async function configurarEnvio(page, comportamento = "ok") {
-  const enviados = [];
-  const cfg = {
-    ativo: true,
-    contribuicoes_abertas: comportamento !== "suspenso",
-    endpoint: ENDPOINT_TESTE,
-    modo_resposta: comportamento === "opaca" ? "opaca" : "cors",
-    campos: { tipo: "tipo", frase: "frase", avaliacao: "avaliacao", frase_id: "frase_id", consentimento: "consentimento", armadilha: "site" },
-  };
-  await page.route("**/config_participacao.json", (r) => r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(cfg) }));
-  await page.route(ENDPOINT_TESTE, async (route) => {
-    enviados.push({ metodo: route.request().method(), corpo: route.request().postData(), cabecalhos: route.request().headers() });
-    const cors = { "access-control-allow-origin": "*" };
-    if (comportamento === "rede") return route.abort("failed");
-    if (comportamento === "erro500") return route.fulfill({ status: 500, headers: cors, contentType: "application/json", body: '{"error":"falha interna"}' });
-    if (comportamento === "recusa") return route.fulfill({ status: 422, headers: cors, contentType: "application/json", body: '{"ok":false,"error":"campo invalido"}' });
-    if (comportamento === "cota") return route.fulfill({ status: 402, headers: cors, contentType: "application/json", body: '{"error":"form over quota"}' });
-    return route.fulfill({ status: 200, headers: cors, contentType: "application/json", body: '{"ok":true}' });
-  });
-  return enviados;
+  return configurarEnvioCloudflare(page, comportamento);
 }
 
-const ENDPOINT_CF = "https://api.exemplo.test/api/v1/participacoes";
+export const ENDPOINT_CF = "https://api.exemplo.test/api/v1/participacoes";
 const SCRIPT_TURNSTILE = `
 window.__turnstileResets = 0;
 window.turnstile = {
@@ -108,6 +90,7 @@ export async function configurarEnvioCloudflare(page, comportamento = "ok") {
     if (comportamento === "erro500") return route.fulfill({ status: 500, headers: cors, contentType: "application/json", body: '{"ok":false,"erro":"indisponivel"}' });
     if (comportamento === "recusa") return route.fulfill({ status: 422, headers: cors, contentType: "application/json", body: '{"ok":false,"erro":"validacao"}' });
     if (comportamento === "turnstile") return route.fulfill({ status: 403, headers: cors, contentType: "application/json", body: '{"ok":false,"erro":"turnstile"}' });
+    if (comportamento === "cota") return route.fulfill({ status: 402, headers: cors, contentType: "application/json", body: '{"error":"form over quota"}' });
     return route.fulfill({ status: 200, headers: cors, contentType: "application/json", body: '{"ok":true,"submission_id":"550e8400-e29b-41d4-a716-446655440000"}' });
   });
   return enviados;

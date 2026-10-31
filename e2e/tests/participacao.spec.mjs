@@ -65,14 +65,14 @@ test("caracteres especiais, acentos, emoji e HTML são enviados como texto", asy
   await preencher(page, { texto: estranho });
   await page.getByRole("button", { name: "Enviar frase" }).click();
   await expect(page.locator("#mensagem-envio .mensagem.ok")).toBeVisible();
-  const corpo = new URLSearchParams(enviados[0].corpo);
-  expect(corpo.get("frase")).toBe(estranho.trim());
-  expect(corpo.get("tipo")).toBe("sugestao_frase");
-  expect(corpo.get("schema_version")).toBe("2");
-  expect(corpo.get("avaliacao")).toBe("discriminacao");
-  expect(corpo.get("consentimento")).toBe("sim");
-  expect(corpo.get("site")).toBe(""); // campo-armadilha vazio
-  expect(corpo.get("_gotcha")).toBe(""); // armadilha nativa do Formspree, sempre vazia no envio humano
+  const corpo = JSON.parse(enviados[0].corpo);
+  expect(corpo.texto).toBe(estranho.trim());
+  expect(corpo.tipo).toBe("sugestao_frase");
+  expect(corpo.schema_version).toBe("3");
+  expect(corpo.interpretacao_sugerida).toBe("discriminacao");
+  expect(corpo.consentimento).toBe("sim");
+  expect(corpo.armadilha).toBe("");
+  expect(corpo.turnstile_token).toBeTruthy();
   await expect(page.locator("b")).toHaveCount(0); // nada foi interpretado como HTML
 });
 
@@ -82,7 +82,7 @@ test("dados identificáveis são mascarados antes de sair do navegador", async (
   await preencher(page, { texto: "Mande para ana@exemplo.com ou @ana_x, tel (54) 99999-1234, veja https://exemplo.test/p" });
   await page.getByRole("button", { name: "Enviar frase" }).click();
   await expect(page.locator("#mensagem-envio .mensagem.ok")).toBeVisible();
-  const frase = new URLSearchParams(enviados[0].corpo).get("frase");
+  const frase = JSON.parse(enviados[0].corpo).texto;
   expect(frase).toBe("Mande para [e-mail] ou [usuário], tel [telefone], veja [link]");
 });
 
@@ -109,17 +109,8 @@ test("indisponibilidade do serviço: erro claro, texto preservado e nova tentati
     await expect(page.getByLabel("Pode ser desrespeitosa ou discriminatória")).toBeChecked();
     await expect(page.getByRole("button", { name: "Enviar frase" })).toBeEnabled();
     await page.unroute("**/config_participacao.json");
-    await page.unroute("https://formulario.exemplo.test/enviar");
+    await page.unroute("https://api.exemplo.test/api/v1/participacoes");
   }
-});
-
-test("serviço sem CORS (modo opaca): o site avisa que não consegue confirmar, em vez de dizer 'recebido'", async ({ page }) => {
-  await configurarEnvio(page, "opaca");
-  await abrir(page, "#/participar");
-  await preencher(page);
-  await page.getByRole("button", { name: "Enviar frase" }).click();
-  await expect(page.locator("#mensagem-envio .mensagem.aviso")).toContainText("não permite confirmar o recebimento");
-  await expect(page.locator("#mensagem-envio")).not.toContainText("Recebido");
 });
 
 test("campo-armadilha preenchido não envia nada", async ({ page }) => {
@@ -203,11 +194,11 @@ test("lote voluntário envia até cinco avaliações numa única submissão, com
   await lote.getByRole("button", { name: "Enviar minhas avaliações" }).click();
   await expect(lote).toContainText("Contribuição recebida. Obrigado por ajudar a revisar o projeto.");
   expect(enviados).toHaveLength(1);
-  const corpo = new URLSearchParams(enviados[0].corpo);
-  expect(corpo.get("tipo")).toBe("avaliacoes_voluntarias");
-  expect(corpo.get("schema_version")).toBe("2");
-  expect(corpo.get("consentimento")).toBe("sim");
-  const itens = JSON.parse(corpo.get("avaliacoes"));
+  const corpo = JSON.parse(enviados[0].corpo);
+  expect(corpo.tipo).toBe("avaliacoes");
+  expect(corpo.schema_version).toBe("3");
+  expect(corpo.consentimento).toBe("sim");
+  const itens = corpo.avaliacoes;
   expect(itens.length).toBeLessThanOrEqual(5);
   expect(itens.length).toBeGreaterThan(0);
   expect(itens.every((a) => a.frase_id && a.avaliacao && a.conteudo_versao)).toBeTruthy();
@@ -256,7 +247,7 @@ test("sugestão de frase inclui contexto opcional e pré-visualização", async 
   await expect(page.locator("#previsualizacao-envio")).toContainText("Pergunta feita");
   await page.getByRole("button", { name: "Enviar frase" }).click();
   await expect(page.locator("#mensagem-envio .mensagem.ok")).toBeVisible();
-  const corpo = new URLSearchParams(enviados[0].corpo);
-  expect(corpo.get("contexto")).toContain("Pergunta feita");
-  expect(corpo.get("tipo")).toBe("sugestao_frase");
+  const corpo = JSON.parse(enviados[0].corpo);
+  expect(corpo.contexto).toContain("Pergunta feita");
+  expect(corpo.tipo).toBe("sugestao_frase");
 });

@@ -14,11 +14,10 @@ O **consentimento** é uma ação marcada no momento do envio. Não há consenti
 
 ## O que a hospedagem e o serviço de recebimento podem tratar
 
-O site avisa isso com clareza. Hoje o recebimento público ainda é o Formspree; a API Cloudflare (Worker + D1 + Turnstile) está no repositório e **não substitui** o caminho vivo até a Etapa E da [migração](MIGRACAO_FORMSPREE.md).
+O site avisa isso com clareza. O recebimento público é o Worker + D1 + Turnstile.
 
 - GitHub Pages hospeda o site estático.
-- Formspree (enquanto ativo) pode registrar dados técnicos segundo a política dele.
-- Quando o Worker estiver no ar: as participações vão ao D1 **sem** IP, User-Agent ou token Turnstile gravados pela aplicação. O Siteverify da Cloudflare processa o token (e metadados de rede da verificação). A Rate Limiting API pode usar um hash efêmero de IP só em memória, por localidade, sem persistir.
+- As participações vão ao D1 **sem** IP, User-Agent ou token Turnstile gravados pela aplicação. O Siteverify da Cloudflare processa o token (e metadados de rede da verificação). A Rate Limiting API pode usar um hash efêmero de IP só em memória, por localidade, sem persistir.
 - Isso **não** é anonimato absoluto. A aplicação não lê, não armazena e não reenvia esses dados técnicos.
 
 ## Finalidade

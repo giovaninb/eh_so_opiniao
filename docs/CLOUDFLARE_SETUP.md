@@ -32,7 +32,7 @@ Hostname de produção esperado no Siteverify: `giovaninb.github.io`.
 2. D1 `eh-so-opiniao-db`, binding `DB`, id `4e8735b1-6aa8-4fb9-b5e1-b939b24d4e7b`
 3. Turnstile sitekey pública no site: `0x4AAAAAAFs35eoOZCM90BMD`
 4. Secret `TURNSTILE_SECRET_KEY`: conferir com `npx wrangler secret list` (só nomes). Se já existir, **não** rode `secret put` de novo.
-5. Etapa E (`provedor: cloudflare`) só depois do teste ponta a ponta. Formspree permanece até lá.
+5. O site público já usa este Worker (`provedor: cloudflare`). Sem Formspree.
 
 ## Comandos (na pasta `cloudflare/`)
 

@@ -8,7 +8,7 @@ Confirmado na documentação oficial em 30 de outubro de 2026:
 
 Não usamos API paga, webhooks pagos, exportação nativa nem raspagem do dashboard.
 
-A substituição por Cloudflare Workers + D1 + Turnstile está implementada no repositório e **ainda não é o caminho público**. Enquanto `provedor` for `formspree`, este documento descreve o que o visitante usa. Ver [MIGRACAO_FORMSPREE.md](MIGRACAO_FORMSPREE.md).
+Documento **histórico**. O caminho público é o Worker + D1 + Turnstile. O Formspree não recebe mais envios do site. Mantenha este arquivo para importar e-mails/.eml antigos com `analytics importar`. Ver [MIGRACAO_FORMSPREE.md](MIGRACAO_FORMSPREE.md).
 
 ## O que o site envia
 

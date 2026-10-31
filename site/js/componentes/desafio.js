@@ -7,7 +7,7 @@ const widgets = new WeakMap();
 const emPreparacao = new WeakMap();
 
 export function usaCloudflare(config) {
-  return !!(config && config.provedor === "cloudflare");
+  return !!(config && config.provedor !== "formspree" && config.turnstile_sitekey);
 }
 
 export function rotuloEnvio(s) {

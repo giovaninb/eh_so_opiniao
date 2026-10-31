@@ -5,8 +5,8 @@ import { mascarar } from "../nucleo/mascara.js";
 import { LIMITE_MIN, LIMITE_MAX, MAX_ENVIOS_POR_VISITA } from "../nucleo/constantes.js";
 import { SCHEMA_PARTICIPACAO, AVISO_VERSAO } from "../nucleo/sessaoContribuicao.js";
 import { guardaInteracao } from "../nucleo/protecao.js";
-import { envioAtivo, enviar, ErroEnvio, contribuicoesSuspensas, provedorCloudflare } from "./envio.js?v=13";
-import { prepararDesafio, rotuloEnvio } from "./desafio.js?v=13";
+import { envioAtivo, enviar, ErroEnvio, contribuicoesSuspensas, provedorCloudflare } from "./envio.js?v=14";
+import { prepararDesafio, rotuloEnvio } from "./desafio.js?v=14";
 
 const MENSAGEM_ERRO = {
   rede: "Não foi possível falar com o serviço de envio. Verifique a conexão e tente de novo. Seu texto continua aqui.",

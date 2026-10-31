@@ -4,13 +4,13 @@ import { estado } from "./nucleo/estado.js";
 import { carregarBase } from "./nucleo/dados.js";
 import { analisarHash, iniciarRoteador } from "./nucleo/roteador.js";
 import { iniciarNavegacao, marcarRotaAtiva } from "./componentes/navegacao.js";
-import { inicio, mostrarAtalhosComparar } from "./visoes/inicio.js?v=13";
-import { descobrir } from "./visoes/descobrir.js?v=13";
-import { explorar } from "./visoes/explorar.js?v=13";
+import { inicio, mostrarAtalhosComparar } from "./visoes/inicio.js?v=14";
+import { descobrir } from "./visoes/descobrir.js?v=14";
+import { explorar } from "./visoes/explorar.js?v=14";
 import { assuntos } from "./visoes/assuntos.js?v=11";
-import { frase } from "./visoes/frase.js?v=13";
+import { frase } from "./visoes/frase.js?v=14";
 import { comparar } from "./visoes/comparar.js?v=9";
-import { participar } from "./visoes/participar.js?v=13";
+import { participar } from "./visoes/participar.js?v=14";
 import { entender, pesquisa } from "./visoes/saibaMais.js";
 
 const visoes = { inicio, descobrir, explorar, frase, comparar, participar, entender, pesquisa, assuntos };

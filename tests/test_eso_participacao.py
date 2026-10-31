@@ -178,7 +178,7 @@ def test_site_tem_formulario_com_consentimento_e_armadilha_e_nao_guarda_no_naveg
     assert "sessionStorage" not in js and "indexedDB" not in js and "document.cookie" not in js and "localStorage" not in js
     assert "Sem coleta de dados de visitantes" not in html  # a afirmação deixou de ser verdadeira
     # o sucesso só é mostrado após confirmação do serviço; sem confirmação possível, o site diz isso
-    assert "não permite confirmar o recebimento" in js and "!r.ok" in js
+    assert "!r.ok" in js
 
 
 def test_config_do_site_so_ativa_com_endpoint_https_e_campos_completos():
@@ -194,7 +194,7 @@ def test_config_do_site_so_ativa_com_endpoint_https_e_campos_completos():
         assert cfg["endpoint"].startswith("https://eh-so-opiniao-api.") and cfg["endpoint"].endswith("/api/v1/participacoes")
         assert cfg["endpoint"].endswith("workers.dev/api/v1/participacoes")
         assert "formspree.io" not in cfg["endpoint"]
-        assert str(cfg.get("_rollback_formspree") or "").startswith("https://formspree.io/")
+        assert "_rollback_formspree" not in cfg
 
 
 def test_dados_publicados_nao_trazem_texto_de_visitante_nao_anonimizado():
